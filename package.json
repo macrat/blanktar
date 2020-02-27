@@ -1,0 +1,33 @@
+{
+  "name": "next-blank",
+  "version": "1.0.0",
+  "description": "MacRat's website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macrat/next-blank.git"
+  },
+  "author": "MacRat <m@crat.jp> (https://blanktar.jp)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/macrat/next-blank/issues"
+  },
+  "homepage": "https://github.com/macrat/next-blank#readme",
+  "dependencies": {
+    "next": "^9.2.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.6",
+    "@types/react": "^16.9.23",
+    "typescript": "^3.8.2"
+  }
+}
