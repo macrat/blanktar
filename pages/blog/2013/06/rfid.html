@@ -1,0 +1,61 @@
+RFIDで遊んでみたかった。
+2013-06-05 23:50
+keywords: RFID NFC FeliCa MIFARE
+
+最近多いっすよね、カードをピッてかざす奴。PASMO的な。いわゆるRFID。<br>
+あれで色々遊びたかったのですが、上手くいかないのでとりあえず断念。<br>
+<br>
+読みたいカードがどうやらマイナーな形式らしくて(多分TypeAかTypeB)、情報が見つからないのよね・・・。<br>
+んでも調べたものを放置するのも悲しいので、記録しておきます。俺の屍を越えてゆけ？<br>
+<br>
+<section>
+	<h2>カードの種類</h2>
+	すべて同じ物と思うなかれ、実は色々種類があるようです。<br>
+	<br>
+	ひとつ目が、日本で一番流通している<strong>FeliCa</strong>ってやつ。<br>
+	PASMO、suicaにEdy、その他諸々。大体これみたい。<br>
+	日本独自に近くて、ガラパゴスな感じ。<br>
+	<b>ISO/IEC 14443 Type-C</b>として規格化しようとしていたものの、時間切れでダメだったらしい。<br>
+	その後<b>ISO/IEC 18092</b>として規格化されました。<br>
+	<br>
+	ふたつ目が、<strong>MIFARE</strong>(マイフェア)っていうの。<br>
+	単価が安いらしくて、世界ではいっぱい出回ってる、らしい。<br>
+	日本ではtaspoで使われているとか。<br>
+	<b>ISO/IEC 14443 Type-A</b>として規格化されています。<br>
+	<br>
+	みっつ目、<strong>ISO/IEC 14443 Type-B</strong>。なんと、名前(愛称？)がないっぽい。<br>
+	格納できる情報量が多い、らしい。よく分からん。<br>
+	運転免許証、住民基本台帳カード、パスポートなどなどに使われているあたり、セキュリティも強いのかもね。<br>
+</section>
+<section>
+	<h2>PaSoRiで使う</h2>
+	Sonyの<a href="http://www.sony.co.jp/Products/felica/consumer/products/index.html" target="_blank">PaSoRi</a>を使っているのなら、これは比較的簡単。<br>
+	Sonyさんが開発者向けに<b>SDK for NFC</b>というのを公開してくれているので、それを使えばおっけー。<br>
+	ダウンロードは<a href="http://www.sony.co.jp/Products/felica/business/products/ICS-D004_002_003.html" target="_blank">ここ</a>からね。<br>
+	個人で使う場合は<b>SDK for NFC Starter Kit</b>ってのを使えばおっけーっす。<br>
+	TypeA、TypeBともに対応しているらしいのだけれど、なんかうちの環境(RC-S330 / Windows XP)だと上手く行かなかった。<br>
+	FeliCaなら問題なく。<br>
+	<br>
+	ただ。ただね、めんどくさいんだ、これ。<br>
+	なんかこう、これで開発しようとすると手間が多くてまどろっこしい。<br>
+	<br>
+	そこで、有志の方が公開してくださっている<b><a href="http://felicalib.tmurakam.org/index.html" target="_blank">felicalib</a></b>というのを使ってみる。<br>
+	これは結構シンプル。しかもBSD Licenseなので、色々使える。素敵。<br>
+	ただ、やはりTypeA、TypeBでの動作は確認できず。残念。<br>
+</section>
+<section>
+	<h2>ACR120で使う</h2>
+	手持ちにリーダーがないので試せてないけれど、一応。<br>
+	持ってる人は知ってるので、もしも借りれたら？　借りれる気がしないけれど。<br>
+	<br>
+	<a href="http://www.acs-japan.jp/acr120-sdk.php" target="_blank">なんか有料の高価なSDK</a>もあるようですが、これじゃなくて<a href="http://www.acs.com.hk/index.php?pid=drivers&id=ACR120" target="_blank">英語サイトのdriversのページ</a>にあった<b>ACS Synchronous API Drivers (Proprietary Drivers)</b>ってのが使えそうな雰囲気。<br>
+	開いてみると、x86版とx64版のdllファイルが入ってます。<br>
+	これ使えば行けるんじゃないかな、きっと。<br>
+	<a href="http://www.acs.com.hk/drivers/eng/API_ACR120U_v3.00.pdf" target="_blank">APIのマニュアル(pdf)</a>もあるので、端末持ってる方はぜひ試してみてください。<br>
+</section>
+<br>
+とまあ、とりあえず調べたのはこんな感じ。<br>
+結局TypeAだかBだか分からない手元のカードは読めませんでしたとさ。がっかり。<br>
+<br>
+RFIDってのはすごい楽しいものだと思うのだけれど、どうにもまだ情報が少ないよね。<br>
+そもそも同じ事するのに規格が3つって何事やねん。めんどくさいやん。<br>

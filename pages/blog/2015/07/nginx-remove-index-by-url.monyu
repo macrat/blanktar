@@ -1,0 +1,14 @@
+title: nginxでURLの最後にindex.htmlを付けさせたくない。
+date: 2015-07-27 23:07
+keywords: nginx URL index.html
+
+webサイトのインデックスページには<b>/hoge/</b>みたいなアクセスの仕方と、<b>/hoge/index.html</b>みたいなアクセスの仕方があります。
+二通りもあるってなんかキモチワルイよね。というわけでindex.html無しの方に統一。
+
+nginx.confだか何だかを開いて、<b>server</b>の中に以下を記述。
+	if ($request_uri ~ ^.*/index.html$){
+		rewrite ^(.*)/index.html$ $1/ permanent;
+	}
+以上、これだけ。
+
+同じような正規表現が二つ書いてあってこれはこれでキモチワルイけれど、まあ動いているのでよしとしましょう。もっと良い書き方があったら教えてください。

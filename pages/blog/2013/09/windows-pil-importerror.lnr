@@ -1,0 +1,26 @@
+windowsのPILでフォント読み込もうとしたらImportErrorが出るバグの修正パッチ作った。
+2013-09-03 20:47
+keywords: python PIL
+
+PILで画像に文字を書こうと思ってImageFont.truetypeでフォントを読み込んだら、
+	ImportError: The _imagingft C module is not installed
+なんて言って怒られた。
+
+聞けばこれはPIL 1.17だけで発生するバグのようで、しかもwindows用の公式インストーラーにしか含まれないもののようです。
+んー、何かわからないけれど、めんどい。
+古いバージョンをインストールするとか、非公式インストーラーを使うという手もあるようだけれど、めんどい。
+
+という訳で、無理やり修正するパッチを作成しました。
+ただし、<strong>もしかしたらすごい危ないかもしれません。</strong>自己責任でどうぞ。
+
+<a href="/blog/2013/09/ImageFontCorrection.exe">ダウンロード</a>
+
+PILがインストールされているディレクトリ（通常はpythonのディレクトリ\Lib\site-packages\PIL\）にダウンロードしたexeファイルをコピーして、そこで実行してください。
+それだけで動くようになるはずです。
+
+正常に終了したらパッチのexeファイルは削除して構いませんが、_imagingft.OLDという名前で作成される<b>バックアップファイルは削除しないで</b>ください。
+問題があった時には_imagingft.OLDを_imagingft.pydに上書きすれば元に戻ります。
+
+参考:
+<a href="http://www.geocities.jp/showa_yojyo/note/python-pil.html#importerror-dll-load-failed" target="_blank">Python Imaging Library (PIL) 利用ノート</a>
+<a href="http://99blues.dyndns.org/blog/2011/01/blockdiag_for_win/#step.5" target="_blank">blockdiag を WindowsXP で動かす ≪ Stop Making Sense</a>

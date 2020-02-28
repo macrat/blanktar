@@ -1,0 +1,46 @@
+title: pythonの__setattr__をオーバーライドしてみたら楽しいかもしれない。
+date: 2014-03-12 23:41
+keywords: python __setattr__ メタプログラミング
+
+[昨日の__getattr_](/blog/2014/03/python-getattr-getattribute.html)に引き続いてメタプログラミングシリーズですよ。
+調子に乗るとグチャグチャになるのでほどほどに。
+
+<b>getattr</b>関数と並び立つ（？）のが<strong>setattr</strong>関数。
+その名の通り、クラスインスタンスに値をセットできます。
+値じゃなくて関数もセット出来るのだけれど、バインドされないのでちょっと面倒臭い。
+バインドされないと何が起こるかというと、<b>instance.method()</b>って呼び出し方をしてもselfが渡されないので、selfが必要なら<b>instance.method(instance)</b>ってやらないとになっちゃう。
+
+まあそんな事はともかくだ。
+<code class="code">setattr(a, 'key', value)</code>とすると、内部的には<code class="code">a.__setattr__('key', value)</code>みたいに処理されているらしい。
+しかも、<code class="code">a.key = value</code>とした場合も<strong>__setattr__</strong>が呼ばれているみたい。
+
+この<strong>__setattr__</strong>ってやつも普通に上書きできるので、
+	>>> class Test(object):
+	... 	def __setattr__(self, key, value):
+	... 		print key, '<=', value
+	...
+	>>> a = Test()
+	>>> a.test = 123
+	test <= 123
+	>>> a.test
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	AttributeError: 'Test' object has no attribute 'test'
+代入できないクラス的な事ができる。どうでもいいね。
+
+何かしら処理をした上で代入したい場合は
+	>>> class Double(object):
+	... 	def __setattr__(self, key, value):
+	... 		object.__setattr__(self, key, value*2)
+	...
+	>>> a = Test()
+	>>> a.one = 1
+	>>> a.one
+	2
+	>>> a.two = 2
+	>>> a.two
+	4
+みたいな感じになります。入れた値が倍になる謎クラス。
+
+当然普通の関数として書けるので、かなり自由っぽい。
+ただ気をつけなきゃいけないのは、<code class="code">self.var = value</code>みたいな記述。無限ループするからね。

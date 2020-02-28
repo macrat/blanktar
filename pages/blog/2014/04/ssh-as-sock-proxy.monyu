@@ -1,0 +1,22 @@
+title: sshサーバをプロキシサーバとして使う
+date: 2014-04-23 10:57
+keywords: ssh OpenSSH プロキシ socks
+
+人の回線を借りて作業させてもらえるのはありがたいのだけれど、でもそうするとログ残っちゃうじゃない？
+艦これとか堂々と出来ないじゃない？
+VPNを使うという案もあったのだけれど、どうせなら既存のSSHサーバを使おうと思って調べてみました。
+
+で、あっさり見つかったのが[OpenSSH -SOCKSプロキシ経由でSSH接続 &#8211; Yoichi Kawasaki&#039;s Web](http://copious.me/posts/2010/10/11/openssh_ssh_over_socks_prox/)という記事。
+どうやら<strong>OpenSSH</strong>自体が<strong>socksプロキシ</strong>としての機能を持っているようです。びっくり。ダイナミックポートフォワードというらしい。
+
+んではやり方。
+example.comにwhoというアカウントを持っていることにします。
+そのアカウントを使ってログイン。
+	$ ssh who@example.com -D 1080
+無事接続できたらブラウザのプロキシ設定を開いて<b>localhost:1080</b>を登録します。
+
+はい、以上。
+・・・簡単だ。
+
+ネット上にあるIPアドレス確認サービスとか見ると、表示されるIPアドレスがexample.comのものに変わっているはず。
+・・・すごい簡単だ。

@@ -1,0 +1,21 @@
+pythonでテスト用のメールサーバーを建てる
+2013-10-23 23:47
+keywords: python メールサーバー smtp
+
+年賀メールを一斉送信するためのスクリプトを書き始めまして。
+テストメールを送る度にgmailに送ってると流石に申し訳ない。かつ、メールボックスがやばい。
+という訳で、pythonで簡単にテスト用のメールサーバーを建てる方法。
+
+	import smtpd
+	import asyncore
+
+	smtpd.DebuggingServer(('127.0.0.1', 25), None)
+	asyncore.loop()
+
+以上。
+普通に覚えられちゃいそうなくらい簡単。
+
+これを起動しておくと、受信したメールをそのまんま標準出力に書き出します。
+いちいちメーラ開いてソース表示して・・・ってやらなくていいって意味でも便利。
+
+参考: <a href="http://m97087yh.seesaa.net/article/122930791.html" target="_blank">ダミーsmtp by Python: Ma note</a>

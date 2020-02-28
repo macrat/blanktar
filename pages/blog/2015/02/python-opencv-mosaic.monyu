@@ -1,0 +1,25 @@
+title: pythonのOpenCVでモザイクをかける
+date: 2015-02-09 23:37
+keywords: python OpenCV モザイク
+
+[昨日の記事](/blog/2015/02/python-opencv-pillow-facemosaic.html)ではpillowに頼ってしまったけれど、リベンジにOpenCVだけで画像にモザイクをかけてみました。
+[さっき書いた画像の貼り付け](/blog/2015/02/python-opencv-overlay.html)と組み合わせれば部分的なモザイクも可能なはず。
+
+	import cv2
+
+	img = cv2.imread('input.jpg')
+
+	# オリジナルのサイズを保存しておく。
+	#  shapeで取得できるサイズとresizeの引数に渡すサイズでは横縦の順番が違うらしい。ので[::-1]として反転。
+	origsize = img.shape[:2][::-1]
+
+	img = cv2.resize(img, (origsize[0]/20, origsize[1]/20))  # 画像を20分の1のサイズに縮小。
+
+	img = cv2.resize(img, origsize, interpolation=cv2.cv.CV_INTER_NN)  # 画像を元のサイズに拡大。interpolationを省略するとうまいこと補完されてしまって綺麗なモザイクにならない。
+
+	cv2.imwrite('output.jpg', img)
+こんな感じで。
+結構簡単にできた。pillow使わなくても十分だね。
+
+実行結果はこんなん。
+[IMG: モザイクかける前のレナさん](/blog/2015/02/lena.jpg) [IMG: モザイクかけた後のレナさん](/blog/2015/02/fullmosaic_lena.jpg)

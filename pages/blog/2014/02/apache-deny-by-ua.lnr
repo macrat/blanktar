@@ -1,0 +1,29 @@
+apacheで特定のディレクトリ、特定のUAだけ拒否する。
+2014-02-24 20:58
+keywords: apache
+
+<b>ZmEu</b>とかいうユーザーエージェントからの攻撃が最近多くってうざい。
+ログを見ている限り、どうやらPHPのみを対象にした攻撃のようです。というか、弱いサーバーを探しているだけ？
+うちのサイトはPHP使ってないんだけどね。
+被害が出ないとはいえaccess_logに残り続けるのはやっぱりうざいので、ダミーのファイルを置いてハニーポット・・・は作らないで、アクセスを拒否しつつログにも残さないようにしてみます。
+
+	SetEnvIf "^$" deny_ua nolog  # User-Agentヘッダはあるんだけど値が設定されていない場合
+	SetEnvIf "^-$" deny_ua nolog  # そもそもUser-Agentヘッダが無いとこうなるっぽい
+	SetEnvIf "^ZmEu$" deny_ua nolog
+
+	Deny from env=deny_ua
+
+	CustomLog /var/log/apache2/access_log combinedio env=!nolog
+こんな感じにセットしてみた。
+
+してみたあと何日かしてerror_logを見てみたら、
+	[Mon Feb 24 18:49:15 2014] [error] [client xxx.xxx.xxx.xxx] client denied by server configuration: /path/to/root/directory/errors/403.html
+こんなのが大量に残ってた。
+うーん、これはうざい。
+エラーログにアクセス権無いのが問題なんだね。
+
+というわけでさっきのSetEnvIf群のあとに
+	SetEnvIf Request_URI "^/errors/" !deny_ua !nolog
+こんなのを追加。
+そっけない標準のエラーログではなくて、ErrorDocumentディレクティブで設定したファイルが表示されるようになりました。
+そしてaccess_logにも残らない。素晴らしい。error_logの方には残るから、多分問題ないよね。

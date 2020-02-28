@@ -1,0 +1,24 @@
+python/tkinterのlabelに貼り付けた画像を消す方法。
+2014-01-10 23:58
+keywords: python tkinter label 画像
+
+例えば
+	from PIL import Image, ImageTk
+	import Tkinter
+
+	root = Tkinter.Tk()
+	label = Tkinter.Label(root)
+
+	image = ImageTk.PhotoImage(Image.open(open('test.jpg', 'rb')))
+	label.configure(image=image)
+
+	label.pack()
+
+	root.mainloop()
+みたいなコードがあるとして。
+
+画像を貼り付けたは良いのだけれど、この画像を削除する方法がわからない。ので、いろいろ試してみた。
+
+どうやら
+	label.configure(image='')
+とすれば削除できるようです。

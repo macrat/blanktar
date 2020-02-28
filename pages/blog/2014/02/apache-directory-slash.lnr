@@ -1,0 +1,18 @@
+パス末尾のスラッシュを強制するapacheの設定
+2014-02-11 03:16
+keywords: apache パス mod_dir スラッシュ DirectorySlash
+
+前に書いた[apache2でURLの最後のスラッシュの省略をさせない](/blog/2014/01/apache-path-last-slash.html)と同じ内容ですが、かなりシンプルな方法を発見。
+
+apacheのドキュメント見てたら、こんなのが。
+	DirectorySlash ディレクティブ
+	説明:	パス末尾のスラッシュでリダイレクトするかどうかのオンオフをトグルさせる
+おお！？ やりたいことそのまんまじゃん。
+
+設定も簡単で、
+	DirectorySlash On
+ってするだけ。なんだこれでいいのかよ、みたいな。
+
+ちなみにこれを実現する<strong>mod_dir</strong>ってモジュールはindex.htmlを表示する機能を受け持っているものらしいので、わざわざロードする必要もない、多分。
+
+参考: <a href="http://httpd.apache.org/docs/2.2/ja/mod/mod_dir.html#directoryslash" target="_blank">mod_dir - Apache HTTP サーバ</a>

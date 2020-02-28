@@ -1,0 +1,102 @@
+title: pythonのdoctestのカバレッジを取る
+date: 2015-08-27 16:27
+keywords: python doctest coverage カバレッジ
+
+しばらく前に[unittestのカバレッジを取る方法](/blog/2015/03/python-unittest-coverage.html)を書きましたが、このとき使った<strong>coverage</strong>は<strong>doctest</strong>のカバレッジも取れるらしいです。
+doctestについては[簡単な解説記事](/blog/2013/05/python-doctest.html)がありますのでそちらもどうぞ。
+
+まずはインストール。
+pip/easy_installなら<b>coverage</b>、apt-getなら<b>python-coverage-test-runner</b>のようですが試していません。
+少なくともgentooでは<b>dev-python/coverage</b>です。
+
+インストール出来たら、テスト対象のソースを用意します。
+	def test(x):
+		""" test function
+
+		>>> test(10)
+		'plus'
+		>>> test(1)
+		'plus'
+		>>> test(-1)
+		'minus'
+		"""
+
+		if x > 0:
+			return 'plus'
+		elif x < 0:
+			return 'minus'
+		else:
+			return 'zero'
+今回はこんな感じで。<b>test.py</b>とでもしておきましょうか。
+一番最後の<b>return 'zero'</b>のところだけカバーされていないテストですね。
+
+テスト実行用にソースコードの末尾に以下の三行を追加してきます。
+	if __name__ == '__main__':
+		import doctest
+		doctest.testmod()
+こうすれば単純にソースを実行するだけでテストを実行できる。
+
+準備が出来たら、テストを実行します。やり方はunittestの時と一緒。
+	$ coverage run test.py
+問題なければ何も表示されません。
+詳細を見たければ
+	$ coverage run test.py -v
+とでもすると良いかも。
+
+コンソールアプリケーションなどで追加した三行を入れるわけにはいかない場合。そんなときは、以下のようにしてテストを実行します。
+	$ coverage run -m doctest test.py
+python -m doctest test.pyみたいな感じで分りやすくて良い。
+
+テストが完了したら、以下のコマンドでレポートを出力。これもunittestと一緒です。というか全部一緒です。
+	$ coverage annotate test.py
+	$ cat test.py,cover
+	> def test(x):
+	> 	""" test function
+	  
+	> 	>>> test(10)
+	> 	'plus'
+	> 	>>> test(1)
+	> 	'plus'
+	> 	>>> test(-1)
+	> 	'minus'
+	> 	"""
+	  
+	> 	if x > 0:
+	> 		return 'plus'
+	> 	elif x < 0:
+	> 		return 'minus'
+	! 	else:
+	! 		return 'zero'
+	  
+	  
+	> if __name__ == '__main__':
+	> 	import doctest
+	> 	doctest.testmod()
+一行目のコマンドでレポートを吐かせて、二行目で内容を確認しています。
+<b>&gt;</b>で始まる行はテスト済み、<b>!</b>で始まる行は未テストです。
+return 'zero'がテストされていないのが一目で…分かる、かも？
+
+やっぱり見づらいので、HTML形式で出力しましょう。
+	$ coverage html test.py
+	$ xdg-open htmlcov/index.html
+一行目でレポート出力、二行目でブラウザを開いて表示、です。
+未テストのところに赤く色が付くのでかなり見やすい。
+
+以下のようにするとカバレッジだけ表示されるので、てっとり早くそこだけ確認したい場合にどうぞ。
+	$ coverage report
+	Name    Stmts   Miss  Cover
+	---------------------------
+	test        9      1    89%
+これだけ見たい場面ってのも少なそうな気がするけれど、どうなんだろう？
+
+あと片づけは
+	$ coverage erase
+	$ *,cover
+	$ rm -r htmlcov
+こんな感じで。若干面倒ですね。
+
+こうやってカバレッジ取ってくれるととても楽しいのですが、楽しすぎてdoctestの方がソースより長くなったりして、うぅむ。
+カバレッジ取ってまできちんとテストするときはunittest使うべきなんだろうなぁ…。
+
+
+参考： [ned / coverage.py / 課題 / #152 - can&#39;t get coverage to run doctests &mdash; Bitbucket](https://bitbucket.org/ned/coveragepy/issues/152/cant-get-coverage-to-run-doctests)

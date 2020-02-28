@@ -1,0 +1,30 @@
+title: macのtmuxの中でもvimでクリップボードを使いたい
+date: 2014-09-30 15:36
+keywords: mac tmux クリップボード バッファ macports homebrew
+
+vimでは*レジスタ/+レジスタを使うとOSのクリップボード（正しくはバッファ？）を扱うことが出来ます。
+"+pってやってクリップボードの中身をペーストとかね。すごい便利なんだこれが。
+
+macにmacportsでtmux入れて、tmuxの中でvim立ち上げてペーストしようとしたら<small>（呪文のようだ）</small>、なんか出来ない。
+どうやらtmuxは標準ではOS Xのクリップボードに対応していないようです。
+
+というわけで、対応できるやつをインストール。<b>macports</b>の場合は
+	# port install tmux-pasteboard
+こんな感じ。
+
+<b>homebrew</b>をお使いの場合は
+	# brew install reattach-to-user-namespace
+で行けるらしいです。
+
+設定ファイル(.tmux.conf)を開いて、
+	set -g default-command "reattach-to-user-namespace -l bash"
+と追記。
+tmuxをすべて再起動して、設定完了。
+
+ちなみに、ターミナルの設定で<b>コマンドを実行</b>オプションを使ってtmuxを起動している場合、<b>シェル内で実行</b>にチェックを入れておく必要があるようです。
+チェック入れてなくって起動しようとしたら一瞬だけウィンドウが表示されて消えちゃうから焦ったよ・・・。
+どうもチェック入れないとtmuxのサーバーを起動できないっぽい？
+
+参考:
+[tmux内のvimで「E353: Nothing in register *」と出てコピーペーストができなくなった - Qiita](http://qiita.com/shoma2da/items/853074f05445722b496e)
+[紹介マニアどらふと版: OS X で tmux のバッファをクリップボードでも使う](http://www.sakito.com/2012/09/os-x-tmux.html)

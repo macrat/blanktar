@@ -1,0 +1,223 @@
+sqlite3を使ってみる
+2013-02-16 02:01
+keywords: sqlite3 SQL データベース
+
+<section>
+	sqlite3の使い方っぽいものを書いてみるよ。<br>
+	とりあえず、SQLをなんとなく使えるようになる、ってのが今回の趣旨。<br>
+	詳しい使い方とかは省いてるので、細かいことはほかのサイトを参照してください。<br>
+	<br>
+	sqliteというのはSQLの実装の一つで、いちいちサーバーを建てなくて済むのが利点。<br>
+	その分巨大なデータベースには向いていないけれど、中規模くらいまでなら大丈夫らしい。<br>
+	データベースを一個のファイルとして扱うので、それも利点かも。扱いが凄く容易。<br>
+	ああ、それともう一つ大きな利点として、データ型を指定しなくていい、ってのもあります。楽ちん。<br>
+	<br>
+	今回はコマンドラインで使ってみます。<br>
+	各言語からの使い方とかは、ググって探してみてください。<br>
+	なお、sqlite3コマンドを使っているので、例はすべて行末に;が付いてます。<br>
+	他の言語のバインディングから使う時は;を取って使ってください。いや、ついてても使えるのかな？　分からんけど。<br>
+	<br>
+	<br>
+	<b>追記:</b> pythonから手軽にデータベースを使いたい方にはこちらの記事もオススメ。 <a href="/blog/2013/05/python-dbm.html">pythonのdbmモジュールを使ってみた</a><br>
+	<ul>
+		<li><a href="#sqlite3_install">インストールする</a></li>
+		<li><a href="#sqlite3_create_table">テーブルを作る</a></li>
+		<li><a href="#sqlite3_insert">データを追加する</a></li>
+		<li><a href="#sqlite3_select">データを表示する</a></li>
+		<ul>
+			<li><a href="#sqlite3_select_line">特定の列だけを表示する</a></li>
+			<li><a href="#sqlite3_select_where">条件に沿う値を持つ行だけを表示する</a></li>
+			<li><a href="#sqlite3_select_order">並べ替えてから表示する</a></li>
+			<li><a href="#sqlite3_select_limit">x行目からn行だけ表示する</a></li>
+			<li><a href="#sqlite3_select_count">行数を数える</a></li>
+			<li><a href="#sqlite3_select_sum_avg">合計とか平均とか</a></li>
+		</ul>
+		<li><a href="#sqlite3_update">値を変更する</a></li>
+		<li><a href="#sqlite3_delete">行を削除する</a></li>
+		<li><a href="#sqlite3_drop">テーブルを削除する</a></li>
+		<li><a href="#sqlite3_open_save">HDD上のデータベースを編集する</a></li>
+	</ul>
+</section>
+<br>
+<section id="sqlite3_install">
+	<h2>インストールする</h2>
+	<a href="http://www.sqlite.org/download.html" target="_blank">公式サイトのダウンロードページ</a>から、各環境にあったものをダウンロードしてきます。<br>
+	linuxならapt-getとかyumとかの方が良いかもね。<br>
+	<br>
+	落としてきたzipを解凍してみると、実行ファイルが出てくるはずです。<br>
+	なんと、こいつはインストールいらずなのだ。<br>
+	そのディレクトリでコマンドラインを開いて<br>
+	<pre class="code"><code>$ sqlite3</code></pre>
+	って入力。当然だけど $ はいらないからね。<br>
+	起動できたら完了。次の章へどうぞ。<br>
+	<br>
+	ちなみに、sqlite3を終了する時は<br>
+	<pre class="code"><code>.exit</code></pre>
+	って入力すればおっけーです。<br>
+</section>
+<section id="sqlite3_create_table">
+	<h2>テーブルを作る</h2>
+	起動できたら、とりあえずテーブルを作ってみます。<br>
+	<br>
+	テーブルを作るコマンドは<br>
+	<pre class="code"><code>create table テーブル名 (カンマ区切りの列名);</code></pre>
+	です。<br>
+	日本語のところは適当に置き換えてください。<br>
+	環境によっては日本語も使えるみたい。あんまりオススメしませんが。<br>
+	<br>
+	具体的には<br>
+	<pre class="code"><code>create table test (key, value);</code></pre>
+	みたいな感じ。<br>
+	以下のサンプルは基本的にこのテーブルを使います。<br>
+</section>
+<section id="sqlite3_insert">
+	<h2>データを追加する</h2>
+	データベースなんだから、データを入れなきゃしょうが無い。入れてみましょう。<br>
+	<pre class="code"><code>insert into テーブル名 values(カンマ区切りの値);</code></pre>
+	です。<br>
+	上記の例に合わせるのなら<br>
+	<pre class="code"><code>insert into test values("abc", 123);</code></pre>
+	みたいな感じ。<br>
+	<br>
+	データ型をかなり柔軟になんとかしてくれるようで、数字を入れたのと同じ行に文字列を追加しても怒られません。<br>
+	逆に言うと、間違えたデータを入れてもエラーが発生しないので要注意です。<br>
+</section>
+<section id="sqlite3_select">
+	<h2>データを表示する</h2>
+	追加したなら見てみたい。今度はデータを表示してみます。<br>
+	<pre class="code"><code>select * from テーブル名;</code></pre>
+	でテーブル内のデータをすべて表示します。<br>
+	他の言語から扱う場合は、このselect文を使ってデータを取得することになります。<br>
+	<br>
+	このselect文ってのはむやみやたらと奥が深くて、色んなことができます。<br>
+	簡単に書いておきますが、正直私もよくわかってないっす。<br>
+	<section id="sqlite3_select_line">
+		<h3>特定の列だけを表示する</h3>
+		上記の例で * と書いていたのは、実は<b>すべての列を表示する</b>みたいな意味があります。<br>
+		つまり、特定の列だけ表示したい場合は<br>
+		<pre class="code"><code>select 列名 from テーブル名;</code></pre>
+		とすれば良いことになります。<br>
+		<br>
+		<pre class="code"><code>select key from test;</code></pre>
+		みたいな感じね。<br>
+		<br>
+		<pre class="code"><code>select value, key from test;</code></pre>
+		のようにカンマ区切りで複数書いたりもできます。<br>
+	</section>
+	<section id="sqlite3_select_where">
+		<h3>条件に沿う値を持つ行だけを表示する</h3>
+		<pre class="code"><code>select * from テーブル名 where 条件;</code></pre>
+		とすると、条件に沿うものだけを表示できます。<br>
+		<br>
+		例えば<br>
+		<pre class="code"><code>select * from test where value = 1;</code></pre>
+		ならvalueが1のものだけ<br>
+		<br>
+		<pre class="code"><code>select * from test where 0 &lt; value and value &lt; 10;</code></pre>
+		ならvalueが1以上10未満のものだけ<br>
+		<br>
+		<pre class="code"><code>select * from test where key = "abc" and key = "def";</code></pre>
+		ならkeyがabcかdefのものを表示します。<br>
+	</section>
+	<section id="sqlite3_select_order">
+		<h3>並べ替えてから表示する</h3>
+		<pre class="code"><code>select * from test order by value asc;</code></pre>
+		とするとvalueをキーにして昇順で並べ替えて表示します。<br>
+		ちなみに、ascは省略しても問題ありません。<br>
+		<br>
+		<pre class="code"><code>select * from test order by value desc;</code></pre>
+		なら降順で表示します。<br>
+	</section>
+	<section id="sqlite3_select_limit">
+		<h3>x行目からn行だけ表示する</h3>
+		<pre class="code"><code>select * from test limit 3;</code></pre>
+		とすると、先頭から三行だけ表示されます。<br>
+		<br>
+		ちなみに<br>
+		<pre class="code"><code>select * from test limit 5, 3;</code></pre>
+		とすると5行目から3行分表示されます。<br>
+	</section>
+	<section id="sqlite3_select_count">
+		<h3>行数を数える</h3>
+		ある条件に当てはまる行を数えたい場合は<br>
+		<pre class="code"><code>select count(*) from テーブル名 where 条件;</code></pre>
+		とします。<br>
+		もちろんwhereを省略すれば、全ての行を数えます<br>
+		<br>
+		ちなみに<br>
+		<pre class="code"><code>select key, count(*) from test;</code></pre>
+		みたいな使い方もできるよ。意味があるのかは知らん。<br>
+	</section>
+	<section id="sqlite3_select_sum_avg">
+		<h3>合計とか平均とか</h3>
+		上記の行数を数えるのとほぼ同じで<br>
+		<pre class="code"><code>select sum(value) from test;</code></pre>
+		とすると、valueの合計値を計算してくれます。あら便利。<br>
+		勿論where文を付け足せば、条件に当てはまる列からだけ、とかも出来ます。<br>
+		<br>
+		<pre class="code"><code>select avg(value) from test;</code></pre>
+		でvalueの平均値を出してくれます。<br>
+		勿論where文を以下省略。<br>
+	</section>
+</section>
+<section id="sqlite3_update">
+	<h2>値を変更する</h2>
+	いやー、長かった、select文。<br>
+	さて、今度は値を変更してきます。更新できなきゃしょうが無いもんね。<br>
+	<br>
+	<pre class="code"><code>update テーブル名 set 列名=値をカンマ区切り where 条件;</code></pre>
+	みたいな感じ。わかりにくいか。<br>
+	例えば<br>
+	<pre class="code"><code>update test set value="abcd", key=10 where value="abc";</code></pre>
+	とすると、valueが"abc"のものを valueを"abcd"に、keyを10 に変更します。<br>
+	ややっこいねー・・・。<br>
+	<pre class="code"><code>update test set key=10 where value="abc";</code></pre>
+	なら自然か。<br>
+	valueが"abc"の列のkeyを10に変更します。<br>
+	<br>
+	お察しの通りwhereを省略できます。<br>
+	省略すると全ての列を変更しちゃうので、まあ実用的かどうかわかりませんが・・・。<br>
+</section>
+<section id="sqlite3_delete">
+	<h2>行を削除する</h2>
+	使っていれば要らないデータが出るもので、そいつを消してみます。<br>
+	<pre class="code"><code>delete from テーブル名 where 条件;</code></pre>
+	で特定の行を削除出来ます。<br>
+	これもやっぱりwhereを省略可能で、そうすると全ての行を削除出来ます。<br>
+</section>
+<section id="sqlite3_drop">
+	<h2>テーブルを削除する</h2>
+	さて、ここまでくればそれなりの作業ができるようになっている、はず。<br>
+	そしたら最後に、テーブルを削除してみます。<br>
+	<pre class="code"><code>drop table テーブル名;</code></pre>
+	こんな感じ。<br>
+</section>
+<section id="sqlite3_open_save">
+	<h2>HDD上のデータベースを編集する</h2>
+	そうそう、HDD上ののファイルを扱えなきゃしょうが無い。<br>
+	今まではメモリ上でデータベースを扱っていたので、ファイルに書き出せてないです。<br>
+	<br>
+	ファイルを開く時は、sqlite3を起動するときに<br>
+	<pre class="code"><code>$ sqlite3 ファイル名</code></pre>
+	とします。<br>
+	新規作成でも同じコマンドっす。<br>
+	<br>
+	え？　メモリ上で作業してたデータベースを保存するにはどうするかって？<br>
+	いや、それがね、よく知らんのよね・・・。<br>
+	誰か知ってたら教えてー<br>
+</section>
+<br>
+<br>
+<section>
+	さて、ここまでくれば大体使えるようになってるんじゃないでしょうか。<br>
+	データベースってのは中々楽しいものなので、是非に挑戦して頂ければと思います、ええ。<br>
+	ま、個人でやろうとすると、何作れってんだって感はあるけどねー。<br>
+	<br>
+	はじめに申し上げましたとおり、ほんの一部の機能しか紹介しておりません。<br>
+	てゆか、私自身が全体像を全く掴めておりません。SQLむつかしいれす。<br>
+	という訳で、ここで書いていなくても出来ることがいっぱいあります。むしろ書いてないことだらけです。<br>
+	欲しい機能があればググってみてくださいまし。結構、あるかもね。<br>
+	<br>
+	やー、しかし結構長くなってしまった。<br>
+	なんともはや。<br>
+</section>

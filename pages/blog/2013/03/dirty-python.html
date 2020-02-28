@@ -1,0 +1,93 @@
+pythonを汚く書く
+2013-03-07 00:41
+keywords: python 可読性
+
+<section>
+	可読性が高いのは正義だ。<br>
+	当然、可読性が低いのは悪だ。<br>
+	<br>
+	という訳で、pythonを汚く書く為の10のtipsです。<br>
+	いや、ごめん、うそ。ありがちな（そして実際私がよくやる）可読性を下げる要因を並べてみます。<br>
+</section>
+<section>
+	<h3>1. 名前空間をまとめちゃう</h3>
+	<pre class="code"><code>from PIL.Image import *
+
+for line in open('test.txt'):
+	print line
+</code></pre>
+	普通のコードに見えますよね。<br>
+	でもさ、<strong>openって関数は組み込み関数なの？ PIL.Image.openなの？</strong>というね。<br>
+	という訳で、<code><b>import *</b></code>は読みづらい。<br>
+	<br>
+	サンプルコードとかでよく見るんだけどね。あれも複数をimportしてると、何の関数だか分からないからやめてほしいよね・・・。<br>
+</section>
+<section>
+	<h3>2. 改行を省略する</h3>
+	<pre class="code"><code>if A == 'a': print 'A is a!'</code></pre>
+	とか、<br>
+	<pre class="code"><code>try: func()
+except: pass</code></pre>
+	とか。<br>
+	特に後者はよく見るけどさ。読みづらくない？<br>
+</section>
+<section>
+	<h3>3. lambdaの乱用</h3>
+	<pre class="code"><code>f = lambda x : int(x==1) or f(x-1)*x</code></pre>
+	何してんだか全然分かんねぇ・・・。<br>
+</section>
+<section>
+	<h3>4. importが変なところにある</h3>
+	importってさ、実は好きなところに書けるんですよね。<br>
+	関数の中とか、for文の中とか。<br>
+	書けるは書けるんだけど、二回目以降同じのが現れても無視される。<br>
+	だったら素直にトップに書きましょう。仕様変更にも対応しづらくなるからね。<br>
+</section>
+<section>
+	<h3>5. ワンライナー</h3>
+	<pre class="code"><code>print '\n'.join([', '.join([str(x*y) for y in range(100) if y%2]) for x in range(100) if x%3])</code></pre>
+	・・・なんすか、これ？<br>
+</section>
+<section>
+	<h3>6. スペースとタブを混合</h3>
+	普通によくある話だし流石にやらないと思うけど。<br>
+	ちなみに、pythonのコーディング規約である<a href="http://oldriver.org/python/pep-0008j.html" target="_blank">PEP-8</a>ではスペース四文字を推奨しているよ。<br>
+	まあ、私はタブ使ってますけど・・・。<br>
+</section>
+<section>
+	<h3>7. 命名規約が混じってる</h3>
+	命名規約は大事だよね。<br>
+	と言いつつ私もちゃんとまとまってないのだけれど。<br>
+	<br>
+	ちなみに、<a href="http://oldriver.org/python/pep-0008j.html" target="_blank">PEP-8</a>曰く、<br>
+	<table>
+		<tr><td>パッケージ/モジュール</td><td>アンダーバーなしのlowercase</td></tr>
+		<tr><td>クラス</td><td>UpperCamel</td></tr>
+		<tr><td>例外</td><td>UpperCamel（エラーなら後ろにErrorを付ける）</td></tr>
+		<tr><td>関数</td><td>lower_case</td></tr>
+		<tr><td>メソッド名/インスタンス変数</td><td>lower_case</td></tr>
+		<tr><td>定数</td><td>UPPER_CASE</td></tr>
+	</table>
+	らしいっすよ。<br>
+</section>
+<section>
+	<h3>8. 'と"が混じってる</h3>
+	文字列を<b>'</b>でくくる人、結構いるのよね。<br>
+	<b>"</b>のエスケープが必要ないのが楽なんで私も使ってますが。<br>
+	まあどっちでも良いんだろうけれど、混在させるのだけはやめよう、めんどい。<br>
+	<br>
+	<a href="http://oldriver.org/python/pep-0008j.html" target="_blank">PEP-8</a>では<b>"</b>使ってますね。<br>
+</section>
+<section>
+	<h3>9. if文が長い英語みたいになってる</h3>
+	<pre class="code"><code>if A is not B and C is A or B is not A and D is True</code></pre>
+	おい、これは英語か？<br>
+	見てるうちに何処と何処が繋がってるのか分からなくなってくるので、やめたほうがいい気がします。<br>
+</section>
+<section>
+	<h3>10. 数字じゃないのに計算してる</h3>
+	<pre class="code"><code>('a' * int(x &gt; 5) + 'b' * x%3) or 'c'</code></pre>
+	みたいな。<br>
+	驚くべきことにこれが実行できちゃうんだよね、pythonって。<br>
+	読みづらくてやばいけど、楽だからついやってしまう。<br>
+</section>

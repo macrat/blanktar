@@ -1,0 +1,36 @@
+pythonのジェネレータをリスト内包表記的に書く
+2013-06-17 20:23
+keywords: python リスト内包表記 ジェネレータ
+
+<b>追記：</b> 強化記事(?)書きました。 <a href="/blog/2013/09/python-list-comprehension.html">pythonのリスト内包表記は凄い。すごく凄い。</a><br>
+<br>
+ジェネレータってやつがあるじゃないですか。<br>
+<pre class="code code_python"><code>def nums(step=1):
+	i = 0
+	while True:
+		yield i
+		i += step
+
+for i in nums():
+	print i
+</code></pre>
+ってやると延々とカウントアップする、みたいなやつね。<br>
+メモリ消費が最小限で済む(&plus;上記のような無限の配列も扱える)ので、もの凄い大きな配列とかに便利。<br>
+<br>
+で、このジェネレータ。聞けばジェネレータ式というのがあるらしい。<br>
+リスト内包表記だと<br>
+<pre class="code code_python"><code>[i*2 for i in range(100)]</code></pre>
+みたいにやるのを<br>
+<pre class="code code_python"><code>(i*2 for i in range(100))</code></pre>
+とするだけ。<br>
+<br>
+めっちゃ楽ちん。素敵。<br>
+もちろんこいつは入れ子にも出来る。便利だねー、いいねー。<br>
+<br>
+ちなみに、ジェネレータオブジェクトを関数に渡したりする時は、括弧を省略できるみたいです。<br>
+<pre class="code code_python"><code>sum(i*2 for i in range(100))</code></pre>
+ではなく、<br>
+<pre class="code code_python"><code>sum((i*2 for i in range(100)))</code></pre>
+とすることが可能、ということ。括弧が一個少ない。<br>
+<br>
+参考：<a href="http://docs.python.jp/2/tutorial/classes.html#tut-genexps">クラス - Python 2.7ja1 documentation</a><br>

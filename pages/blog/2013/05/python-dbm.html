@@ -1,0 +1,56 @@
+pythonのdbmモジュールを使ってみた
+2013-05-02 13:19
+keywords: python dbm 標準ライブラリ データベース key-value
+
+pythonは二種類のデータベースを標準ライブラリで扱うことが出来ます。<br>
+一つがご存知sqlite3。前に使い方書いたやつね。<a href="/blog/2013/02/usage-sqlite3.html">これ</a>。<br>
+もう一つが今回使う<strong>dbm</strong>ってやつ。<br>
+sqlite3はご存知のとおりSQL。リレーショナルデータベースです。<br>
+それに対してdbmはkey-value型のデータベース。つまりはpythonのdict型みたいに扱えるのね。<br>
+値に対する制限がちょっと厳しいけれど、その分簡単に使える感じ。<br>
+データベース操作言語を覚える必要もないしね。<br>
+<section>
+	<h2>データベースを開く/作る</h2>
+	<pre class="code"><code>import dbm
+
+d = dbm.open('file', 'w')
+</code></pre>
+	これで読み書き可能な状態でデータベースを開くします。<br>
+	ちなみに、ファイルが存在しなければ<b>dbm.error</b>が送出されます。<br>
+	python2.xなら拡張子は勝手につけられるので必要ないです。<br>
+	<br>
+	ご想像のとおり<br>
+	<pre class="code"><code>d = dbm.open('file', 'r')</code></pre>
+	とすれば、読み出し専用で開かれます。<br>
+	ファイルが存在しない場合はやっぱり<b>dbm.error</b>が送出されます。<br>
+	<br>
+	他にもモードがあって、<b>'c'</b>なら'w'と同じで、ただし存在しない場合は新規作成。<br>
+	<b>'n'</b>なら常に上書きして作成するようになります。<br>
+</section>
+<section>
+	<h2>読み書きしてみる</h2>
+	ファイルを開いたら早速読み書き。<br>
+	て言っても基本はdict型と同じです。<br>
+	<pre class="code"><code>import dbm
+d = dbm.open('file', 'c')
+
+d['a'] = '0'
+d['b'] = '10'
+d['c'] = '20'
+
+print d['a'], d['b'], d['c']
+# output: 0 10 20
+
+print 'a' in d
+# output: True
+
+print d.keys()
+# output: ['a', 'b', 'c']
+</code></pre>
+	こんな感じ。分かりやすくて良いよね。<br>
+	注意しなきゃいけないのは、文字列(3.xならbytes)しか受け付けてくれないこと。<br>
+	数字も文字列にしてから入れましょう。<br>
+	そこだけ注意すればあとはたぶん大丈夫。<br>
+	<br>
+	あ、あとvaluesとかitemsとかのメソッドがないからね。keysを使って適当に。<br>
+</section>

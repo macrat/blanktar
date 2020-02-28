@@ -1,0 +1,73 @@
+apache2のhttpd.confでURLの正規化をやってみたメモ。
+2013-03-27 21:02
+keywords: apache2 httpd.conf .htaccess URL 正規化 リダイレクト
+
+<aside>
+    <b>2014-01-03 追記:</b><br>
+    <a href="/blog/2013/12/apache-domain-change.html">ドメインを移行する方法</a><br>
+    <a href="/blog/2014/01/apache-path-last-slash.html">URLの最後のスラッシュを省略させない方法</a><br>
+    も書きました。そちらもどうぞ。<br>
+</aside>
+<br>
+
+<a href="http://blanktar.dip.jp">http://blanktar.dip.jp/</a><br>
+<a href="http://blanktar.dip.jp/index.html">http://blanktar.dip.jp/index.html</a><br>
+<br>
+上記はどちらもこのサイトのトップページへのリンクです。<br>
+さて、上下どっちを使おうか、みたいの。めんどくさいじゃん。<br>
+同じ場所を示すのに複数アドレスがあるのは宜しくない。<br>
+精神衛生上だけじゃなくて、SEOとかにも良くないらしい。<br>
+という訳で、<b>URLの正規化</b>ってのをやってみました。<br>
+<br>
+具体的に何をするのかって言うと、
+<b>blanktar.dip.jp/index.html</b>にアクセスが来たら、<b>blanktar.dip.jp/</b>に飛ばしちゃおうぜ、みたいな感じ。<br>
+最初に書いたアドレスのどっちにアクセスしても、index.htmlが付いてない方に転送されるはずです。そんな感じのことね。<br>
+<br>
+というわけで、htaccessを・・・ってんじゃつまらない。<br>
+速度遅いらしいし、なんかドキュメントルート以下に置くってのが嫌だ。<br>
+なので今回は<b>httpd.conf</b>を使って参ります。<br>
+人によっては<b>00_default_vhost.conf</b>とか、そんな感じの名前かも。<br>
+<br>
+<pre class="code"><code>&lt;VirtualHost *:80&gt;
+	ServerName blanktar.dip.jp:80
+
+	#  ----- 簡単に指定するバージョン -----
+	#  /index.html
+	# にアクセスが来たら
+	#  /
+	# に転送する。
+	Redirect 301 /index.html /
+
+
+	#  ----- 正規表現を使うバージョン -----
+	# mod_rewriteを有効に（？）する
+	RewriteEngine on
+
+	#  なんたらかんたら/index.html
+	# にアドレスにアクセスが来たら
+	#  なんたらかんたら/
+	# に転送する。
+	# ^/(.*)/index.html$ としないのは、http://example.com/index.htmlに対応するため。
+	RewriteRule ^(.*)/index.html$ $1/ [R=301,L]
+&lt;/VirtualHost&gt;
+</code></pre>
+みたいな感じに設定。もちろんURLは適時変えていただいて。<br>
+ページ数が少ないなら上の簡単なバージョンのがいいのかな？　わかりやすいし。<br>
+とはいえ、正規表現で一括してやっちゃったほうが便利だよね。<br>
+<br>
+新しいサイトに移転する時は、リダイレクト先のアドレスをそのまんま移転先のアドレスにすればいいみたい。<br>
+具体的にはこんな感じ。<br>
+<pre class="code"><code>Redirect 301 / http://example.com/
+
+RewriteRule ^/(.*)$ http://example.com/$1
+</code></pre>
+<br>
+ちなみに、mod_rewriteを使うなら<br>
+<pre class="code"><code>RewriteRule ^/old/(.*)$ /new/$1 [R=301,L]
+# /old/ 以下へのアクセスを /new/ にリダイレクト
+
+RewriteRule ^/([a-zA-Z]+)/([0-1])/$ /example.cgi?a=$1&amp;b=$2 [R=301,L]
+# /abc/1/  -&gt;  /example.cgi?a=abc&amp;b=1
+# /def/5/  -&gt;  /example.cgi?a=def&amp;b=5
+</code></pre>
+みたいな高度なことも出来るみたいね。<br>

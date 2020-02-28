@@ -1,0 +1,128 @@
+title: OpenSSLのBIGNUM関連の関数群に関するメモ
+date: 2014-10-06 00:50
+keywords: C言語 OpenSSL BIGNUM 暗号
+
+C言語で暗号を扱ってみようと思ってOpenSSLのBIGNUMを使い始めたのだけれど、あまりにも日本語のドキュメントが無い。
+とりあえず[リファレンス](https://www.openssl.org/docs/crypto/bn.html)あたりを読んで理解したことをメモっておく。
+めぼしい所だけ書いているので、完全ではありません。
+
+ちなみに筆者であるMacRatは英語出来ません。間違い多いと思うので見つけたらご連絡ください。修正します。
+
+-- 初期化と破棄
+	<code>BUGNUM *BN_new(void)</code>は<b>BIGNUM</b>構造体を動的に確保して返却します。確保に失敗すると<b>NULL</b>が返ります。
+	<code>void BN_init(BIGNUM *a)</code>はまだ初期化されていない<b>BIGNUM</b>構造体を初期化します。静的に確保されたものに使う用。
+
+	<code>void BN_clear(BIGNUM *a)</code>は不要になった暗号鍵などの機密データを破棄するために使います。メモリを0で埋めて消去します。
+
+	<code>void BN_free(BIGNUM *a)</code>は<b>BIGNUM</b>構造体を開放します。<code>BN_new()</code>だけでなく<code>BN_init()</code>で作られたものも開放する必要があるらしい？
+	<code>void BN_clear_free(BIGNUM *a)</code>を使うと<code>BN_clear()</code>を呼んでから<code>BN_free()</code>を呼んでくれるっぽい。
+
+-- データのコピー
+	<code>BIGNUM *BN_copy(BIGNUM *to, const BIGNUM *from)</code>で<b>from</b>から<b>to</b>へ値をコピーできます。
+	<code>BIGNUM *BN_dup(const BIGNUM *from)</code>は<b>from</b>と同じ値を持つ新しい<b>BIGNUM</b>を作って返却します。
+	どちらの関数も成功するとコピー先の<b>BIGNUM</b>へのアドレスを返し、失敗すると<b>NULL</b>を返します。
+
+-- データの置き換え
+	<code>void BN_swap(BIGNUM *a, BIGNUM *b)</code>を使うと<b>a</b>と<b>b</b>の値を入れ替えることができます。
+
+-- バイナリとの変換
+	<code>char* BN_bn2bin(const BIGNUM *a, unsigned char*to)</code>、<code>BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret)</code>を使ってバイナリとBIGNUMを変換することができます。
+	<code>BN_bin2hex</code>、<code>BN_hex2bin</code>を使うと16進数の文字列にも変換できるようです。
+
+-- 値のセット
+	<code>int BN_zero(BIGNUM *a)</code>、<code>int BN_one(BIGNUM *a)</code>を使うと、それぞれ0か1を<b>BIGNUM</b>にセットします。
+	成功すると1が、失敗すると0が返却されます。
+
+	<code>const BIGNUM *BN_value_one(void)</code>は必ず1が入った<b>BIGNUM</b>構造体を返却します。
+
+	<code>int BN_set_word(BIGNUM *a, unsigned long w)</code>を使うと、aにwの値を代入することが出来ます。
+	これも成功すると1が、失敗すると0が返却されます。
+
+	<code>unsigned long BN_get_word(BIGNUM *a)</code>を使うとaの値をlong型で得ることが出来ます。
+	エラー時は0xffffffffLが返却されます。・・・多分。
+
+-- 乱数
+	<code>int BN_rand(BIGNUM *rnd, int bits, int top, int bottom)</code>
+	<code>int BN_pseudo_rand(BIGNUM *rnd, int bits, int top, int bottom)</code>
+	はビット長がbitsな乱数を生成してrndに格納します。
+	topに-1を渡すと最上位ビットが0になることがあるようです。0にすると最上位ビットは必ず1に、1を渡すと・・・英語力が足りないので分かりません。
+	bottomに0以外の値を渡すと必ず奇数が生成されます。
+
+	<code>int BN_rand_range(BIGNUM *rnd, const BIGNUM *range)</code>
+	<code>int BN_pseudo_rand_range(BIGNUM *rnd, const BIGNUM *range)</code>
+	は0からrangeで与えられた値までの範囲で乱数を生成します。
+
+	二つずつある関数はほぼ同じ動きをしますが、pseudoが付いている方は暗号的な強度が低いようです。予測可能ということらしい。
+	どの関数も成功すると1を、失敗すると0を返却します。
+
+-- CTX
+	<b>BN_CTX</b>構造体は<b>BIGNUM</b>の計算を行うための一時的な変数を保持するための構造体です。いちいち動的に確保していると時間がかかるので構造体として外に出しているようです。
+
+	<code>BN_CTX *BN_CTX_new(void)</code>を呼び出すことで<b>BN_CTX</b>構造体を動的に確保します。確保に失敗すると<b>NULL</b>を返却します。
+	<code>void BN_CTX_init(BN_CTX *c)</code>を使ってまだ初期化されていない<b>BN_CTX</b>構造体を初期化することも出来ます。
+
+	<code>void BN_CTX_free(BN_CTX *c)</code>を使って<b>BN_CTX</b>構造体を開放します。
+
+-- 計算
+	<code>int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)</code>
+	a + b = r
+
+	<code>int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)</code>
+	a - b = r
+
+	<code>int BN_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx)</code>
+	a * b = r
+
+	<code>int BN_sqr(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx)</code>
+	a^2 = r
+
+	<code>int BN_div(BIGNUM *dv, BIGNUM *rem, const BIGNUM *a, const BIGNUM *d, BN_CTX *ctx)</code>
+	a / d = dv 余り rem
+
+	<code>int BN_mod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx)</code>
+	a%%m = rem （答えがマイナスになることがある
+
+	<code>int BN_nmod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx)</code>
+	a%%m = rem （答えがマイナスにならない
+
+	<code>int BN_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx)</code>
+	a^p = r
+
+	<code>int BN_mod_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m, BN_CTX *ctx)</code>
+	(a+b)%%m = r
+
+	<code>int BN_mod_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m, BN_CTX *ctx)</code>
+	(a-b)%%m = r
+
+	<code>int BN_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m, BN_CTX *ctx)</code>
+	(a*b)%%m = r
+
+	<code>int BN_mod_sqr(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx)</code>
+	(a^2)%%m = r
+
+	<code>int BN_mod_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m, BN_CTX *ctx)</code>
+	(a^p)%%m = r
+
+	<code>int BN_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx)</code>
+	a^p = r
+
+	<code>int BN_gcd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx)</code>
+	aとbの最大公約数をrに入れる
+
+
+	すべての関数は成功すると1を返却し、失敗すると0を返却します。
+
+-- 比較
+	<code>int BN_cmp(BIGNUM *a, BIGNUM *b)</code>を使うと<b>BIGNUM</b>の値同士を比較することが出来ます。
+	<code>int BN_ucmp(BIGNUM *a, BIGNUM *b)</code>はaとbの絶対値同士を比較します。
+	戻り値が-1ならa < b、戻り値が0ならa == b、戻り値が1ならa > bです。
+
+	<code>int BN_is_zero(BIGNUM *a)</code>
+	<code>int BN_is_one(BIGNUM *a)</code>
+	<code>int BN_is_odd(BIGNUM *a)</code>
+	を使うと、それぞれ値が0か、1か、奇数かを調べることが出来ます。
+
+	<code>int BN_is_word(BIGNUM *a, BN_ULONG w)</code>はaとwの値が等しいかどうかを調べます。
+
+long型との計算（BN_add_word）や素数の生成（BN_generate_prime）、ビット単位の操作（BN_set_bit）なんかもあって何かすごいのだけれど、体力と気力が持たないので一旦公開しちゃいます。気合が入ったら追記するかも。
+ドキュメントを翻訳する人ってすごいんだなってのを身に染みて感じた。ありがたい限りです。

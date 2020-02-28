@@ -1,0 +1,19 @@
+pythonで冪剰余
+2013-10-16 21:57
+keywords: python 冪剰余 組み込み関数
+
+冪剰余。<b>x^y mod z</b>みたいなやつ。python風に書くと<b>(x**y)%z</b>。
+暗号とかで使うのだけれど、暗号で使うような場合は桁数がやばいので、お察しの通り絶望的に演算が遅い。
+
+と、思ったら。
+流石python、組み込み関数に冪剰余計算してくれる奴がありました。
+	>>> pow(123, 456, 789)
+	699
+速い。結構速い。
+
+ちなみに
+	>>> pow(3, 3)
+	27
+みたいな感じで普通の冪乗にも使えます。
+
+参考: <a href="http://docs.python.jp/2/library/functions.html#pow" target="_blank">2. 組み込み関数 - Python 2.7ja1 documentation</a>

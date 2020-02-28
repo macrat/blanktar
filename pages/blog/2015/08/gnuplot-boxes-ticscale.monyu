@@ -1,0 +1,28 @@
+title: gnuplotで書いた棒グラフのx軸に生える線を消したい
+date: 2015-08-02 20:32
+keywords: gnuplot 棒グラフ ticscale x軸
+
+gnuplotで棒グラフを書くと、x軸にも何かこう、ちょこんって線が生えるんですよね。これ。
+[IMG: 棒グラフのx軸につく"ちょこん"](/blog/2015/08/xtics-before.png)
+ticscaleってやつです。
+棒グラフに生えてても仕方ないと思うので、これを何とか消したい。
+
+	set ticscale 0
+とすれば消えるのですが、ついでにy軸の方も消えてしまう。
+そして以下のような警告が出ます。
+	set ticscale 0
+	&nbsp;&nbsp;&nbsp;&nbsp;^
+	"plot", line 4: warning: Deprecated syntax - please use 'set tics scale' keyword
+古い書き方止めてよ、的な。
+
+	set tics scale 0
+にすればいいらしい。
+
+これが許されるのだから
+	set xtics scale 0
+ももちろん使える。
+こうすると以下のようになります。
+[IMG: x軸の"ちょこん"が消えて綺麗になった](/blog/2015/08/xtics-after.png)
+さっぱり。
+
+棒グラフなら最初っからticscaleなしでいいと思うのですが、要るんですかねこれ？

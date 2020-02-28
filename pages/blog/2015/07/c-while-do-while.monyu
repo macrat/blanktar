@@ -1,0 +1,106 @@
+title: C言語のwhileとdo-whileに速度の違いはあるのか。
+date: 2015-07-24 23:42
+keywords: C言語 while do-while 速度 time gcc
+
+友人に whileとdo-whileに速度の違いはあるのか？ というような質問をされました。
+考えたこともなかったので、ちょっと色々やってみました。
+
+とりあえず書いてみたコードがこれ。
+	#include <stdio.h>
+
+	int main(){
+		int i=0;
+	
+		while(i<1000000000){
+			i++;
+		}
+	
+		return 0;
+	}
+これがwhile版。
+
+	#include <stdio.h>
+	
+	int main(){
+		int i=0;
+	
+		do{
+			i++;
+		}while(i<1000000000);
+	
+		return 0;
+	}
+こっちがdo-while版。
+どちらもほぼ同じで、10億回ループするだけのコードです。
+
+で、GCCでアセンブリにしてみる。
+	$ gcc -O0 -S while.c
+コマンドはこんな感じ。
+
+まずはwhile版。
+		.file	"while.c"
+		.text
+		.globl	main
+		.type	main, @function
+	main:
+	.LFB0:
+		.cfi_startproc
+		pushq	%rbp
+		.cfi_def_cfa_offset 16
+		.cfi_offset 6, -16
+		movq	%rsp, %rbp
+		.cfi_def_cfa_register 6
+		movl	$0, -4(%rbp)
+		jmp	.L2
+	.L3:
+		addl	$1, -4(%rbp)
+	.L2:
+		cmpl	$999999999, -4(%rbp)
+		jle	.L3
+		movl	$0, %eax
+		popq	%rbp
+		.cfi_def_cfa 7, 8
+		ret
+		.cfi_endproc
+	.LFE0:
+		.size	main, .-main
+		.ident	"GCC: (Gentoo 4.8.4 p1.5, pie-0.6.1) 4.8.4"
+		.section	.note.GNU-stack,"",@progbits
+ラベル2つも使うんですね。おもしろい。
+
+で、do-while版がこちら。
+		.file	"do-while.c"
+		.text
+		.globl	main
+		.type	main, @function
+	main:
+	.LFB0:
+		.cfi_startproc
+		pushq	%rbp
+		.cfi_def_cfa_offset 16
+		.cfi_offset 6, -16
+		movq	%rsp, %rbp
+		.cfi_def_cfa_register 6
+		movl	$0, -4(%rbp)
+	.L2:
+		addl	$1, -4(%rbp)
+		cmpl	$999999999, -4(%rbp)
+		jle	.L2
+		movl	$0, %eax
+		popq	%rbp
+		.cfi_def_cfa 7, 8
+		ret
+		.cfi_endproc
+	.LFE0:
+		.size	main, .-main
+		.ident	"GCC: (Gentoo 4.8.4 p1.5, pie-0.6.1) 4.8.4"
+		.section	.note.GNU-stack,"",@progbits
+お、ラベルが少ない。
+ぱっと見こちらの方がシンプルな仕上がりになっています。行数も少ないし。
+
+なるほど、do-whileの方が速いんだね。・・・とは言い難いので、実測値。
+timeコマンドのuserの値を5つ。
+<table><tr><th></th><th>while [秒]</th><th>do-while [秒]</th></tr><tr><td>1回目</td><td>1.603</td><td>1.601</td></tr><tr><td>2回目</td><td>1.597</td><td>1.609</td></tr><tr><td>3回目</td><td>1.611</td><td>1.597</td></tr><tr><td>4回目</td><td>1.608</td><td>1.597</td></tr><tr><td>5回目</td><td>1.606</td><td>1.604</td></tr><tr><td>平均</td><td>1.615</td><td>1.602</td></tr></table>
+・・・うーん。
+
+結論: whileとかdo-whileとかどっちでもいいから、効率的なアルゴリズムを考えなさい。

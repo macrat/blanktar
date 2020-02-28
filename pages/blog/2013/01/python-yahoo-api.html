@@ -1,0 +1,26 @@
+pythonでyahoo APIの校正支援を使ってみた
+2013-01-26 23:37
+keywords: python yahooAPI 校正
+
+人に勧められて触ってみました、yahoo API。<br>
+<a href="/works/other/typekilo">type-kILO</a>に校正をつけたら良いんじゃね、って話で。<br>
+まあ、あんまり向いてなさそうなので組み込みは見送るつもりで居りますが・・・。<br>
+<br>
+折角なので、書いたテストコードを公開しておくよ。<br>
+頼まれたのでライブラリっぽい体裁をとらせてみたよ。心して受け取れjskny君。<br>
+<br>
+<a href="/blog/2013/01/kouseilib.py" target="_blank">ソースコード</a><br>
+<br>
+こんな感じ。<br>
+ライブラリ風なので助長すぎてアレですが、コンソールからも使えるので、試してみてちょうだい。<br>
+とりあえず重要なのは<br>
+<pre class="code"><code>http://jlp.yahooapis.jp/KouseiService/V1/kousei?appid=アプリケーションID&sentence=校正してほしい文章</code></pre>
+にアクセスすれば取得できるよ、ってことかな。<br>
+結果はXML形式なので、そいつをパースして完了。<br>
+pythonでXML扱うのって意外と面倒だった・・・。<br>
+<br>
+細かいことは<a href="http://developer.yahoo.co.jp/webapi/jlp/kousei/v1/kousei.html" target="_blank">yahooの解説</a>をご覧ください。<br>
+<br>
+<a href="http://developer.yahoo.co.jp/webapi/jlp/keyphrase/v1/extract.html" target="_blank">キーフレーズ抽出</a>なんかは有効活用すると面白い事出来そうだよね。botに組み込みたい・・・。<br>
+ま、ともかくそんな訳で。<br>
+Yahoo API、便利やね。出力形式をjsonでも受け取れるともっと便利だと思うけれど。<br>

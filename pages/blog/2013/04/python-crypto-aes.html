@@ -1,0 +1,59 @@
+pythonのCryptoでAES暗号を使ってみた
+2013-04-26 17:55
+keywords: python crypto AES暗号 暗号
+
+暗号っていいよね。なんかこう、楽しい。<br>
+というわけで、pythonで試してみました。<br>
+といっても、残念ながら標準ライブラリにはそれっぽいのがない。<br>
+hmacとかsslとかはあるんだけどねー。<br>
+AESくらいは標準ライブラリに入れといて欲しいよね・・・。ま、仕方がない。<br>
+仕方がないので、今回使うのは<strong>pycrypto</strong>っていうライブラリを使わして頂きます。<br>
+<section>
+	<h3>インストール</h3>
+	gentooのportageにパッケージがあったので有難く利用。<br>
+	<pre class="code"># <kbd>emerge pycrypto</kbd></pre>
+	python2.xでもpython3.xでも<b>Crypto</b>って名前のパッケージになります。<br>
+	小文字じゃないんだね、頭。<br>
+	<br>
+	gentoo以外を使ってる方はpypiにある<a href="https://pypi.python.org/pypi/pycrypto" target="_blank">pycryptoのページ</a>あたりからどうぞ。<br>
+</section>
+<section>
+	<h3>使ってみる</h3>
+	早速AESで遊んでみます。<br>
+	１つ注意しなきゃいけないのは、AESはブロック暗号だということ。<br>
+	つまり、鍵長は16バイト、24バイト、32バイトのうちのどれかじゃないといけないし、データも16バイトの倍数じゃなきゃいけない。<br>
+	めんどくさいけど、まあその分高速・・・なんじゃない？　多分。<br>
+	<br>
+	<pre class="code"><code>from Crypto.Cipher import AES
+
+key = 'this is a key123'    # 鍵。数字とか入れて文字数を稼がなきゃいけない。
+message = 'this is message!'    # 暗号化するデータ。これも16バイトの倍数じゃなきゃいけない。
+
+print 'original:', message
+
+cipher = AES.new(key)    # これで暗号化/復号するためのモノを作成。
+
+data = cipher.encrypt(message)    # 戻り値は暗号化されたデータ。
+print 'cipher:', repr(data)    # バイナリなのでそのままprintせずにreprに通してます。
+
+print 'decode:', cipher.decrypt(data)    # こうすると復号されたデータが返ってくる。
+</code></pre>
+	以上。結構簡単な感じ。<br>
+	<br>
+	ただ厄介なのは、<br>
+	<pre class="code"><code>import Crypto
+
+obj = Crypto.Cipher.AES.new(key)
+</code></pre>
+	みたいな使い方ができないっぽい。<br>
+	ディレクトリで分けてるみたいね。<br>
+	必ず<br>
+	<pre class="code"><code>import Crypto.Cipher.AES</code></pre>
+	とするか、<br>
+	<pre class="code"><code>from Crypto.Cipher import AES</code></pre>
+	としてください。<br>
+</section>
+<br>
+参考：<br>
+<a href="http://yoshi-python.blogspot.jp/2009/10/pycrypto.html" target="_blank">PyCryptoで暗号化する - Pythonメモ</a><br>
+<a href="https://pypi.python.org/pypi/pycrypto" target="_blank">pycrypto - Python Package Index</a><br>

@@ -1,0 +1,42 @@
+title: pythonでクラスメソッドを使ってみる
+date: 2014-12-02 16:26
+keywords: python クラスメソッド
+
+C++やJavaなんかにあるクラスメソッド。実はpythonでも使えるそうな。
+あんまり使いそうな気がしないけれど、とりあえず試してみました。
+
+	class Test(object):
+		count = 0
+
+		def __init__(self):
+			self.__addCount()
+
+		@classmethod
+		def __addCount(cls):
+			cls.count += 1
+
+		@classmethod
+		def getCount(cls):
+			return cls.count
+
+	print Test.getCount()	# 0
+	Test()	# 1回目のインスタンス化
+	print Test.getCount()	# 1
+	Test()	# 1回目のインスタンス化
+	print Test.getCount()	# 2
+インスタンス化された回数を数えてくれる。
+
+注意が必要なのは、
+	def __init__(self):
+		self.count += 1
+みたいにしてはいけないということ。
+こうするとインスタンス変数としてcountが作られちゃいます。値は1ね。
+クラス変数の方を変えてよってことでクラスメソッドの<b>__addCount</b>を作って使っているわけです。
+
+クラスメソッドの宣言は<b>@classmethod</b>ってデコレータを使えばおっけー。
+<strong>第一引数にクラスが渡される</strong>ことに注意。インスタンスメソッドのselfみたいなもんだね。
+
+
+綺麗に設計すればオブジェクト指向は便利なんだろうけれど・・・綺麗に・・・うぅむ。
+
+参考: [Python のクラスメソッド &#8211; デコレータ @classmethod, @staticmethod を使って | すぐに忘れる脳みそのためのメモ](http://jutememo.blogspot.jp/2008/09/python-classmethod-staticmethod.html)

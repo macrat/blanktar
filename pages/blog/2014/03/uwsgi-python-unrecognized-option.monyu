@@ -1,0 +1,33 @@
+title: uwsgiでpython動かそうとしたらunrecognized optionって言われた。
+date: 2014-03-07 00:45
+keywords: uwsgi python plugin
+
+[nginxを試す流れ](/blog/2014/03/nginx-erropage.html)でuwsgiも試してます。拍手ページと検索ページがpythonだからねー。
+引き続きubuntuにuwsgiをインストールして、起動しようとしたら
+	$ uwsgi --http 0.0.0.0:8080 --wsgi-file test.py --callable app
+	uwsgi: unrecognized option '--wsgi-file'
+	getopt_long() error
+とか言われた。
+
+うーん、なんだろう。
+apt-cacheで検索したら、<strong>uwsgi-plugin-python</strong>なんてものを発見。おや、怪しい。
+ヘルプを見ても<b>--plugin</b>なんてオプションが。こいつが必要らしい。
+というわけでuwsgi-plugin-pythonをインストールして、
+	$ uwsgi --http 0.0.0.0:8080 --plugin python --wsgi-file test.py --callable app
+みたいにしたら無事起動。
+
+--wsgi-fileよりも前に--plugin pythonが無いといけないっぽいので注意。
+
+ちなみに、test.pyの中身は
+	from flask import Flask
+
+	app = Flask(__name__)
+
+	@app.route('/')
+	def root():
+		return 'hello, world!'
+みたいになってます。
+
+参考：
+[便利で超強力なWSGIサーバー uWSGI を使ってみよう - 檜山正幸のキマイラ飼育記](http://d.hatena.ne.jp/m-hiyama/20120312/1331513519)
+[Deploying Python with uWSGI and Nginx on Ubuntu 13.10](http://perlmaven.com/deploying-pyton-with-uwsgi-on-ubuntu-13-10)

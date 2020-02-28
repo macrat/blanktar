@@ -1,0 +1,143 @@
+次世代starの候補版を公開したよ
+2013-04-28 00:48
+keywords: star
+
+<a href="/works/tool/star/">star</a>の次世代版の候補版（めんどくさい・・・）<strong>DraftStar</strong>の公開を開始しましたよっと。<br>
+候補版つっても、多分このまま修正重ねてリリースしちゃうけどね。候補版って名前いいよね。素敵。<br>
+まあそんなわけで、α版程度の意味に捉えてもらえれば。<br>
+<br>
+で、そのDraftStarのマニュアル的な何かです。<br>
+目下ばりばり（？）開発中なので、オプション名が変わる可能性があります。一文字のオプションは特に注意ね。<br>
+<br>
+<section>
+	<h2>何が変わったのか</h2>
+	<ul>
+		<li><b>圧縮できるようになった</b></li>
+			通信を圧縮できるようになりました。zlibとbzip2を使えます。<br>
+			しかもどっちで圧縮するべきか、あるいは圧縮しないべきか、適当に判断してくれます。<br>
+			<br>
+		<li><b>IPアドレスを打たなくても良くなった</b></li>
+			ホスト名だけでファイルを送信できるようになりました。<br>
+			・・・なった、はずなのです。<br>
+			はずなのですが、環境依存が凄まじいようで、公開時点では正常に作動しない環境が多いです。<br>
+			<br>
+		<li><b>ライブラリとしても使えそう</b></li>
+			そのままライブラリとして使えそうな感じになりました。<br>
+			というわけでGUI版の開発を予定しています。多分やります。きっとやります。やるかもしれません。<br>
+			<br>
+		<li><b>制御用のパケットがjson形式になった</b></li>
+			json形式です。見やすいです。拡張もしやすいです。<br>
+			<br>
+		<li><b>よりセキュアになった</b></li>
+			1.xのクライアントの認証機能に加えて、今回はお互いに相手を認証します。<br>
+			更に、送信したファイルにhmacで署名するようになりました。<br>
+			相変わらず暗号化はしないので、機密情報はそのまま送らないように注意してください。<br>
+			<br>
+	</ul>
+</secion>
+<section>
+	<h2>基本的な使い方</h2>
+	<pre class="code"># <kbd>DraftStar.py</kbd></pre>
+	これだけでファイルの受信ができます。<br>
+	パスワードを要求されるので、適当に。<br>
+	適当といってもあんまり短いと破られる可能性があるので、5文字以上くらいを推奨します。<br>
+	<br>
+	送信するには<br>
+	<pre class="code"># <kbd>DraftStar.py host filename</kbd></pre>
+	とします。<br>
+	hostにはホスト名か、IPアドレスを指定してください。<br>
+	filenameにはunix風の正規表現が使えます。<b>*.txt</b>とか、<b>file[0-10].png</b>とか。<br>
+	勿論ファイルはシェルの制限がない限りはいくらでも設定出来ます。<br>
+</section>
+<section>
+	<h2>高度な使い方</h2>
+	高度な、といいつつもよく使いそうなのだけあげています。<br>
+	他にも微妙な機能があるにはある。<br>
+	<section>
+		<h3>受信するときのオプション</h3>
+		<pre class="code"># <kbd>DraftStar.py --create-directory</kbd></pre>
+		<pre class="code"># <kbd>DraftStar.py -d</kbd></pre>
+		などとすると、送信者側のディレクトリ構造を再現するようになります。<br>
+		デフォルトではオフになっています。<br>
+		<br>
+		<pre class="code"># <kbd>DraftStar.py --host-name HOST</kbd></pre>
+		とすることでホスト名を設定出来ます。<br>
+		ホスト名はファイルを送信する時に使用します。<br>
+		実は送信する側でも設定出来ますが、今のところ深い意味はありません。<br>
+		<br>
+		<pre class="code"># <kbd>DraftStar.py --file-limit 10</kbd></pre>
+		とすると、ファイルを10個受信した時点で終了します。<br>
+		デフォルトでは無制限になっています。<br>
+	</section>
+	<section>
+		<h3>送るファイルを圧縮したりしなかったり</h3>
+		<pre class="code"># <kbd>DraftStar.py host file --zlib</kbd></pre>
+		<pre class="code"># <kbd>DraftStar.py host file -z</kbd></pre>
+		とすると、zlibを使用してファイルの転送を圧縮します。<br>
+		<pre class="code"># <kbd>DraftStar.py host file --bz2</kbd></pre>
+		<pre class="code"># <kbd>DraftStar.py host file -b</kbd></pre>
+		なら、bz2を使用して圧縮します。<br>
+		<pre class="code"># <kbd>DraftStar.py host file --no-comp</kbd></pre>
+		<pre class="code"># <kbd>DraftStar.py host file -n</kbd></pre>
+		とすれば、圧縮しません。<br>
+		<br>
+		zlibやbz2を使えば（ファイルによっては）転送そのものは早くなりますが、圧縮・伸張に時間がかかるようになります。<br>
+		なので、回線速度や、送信するファイルの性質を考慮して設定してください。<br>
+		・・・と、いうのはやっぱり面倒なので、その辺の判断を適当にしてくれるようになっています。<br>
+		ただし、圧縮、転送に掛かる時間をファイルごとに測るので、大量のファイルを転送する時は明示的に指定したほうが高速になると思います。<br>
+		少量のファイルであれば恐らく問題ありません。深く考えずに送っちゃって大丈夫です。<br>
+	</section>
+	<section>
+		<h3>データをstdinから読み取って送る</h3>
+		バージョン1.xから引き継いだ謎機能で、stdinに渡されたデータを転送することができます。<br>
+		<pre class="code"># <kbd>echo "hello, draft star" | DraftStar.py host --password abc</kbd></pre>
+		とすれば送信出来ます。<br>
+		注意しないといけないのは、パスワードをオプションで指定しないといけなくなるところ。<br>
+		なお、この機能はwindowsでは使えません。（cmd.exeにバグがあるらしい）<br>
+	</section>
+</section>
+<section>
+	<h2>ライブラリとして使う</h2>
+	上記の通り、DraftStarはライブラリとして使えるような気がしています。<br>
+	というわけで、ちろっとサンプルを書いてみます。<br>
+	詳しくはpydocとソースコードをどうぞ。<br>
+	<br>
+	<section>
+		<h3>ファイルを受け取る</h3>
+		<pre class="code"><code>import socket
+import DraftStar
+
+ssock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ssock.bind(('0.0.0.0', DraftStar.DEFAULT_PORT))
+ssock.listen(1)
+
+sock, _from = ssock.accept()
+
+star = DraftStar.StarSession(sock, 'password')    # 認証して、セッションを開始する。
+
+star.RecvFile()    # ファイルを１つ受け取る
+
+star.close()    # 終了する
+</code></pre>
+	</section>
+	<secion>
+		<h3>ファイルを送る</h3>
+		<pre class="code"><code>import os
+import DraftStar
+
+star = DraftStar.StarSession('127.0.0.1', 'password')    # 接続、認証を行う。
+
+fname = 'test.txt'
+fsize = os.path.getsize(fname)
+fp = open(filename, 'r')
+
+star.SendFile(fp, fname, fsize, compress=False)    # ファイルを送信する。
+
+fp.seek(0)
+
+star.SendFile(fp, fname, fsize, compress='zlib')    # 今度は圧縮して送信する。'bz2'にも出来る。
+
+star.close()    # 終了する
+</code></pre>
+	</section>
+</section>

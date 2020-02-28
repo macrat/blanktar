@@ -1,0 +1,41 @@
+title: HTML5のcanvasの中身をコピー
+date: 2015-04-18 16:37
+keywords: HTML5 canvas javascript
+
+[先ほどの記事](/blog/2015/04/html-canvas-paint.html)に引き続いてHTML5のcanvasです。お絵描きをしたcanvasの中身を別のcanvasにコピーしよう、と言う感じ。
+
+とりあえずサンプル。
+<canvas width=320 height=240 style="border:1px solid black;background-color:white;" id=alpha> </canvas><canvas width=320 height=240 style="border:1px solid black;background-color:white;" id=beta> </canvas><button>コピー</button><script>var alpha=document.querySelector('#alpha'),beta=document.querySelector('#beta'),alphacontext=alpha.getContext('2d');alpha.addEventListener('mousedown',function(ev){alphacontext.beginPath();alphacontext.moveTo(ev.layerX,ev.layerY);});alpha.addEventListener('mousemove',function(ev){if(ev.which){alphacontext.lineTo(ev.layerX,ev.layerY);alphacontext.stroke();}});document.querySelector('button').addEventListener('click',function(ev){var image=alphacontext.getImageData(0,0,alpha.width,alpha.height);beta.getContext('2d').putImageData(image,0,0);});</script>
+左のカンバスは絵を描ける。コピーってボタンをクリックすると内容をコピーできる。
+
+	&lt;html&gt;
+		&lt;canvas width=320 height=240 style="border: 1px solid black" id=alpha&gt;&lt;/canvas&gt;
+		&lt;canvas width=320 height=240 style="border: 1px solid black" id=beta&gt;&lt;/canvas&gt;
+		&lt;button&gt;コピー&lt;/button&gt;
+
+		&lt;script&gt;
+			var alpha = document.querySelector('#alpha');
+			var beta = document.querySelector('#beta');
+			var context = alpha.getContext('2d');
+
+			alpha.addEventListener('mousedown', function(ev){
+				context.beginPath();
+				context.moveTo(ev.layerX, ev.layerY);
+			});
+
+			alpha.addEventListener('mousemove', function(ev){
+				if(ev.which){
+					context.lineTo(ev.layerX, ev.layerY);
+					context.stroke();
+				}
+			});
+
+			document.querySelector('button').addEventListener('click', function(ev){
+				var image = context.getImageData(0, 0, alpha.width, alpha.height);
+				beta.getContext('2d').putImageData(image, 0, 0);
+			});
+		&lt;/script&gt;
+	&lt;/html&gt;
+ソースコードはこんな。
+contextの<b>getImageData</b>でカンバスの中身を画像化して、そいつを<b>putImageData</b>で貼り付ける。
+結構お手軽？

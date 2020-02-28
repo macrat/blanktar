@@ -1,0 +1,29 @@
+C言語のu_int16とかって何なのよ。
+2013-04-28 02:25
+keywords: C言語
+
+unixのヘッダとかで見るu_int8とか、u_int16、u_int32ってやつ。アレは何なのか。というお話。<br>
+そんな検索ワードで来てくださった方が居たようなので。<br>
+<br>
+端的に言ってしまえば、u_int8は<b>8ビットのunsigned int</b>を指します。<br>
+つまり<b>u_int8 = unsigned char</b>ってこと。<br>
+<br>
+<table>
+	<tr><th>名前</th><th>別名</th><th>サイズ</th><th>値の範囲</th></tr>
+	<tr><td>short int</td><td>int8_t</td><td>16bit</td><td>-32,768 - 32,767</td></tr>
+	<tr><td>unsigned short int</td><td>u_int8 / uint8_t</td><td>16bit</td><td>0 - 65,535</td></tr>
+	<tr><td>int</td><td></td><td>32bit（とも限らない）</td><td>-2,147,483,648 - 2,147,483,647</td></tr>
+	<tr><td>unsigned int</td><td>uint</td><td>32bit（とも限らない）</td><td>0 - 4,294,967,295</td></tr>
+	<tr><td>long int</td><td>int32_t</td><td>32bit</td><td>-2,147,483,648 - 2,147,483,647</td></tr>
+	<tr><td>unsigned long int</td><td>u_int32 / uint32_t</td><td>32bit</td><td>0 - 4,294,967,295</td></tr>
+	<tr><td>long long int</td><td>int64_t</td><td>64bit</td><td>-9,223,372,036,854,775,808 - 9,223,372,036,854,775,807</td></tr>
+	<tr><td>unsigned long long int</td><td>u_int64 / uint64_t</td><td>64bit</td><td>0 - 18,446,744,073,709,551,615</td></tr>
+</table>
+だいたいこんな感じかな。<br>
+他にもVisual Studioだと__int8、__int16、__int32、__int64などなど。<br>
+ちなみに悪名高き（？）DWORD型は符号なしの32ビット。DobleじゃないただのWORD型は符号なしの16ビットだよ。<br>
+勝手に型を増やすなよめんどくさい。<br>
+<br>
+参考：<br>
+<a href="http://www5c.biglobe.ne.jp/~ecb/c/01_04.html" target="_blank">基本的な決まり - 目指せプログラマー！</a><br>
+<a href="http://msdn.microsoft.com/ja-jp/library/vstudio/s3f49ktz.aspx" target="_blank">データ型の範囲 - Visual Studio</a><br>

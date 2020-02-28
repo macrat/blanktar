@@ -1,0 +1,119 @@
+pythonでinotifyを使ってみる。
+2013-03-22 01:47
+keywords: python inotify linux
+
+inotifyっての、ご存知でしょうか。<br>
+linux karnelの機能で、変更されたファイルを通知してくれるシステム。<br>
+なんだかよく分からないけれど、なんだか楽しそうな気がしたので、触ってみました。<br>
+<br>
+<aside>
+	<b>2013-09-07 追記</b><br>
+	wm.rm_watchとしなければならないところをwm.rem_watchとしてしまっていたのを修正。申し訳ない<br>
+</aside>
+<aside>
+	<b>2015-07-01 追記</b><br>
+	<a href="/blog/2015/06/watch-file-modify.html">シェルからinotifyを利用する方法</a>も書きました。手軽に確認したいだけとかならシェルのがいいかも。<br>
+</aside>
+<section>
+	<h2>インストール</h2>
+	<b><a href="https://github.com/seb-m/pyinotify/wiki" target="_blank">pyinotify</a></b>ってライブラリを使ってみます。<br>
+	portageにあったので、今回はそれを使用。<br>
+	<pre class="code"># <kbd>emerge dev-python/pyinotify</kbd></pre>
+	これだけ。<br>
+	他のOSなんかを使ってる方は、<a href="https://github.com/seb-m/pyinotify" target="_blank">githubにあるやつ</a>をどうぞ。<br>
+</section>
+<section>
+	<h2>とりあえず使う</h2>
+	<pre class="code"><code>import time
+	
+import pyinotify
+
+
+class Handler(pyinotify.ProcessEvent):
+	# イベント通知を受け取るモノ。
+	# process_フラグ名(self, event)　って関数を用意しておけばいいみたいね。
+
+	def process_IN_CREATE(self, event):
+		# ファイルやディレクトリが追加された時に呼ばれる
+
+		print 'Create :'
+		print event
+
+	def process_IN_DELETE(self, event):
+		# ファイルやディレクトリが削除された時に呼ばれる
+
+		print 'Delete :'
+		print event
+
+	def process_default(self, event):
+		# それ以外の場合に呼ばれる
+
+		print event.maskname
+		print event
+
+
+wm = pyinotify.WatchManager()
+
+# 監視スレッドを作って、走らせる。
+#  Handler()の()に注意。インスタンスを渡します。
+notifier = pyinotify.ThreadedNotifier(wm, Handler())
+notifier.start()
+
+# 監視するイベントの種類
+#  フラグの意味は後述する表を参照。
+mask = pyinotify.IN_CREATE | pyinotify.IN_DELETE | pyinotify.IN_MODIFY
+
+# 監視対象の追加
+wdd = wm.add_watch('/tmp', mask)
+
+time.sleep(30)
+
+# 監視対象の削除
+#  <b>wdd['/tmp']</b>みたいにすれば特定のディレクトリだけ削除できる。
+#  ちなみに、python3.xの場合は<b>list(wdd.values())</b>としなければいけないみたい。
+wm.rm_watch(wdd.values())
+
+# 監視スレッドの終了
+#  これを忘れるとプログラムが終了しません。
+#  そのまえで例外で終了しちゃったりすると、killするしかなくなるみたい。
+notifier.stop()
+</code></pre>
+こんな感じ。ほぼ<a href="http://pyinotify.sourceforge.net/#Brief_Tutorial" target="_blank">sourceforge</a>のマネ。<br>
+30秒間だけ/tmpの変更（ファイルの追加と削除）を監視します。<br>
+</section>
+<section>
+	<h2>フラグ一覧</h2>
+	<section>
+		<h3>通知関連</h3>
+		<table>
+		<tr><td>IN_ACCESS</td><td>ファイルアクセスがあった時</td></tr>
+		<tr><td>IN_ATTRIB</td><td>メタデータに変更があった時</td></tr>
+		<tr><td>IN_CLOSE_WRITE</td><td>書き込み用に開かれたファイルが閉じられた時</td></tr>
+		<tr><td>IN_CLOSE_NOWRITE</td><td>書き込み以外のために開かれたファイルが閉じられた時</td></tr>
+		<tr><td>IN_CREATE</td><td>ファイルやディレクトリが作られた時</td></tr>
+		<tr><td>IN_DELETE</td><td>ファイルやディレクトリが消された時</td></tr>
+		<tr><td>IN_DELETE_SELF</td><td>監視しているファイルやディレクトリそのものが消された時</td></tr>
+		<tr><td>IN_MODIFY</td><td>ファイル内容が変更された時</td></tr>
+		<tr><td>IN_MOVE_SELF</td><td>監視しているファイルやディレクトリそのものが移動された時</td></tr>
+		<tr><td>IN_MOVED_FROM</td><td>ファイルやディレクトリがどこかから移動されてきた時</td></tr>
+		<tr><td>IN_MOVED_TO</td><td>ファイルやディレクトリがどこかに移動された時</td></tr>
+		<tr><td>IN_OPEN</td><td>ファイルが開かれた時</td></tr>
+		<tr><td>IN_Q_OVERFLOW</td><td>イベントキューがオーバーフローを起こした時</td></tr>
+		<tr><td>IN_UNMOUNT</td><td>監視しているファイルやディレクトリを含むファイルシステムがアンマウントされた時</td></tr>
+		</table>
+	</section>
+	<section>
+		<h3>その他</h3>
+		<table>
+			<tr><td>IN_DONT_FOLLOW</td><td>シンボリックリンクを辿らない（Linux Kernel 2.6.15以降）</td></tr>
+			<tr><td>IN_ISDIR</td><td>ディレクトリに対して設定する・・・？</td></tr>
+			<tr><td>IN_MASK_ADD</td><td>既に設定されているディレクトリに対して二重に設定した場合、上書きではなく追加として設定する (Linux Kernel 2.6.14以降)</td></tr>
+			<tr><td>IN_ONLYDIR</td><td>与えられた引数がディレクトリの場合のみ監視する（Linux Kernel 2.6.15以降）</td></tr>
+		</table>
+	</section>
+</section>
+<br>
+参考：<br>
+<a href="https://github.com/seb-m/pyinotify/wiki" target="_blank">pyinotify - github</a><br>
+<a href="http://pyinotify.sourceforge.net/" target="_blank">pyinotify - sourceforge</a><br>
+<a href="http://linuxjm.sourceforge.jp/html/LDP_man-pages/man7/inotify.7.html" target="_blank">Man page of INOTIFY</a><br>

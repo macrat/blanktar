@@ -1,0 +1,30 @@
+title: RuuMusicっていうandroid用の音楽プレイヤーを作った
+date: 2015-09-22 23:01
+keywords: android 音楽プレイヤー RuuMusic
+
+音楽プレイヤーを作りました。
+[IMG: RuuMusicのバナーみたいなやつ](/blog/2015/09/ruumusic-promotion-image.png)
+
+Android wearが欲しすぎて、でも使い道がなかったので、音楽プレイヤーを作ることにしました。
+でもまだwearを買っていないのでスマートフォン・タブレットだけの対応です。
+いずれ対応、したいなぁ。
+
+今まで私が使っていた[LISNA](https://play.google.com/store/apps/details?id=org.k52.listen)という音楽プレイヤーと[FolderSync](https://play.google.com/store/apps/details?id=dk.tacit.android.foldersync.full)というファイラの掛け合せ、的なイメージから出発しましたがわりと独自路線です。
+まあ、独自というほど独特なところも無いですが。
+
+[IMG: RuuMusicのプレイヤー画面。文字だけのシンプルなデザイン。](/blog/2015/09/ruumusic-player.png) [IMG: RuuMusicのプレイリスト画面。ファイル名が並んでいるだけ。](/blog/2015/09/ruumusic-playlist.png)
+一枚目がプレイヤー、二枚目がプレイリストです。見たまんまですね。
+プレイリストというのは名ばかりで、実のところディレクトリをそのまま利用しています。
+FoloderSyncを使ってPCの音楽ディレクトリをそのままSDカードに同期して、そいつを再生する、というのが私の使い方。ほっとけばPCに入れた曲が同期されているのでとっても便利です。おすすめ。
+
+始めてのJavaだったのですが、案外良いねJava。アノテーションがとても新鮮。
+まあ、何でついでにアサーションチェックしてくれないんだという感じはありますが。
+
+google playにて公開しておりますので、お試しいただければと思います。
+(((
+	<a href="https://play.google.com/store/apps/details?id=jp.blanktar.ruumusic">
+		<img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+	</a>
+)))
+
+[bitbucketのリポジトリ](https://bitbucket.org/MacRat/ruumusic)でプロジェクト一式を公開しています。よろしければこちらもどうぞ。プルリクくれると嬉しいな？

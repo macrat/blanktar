@@ -1,0 +1,33 @@
+jinja2の関数が結構便利でびっくり。
+2014-02-11 18:11
+keywords: python jinja2 テンプレート マクロ
+
+サイトをちょっと綺麗に改修してみました。
+具体的に何をやったかというと、htmlを生成するのに使ってる<strong>jinja2</strong>のテンプレートのリファクタリングがメイン。
+重複してる部分が多かったからね。
+
+で、その時に使ったのが<strong>macro</strong>って機能。
+たとえば、
+	<a href="linkA">えー</a>
+	<a href="linkB">びー</a>
+	<a href="linkC">しー</a>
+みたいなコードがあったとして。
+
+このままだと全部のリンクにclassを設定したいとかってときに面倒くさいので
+	{% macro link(text, to) %}<a href="{{ to }}">{{ text }}</a>{% endmacro %}
+ってマクロを用意して
+
+	{{ link("えー", "linkA") }}
+	{{ link("びー", "linkB") }}
+	{{ link("しー", "linkC") }}
+みたいに出来る。
+複雑なことするなら便利だよね。
+
+ちなみに、他のファイル（たとえばmacro.html）に書いて
+	{% import "macro.html" as macro %}
+なんてインポートして、
+	{{ macro.link("でぃー", "linkD") }}
+みたいに使うことも出来る。
+
+	{% from "macro-library.html" import link %}
+ってやれば特定のマクロだけインポートできる。もう普通にpython。

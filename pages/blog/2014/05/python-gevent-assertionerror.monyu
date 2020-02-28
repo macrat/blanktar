@@ -1,0 +1,19 @@
+title: pythonのgeventにAssertionErrorとか言われて詰みかけた話
+date: 2014-05-10 23:12
+keywords: python gevent pywsgi
+
+[前回](/blog/2014/05/python-gevent-websocket.html)に引き続いてgeventのpywsgi。
+順調に遊んでいたら、こんなことを言われました。
+	assert not self.headers_sent
+	AssertionError
+うーん？ ヘッダーを送ってないよってか？ start_responseはしたよ？
+と思いつつログさかのぼってみたら
+	TypeError: an integer or string of size 1 is required
+なんて事が書いてあった。
+整数か文字か・・・文字列返してるんだけどな・・・。
+
+いろいろ試してみて分かった。
+単純にunicode型に対応していないようです、この子。
+適当な文字コードにエンコードしてやるとすんなり動きます。
+そんなわけで、gevent使うときはエンコードに気をつけましょう。
+<del datetime="2014-05-10T23:21:00+09:00">ま、python3.x使えよって話かもしれない。</del> <ins datetime="2014-05-10T23:21:00+09:00">適当に書いちゃったけど、geventはpython3.xに対応してないっぽい？</ins>

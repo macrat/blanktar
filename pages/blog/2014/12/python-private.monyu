@@ -1,0 +1,69 @@
+title: pythonのクラスでprivateっぽいことをしよう
+date: 2014-12-02 17:28
+keywords: python クラス private オブジェクト指向
+
+[さっきのクラスメソッドの記事](/blog/2014/12/python-classmethod.html)にひき続いてオブジェクト指向っぽいネタ。
+
+C++とかJavaだとかなり最初の方に学ぶであろう<strong>private</strong>修飾子。クラスの外からアクセスできないってやつですね。
+実はこれに似たようなことがpythonでも出来ます。
+
+使い方はものすごく簡単で、メソッドもしくは変数の名前の頭にアンダーバーを二つ付けるだけ。
+プログラマの慣例通りって感じ？
+
+	>>> class Test:
+	... 	__value = 'value'
+	... 
+	... 	def __init__(self):
+	... 		print 'init'
+	... 
+	... 	def normal(self):
+	... 		print 'normal'
+	... 
+	... 	def __private(self):
+	... 		print 'private'
+	... 
+
+	>>> t = Test()
+	init
+
+	>>> t.normal()	# 普通に呼べる。
+	normal
+
+	>>> t.__private()	# プライベートなのでこれは無理。
+	Traceback (most recent call last):
+	  ...
+	AttributeError: Test instance has no attribute '__private'
+
+	>>> t.__value	# こっちもプライベートなので無理。
+	Traceback (most recent call last):
+	  ...
+	AttributeError: Test instance has no attribute '__value'
+みたいな感じで使えます。
+これはわりと便利。
+
+ただ、このプライベートは絶対のものではなくて、
+	>>> t._Test__private()
+	private
+
+	>>> t._Test__value
+	'value'
+みたいな感じで呼べちゃいます。危ない。
+
+ちなみに、継承すると分かりづらいエラーが出たりします。
+	>>> class Child(Test):
+	... 	def run(self):
+	... 		print self.__value
+	...
+
+	>>> c = Child()
+	init
+
+	>>> c.run()
+	Traceback (most recent call last):
+	  ...
+	AttributeError: Tea instance has no attribute '_Tea__value'
+みたいな。ややっこい。
+
+
+難点はあるけれど、使いどころは割とあると思うから・・・許して？
+完全に外部からアクセスできなくなっちゃっていいと思うのだけれどねぇ・・・。

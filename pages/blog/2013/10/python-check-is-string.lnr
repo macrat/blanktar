@@ -1,0 +1,20 @@
+pythonで与えられた変数が文字列かどうか調べる
+2013-10-07 16:18
+keywords: python 文字列
+
+今まで文字列かどうかを調べるときは
+<pre class="code code_python"><code>isinstance(test, str) or isinstance(test, unicode)</code></pre>
+ってやってたんだけど、もっと簡単に
+
+<pre class="code code_python"><code>isinstance(test, (str, unicode))</code></pre>
+なんてのが出来るらしい。
+
+それどころかもっと簡単に出来て、
+<pre class="code code_python"><code>isinstance(a, basestring)</code></pre>
+ってのも行けるらしい。
+basestringってのはstrやunicodeのスーパークラスとのこと。
+
+ちゃんと調べないともったいないねー、こういうの。
+ちなみに、python3.xにはbasestringが存在しないので注意。
+
+参考: <a href="http://docs.python.jp/2/library/functions.html" target="_blank">2. 組み込み関数 - Python 2.7ja1 documentation</a>

@@ -1,0 +1,25 @@
+startxした時にtimeout in lockingとか言われる
+2013-02-27 22:26
+keywords: linux X11
+
+なんだかわからないけどXが立ち上がらなくなりまして。<br>
+いや、立ち上がるんだけど、黒い画面のままなのね。<br>
+<br>
+startxしたときの出力をみてみると<br>
+<pre class="code"><samp>xauth:  timeout in locking authority file /home/xxx/.Xauthority</samp></pre>
+みたいなエラーが何度か出てる。<br>
+調べてみると、パーミッション関係のエラーらしいね。<br>
+という訳で.Xauthorityのパーミッションを600に設定、してもダメだった。<br>
+<br>
+結局、<br>
+<pre class="code">$ <kbd>rm .Xauthority-*</kbd>
+$ <kbd>:&gt; .Xauthority</kbd>
+$ <kbd>chmod 600 .Xauthority</kbd></pre>
+みたいにしたら直りました。<br>
+一行目はなんか余計に生成されちゃった（？）ファイルの削除。<br>
+二行目で.Xauthorityの中身を空にして<br>
+三行目でパーミッションの設定を行なっています。<br>
+<br>
+しかし、なんで唐突にこんなんが起きたのやら・・・間違えてなんかやっちゃったかな・・・。<br>
+<br>
+参考：<a href="http://www1.plala.or.jp/fukafuka/trouble/network.html#24" target="_blank">ふかふかの部屋 - TSR - ネットワーク関連</a><br>

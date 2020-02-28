@@ -1,0 +1,28 @@
+title: ASUS EeeBook x205TAにArch Linuxを入れてみた
+date: 2015-02-23 20:06
+keywords: EeeBook arch linux
+
+<ins><date>2016-08-16</date>追記: [RemixOSを入れる記事](/blog/2016/08/remixos-install-into-asus-x205ta.html)もどうぞ。こちらはわりとちゃんと動いています。</ins>
+
+[gentooを入れようとした](/blog/2015/02/gentoo-into-eeebook.html)あとにubuntuを入れてみて、余計なプロセスが多くて気持ち悪いので今度はarch linuxを入れてみました。
+とりあえず再現できる程度の情報を残しておきます。
+
+[昨日の記事](/blog/2015/02/gentoo-into-eeebook.html)の手順で作った起動用のUSBメモリを使用して起動。
+fdiskでパーティションを切ってフォーマット、<b>/mnt</b>以下にマウント。
+そしたら公式wikiの[Install from existing Linux](https://wiki.archlinux.org/index.php/Install_from_existing_Linux)のMethod 1に従ってArchのBootstrapにchroot。
+	# pacman-key --init
+	# pacman-key --populate archlinux
+として、あとは[インストールガイド](https://wiki.archlinux.org/index.php/Installation_Guide_%%28日本語%%29)のベースシステムのインストール以下を実行。
+
+grubを入れるときは
+	# pacman -S grub efibootmgr
+	# grub-install --target="i386-efi" /dev/mmcblk0
+としてインストール。
+このままだとmmcの準備が終わる前にルートをマウントしようとしてカーネルパニックを起こすので、<b>/etc/default/grub</b>を開いて<b>GRUB_CMDLINE_LINUX_DEFAULT</b>に<b>rootwait</b>を設定する。
+さらに、<b>GRUB_DISABLE_LINUX_UUID</b>のコメントアウトを外しておく。UUIDで設定すると同じカーネルパニックを起こしてしまう。
+設定したら
+	# grub-mkconfig -o /boot/grub/grub.cfg
+として設定ファイルを作る。
+
+これでひとまずインストール完了。しかしWiFiやらバッテリーやらを認識していなかったり何だり、何とも上手くいかない。
+カーネルのバージョンが新しくなれば色々改善するっぽい事は[書いてあったりする](https://plus.google.com/communities/117853703024346186936)のだけれど、何ともはや。

@@ -1,0 +1,30 @@
+python cgiで外部ソースのインポートが出来ない
+2013-01-10 21:54
+keywords: python cgi
+
+各ページのタイトルを修正したよ。<br>
+これでまともになった、か？<br>
+<br>
+で、確認すべく拍手ページに行ったんだ。<br>
+そしたらさ。<br>
+<strong>表示できねぇ。</strong></br>
+タイトルいじっただけなのに！<br>
+<br>
+調べても分からんかったので、総当る。<br>
+分かったのでメモっておきます。<br>
+<br>
+まずは症状。<br>
+表示されるページは白紙。っていうか、ソースを出力する前に<br>
+<pre class="code"><samp>ImportError: No module named template, referer: http://blanktar.dip.jp/cgi-bin/hak.py</samp></pre>
+ってなってるのね。<br>
+templateってのは私自作のソースで、ちゃんとパスも通ってる。<br>
+こいつを読み込むようになっているのだけれど・・・no module named？　え、つまり見つからない？<br>
+<br>
+対処。まあ、私のケースの場合は、ですが。<br>
+template.pycの読み込み権限がなかったらしい。<br>
+・・・えー。<br>
+.pycが無い場合、自分で作るわけです。でも、書き込み権限がなければ作れない。　→　no module namedって言う<br>
+.pycがあるなら、それを読み込む。でも、読み取り権限がなかった。　→　no module namedって言う<br>
+って事なんじゃないかな。<br>
+<br>
+もうちょい何とかならんのかしらね、この表示は・・・。<br>

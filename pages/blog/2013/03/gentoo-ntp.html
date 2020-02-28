@@ -1,0 +1,40 @@
+gentooでntpを使ってみた話
+2013-03-27 01:14
+keywords: gentoo ntp
+
+ネットブックの時計がずれてたんで、時計を合わせ・・・るのってめんどいよね。<br>
+YYYYMMDDみたいな形式ならともかく、dateコマンドがめんどくさいのなんのって・・・。<br>
+そもそもいちいちやること自体めんどいので、ntpを入れてみた。<br>
+<br>
+まずはインストール。<br>
+<pre class="code"># <kbd>emerge net-misc/ntp</kbd></pre>
+以上。<br>
+<br>
+ntpdを使ってもいいのだけれど（というか多分そっちのが正しい）、私はntpdateを使います。<br>
+何故か。プロセス増やしたくないから。<br>
+わざわざプロセス立てなくても、anacronから呼べばいーじゃん、みたいな。<br>
+<br>
+という訳で、<b>/etc/cron.weekly/setclock</b>に<br>
+<pre class="code"><code>#!/bin/sh
+
+ntpdate -s ntp.nict.jp gpsntp.miz.nao.ac.jp
+</code></pre>
+みたいなファイルを追加。<br>
+この場合は週に一回しか問い合わせないので、まあ適時お好きなように。<br>
+<br>
+これで時計合わせの面倒から開放される、はず。<br>
+このへんの作業をしなくていい、って意味ではwindowsに軍配かもねぇ。<br>
+ま、自由なgentooのがやっぱり楽しいけれど。<br>
+<br>
+<br>
+ちなみに。<br>
+途中で<br>
+<pre class="code"><samp>Can't find host ntp.nict.jp gpsntp.miz.nao.ac.jp: Name or service not known (-2)</samp></pre>
+みたいなエラーに遭遇しまして。<br>
+どうやら、ホスト名の所を"でくくっちゃダメみたいね。<br>
+具体的に言うと、<br>
+<pre class="code">ntpdate -s "ntp.foo.jp ntp.bar.jp"</pre>
+だとダメで、<br>
+<pre class="code">ntpdate -s ntp.foo.jp ntp.bar.jp</pre>
+ならおっけー。<br>
+要注意、かもです。<br>
