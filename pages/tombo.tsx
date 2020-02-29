@@ -179,58 +179,14 @@ const TomboArticle: FC<{color?: string}> = ({children, color='#322'}) => (
     </div>
 );
 
-const Tombo = () => (
-    <>
-        <Header />
 
-        <TomboArticle>
-            <header>
-                <time>2020年2月29日 16:31</time>
-                <h1>this is a content</h1>
-                <ul>
-                    <li><a href="">test article</a></li>
-                    <li><a href="">test</a></li>
-                    <li><a href="">design</a></li>
-                    <li><a href="">design test</a></li>
-                </ul>
-            </header>
-
-            <p>hello world!</p>
-
-            <section>
-                <h2>section!</h2>
-
-                <p>hello</p>
-                <p>hello!</p>
-                <p>section!!</p>
-            </section>
-        </TomboArticle>
-
-        <style jsx global>{`
-            html {
-                background-color: #eee;
-                color: #322;
-                font-family: 'Noto Sans JP', gothic, sans-serif;
-                overflow: hidden auto;
-            }
-        `}</style>
+const TagList: FC<{tags: string[]}> = ({tags}) => (
+    <ul>
+        {tags.map(x => (
+            <li key={x}><a href="">test article</a></li>
+        ))}
 
         <style jsx>{`
-            header {
-                margin-bottom: 2em;
-            }
-            h1 {
-                font-size: 48pt;
-                font-weight: 100;
-                margin: -1.2rem 0 -.5rem;
-                padding: 0;
-            }
-            time {
-                display: inline-block;
-                margin-left: 1em;
-                font-size: 120%;
-                font-weight: 200;
-            }
             ul {
                 margin: 0;
                 padding: 0;
@@ -266,6 +222,71 @@ const Tombo = () => (
             }
             li:hover::before {
                 width: 0;
+            }
+        `}</style>
+    </ul>
+);
+
+
+const date2str = (t: Date) => (
+    `${t.getFullYear()}年${t.getMonth() + 1}月${t.getDate()}日 ${t.getHours()}:${t.getMinutes()}`
+);
+
+
+const ArticleMeta: FC<{pubtime: Date, title: string, tags: string[]}> = ({pubtime, title, tags}) => (
+    <header>
+        <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time>
+        <h1>{title}</h1>
+        <TagList tags={tags} />
+
+        <style jsx>{`
+            header {
+                margin-bottom: 2em;
+            }
+            h1 {
+                font-size: 48pt;
+                font-weight: 100;
+                margin: -1.2rem 0 -.5rem;
+                padding: 0;
+            }
+            time {
+                display: inline-block;
+                margin-left: 1em;
+                font-size: 120%;
+                font-weight: 200;
+            }
+        `}</style>
+    </header>
+);
+
+
+const Tombo = () => (
+    <>
+        <Header />
+
+        <TomboArticle>
+            <ArticleMeta
+                pubtime={new Date()}
+                title="this is a content"
+                tags={['test article', 'test', 'design', 'design test']} />
+
+            <p>hello world!</p>
+
+            <section>
+                <h2>section!</h2>
+
+                <p>hello</p>
+                <p>hello!</p>
+                <p>section!!</p>
+            </section>
+        </TomboArticle>
+
+        <style jsx global>{`
+            html {
+                background-color: #eee;
+                color: #322;
+                font-family: 'Noto Sans JP', gothic, sans-serif;
+                overflow: hidden auto;
             }
         `}</style>
     </>
