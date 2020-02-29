@@ -1,6 +1,7 @@
 import {FC} from 'react';
 
 import TagList from './TagList';
+import BreadList, {Props as BreadListProps} from './BreadList';
 
 
 const date2str = (t: Date) => (
@@ -12,11 +13,13 @@ export type Props = {
     pubtime?: Date,
     title?: string,
     tags?: string[],
+    breadlist?: BreadListProps['pages'],
 };
 
 
-const ArticleHeader: FC<Props> = ({pubtime, title, tags}) => (
+const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
     <header>
+        {breadlist ? <BreadList pages={breadlist} /> : null}
         {pubtime ? <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time> : null}
         {title ? <h1>{title}</h1> : null}
         {tags ? <TagList tags={tags} /> : null}
@@ -28,15 +31,18 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags}) => (
             h1 {
                 font-size: 48pt;
                 font-weight: 100;
-                margin: -.3rem 0 .5rem;
+                margin: 0 0 .5rem;
                 padding: 0;
                 line-height: 1em;
             }
             time {
-                display: inline-block;
-                margin-left: 1em;
-                font-size: 120%;
+                display: block;
+                font-size: 130%;
                 font-weight: 200;
+                margin: .5rem 0 0;
+                position: absolute;
+                top: 5mm;
+                right: 5mm;
             }
         `}</style>
     </header>

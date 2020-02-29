@@ -3,13 +3,17 @@ import Article from '../components/Article';
 
 
 const Tombo = () => (
-    <main>
+    <>
         <SearchBox />
 
         <Article
             pubtime={new Date()}
             title="this is a content"
-            tags={['test article', 'test', 'design', 'design test']}>
+            tags={['test article', 'test', 'design', 'design test']}
+            breadlist={[{
+                title: 'tombo',
+                href: '/tombo',
+            }]}>
 
             <p>hello world!</p>
 
@@ -21,7 +25,7 @@ const Tombo = () => (
                 <p>section!!</p>
             </section>
         </Article>
-    </main>
+    </>
 );
 
 

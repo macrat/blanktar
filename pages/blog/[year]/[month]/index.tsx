@@ -4,16 +4,33 @@ import Link from 'next/link';
 import posts from '../../../../lib/posts';
 
 import Article from '../../../../components/Article';
+import SearchBox from '../../../../components/SearchBox';
 
 
 const MonthIndex: NextPage<{year: number, month: number}> = ({year, month}) => (
-    <Article title={`${year}/${month}'s blog`}>
-        <ol>
-            {posts(year, month).map(x => (
-                <li key={x}><Link href={`/blog/${year}/${String(month).padStart(2, '0')}/${x}`}><a>{x}</a></Link></li>
-            ))}
-        </ol>
-    </Article>
+    <>
+        <SearchBox />
+
+        <Article title={`${year}/${month}'s blog`} breadlist={[{
+            title: 'blog',
+            href: '/blog',
+        }, {
+            title: `${year}`,
+            href: '/blog/[year]',
+            as: `/blog/${year}`,
+        }, {
+            title: `${month}`,
+            href: '/blog/[year]/[month]',
+            as: `/blog/${year}/${month}`,
+        }]}>
+
+            <ol>
+                {posts(year, month).map(x => (
+                    <li key={x}><Link href={`/blog/${year}/${String(month).padStart(2, '0')}/${x}`}><a>{x}</a></Link></li>
+                ))}
+            </ol>
+        </Article>
+    </>
 );
 
 
