@@ -19,7 +19,7 @@ const Header: FC<{}> = () => (
             }
             header h1 {
                 font-size: 8mm;
-                font-weight: inherit;
+                font-weight: 300;
                 margin: 0;
             }
             header h1::after {
@@ -29,7 +29,7 @@ const Header: FC<{}> = () => (
                 width: 5cm;
                 position: relative;
                 left: calc(50% - 2.5cm);
-                background-color: black;
+                background-color: #322;
             }
 
             ul {
@@ -40,8 +40,11 @@ const Header: FC<{}> = () => (
                 display: inline-block;
                 margin: 2px 8px;
                 position: relative;
-                animation: menu-fg .2s ease both;
+                animation: menu-fg .3s ease both;
             }
+            li:nth-child(2) { animation-delay: .1s; }
+            li:nth-child(3) { animation-delay: .2s; }
+            li:nth-child(4) { animation-delay: .3s; }
             @keyframes menu-fg {
                      0% { color: transparent; }
                     50% { color: transparent; }
@@ -55,7 +58,7 @@ const Header: FC<{}> = () => (
                 width: 100%;
                 top: 100%;
                 height: 0;
-                background-color: black;
+                background-color: #322;
                 animation: menu-bg .3s ease;
                 transition: top .2s ease, height .2s ease;
             }
@@ -89,7 +92,7 @@ const Header: FC<{}> = () => (
 );
 
 
-const TomboArticle: FC<{color?: string}> = ({children, color='black'}) => (
+const TomboArticle: FC<{color?: string}> = ({children, color='#322'}) => (
     <div>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo top left">
             <polyline points="15 0, 15 10, 5 10" fill="none" stroke={color} stroke-width="0.2" />
@@ -124,6 +127,9 @@ const TomboArticle: FC<{color?: string}> = ({children, color='black'}) => (
                 margin: 30mm auto;
                 max-width: 297mm;
                 position: relative;
+            }
+            article {
+                padding: 5mm;
             }
 
             .tombo {
@@ -178,7 +184,16 @@ const Tombo = () => (
         <Header />
 
         <TomboArticle>
-            <h1>this is a content</h1>
+            <header>
+                <time>2020年2月29日 16:31</time>
+                <h1>this is a content</h1>
+                <ul>
+                    <li><a href="">test article</a></li>
+                    <li><a href="">test</a></li>
+                    <li><a href="">design</a></li>
+                    <li><a href="">design test</a></li>
+                </ul>
+            </header>
 
             <p>hello world!</p>
 
@@ -190,6 +205,69 @@ const Tombo = () => (
                 <p>section!!</p>
             </section>
         </TomboArticle>
+
+        <style jsx global>{`
+            html {
+                background-color: #eee;
+                color: #322;
+                font-family: 'Noto Sans JP', gothic, sans-serif;
+                overflow: hidden auto;
+            }
+        `}</style>
+
+        <style jsx>{`
+            header {
+                margin-bottom: 2em;
+            }
+            h1 {
+                font-size: 48pt;
+                font-weight: 100;
+                margin: -1.2rem 0 -.5rem;
+                padding: 0;
+            }
+            time {
+                display: inline-block;
+                margin-left: 1em;
+                font-size: 120%;
+                font-weight: 200;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                display: inline-block;
+                border: 1px solid #322;
+                border-radius: 4px;
+                margin: 2px 4px;
+                position: relative;
+            }
+            li a {
+                position: relative;
+                color: #eee;
+                text-decoration: none;
+                display: inline-block;
+                padding: 2px 4px;
+                transition: color .2s ease;
+            }
+            li:hover a {
+                color: #322;
+            }
+            li::before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #322;
+                transition: width .2s ease;
+            }
+            li:hover::before {
+                width: 0;
+            }
+        `}</style>
     </>
 );
 
