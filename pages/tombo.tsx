@@ -80,12 +80,15 @@ const Header: FC<{}> = () => (
                 text-decoration: none;
                 transition: color .2s ease;
             }
-            li:hover a {
+            li:hover a, li:focus-within a {
                 color: white;
             }
-            li:hover::before {
+            li:hover::before, li:focus-within::before {
                 top: 0;
                 height: 100%;
+            }
+            a:focus {
+                outline: none;
             }
         `}</style>
     </header>
@@ -204,9 +207,12 @@ const TagList: FC<{tags: string[]}> = ({tags}) => (
                 text-decoration: none;
                 display: inline-block;
                 padding: 2px 4px;
-                transition: color .2s ease;
+                transition: color .1s ease;
             }
-            li:hover a {
+            a:focus {
+                outline: none;
+            }
+            li:hover a, li:focus-within a {
                 color: #322;
             }
             li::before {
@@ -218,10 +224,10 @@ const TagList: FC<{tags: string[]}> = ({tags}) => (
                 height: 100%;
                 width: 100%;
                 background-color: #322;
-                transition: width .2s ease;
+                transition: height .1s ease;
             }
-            li:hover::before {
-                width: 0;
+            li:hover::before, li:focus-within::before {
+                height: 0;
             }
         `}</style>
     </ul>
