@@ -19,9 +19,9 @@ const MonthIndex: NextPage<{year: number, month: number}> = ({year, month}) => (
             href: '/blog/[year]',
             as: `/blog/${year}`,
         }, {
-            title: `${month}`,
+            title: `${String(month).padStart(2, '0')}`,
             href: '/blog/[year]/[month]',
-            as: `/blog/${year}/${month}`,
+            as: `/blog/${year}/${String(month).padStart(2, '0')}`,
         }]}>
 
             <ol>

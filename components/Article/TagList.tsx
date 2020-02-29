@@ -9,7 +9,7 @@ export type Props = {
 const TagList: FC<Props> = ({tags}) => (
     <ul>
         {tags.map(x => (
-            <li key={x}><a href="">test article</a></li>
+            <li key={x}><a href="">{x}</a></li>
         ))}
 
         <style jsx>{`

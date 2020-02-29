@@ -1,13 +1,16 @@
 import {AppProps} from 'next/app';
 
 import Header from '../components/Header';
+import MDXComponents from '../components/MDXComponents';
 
 
 const TomboApp = ({Component, pageProps}: AppProps) => (
     <main>
         <Header />
 
-        <Component {...pageProps} />
+        <MDXComponents>
+            <Component {...pageProps} />
+        </MDXComponents>
 
         <style jsx global>{`
             html {
@@ -18,6 +21,14 @@ const TomboApp = ({Component, pageProps}: AppProps) => (
             }
             body {
                 margin: 0;
+            }
+            a {
+                position: relative;
+                color: #63f;
+                transition: color .2s ease;
+            }
+            a:hover, a:focus {
+                color: #f36;
             }
         `}</style>
     </main>
