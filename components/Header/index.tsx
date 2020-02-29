@@ -18,15 +18,15 @@ const Header: FC<Props> = () => (
                 text-align: center;
                 margin: 1cm 0 1cm;
             }
-            header h1 {
+            h1 {
                 font-size: 8mm;
                 font-weight: 300;
                 margin: 0;
             }
-            header h1::after {
+            h1::after {
                 content: '';
                 display: block;
-                height: 0.2mm;
+                height: .2mm;
                 width: 5cm;
                 position: relative;
                 left: calc(50% - 2.5cm);
@@ -35,6 +35,9 @@ const Header: FC<Props> = () => (
             a {
                 color: inherit;
                 text-decoration: none;
+            }
+            a:hover, a:focus {
+                color: inherit;
             }
         `}</style>
     </header>
