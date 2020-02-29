@@ -23,11 +23,13 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
     }, []);
 
     return (
-        <main className={loading ? "loading" : ""}>
+        <div className={loading ? "loading" : ""}>
             <Header />
 
             <MDXComponents>
-                <Component {...pageProps} />
+                <main>
+                    <Component {...pageProps} />
+                </main>
             </MDXComponents>
 
             <style jsx global>{`
@@ -51,7 +53,15 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
             `}</style>
 
             <style jsx>{`
-                main::after {
+                div {
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+                main {
+                    flex: 1 1 0;
+                }
+                div::after {
                     content: '';
                     display: block;
                     position: fixed;
@@ -64,7 +74,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     from { left: 0; width: 100%; }
                       to { left: 100%; width: 0; }
                 }
-                main.loading::after  {
+                div.loading::after  {
                     animation: loading 1s linear infinite;
                 }
                 @keyframes loading {
@@ -73,7 +83,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     100% { left: 100%; width: 0; }
                 }
             `}</style>
-        </main>
+        </div>
     );
 };
 

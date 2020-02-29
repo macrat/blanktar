@@ -3,12 +3,12 @@ import Link from 'next/link';
 import posts from '../../lib/posts';
 
 import Article from '../../components/Article';
-import SearchBox from '../../components/SearchBox';
+import SearchBar from '../../components/SearchBar';
 
 
 const BlogIndex = () => (
     <>
-        <SearchBox />
+        <SearchBar />
 
         <Article title="blog index" breadlist={[{
             title: 'blog',

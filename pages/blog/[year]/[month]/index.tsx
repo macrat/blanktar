@@ -4,12 +4,12 @@ import Link from 'next/link';
 import posts from '../../../../lib/posts';
 
 import Article from '../../../../components/Article';
-import SearchBox from '../../../../components/SearchBox';
+import SearchBar from '../../../../components/SearchBar';
 
 
 const MonthIndex: NextPage<{year: number, month: number}> = ({year, month}) => (
     <>
-        <SearchBox />
+        <SearchBar />
 
         <Article title={`${year}/${month}'s blog`} breadlist={[{
             title: 'blog',
