@@ -9,17 +9,17 @@ const date2str = (t: Date) => (
 
 
 export type Props = {
-    pubtime: Date,
-    title: string,
-    tags: string[],
+    pubtime?: Date,
+    title?: string,
+    tags?: string[],
 };
 
 
-const BlogHeader: FC<Props> = ({pubtime, title, tags}) => (
+const ArticleHeader: FC<Props> = ({pubtime, title, tags}) => (
     <header>
-        <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time>
-        <h1>{title}</h1>
-        <TagList tags={tags} />
+        {pubtime ? <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time> : null}
+        {title ? <h1>{title}</h1> : null}
+        {tags ? <TagList tags={tags} /> : null}
 
         <style jsx>{`
             header {
@@ -43,4 +43,4 @@ const BlogHeader: FC<Props> = ({pubtime, title, tags}) => (
 );
 
 
-export default BlogHeader;
+export default ArticleHeader;

@@ -6,7 +6,7 @@ export type Props = {
 };
 
 
-const Article: FC<Props> = ({children, color='#322'}) => (
+const Tombo: FC<Props> = ({children, color='#322'}) => (
     <div>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo top left">
             <polyline points="15 0, 15 10, 5 10" fill="none" stroke={color} stroke-width="0.2" />
@@ -21,7 +21,7 @@ const Article: FC<Props> = ({children, color='#322'}) => (
             <polyline points="5 5, 5 15, 15 15" fill="none" stroke={color} stroke-width="0.2" />
         </svg>
 
-        <article>{children}</article>
+        {children}
 
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo bottom left">
             <polyline points="15 15, 15 5, 5 5" fill="none" stroke={color} stroke-width="0.2" />
@@ -100,4 +100,4 @@ const Article: FC<Props> = ({children, color='#322'}) => (
 );
 
 
-export default Article;
+export default Tombo;

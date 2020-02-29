@@ -1,20 +1,15 @@
-import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import Article from '../components/Article';
-import ArticleHeader from '../components/blog/ArticleHeader';
 
 
 const Tombo = () => (
     <main>
-        <Header />
-
         <SearchBox />
 
-        <Article>
-            <ArticleHeader
-                pubtime={new Date()}
-                title="this is a content"
-                tags={['test article', 'test', 'design', 'design test']} />
+        <Article
+            pubtime={new Date()}
+            title="this is a content"
+            tags={['test article', 'test', 'design', 'design test']}>
 
             <p>hello world!</p>
 
@@ -26,18 +21,6 @@ const Tombo = () => (
                 <p>section!!</p>
             </section>
         </Article>
-
-        <style jsx global>{`
-            html {
-                background-color: #eee;
-                color: #322;
-                font-family: 'Noto Sans JP', gothic, sans-serif;
-                overflow: hidden auto;
-            }
-            body {
-                margin: 0;
-            }
-        `}</style>
     </main>
 );
 
