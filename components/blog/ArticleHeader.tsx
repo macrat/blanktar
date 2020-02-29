@@ -28,8 +28,9 @@ const BlogHeader: FC<Props> = ({pubtime, title, tags}) => (
             h1 {
                 font-size: 48pt;
                 font-weight: 100;
-                margin: -1.2rem 0 -.5rem;
+                margin: -.3rem 0 .5rem;
                 padding: 0;
+                line-height: 1em;
             }
             time {
                 display: inline-block;

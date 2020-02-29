@@ -34,6 +34,13 @@ const SearchBox: FC<Props> = () => (
                 outline: none;
             }
 
+            @media (max-width: 311mm) {
+                form {
+                    width: auto;
+                    margin-right: 7mm;
+                }
+            }
+
             @media (max-width: 15cm) {
                 form {
                     justify-content: center;

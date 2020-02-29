@@ -34,6 +34,9 @@ const Tombo = () => (
                 font-family: 'Noto Sans JP', gothic, sans-serif;
                 overflow: hidden auto;
             }
+            body {
+                margin: 0;
+            }
         `}</style>
     </main>
 );

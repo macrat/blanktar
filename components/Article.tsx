@@ -39,11 +39,17 @@ const Article: FC<Props> = ({children, color='#322'}) => (
         <style jsx>{`
             div {
                 margin: 2cm auto;
-                max-width: 297mm;
+                width: 297mm;
                 position: relative;
             }
             article {
                 padding: 5mm;
+            }
+            @media (max-width: 311mm) {
+                div {
+                    width: auto;
+                    margin: 2cm 7mm;
+                }
             }
 
             .tombo {
