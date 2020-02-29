@@ -11,7 +11,7 @@ const YearIndex: NextPage<{year: number}> = ({year}) => (
     <>
         <SearchBar />
 
-        <Article title={`${year}'s blog`} breadlist={[{
+        <Article title={`${year}年の記事`} breadlist={[{
             title: 'blog',
             href: '/blog',
         }, {
