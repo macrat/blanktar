@@ -6,15 +6,13 @@ import Article from '../Article';
 
 
 export type Props = {
-    meta: {
-        title: string,
-        pubtime: string,
-        tags: string[],
-    }[],
+    title: string,
+    pubtime: string,
+    tags: string[],
 };
 
 
-const BlogWrapper: FC<Props> = ({children, meta: {title, pubtime, tags}}) => {
+const BlogWrapper: FC<Props> = ({children, title, pubtime, tags}) => {
     const router = useRouter();
     const ptime = new Date(pubtime);
 

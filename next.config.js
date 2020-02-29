@@ -27,12 +27,12 @@ const posts = (
 );
 
 
-const withMDX = require('@next/mdx')({
+const withMdxFm = require('next-mdx-frontmatter')({
     extension: /\.mdx?$/,
 })
 
 
-module.exports = withMDX({
+module.exports = withMdxFm({
     pageExtensions: ['tsx', 'md', 'mdx'],
     env: {
         posts: JSON.stringify(posts),

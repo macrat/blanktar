@@ -1,8 +1,13 @@
-export const meta = {
-    title: "raspberry Pi/golangで温湿度センサ（HDC1000）を読んでfluentdに流す温度・湿度ロガー作った話",
-    pubtime: "2018-09-27T20:37+0900",
-    tags: ["golang", "温度センサ", "湿度センサ", "fluent", "raspberry-pi"],
-};
+---
+title: raspberry Pi/golangで温湿度センサ（HDC1000）を読んでfluentdに流す温度・湿度ロガー作った話
+pubtime: 2018-09-27T20:37+0900
+tags:
+  - golang
+  - 温度センサ
+  - 湿度センサ
+  - fluent
+  - raspberry-pi
+---
 
 私の部屋には温度と湿度を取れるセンサ（HDC1000ってやつ）が付いたラズパイが置いてあって、5分置きにデータをsqliteに記録するようになっています。今のところただ見れるだけなんですが、いずれエアコンとかと連動させたい。
 で、最近fluent/elasticsearchを使っていこうぜというマイブームが起きている（[先日の記事とか](/blog/2018/09/docker-compose-fluent-elasticsearch.html)）ので、この温湿度の記録もelasticsearchでやるようにしようかと。

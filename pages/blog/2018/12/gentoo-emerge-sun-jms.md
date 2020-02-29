@@ -1,8 +1,14 @@
-export const meta = {
-    title: "dev-java/sun-jmsをemergeしようとしたらjms-1_1-fr-apidocs.zipが無いとか言われる",
-    pubtime: "2018-12-09T14:58+0900",
-    tags: ["gentoo", "portage", "emerge", "sun-jms", "distdir", "distfiles"],
-};
+---
+title: dev-java/sun-jmsをemergeしようとしたらjms-1_1-fr-apidocs.zipが無いとか言われる
+pubtime: 2018-12-09T14:58+0900
+tags:
+  - gentoo
+  - portage
+  - emerge
+  - sun-jms
+  - distdir
+  - distfiles
+---
 
 gentooで*sun-jms*が必要になったので、emergeしてみたら何かエラーが出ました。以下のようなもの。
 

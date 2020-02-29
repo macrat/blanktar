@@ -1,8 +1,13 @@
-export const meta = {
-    title: 'go言語/goyaccでプログラミング言語を自作したい',
-    pubtime: '2018-01-08T00:44+0900',
-    tags: ['go', 'go言語', 'goyacc', 'simplexer', '計算機'],
-};
+---
+title: go言語/goyaccでプログラミング言語を自作したい
+pubtime: 2018-01-08T00:44+0900
+tags:
+  - go
+  - go言語
+  - goyacc
+  - simplexer
+  - 計算機
+---
 
 あらためまして、あけましておめでとうございます。
 年末年始暇だった（ということにしたかった）ので、[自作の言語的なもの](https://github.com/macrat/tako-lang)を作っていました。なんとなく動くような動かないようなな代物です。
