@@ -96,6 +96,30 @@ const Tombo: FC<Props> = ({children, color='#322'}) => (
                   to { stroke-dashoffset: 0; }
             }
         `}</style>
+
+        <style jsx global>{`
+            div.loading > main .tombo .vertical {
+                animation: vertical-erase .6s ease both;
+            }
+            @keyframes vertical-erase {
+                from { stroke-dashoffset: 12; }
+                  to { stroke-dashoffset: 6; }
+            }
+            div.loading > main .tombo .horizontal {
+                animation: horizontal-erase .6s ease both;
+            }
+            @keyframes horizontal-erase {
+                from { stroke-dashoffset: 30; }
+                  to { stroke-dashoffset: 15; }
+            }
+            div.loading > main .tombo polyline {
+                animation: polyline-erase .6s ease both;
+            }
+            @keyframes polyline-erase {
+                from { stroke-dashoffset: 40; }
+                  to { stroke-dashoffset: 20; }
+            }
+        `}</style>
     </div>
 );
 
