@@ -49,7 +49,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        blog(year: Int, month: Int): [Post]!
+        blog(year: Int, month: Int, offset: Int = 0, limit: Int = 20): [Post]!
     }
 `;
 
@@ -64,7 +64,7 @@ const apolloServer = new ApolloServer({
                 if (args.year) resp = resp.filter(x => x.pubtime.getFullYear() === args.year);
                 if (args.month) resp = resp.filter(x => x.pubtime.getMonth() + 1 === args.month);
 
-                return resp.map(x => ({
+                return resp.slice(args.offset, args.offset + args.limit).map(x => ({
                     ...x,
                     pubtime: x.pubtime.toISOString(),
                 }));

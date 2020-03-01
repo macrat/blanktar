@@ -9,14 +9,14 @@ export type PageData = {
 
 
 export default async (origin?: string, year?: number, month?: number) => {
-    let query = '{blog{title,pubtime,href}}';
+    let query = '{blog(limit:1000){title,pubtime,href}}';
 
     if (year && month) {
-        query = `{blog(year:${year},month:${month}){title,pubtime,href}}`;
+        query = `{blog(year:${year},month:${month},limit:1000){title,pubtime,href}}`;
     }
 
     if (year) {
-        query = `{blog(year:${year}){title,pubtime,href}}`;
+        query = `{blog(year:${year},limit:1000){title,pubtime,href}}`;
     }
 
     const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${query}`);
