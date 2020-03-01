@@ -8,7 +8,7 @@ tags: [gentoo, systemd, networkd, MTU, ジャンボフレーム, eth0]
 特段困りもしないので放置していたのですが、なんとなく設定しなおしてみました。
 
 `/etc/systemd/network/eth0.network`を開いて、以下のような記述を追加します。
-``` nii
+``` ini
 [Link]
 MTUBytes=6122
 ```

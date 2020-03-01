@@ -42,3 +42,11 @@ declare module '@mdx-js/react' {
 
     export class MDXProvider extends React.Component<MDXProviderProps> {};
 }
+
+declare module 'prism-react-renderer/prism' {
+    import {PrismLib} from 'prism-react-renderer';
+
+    const Prism: PrismLib;
+
+    export default Prism;
+}

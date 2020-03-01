@@ -1,6 +1,9 @@
 import {FC} from 'react';
+import Prism from 'prism-react-renderer/prism';
 import Highlight, {defaultProps, Language} from 'prism-react-renderer';
 import githubTheme from 'prism-react-renderer/themes/github';
+
+import './prism-language-supports';
 
 
 const theme = {
@@ -26,6 +29,7 @@ const Code: FC<Props> = ({children, className}) => {
     return (
         <code><Highlight
             {...defaultProps}
+            Prism={Prism}
             code={(children as string).slice(0, -1)}
             language={lang as Language}
             theme={theme}>
