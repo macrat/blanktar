@@ -1,14 +1,21 @@
 import {useState, useEffect} from 'react';
 import {AppProps} from 'next/app';
+import Head from 'next/head';
 import Router from 'next/router';
+import fetch from 'isomorphic-unfetch';
 
 import Header from '../components/Header';
 
 
 const TomboApp = ({Component, pageProps}: AppProps) => {
     const [loading, setLoading] = useState<boolean>(false);
+    const [fontCSS, setFontCSS] = useState<string>("");
 
     useEffect(() => {
+        fetch('/api/font')
+            .then(resp => resp.text())
+            .then(css => setFontCSS(`data:text/css,${encodeURIComponent(css)}`));
+
         const onStart = () => setLoading(true);
         const onComplete = () => {
             setLoading(false);
@@ -28,6 +35,18 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
 
     return (
         <div className={loading ? "loading" : ""}>
+            <Head>
+                <link
+                    rel="dns-prefetch preconnect"
+                    href="https://fonts.gstatic.com"
+                    key="preconnect--gstatic" />
+                <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href={fontCSS}
+                    key="style--font" />
+            </Head>
+
             <Header />
 
             <main>

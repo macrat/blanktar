@@ -34,7 +34,7 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 
 module.exports = withMdxEnhanced({
-    pageExtensions: ['tsx', 'md', 'mdx'],
+    pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
     env: {
         posts: JSON.stringify(posts),
     },
