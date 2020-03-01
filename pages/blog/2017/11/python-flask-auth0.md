@@ -1,14 +1,7 @@
 ---
 title: Auth0を使ってPython/Flaskで手軽に多機能なログイン/ログアウトを実現する
-pubtime: 2017-11-25 19:16
-tags:
-  - python
-  - flask
-  - Auth0
-  - ログイン
-  - 認証
-  - oauth
-  - ソーシャルアカウント
+pubtime: 2017-11-25T19:16+0900
+tags: [python, flask, Auth0, ログイン, 認証, oauth, ソーシャルアカウント]
 ---
 
 [Auth0](https://auth0.com)という認証/認可サービスのワークショップに参加してきました。

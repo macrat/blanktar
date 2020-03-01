@@ -1,6 +1,8 @@
+---
 title: Xamarin.FormsでImageの上にLabelを重ねる
-date: 2017-02-06 01:05
-keywords: Xamarin C# XAML Image Label Grid
+pubtime: 2017-02-06T01:05+0900
+tags: [Xamarin, C#, XAML, Image, Label, Grid]
+---
 
 Xamarinです。Xamarin.Formsです。
 画像があって、画像の上に文字を重ねる必要があったので、試してみました。
@@ -9,21 +11,21 @@ Xamarinです。Xamarin.Formsです。
 といっても方法はかなり単純で、Gridレイアウトに場所を指定せずに書くだけです。
 XAMLで書くと以下のような感じ。
 ``` xml
-	<Grid>
-		<Image x:Name="image" />
-		<Label Text="Hello World" VerticalOptions="Center" HorizontalOptions="Center" />
-	</Grid>
+<Grid>
+    <Image x:Name="image" />
+    <Label Text="Hello World" VerticalOptions="Center" HorizontalOptions="Center" />
+</Grid>
 ```
 これでimageの上にHello Worldという文字が重なります。簡単。
 
 C#だけで書く場合は以下のようになります。
 ``` cs
-	Content = new Grid {
-		Children = {
-			new Image { Source = /* ここは適当に */ },
-			new Label { Text = "Hello World", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center },
-		},
-	};
+Content = new Grid {
+    Children = {
+        new Image { Source = /* ここは適当に */ },
+        new Label { Text = "Hello World", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center },
+    },
+};
 ```
 やっぱり簡単。
 

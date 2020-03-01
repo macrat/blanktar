@@ -1,18 +1,20 @@
+---
 title: systemd-networkdを導入したgentooでMTUの設定を永続化
-date: 2017-03-22 01:50
-keywords: gentoo systemd networkd MTU ジャンボフレーム eth0
+pubtime: 2017-03-22T01:50+0900
+tags: [gentoo, systemd, networkd, MTU, ジャンボフレーム, eth0]
+---
 
 すこし前にsystemdに乗り換えたのですが、そのせいで[前に設定したジャンボフレーム](/blog/2014/10/jumbo-frame-in-gentoo.html)が無効になってしまっていました。
 特段困りもしないので放置していたのですが、なんとなく設定しなおしてみました。
 
-{{/etc/systemd/network/eth0.network}}を開いて、以下のような記述を追加します。
-```
-	[Link]
-	MTUBytes=6122
+`/etc/systemd/network/eth0.network`を開いて、以下のような記述を追加します。
+``` nii
+[Link]
+MTUBytes=6122
 ```
 で、再起動すれば設定が反映されているはず。簡単ですね。
 
-ちなみに、{{/usr/lib/systemd/network/99-default.link}}を書き換えればデフォルトの設定を変更出来るようです。そっちでも良いかも。
+ちなみに、`/usr/lib/systemd/network/99-default.link`を書き換えればデフォルトの設定を変更出来るようです。そっちでも良いかも。
 
 参考: [systemd-networkd - ArchWiki](https://wiki.archlinuxjp.org/index.php/Systemd-networkd#network_.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB)
 
