@@ -3,7 +3,6 @@ import {AppProps} from 'next/app';
 import Router from 'next/router';
 
 import Header from '../components/Header';
-import MDXComponents from '../components/MDXComponents';
 
 
 const TomboApp = ({Component, pageProps}: AppProps) => {
@@ -31,11 +30,9 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
         <div className={loading ? "loading" : ""}>
             <Header />
 
-            <MDXComponents>
-                <main>
-                    <Component {...pageProps} />
-                </main>
-            </MDXComponents>
+            <main>
+                <Component {...pageProps} />
+            </main>
 
             <style jsx global>{`
                 html {

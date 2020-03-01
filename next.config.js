@@ -27,12 +27,13 @@ const posts = (
 );
 
 
-const withMdxFm = require('next-mdx-frontmatter')({
-    extension: /\.mdx?$/,
-})
+const withMdxEnhanced = require('next-mdx-enhanced')({
+    fileExtensions: ['md', 'mdx'],
+    defaultLayout: true,
+});
 
 
-module.exports = withMdxFm({
+module.exports = withMdxEnhanced({
     pageExtensions: ['tsx', 'md', 'mdx'],
     env: {
         posts: JSON.stringify(posts),
