@@ -1,18 +1,25 @@
-export const posts: {
-    [year: string]: {
-        [month: string]: string[],
-    },
-} = JSON.parse(process.env.posts ?? '{}');
+import fetch from 'isomorphic-unfetch';
 
 
-export default (year?: number, month?: number) => {
-    if (!year && !month) {
-        return Object.keys(posts);
+export type PageData = {
+    title: string,
+    pubtime: string,
+    href: string,
+};
+
+
+export default async (origin?: string, year?: number, month?: number) => {
+    let query = '{blog{title,pubtime,href}}';
+
+    if (year && month) {
+        query = `{blog(year:${year},month:${month}){title,pubtime,href}}`;
     }
 
-    if (!month) {
-        return Object.keys(posts[String(year)]);
+    if (year) {
+        query = `{blog(year:${year}){title,pubtime,href}}`;
     }
 
-    return posts[String(year)][String(month).padStart(2, '0')].map(x => x.replace(/\.mdx?$/, ''));
+    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${query}`);
+
+    return (await resp.json()).data.blog;
 };

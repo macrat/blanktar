@@ -2,11 +2,7 @@ import {FC} from 'react';
 
 import TagList from './TagList';
 import BreadList, {Props as BreadListProps} from './BreadList';
-
-
-const date2str = (t: Date) => (
-    `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${String(t.getMinutes()).padStart(2, '0')}`
-);
+import {date2str} from '../DateTime';
 
 
 export type Props = {

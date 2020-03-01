@@ -1,13 +1,20 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
 
-import posts from '../../../lib/posts';
+import posts, {PageData} from '../../../lib/posts';
 
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
+import DateTime from '../../../components/DateTime';
 
 
-const YearIndex: NextPage<{year: number}> = ({year}) => (
+export type Props = {
+    year: number,
+    posts: PageData[],
+};
+
+
+const YearIndex: NextPage<Props> = ({year, posts}) => (
     <>
         <SearchBar />
 
@@ -20,17 +27,31 @@ const YearIndex: NextPage<{year: number}> = ({year}) => (
             as: `/blog/${year}`,
         }]}>
             <ol>
-                {posts(year).map(x => (
-                    <li key={x}><Link href="/blog/[year]/[month]" as={`/blog/${year}/${x}`}><a>{x}</a></Link></li>
+                {posts.map(({href, title, pubtime}) => (
+                    <li key={href}><Link href={href}><a>
+                        <DateTime dateTime={new Date(pubtime)} /><br />
+                        <span>{title}</span>
+                    </a></Link></li>
                 ))}
             </ol>
         </Article>
+
+        <style jsx>{`
+            li {
+                margin: 3mm 0;
+            }
+        `}</style>
     </>
 );
 
 
-YearIndex.getInitialProps = ({query}) => {
-    return {year: Number(String(query.year))};
+YearIndex.getInitialProps = async ({req, query}) => {
+    const year = Number(String(query.year));
+
+    return {
+        year: year,
+        posts: await posts(req?.headers?.host, year),
+    };
 };
 
 
