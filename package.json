@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
+    "analyze": "ANALYZE=true next build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,7 @@
     "react-dom": "^16.13.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^9.2.2",
     "@types/node": "^13.7.6",
     "@types/prismjs": "^1.16.0",
     "@types/react": "^16.9.23",
