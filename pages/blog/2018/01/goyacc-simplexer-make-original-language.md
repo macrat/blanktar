@@ -44,7 +44,7 @@ $ go get github.com/macrat/simplexer
 で、二種類のトークンを入れるための構造体は以下のような感じにしてみました。
 ちなみに、このプログラムの拡張子は`.y`とか`.go.y`にすると良いようです。純粋なgoではないので注意。
 
-```
+``` go
 %{
 package main
 
@@ -131,7 +131,7 @@ func (s Operator) Calc() float64 {
 三つともそのままでは計算出来ないので、expr変数ではなく`token`変数に入れるようにしてあります。
 
 次のブロックの`%left`というやつは、演算子の優先順位と結合規則を定義しています。
-ここで定義しているのは、L2_OPERATORはL1_OPERATORよりも優先されることと、どちらも左結合であるということです。
+ここで定義しているのは、`L2_OPERATOR`は`L1_OPERATOR`よりも優先されることと、どちらも左結合であるということです。
 左結合というのは、`1 + 2 + 3`が`(1 + 2) + 3`として処理されるということです。`%right`にすると右結合である`1 + (2 + 3)`な感じに処理されます。
 
 ## 構文を定義する
@@ -202,7 +202,7 @@ NUMBERは`*simplexer.Token`の変数であるということを先ほど定義�
 次に、パーサにトークンを流し込む部分を作ります。流し込みつつ、ついでに結果を受け取る部分も持たせてしまいます。
 さっき出てきた`Lexer`というやつがそれです。
 
-``` golang
+``` go
 type Lexer struct {
     lexer        *simplexer.Lexer
     result       Expression
@@ -255,7 +255,7 @@ simplexerはが返すトークンはintで識別子を持てるので、yaccが�
 
 で、あともう一個。エラー処理の関数を作ります。
 
-``` golang
+``` go
 func (l *Lexer) Error(e string) {
     fmt.Fprintln(os.Stderr, e)
 }
@@ -269,7 +269,7 @@ func (l *Lexer) Error(e string) {
 ここまでで、（多分）計算機が完成しました。
 というわけで、メイン関数を書いて実行します。
 
-``` golang
+``` go
 func main() {
     lexer := NewLexer(strings.NewReader("1 + 2 * 3 - 4 / 5"))
 

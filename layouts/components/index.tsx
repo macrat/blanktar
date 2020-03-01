@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {MDXProvider} from '@mdx-js/react';
 
+import Code from './Code';
 import Hr from './Hr';
 import InlineCode from './InlineCode';
 import PS from './PS';
@@ -15,6 +16,7 @@ const components = {
     hr: Hr,
     inlineCode: InlineCode,
     pre: Pre,
+    code: Code,
 };
 
 

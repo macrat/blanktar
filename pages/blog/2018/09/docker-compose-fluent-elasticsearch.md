@@ -16,7 +16,7 @@ docker-comopseで立ち上げたコンテナのログを、[fluentd](https://www
 Docker Hubに[fluentdのイメージ](https://hub.docker.com/r/fluent/fluentd/)があるにはあるのですが、このままだとelasticsearchにoutputするためのプラグインが入っていません。
 なので、[ドキュメント](https://github.com/fluent/fluentd-docker-image#3-customize-dockerfile-to-install-plugins-optional)を参考にしてDockerfileを作ります。
 
-``` Dockerfile
+``` dockerfile
 FROM fluent/fluentd
 
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
@@ -37,16 +37,16 @@ githubのやつは標準出力にも出すようにしてあります。お好�
 
 ``` xml
 <source>
-  @type forward
-  port 24224
+    @type forward
+    port 24224
 </source>
 
 <match **>
-  @type elasticsearch
-  host elasticsearch
-  port 9200
-  logstash_format true
-  logstash_prefix fluent.${tag}
+    @type elasticsearch
+    host elasticsearch
+    port 9200
+    logstash_format true
+    logstash_prefix fluent.${tag}
 </match>
 ```
 
@@ -61,37 +61,37 @@ githubのやつは標準出力にも出すようにしてあります。お好�
 version: '3'
 
 services:
-  fluentd:
-    build: ./fluentd
+    fluentd:
+        build: ./fluentd
 
-    volumes:
-      - ./fluentd/fluentd.conf:/fluentd/etc/fluentd.conf:ro
+        volumes:
+            - ./fluentd/fluentd.conf:/fluentd/etc/fluentd.conf:ro
 
-    ports:
-      - 24224:24224
+        ports:
+            - 24224:24224
 
-    environment:
-      FLUENTD_CONF: fluentd.conf
+        environment:
+            FLUENTD_CONF: fluentd.conf
 
-  elasticsearch:
-    image: elasticsearch
+    elasticsearch:
+        image: elasticsearch
 
-    depends_on:
-      - fluentd
+        depends_on:
+            - fluentd
 
-  kibana:
-    image: kibana
+    kibana:
+        image: kibana
 
-    ports:
-      - 5601:5601
+        ports:
+            - 5601:5601
 
-    depends_on:
-      - elasticsearch
+        depends_on:
+            - elasticsearch
 ```
 
 ファイルが出来たら、普通に起動します。
 
-``` shell
+``` bash
 $ docker-compose up -d
 ```
 
@@ -107,41 +107,41 @@ $ docker-compose up -d
 version: '3.4'
 
 x-logging:
-  &default-logging
-  driver: fluentd
-  options:
-    fluentd-address: localhost:24224
-    tag: "log.{{.Name}}"
+    &default-logging
+    driver: fluentd
+    options:
+        fluentd-address: localhost:24224
+        tag: "log.{{.Name}}"
 
 services:
-  fluentd:
-    build: ./fluentd
+    fluentd:
+        build: ./fluentd
 
-    volumes:
-      - ./fluentd/fluentd.conf:/fluentd/etc/fluentd.conf:ro
+        volumes:
+            - ./fluentd/fluentd.conf:/fluentd/etc/fluentd.conf:ro
 
-    ports:
-      - 24224:24224
+        ports:
+            - 24224:24224
 
-    environment:
-      FLUENTD_CONF: fluentd.conf
+        environment:
+            FLUENTD_CONF: fluentd.conf
 
-  elasticsearch:
-    image: elasticsearch
+    elasticsearch:
+        image: elasticsearch
 
-    depends_on:
-      - fluentd
-    logging: *default-logging
+        depends_on:
+            - fluentd
+        logging: *default-logging
 
-  kibana:
-    image: kibana
+    kibana:
+        image: kibana
 
-    ports:
-      - 5601:5601
+        ports:
+            - 5601:5601
 
-    depends_on:
-      - elasticsearch
-    logging: *default-logging
+        depends_on:
+            - elasticsearch
+        logging: *default-logging
 ```
 
 変更は以下の三点です。

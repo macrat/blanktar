@@ -26,7 +26,7 @@ HDC1000はI2Cでデータを取得出来ます。今回はgo言語から使い�
 
 温度と湿度を読み取るコードは以下のような感じ。
 
-```
+``` go
 package main
 
 import (
@@ -74,7 +74,7 @@ func main() {
 ## golangからfluentdにデータを送る
 取れたデータを今度はfluentdに流し込みます。これは[fluent公式のクライアント](https://github.com/fluent/fluent-logger-golang/)が便利。
 
-```
+``` go
 package main
 
 import (
