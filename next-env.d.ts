@@ -2,7 +2,7 @@
 /// <reference types="next/types/global" />
 
 declare module '@mdx-js/react' {
-    import * as React from 'react'
+    import * as React from 'react';
 
     type ComponentType =
         | 'a'
@@ -29,16 +29,16 @@ declare module '@mdx-js/react' {
         | 'td'
         | 'thematicBreak'
         | 'tr'
-        | 'ul'
+        | 'ul';
 
     export type Components = {
-        [key in ComponentType]?: React.ComponentType<{children: React.ReactNode}>,
-    }
+        [key in ComponentType]?: React.ComponentType<{children: React.ReactNode}>
+    };
 
     export interface MDXProviderProps {
         children: React.ReactNode,
         components: Components,
-    }
+    };
 
-    export class MDXProvider extends React.Component<MDXProviderProps> {}
+    export class MDXProvider extends React.Component<MDXProviderProps> {};
 }

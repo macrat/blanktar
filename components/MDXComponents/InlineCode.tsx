@@ -4,7 +4,7 @@ import {FC} from 'react';
 export type Props = {};
 
 
-const InlineCode: FC<Propr> = ({children}) => (
+const InlineCode: FC<Props> = ({children}) => (
     <>
         <code>{children}</code>
 

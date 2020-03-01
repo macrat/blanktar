@@ -13,7 +13,9 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
         const onStart = () => setLoading(true);
         const onComplete = () => {
             setLoading(false);
-            document.activeElement.blur();
+            if (document?.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
         };
 
         Router.events.on('routeChangeStart', onStart);
