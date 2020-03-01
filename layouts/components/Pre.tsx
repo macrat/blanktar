@@ -12,6 +12,7 @@ const Pre: FC<Props> = ({children}) => (
             pre {
                 border: .2mm solid #332;
                 padding: 5mm;
+                overflow: auto;
             }
         `}</style>
     </>
