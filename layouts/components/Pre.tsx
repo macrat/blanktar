@@ -10,7 +10,7 @@ const Pre: FC<Props> = ({children}) => (
 
         <style jsx>{`
             pre {
-                border: .2mm solid #332;
+                border: .2mm solid #322;
                 padding: 5mm;
                 overflow: auto;
             }
