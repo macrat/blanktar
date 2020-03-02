@@ -58,7 +58,7 @@ MonthIndex.getInitialProps = async ({req, query}) => {
     return {
         year: year,
         month: month,
-        posts: await posts(req?.headers?.host, year, month),
+        ...await posts(req?.headers?.host, {year, month}),
     };
 };
 

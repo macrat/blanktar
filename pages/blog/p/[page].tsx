@@ -6,25 +6,23 @@ import posts, {PageData} from '../../../lib/posts';
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
 import DateTime from '../../../components/DateTime';
+import Pagination from '../../../components/Pagination';
 
 
 export type Props = {
-    year: number,
+    page: number,
+    totalPages: number,
     posts: PageData[],
 };
 
 
-const YearIndex: NextPage<Props> = ({year, posts}) => (
+const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     <>
         <SearchBar />
 
-        <Article title={`${year}年の記事`} breadlist={[{
+        <Article title="blog index" breadlist={[{
             title: 'blog',
             href: '/blog',
-        }, {
-            title: '2020',
-            href: '/blog/[year]',
-            as: `/blog/${year}`,
         }]}>
             <ol>
                 {posts.map(({href, title, pubtime}) => (
@@ -34,6 +32,12 @@ const YearIndex: NextPage<Props> = ({year, posts}) => (
                     </a></Link></li>
                 ))}
             </ol>
+
+            <Pagination
+                current={page}
+                total={totalPages}
+                href={p => p === 0 ? "/blog" : "/blog/p/[page]"}
+                as={p => p === 0 ? undefined : `/blog/p/${p}`} />
         </Article>
 
         <style jsx>{`
@@ -45,14 +49,21 @@ const YearIndex: NextPage<Props> = ({year, posts}) => (
 );
 
 
-YearIndex.getInitialProps = async ({req, query}) => {
-    const year = Number(String(query.year));
+BlogIndex.getInitialProps = async ({req, query}) => {
+    const page = Number(String(query.page ?? 0));
+    const resp = await posts(req?.headers?.host, {
+        page: page,
+        limit: 5,
+    });
+
+    const totalPages = Math.ceil(resp.totalCount / 5);
 
     return {
-        year: year,
-        ...await posts(req?.headers?.host, {year}),
+        page: page,
+        totalPages: totalPages,
+        posts: resp.posts,
     };
 };
 
 
-export default YearIndex;
+export default BlogIndex;
