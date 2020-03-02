@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
+import {useAmp} from 'next/amp';
 import fetch from 'isomorphic-unfetch';
 
 import Header from '../components/Header';
@@ -10,6 +11,7 @@ import Header from '../components/Header';
 const TomboApp = ({Component, pageProps}: AppProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [fontCSS, setFontCSS] = useState<string>("");
+    const isAmp = useAmp();
 
     useEffect(() => {
         fetch('/api/font')
@@ -43,7 +45,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                 <link
                     rel="stylesheet"
                     type="text/css"
-                    href={fontCSS}
+                    href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
                     key="style--font" />
             </Head>
 
