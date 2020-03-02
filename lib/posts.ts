@@ -11,6 +11,7 @@ export type PageData = {
 export type Opts = {
     year?: number,
     month?: number,
+    desc?: boolean,
     page?: number,
     limit?: number,
 };
@@ -22,16 +23,16 @@ export type Response = {
 };
 
 
-export default async function(origin?: string, {year, month, page=0, limit=1000}: Opts = {}): Promise<Response> {
+export default async function(origin?: string, {year, month, desc=false, page=0, limit=1000}: Opts = {}): Promise<Response> {
     const payload = 'posts{title,pubtime,href},totalCount';
-    let query = `{blog(offset:${page * limit},limit:${limit}){${payload}}}`;
+    let query = `{blog(desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
 
     if (year && month) {
-        query = `{blog(year:${year},month:${month},offset:${page * limit},limit:${limit}){${payload}}}`;
+        query = `{blog(year:${year},month:${month},desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
     }
 
     if (year) {
-        query = `{blog(year:${year},offset:${page * limit},limit:${limit}){${payload}}}`;
+        query = `{blog(year:${year},desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
     }
 
     const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${query}`);

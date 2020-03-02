@@ -55,7 +55,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        blog(year: Int, month: Int, offset: Int = 0, limit: Int = 20): FilteredPosts
+        blog(year: Int, month: Int, desc: Boolean = false, offset: Int = 0, limit: Int = 20): FilteredPosts
     }
 `;
 
@@ -65,18 +65,24 @@ const apolloServer = new ApolloServer({
     resolvers: {
         Query: {
             blog: (obj, args) => {
-                let resp = posts;
+                let filtered = [...posts];
 
-                if (args.year) resp = resp.filter(x => x.pubtime.getFullYear() === args.year);
-                if (args.month) resp = resp.filter(x => x.pubtime.getMonth() + 1 === args.month);
+                if (args.year) filtered = filtered.filter(x => x.pubtime.getFullYear() === args.year);
+                if (args.month) filtered = filtered.filter(x => x.pubtime.getMonth() + 1 === args.month);
+
+                if (args.desc) {
+                    filtered.reverse();
+                }
+
+                const sliced = filtered.slice(args.offset, args.offset + args.limit).map(x => ({
+                    ...x,
+                    pubtime: x.pubtime.toISOString(),
+                }));
 
                 return {
-                    posts: resp.slice(args.offset, args.offset + args.limit).map(x => ({
-                        ...x,
-                        pubtime: x.pubtime.toISOString(),
-                    })),
-                    count: Math.min(resp.length, args.limit),
-                    totalCount: resp.length,
+                    posts: sliced,
+                    count: sliced.length,
+                    totalCount: filtered.length,
                 };
             },
         },

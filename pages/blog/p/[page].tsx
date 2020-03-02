@@ -53,6 +53,7 @@ BlogIndex.getInitialProps = async ({req, query}) => {
     const page = Number(String(query.page ?? 0));
     const resp = await posts(req?.headers?.host, {
         page: page,
+        desc: true,
         limit: 5,
     });
 
