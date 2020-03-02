@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const withMdxEnhanced = require('next-mdx-enhanced')({
     defaultLayout: true,
+    pageConfig: {
+        amp: 'hybrid',
+    },
 });
 
 

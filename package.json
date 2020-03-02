@@ -26,6 +26,7 @@
     "front-matter": "^3.1.0",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.2.2",
+    "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#add/pageConfig",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   },
@@ -34,7 +35,6 @@
     "@types/node": "^13.7.6",
     "@types/prismjs": "^1.16.0",
     "@types/react": "^16.9.23",
-    "next-mdx-enhanced": "^2.4.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
     "typescript": "^3.8.2"
