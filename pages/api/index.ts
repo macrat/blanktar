@@ -5,7 +5,7 @@ import {ApolloServer, gql} from 'apollo-server-micro';
 
 const blogBase = './pages/blog';
 
-const posts: {
+export const posts: {
     title: string,
     pubtime: Date,
     tags: string[],
@@ -38,6 +38,12 @@ for (let year of fs.readdirSync(blogBase)) {
         }
     }
 }
+
+posts.sort((x, y) => {
+    if (x.pubtime > y.pubtime) return 1;
+    if (x.pubtime < y.pubtime) return -1;
+    return 0;
+});
 
 
 const typeDefs = gql`

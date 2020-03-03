@@ -6,6 +6,7 @@ import posts, {PageData} from '../../../../lib/posts';
 import Article from '../../../../components/Article';
 import SearchBar from '../../../../components/SearchBar';
 import DateTime from '../../../../components/DateTime';
+import ErrorPage from '../../../_error';
 
 
 export type Props = {
@@ -15,8 +16,12 @@ export type Props = {
 };
 
 
-const MonthIndex: NextPage<Props> = ({year, month, posts}) => (
-    <>
+const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
+    if (!year || !month || !posts) {
+        return <ErrorPage statusCode={404} />;
+    }
+
+    return (<>
         <SearchBar />
 
         <Article title={`${year}年${month}月の記事`} breadlist={[{
@@ -47,18 +52,40 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => (
                 margin: 3mm 0;
             }
         `}</style>
-    </>
-);
+    </>);
+};
 
 
-MonthIndex.getInitialProps = async ({req, query}) => {
-    const year = Number(String(query.year));
-    const month = Number(String(query.month));
+export const unstable_getStaticProps = async ({params}: {params: {year: string, month: string}}) => {
+    const year = Number(params.year);
+    const month = Number(params.month);
+
+    const ps = (await import('../../../api')).posts.filter(x => x.pubtime.getFullYear() === year && x.pubtime.getMonth() + 1 === month);
 
     return {
-        year: year,
-        month: month,
-        ...await posts(req?.headers?.host, {year, month}),
+        props: {
+            year: year,
+            month: month,
+            posts: ps,
+        },
+    };
+};
+
+
+export const unstable_getStaticPaths = async () => {
+    const ps = (await import('../../../api')).posts;
+
+    const pages = Array.from(new Set(ps.map(x => (
+        `${x.pubtime.getFullYear()}/${String(x.pubtime.getMonth() + 1).padStart(2, '0')}`
+    ))));
+
+    return {
+        paths: pages.map(x => ({
+            params: {
+                year: String(x.split('/')[0]),
+                month: String(x.split('/')[1]),
+            },
+        })),
     };
 };
 

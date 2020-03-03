@@ -6,6 +6,7 @@ import posts, {PageData} from '../../../lib/posts';
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
 import DateTime from '../../../components/DateTime';
+import ErrorPage from '../../_error';
 
 
 export type Props = {
@@ -14,8 +15,12 @@ export type Props = {
 };
 
 
-const YearIndex: NextPage<Props> = ({year, posts}) => (
-    <>
+const YearIndex: NextPage<Props> = ({year, posts}) => {
+    if (!year || !posts) {
+        return <ErrorPage statusCode={404} />;
+    }
+
+    return (<>
         <SearchBar />
 
         <Article title={`${year}年の記事`} breadlist={[{
@@ -41,16 +46,31 @@ const YearIndex: NextPage<Props> = ({year, posts}) => (
                 margin: 3mm 0;
             }
         `}</style>
-    </>
-);
+    </>);
+};
 
 
-YearIndex.getInitialProps = async ({req, query}) => {
-    const year = Number(String(query.year));
+export const unstable_getStaticProps = async ({params}: {params: {year: string}}) => {
+    const year = Number(params.year);
+
+    const ps = (await import('../../api')).posts.filter(x => x.pubtime.getFullYear() === year);
 
     return {
-        year: year,
-        ...await posts(req?.headers?.host, {year}),
+        props: {
+            year: year,
+            posts: ps,
+        },
+    };
+};
+
+
+export const unstable_getStaticPaths = async () => {
+    const ps = (await import('../../api')).posts;
+
+    const years = Array.from(new Set(ps.map(x => x.pubtime.getFullYear())));
+
+    return {
+        paths: years.map(y => ({params: {year: String(y)}})),
     };
 };
 
