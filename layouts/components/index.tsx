@@ -6,6 +6,10 @@ import Hr from './Hr';
 import InlineCode from './InlineCode';
 import PS from './PS';
 import Pre from './Pre';
+import Table from './Table';
+import Td from './Td';
+import Th from './Th';
+import Tr from './Tr';
 
 
 export type Props = {};
@@ -17,6 +21,10 @@ const components = {
     inlineCode: InlineCode,
     pre: Pre,
     code: Code,
+    table: Table,
+    td: Td as FC,
+    th: Th as FC,
+    tr: Tr,
 };
 
 
