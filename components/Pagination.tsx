@@ -1,19 +1,19 @@
 import {FC} from 'react';
 import Link from 'next/link';
+import {UrlObject} from 'url';
 
 
 export type Props = {
     current: number,
     total: number,
-    href: (page: number) => string,
-    as: (page: number) => string | undefined,
+    href: (page: number) => string | UrlObject,
 };
 
 
-const Pagination: FC<Props> = ({current, total, href, as}) => (
+const Pagination: FC<Props> = ({current, total, href}) => (
     <ol>
         {[...new Array(total)].map((_, i) => (
-            <li key={i}><Link href={href(i)} as={as(i)}><a className={current === i ? "current" : ""}>{i + 1}</a></Link></li>
+            <li key={i}><Link href={href(i + 1)}><a className={current === i + 1 ? "current" : ""}>{i + 1}</a></Link></li>
         ))}
 
         <style jsx>{`

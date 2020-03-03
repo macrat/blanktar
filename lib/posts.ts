@@ -23,7 +23,9 @@ export type Response = {
 };
 
 
-export default async function(origin?: string, {year, month, desc=false, page=0, limit=1000}: Opts = {}): Promise<Response> {
+export default async function(origin?: string, {year, month, desc=false, page=1, limit=1000}: Opts = {}): Promise<Response> {
+    page--;
+
     const payload = 'posts{title,pubtime,href},totalCount';
     let query = `{blog(desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
 
