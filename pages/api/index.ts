@@ -19,7 +19,7 @@ for (let year of fs.readdirSync(blogBase)) {
         if (!month.match(/^0[1-9]|1[0-2]$/)) continue;
 
         for (let file of fs.readdirSync(`${blogBase}/${year}/${month}`)) {
-            if (!file.match(/\.mdx?$/)) continue;
+            if (!file.match(/\.mdx$/)) continue;
 
             const path = `${blogBase}/${year}/${month}/${file}`;
 
@@ -33,7 +33,7 @@ for (let year of fs.readdirSync(blogBase)) {
             posts.push({
                 ...meta,
                 pubtime: new Date(meta.pubtime),
-                href: path.replace(/^.\/pages|\.mdx?$/g, ''),
+                href: `/blog${path.slice(blogBase.length, -'.mdx'.length)}`,
             });
         }
     }
