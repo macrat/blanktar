@@ -50,8 +50,9 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
 
 BlogIndex.getInitialProps = async ({req, query}) => {
     const page = Math.max(1, Number(String(query.page ?? 1)));
+
     const resp = await posts(req?.headers?.host, {
-        page: page,
+        page: page - 1,
         desc: true,
         limit: 5,
     });

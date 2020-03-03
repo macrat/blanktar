@@ -23,21 +23,25 @@ export type Response = {
 };
 
 
-export default async function(origin?: string, {year, month, desc=false, page=1, limit=1000}: Opts = {}): Promise<Response> {
-    page--;
+const makeQuery: ((opts: Opts) => string) = opts => {
+    const sendOpts: {[key: string]: string | number | boolean | undefined} = {
+        ...opts,
+        offset: (opts.page ?? 0) * (opts.limit ?? 1000),
+        page: undefined,
+    };
 
-    const payload = 'posts{title,pubtime,href},totalCount';
-    let query = `{blog(desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
+    const query = Object.entries(sendOpts).filter(([k, v]) => v).map(([k, v]) => `${k}:${JSON.stringify(v)}`).join(',');
 
-    if (year && month) {
-        query = `{blog(year:${year},month:${month},desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
+    return `{blog(${query}){posts{title,pubtime,href},totalCount}}`;
+};
+
+
+export default async function(origin?: string, {year, month, desc=false, page=0, limit=1000}: Opts = {}): Promise<Response> {
+    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${makeQuery({year, month, desc, page, limit})}`);
+
+    if (!resp.ok) {
+        throw new Error(`${resp.statusText}: ${await resp.text()}`);
     }
-
-    if (year) {
-        query = `{blog(year:${year},desc:${desc},offset:${page * limit},limit:${limit}){${payload}}}`;
-    }
-
-    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${query}`);
 
     return (await resp.json()).data.blog;
 };
