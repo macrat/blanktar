@@ -89,21 +89,22 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     display: block;
                     position: fixed;
                     top: 0;
+                    left: 100%;
+                    width: 100vw;
                     height: .3mm;
                     background-color: #322;
                     animation: done .5s ease both;
                 }
                 @keyframes done {
-                    from { left: 0; width: 100%; }
-                      to { left: 100%; width: 0; }
+                    from { transform: translate(-100%, 0); }
+                      to { transform: translate(0, 0); }
                 }
                 div.loading::after  {
                     animation: loading 1s linear infinite;
                 }
                 @keyframes loading {
-                      0% { left:    0; width: 0; }
-                     50% { left:    0; width: 100%; }
-                    100% { left: 100%; width: 0; }
+                    from { transform: translate(-200%, 0); }
+                      to { transform: translate(0, 0); }
                 }
             `}</style>
         </div>

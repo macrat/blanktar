@@ -23,37 +23,8 @@ const Navigation: FC<Props> = () => (
                 display: inline-block;
                 margin: 2px 8px;
                 position: relative;
-                animation: menu-fg .3s ease both;
+                overflow: hidden;
             }
-            li:nth-child(2) { animation-delay: .1s; }
-            li:nth-child(3) { animation-delay: .2s; }
-            li:nth-child(4) { animation-delay: .3s; }
-            @keyframes menu-fg {
-                     0% { color: transparent; }
-                    50% { color: transparent; }
-                50.001% { color: inherit; }
-            }
-            li::before {
-                content: '';
-                display: block;
-                position: absolute;
-                left: 0;
-                width: 100%;
-                top: 100%;
-                height: 0;
-                background-color: #322;
-                animation: menu-bg .3s ease;
-                transition: top .2s ease, height .2s ease;
-            }
-            @keyframes menu-bg {
-                0% { top: 0; height: 0; }
-                50% { top: 0; height: 100%; }
-                100% { top: 100%; height: 0; }
-            }
-            li:nth-child(2)::before { animation-delay: .1s; }
-            li:nth-child(3)::before { animation-delay: .2s; }
-            li:nth-child(4)::before { animation-delay: .3s; }
-
             a {
                 position: relative;
                 display: inline-block;
@@ -73,6 +44,37 @@ const Navigation: FC<Props> = () => (
             a:focus {
                 outline: none;
             }
+
+            a {
+                animation: menu-fg .3s ease both;
+            }
+            li:nth-child(2) a { animation-delay: .1s; }
+            li:nth-child(3) a { animation-delay: .2s; }
+            li:nth-child(4) a { animation-delay: .3s; }
+            @keyframes menu-fg {
+                 0%     { opacity: 0; }
+                40%     { opacity: 0; }
+                40.001% { opacity: 1; }
+            }
+            li::before {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 0;
+                width: 100%;
+                top: 100%;
+                height: 100%;
+                background-color: #322;
+                animation: menu-bg .3s ease;
+                transition: top .2s ease, height .2s ease;
+            }
+            @keyframes menu-bg {
+                from { transform: translate(0, -200%); }
+                  to { transform: translate(0, 0); }
+            }
+            li:nth-child(2)::before { animation-delay: .1s; }
+            li:nth-child(3)::before { animation-delay: .2s; }
+            li:nth-child(4)::before { animation-delay: .3s; }
         `}</style>
     </nav>
 );

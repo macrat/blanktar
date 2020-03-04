@@ -1,4 +1,63 @@
 import {FC} from 'react';
+import {useAmp} from 'next/amp';
+
+
+const TomboAnimation = () => {
+    const isAmp = useAmp();
+
+    if (isAmp) return (<></>);
+
+    return (
+        <style jsx global>{`
+            svg.tombo .vertical {
+                stroke-dasharray: 6;
+                animation: tombo--vertical-draw .6s ease both;
+            }
+            @keyframes tombo--vertical-draw {
+                from { stroke-dashoffset: 6; }
+                  to { stroke-dashoffset: 0; }
+            }
+            svg.tombo .horizontal {
+                stroke-dasharray: 15;
+                animation: tombo--horizontal-draw .6s ease both;
+            }
+            @keyframes tombo--horizontal-draw {
+                from { stroke-dashoffset: 15; }
+                  to { stroke-dashoffset: 0; }
+            }
+            svg.tombo polyline {
+                stroke-dasharray: 20;
+                animation: tombo--polyline-draw .6s ease both;
+            }
+            @keyframes tombo--polyline-draw {
+                from { stroke-dashoffset: 20; }
+                  to { stroke-dashoffset: 0; }
+            }
+
+            div.loading > main svg.tombo .vertical {
+                animation: tombo--vertical-erase .6s ease both;
+            }
+            @keyframes tombo--vertical-erase {
+                from { stroke-dashoffset: 12; }
+                  to { stroke-dashoffset: 6; }
+            }
+            div.loading > main svg.tombo .horizontal {
+                animation: hortombo--izontal-erase .6s ease both;
+            }
+            @keyframes tombo--horizontal-erase {
+                from { stroke-dashoffset: 30; }
+                  to { stroke-dashoffset: 15; }
+            }
+            div.loading > main svg.tombo polyline {
+                animation: tombo--polyline-erase .6s ease both;
+            }
+            @keyframes tombo--polyline-erase {
+                from { stroke-dashoffset: 40; }
+                  to { stroke-dashoffset: 20; }
+            }
+        `}</style>
+    );
+};
 
 
 export type Props = {
@@ -70,56 +129,9 @@ const Tombo: FC<Props> = ({children, color='#322'}) => (
             .tombo.bottom {
                 bottom: -15mm;
             }
-
-            .vertical {
-                stroke-dasharray: 6;
-                animation: vertical-draw .6s ease both;
-            }
-            @keyframes vertical-draw {
-                from { stroke-dashoffset: 6; }
-                  to { stroke-dashoffset: 0; }
-            }
-            .horizontal {
-                stroke-dasharray: 15;
-                animation: horizontal-draw .6s ease both;
-            }
-            @keyframes horizontal-draw {
-                from { stroke-dashoffset: 15; }
-                  to { stroke-dashoffset: 0; }
-            }
-            polyline {
-                stroke-dasharray: 20;
-                animation: polyline-draw .6s ease both;
-            }
-            @keyframes polyline-draw {
-                from { stroke-dashoffset: 20; }
-                  to { stroke-dashoffset: 0; }
-            }
         `}</style>
 
-        <style jsx global>{`
-            div.loading > main .tombo .vertical {
-                animation: vertical-erase .6s ease both;
-            }
-            @keyframes vertical-erase {
-                from { stroke-dashoffset: 12; }
-                  to { stroke-dashoffset: 6; }
-            }
-            div.loading > main .tombo .horizontal {
-                animation: horizontal-erase .6s ease both;
-            }
-            @keyframes horizontal-erase {
-                from { stroke-dashoffset: 30; }
-                  to { stroke-dashoffset: 15; }
-            }
-            div.loading > main .tombo polyline {
-                animation: polyline-erase .6s ease both;
-            }
-            @keyframes polyline-erase {
-                from { stroke-dashoffset: 40; }
-                  to { stroke-dashoffset: 20; }
-            }
-        `}</style>
+        <TomboAnimation />
     </div>
 );
 
