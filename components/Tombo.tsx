@@ -42,7 +42,7 @@ const TomboAnimation = () => {
                   to { stroke-dashoffset: 6; }
             }
             div.loading > main svg.tombo .horizontal {
-                animation: hortombo--izontal-erase .6s ease both;
+                animation: tombo--horizontal-erase .6s ease both;
             }
             @keyframes tombo--horizontal-erase {
                 from { stroke-dashoffset: 30; }
