@@ -1,5 +1,6 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
+import fetch from 'isomorphic-unfetch';
 
 import posts, {PageData} from '../../../lib/posts';
 
@@ -53,7 +54,11 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
 export const unstable_getStaticProps = async ({params}: {params: {year: string}}) => {
     const year = Number(params.year);
 
-    const ps = (await import('../../api')).posts.filter(x => x.pubtime.getFullYear() === year);
+    const ps = (await import('../../api')).posts.filter(x => x.pubtime.getFullYear() === year).map(x => ({
+        title: x.title,
+        href: x.href,
+        pubtime: x.pubtime,
+    }));
 
     return {
         props: {

@@ -26,13 +26,15 @@ export type Response = {
 const makeQuery: ((opts: Opts) => string) = opts => {
     const sendOpts: {[key: string]: string | number | boolean | undefined} = {
         ...opts,
+        order: opts.desc ? 'DESC' : 'ASC',
         offset: (opts.page ?? 0) * (opts.limit ?? 1000),
+        desc: undefined,
         page: undefined,
     };
 
-    const query = Object.entries(sendOpts).filter(([k, v]) => v).map(([k, v]) => `${k}:${JSON.stringify(v)}`).join(',');
+    const query = Object.entries(sendOpts).filter(([k, v]) => v).map(([k, v]) => `${k}:${v}`).join(',');
 
-    return `{blog(${query}){posts{title,pubtime,href},totalCount}}`;
+    return `{posts(${query}){posts{title,pubtime,href},totalCount}}`;
 };
 
 
@@ -43,5 +45,5 @@ export default async function(origin?: string, {year, month, desc=false, page=0,
         throw new Error(`${resp.statusText}: ${await resp.text()}`);
     }
 
-    return (await resp.json()).data.blog;
+    return (await resp.json()).data.posts;
 };

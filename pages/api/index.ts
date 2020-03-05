@@ -5,12 +5,20 @@ import {ApolloServer, gql} from 'apollo-server-micro';
 
 const blogBase = './pages/blog';
 
-export const posts: {
+type Post = {
     title: string,
+    lowerTitle: string,
     pubtime: Date,
     tags: string[],
+    lowerTags: string[],
     href: string,
-}[] = [];
+    content: string,
+    lowerContent: string,
+    previous?: Post,
+    next?: Post,
+};
+
+export const posts: Post[] = [];
 
 for (let year of fs.readdirSync(blogBase)) {
     if (!year.match(/^[0-9]{4}$/)) continue;
@@ -28,12 +36,17 @@ for (let year of fs.readdirSync(blogBase)) {
                 pubtime: string,
                 tags: string[],
             };
-            const meta: Meta = fm(fs.readFileSync(path, 'utf8')).attributes as Meta;
+            const article = fm(fs.readFileSync(path, 'utf8'));
+            const meta: Meta = article.attributes as Meta;
 
             posts.push({
                 ...meta,
+                lowerTitle: meta.title.toLowerCase(),
+                lowerTags: meta.tags.map(x => x.toLowerCase()),
                 pubtime: new Date(meta.pubtime),
                 href: `/blog${path.slice(blogBase.length, -'.mdx'.length)}`,
+                content: article.body,
+                lowerContent: article.body.toLowerCase(),
             });
         }
     }
@@ -45,23 +58,57 @@ posts.sort((x, y) => {
     return 0;
 });
 
+for (let i = 0; i < posts.length; i++) {
+    posts[i].previous = posts[i - 1];
+    posts[i].next = posts[i + 1];
+}
+
 
 const typeDefs = gql`
-    type Post {
+    """
+    A single post.
+    """
+    type Post @cacheControl(maxAge: 604800) {
         title: String!
+
+        "ISO8601 style timestamp"
         pubtime: String!
-        tags: [String]!
+
+        "tags (keywords) of the post"
+        tags: [String!]!
+
+        "URL path to article without origin"
         href: String!
+
+        "body of article in markdown"
+        content: String!
+
+        previous: Post @cacheControl(maxAge: 86400)
+
+        next: Post @cacheControl(maxAge: 86400)
     }
 
-    type FilteredPosts {
-        posts: [Post]!
+    """
+    List of posts.
+    """
+    type Posts @cacheControl(maxAge: 86400) {
+        posts: [Post!]!
         count: Int!
         totalCount: Int!
     }
 
+    """
+    The order type for search list.
+    """
+    enum Order {
+        ASC
+        DESC
+    }
+
     type Query {
-        blog(year: Int, month: Int, desc: Boolean = false, offset: Int = 0, limit: Int = 20): FilteredPosts
+        post(href: String!): Post
+        posts(year: Int, month: Int, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
+        search(query: String!, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
     }
 `;
 
@@ -70,13 +117,49 @@ const apolloServer = new ApolloServer({
     typeDefs: typeDefs,
     resolvers: {
         Query: {
-            blog: (obj, args) => {
+            post: (obj, args) => {
+                for (let p of posts) {
+                    if (p.href === args.href) {
+                        return p;
+                    }
+                }
+                return null;
+            },
+            posts: (obj, args) => {
                 let filtered = [...posts];
 
                 if (args.year) filtered = filtered.filter(x => x.pubtime.getFullYear() === args.year);
                 if (args.month) filtered = filtered.filter(x => x.pubtime.getMonth() + 1 === args.month);
 
-                if (args.desc) {
+                if (args.order === 'DESC') {
+                    filtered.reverse();
+                }
+
+                const sliced = filtered.slice(args.offset, args.offset + args.limit).map(x => ({
+                    ...x,
+                    pubtime: x.pubtime.toISOString(),
+                }));
+
+                return {
+                    posts: sliced,
+                    count: sliced.length,
+                    totalCount: filtered.length,
+                };
+            },
+            search: (obj, args) => {
+                let filtered = posts;
+
+                args.query.toLowerCase().split(' ').forEach((q: string) => {
+                    filtered = posts.filter(x => (
+                        x.lowerTitle.includes(q)
+                        || x.lowerTags.includes(q)
+                        || x.lowerContent.includes(q)
+                    ));
+                });
+
+                if (args.order === 'DESC') {
+                    filtered = [...filtered];
+
                     filtered.reverse();
                 }
 

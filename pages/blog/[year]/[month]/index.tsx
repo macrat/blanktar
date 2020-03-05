@@ -60,7 +60,11 @@ export const unstable_getStaticProps = async ({params}: {params: {year: string, 
     const year = Number(params.year);
     const month = Number(params.month);
 
-    const ps = (await import('../../../api')).posts.filter(x => x.pubtime.getFullYear() === year && x.pubtime.getMonth() + 1 === month);
+    const ps = (await import('../../../api')).posts.filter(x => x.pubtime.getFullYear() === year && x.pubtime.getMonth() + 1 === month).map(x => ({
+        title: x.title,
+        href: x.href,
+        pubtime: x.pubtime,
+    }));
 
     return {
         props: {
