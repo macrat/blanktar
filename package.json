@@ -27,7 +27,8 @@
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.2.2",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "use-debounce": "^3.3.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.2.2",

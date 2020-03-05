@@ -1,4 +1,5 @@
 import {FC} from 'react';
+import Link from 'next/link';
 
 
 export type Props = {
@@ -9,7 +10,7 @@ export type Props = {
 const TagList: FC<Props> = ({tags}) => (
     <ul>
         {tags.map(x => (
-            <li key={x}><a href="">{x}</a></li>
+            <li key={x}><Link href={{pathname: '/search', query: {q: x}}}><a>{x}</a></Link></li>
         ))}
 
         <style jsx>{`

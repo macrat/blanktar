@@ -47,3 +47,14 @@ export default async function(origin?: string, {year, month, desc=false, page=0,
 
     return (await resp.json()).data.posts;
 };
+
+
+export async function search(origin: string | undefined, query: string, page: number = 0): Promise<Response> {
+    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},offset:${page * 20},limit:20){posts{title,pubtime,href},totalCount}}`);
+
+    if (!resp.ok) {
+        throw new Error(`${resp.statusText}: ${await resp.text()}`);
+    }
+
+    return (await resp.json()).data.search;
+}
