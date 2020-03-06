@@ -2,6 +2,7 @@
 title: swift使ってEddystone-URLを受信するiOSアプリを作った
 pubtime: 2017-02-07T01:06+0900
 tags: [swift, Eddystone-URL, iOS, BLE, アプリ]
+description: swiftを使って、Eddystoneが発信するBluetoothペリフェラルを受信してEddystone-URLをパースするiOSアプリを作りました。Eddystone-URLのパースは自前で実装しています。
 ---
 
 アプリを作っています。Eddystone-URLを受信するアプリです。
@@ -27,10 +28,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
         centralManager = CBCentralManager(delegate: self, queue: nil)  // 初期化する。スキャンの開始はcentralManagerDidUpdateStateの中で。
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+
         centralManager.stopScan()  // 画面から消えたらスキャンを停止する。
     }
 
@@ -45,22 +46,22 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
             print("not ready")
         }
     }
-    
+
     @objc(centralManager:didDiscoverPeripheral:advertisementData:RSSI:) func centralManager(_ central: CBCentralManager,
                                                                                             didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
-        
+
         if let serviceData = advertisementData[CBAdvertisementDataServiceDataKey] as? [NSObject : AnyObject] {
             let data = serviceData[CBUUID(string: "FEAA")]
-            
+
             let es: EddystoneURL  // パースして良い感じにするクラス。自作した。後述。
             do {
                 try es = EddystoneURL(RawData: data as! NSData)
             } catch {
                 return
             }
-            
+
             print("data: \(es)")
         }
     }
@@ -83,7 +84,7 @@ class Eddystone : NSObject {
                                                 0x01: "https://www.",
                                                 0x02: "http://",
                                                 0x03: "https://"]
-    
+
     static let DomainExpansions: [UInt8: String] = [0x00: ".com/",
                                                     0x01: ".org/",
                                                     0x02: ".edu/",
@@ -98,30 +99,30 @@ class Eddystone : NSObject {
                                                     0x0b: ".info",
                                                     0x0c: ".biz",
                                                     0x0d: ".gov"]
-    
+
     var TxPower: Int8
     var url: String
-    
-    
+
+
     init(RawData data: NSData) throws {
         var bytes = [UInt8](repeating: 0, count: data.length)
         data.getBytes(&bytes, length: data.length)
-        
+
         // 1バイト目はFrame Specification。Eddystone-URLしか扱わないので、0x10で固定。
         if bytes[0] != 0x10 {
             throw NSError(domain: "it isn't EddystoneURL", code: -1, userInfo: nil)
         }
-        
+
         // 2バイト目はTx Power Level。とりあえず保存しておく。
         TxPower = Int8(bitPattern: bytes[1])
-        
+
         // 3バイト目はURL Scheme Prefix。
         if let t = Eddystone.URLEncodings[bytes[2]] {
             url = String(t)
         } else {
             throw NSError(domain: "invalid payload", code: -1, userInfo: nil)
         }
-        
+
         // 4バイト目以降はURLのプレフィックスより後ろの部分。
         for i in 3..<data.length {
             // いくつかのドメインは1バイトに省略出来るらしい。
@@ -132,7 +133,7 @@ class Eddystone : NSObject {
             }
         }
     }
-    
+
     override var description: String {
         return String(format: "EddystoneURL(power: %d): " + url, TxPower)
     }

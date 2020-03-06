@@ -11,6 +11,8 @@ type Post = {
     pubtime: Date,
     tags: string[],
     lowerTags: string[],
+    image?: string,
+    description?: string,
     href: string,
     content: string,
     lowerContent: string,
@@ -35,6 +37,8 @@ for (let year of fs.readdirSync(blogBase)) {
                 title: string,
                 pubtime: string,
                 tags: string[],
+                image?: string,
+                description?: string,
             };
             const article = fm(fs.readFileSync(path, 'utf8'));
             const meta: Meta = article.attributes as Meta;
@@ -82,6 +86,11 @@ const typeDefs = gql`
 
         "body of article in markdown"
         content: String!
+
+        description: String
+
+        "Path to eye-catch image"
+        image: String
 
         previous: Post @cacheControl(maxAge: 86400)
 

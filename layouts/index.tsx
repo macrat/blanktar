@@ -1,4 +1,5 @@
 import {FC} from 'react';
+import Head from 'next/head';
 import {useRouter} from 'next/router';
 
 import SearchBar from '../components/SearchBar';
@@ -10,16 +11,23 @@ export type Props = {
     title: string,
     pubtime: string,
     tags: string[],
+    image?: string,
+    description?: string,
 };
 
 
-export default ({title, pubtime, tags}: Props) => {
+export default ({title, pubtime, tags, image, description}: Props) => {
     const BlogArticle: FC<{}> = ({children}) => {
         const router = useRouter();
         const ptime = new Date(pubtime);
 
         return (
             <>
+                <Head>
+                    <title>{title} - Blanktar</title>
+                    {description ? <meta name="description" content={description} /> : null}
+                </Head>
+
                 <SearchBar />
 
                 <Article
