@@ -19,7 +19,7 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     <>
         <SearchBar />
 
-        <Article title="blog" breadlist={[{
+        <Article breadlist={[{
             title: 'blog',
             href: '/blog',
         }]}>
