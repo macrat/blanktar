@@ -1,6 +1,7 @@
 ---
 title: R言語のrpartを使って決定木を作ってみる
 pubtime: 2017-01-05T19:45+0900
+amp: hybrid
 tags: [R言語, 決定木, rpart, iris]
 image: /blog/2017/01/iris-party.png
 description: R言語のrpartというライブラリを使って、お手軽にIrisデータセットの決定木分析を行なってみました。partykitを使って分析結果の可視化までを行ないました。
@@ -57,7 +58,9 @@ Number of terminal nodes: 3
 コンソールの時点でかなり見やすくなってうれしい。
 
 プロットしてあげると、以下のようなグラフが表示されます。
-![アヤメの分類を行なう決定木](/blog/2017/01/iris-party.png)
+
+![アヤメの分類を行なう決定木](/blog/2017/01/iris-party.png "1024x640")
+
 この決定木を見れば、Petal（花弁）の長さが短かいものはsetosaという品種に。長いものについては、花弁の幅を見ればversicolorかvirginicaかを区別出来るのだと分かります。
 
 irisをSVMで分類するようなサンプルをよく見ますが、個人的には決定木で分類した方が特性が分かって良いような気がします。

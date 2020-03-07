@@ -1,6 +1,7 @@
 ---
 title: Python/PySpark（Spark.ml）のRandomForestClassifierにnumpyのデータを使ってみる
-pubtime: 2017-09-14 15:40
+pubtime: 2017-09-14T15:40+0900
+amp: hybrid
 tags: [python, pyspark, spark, numpy, RandomForest, RandomForestClassifier]
 image: /blog/2017/09/pyspark-randomforest-predict-plot.png
 description: 並列分散処理のためのライブラリであるSparkを、Python/PySparkから使う方法です。ここでは、RandomForestClassifierを使ってアヤメの分類をしています。
@@ -29,7 +30,7 @@ description: 並列分散処理のためのライブラリであるSparkを、Py
 >>> plt.show()
 ```
 
-![irisのデータのプロット](/blog/2017/09/pyspark-randomforest-raw-plot.png)
+![irisのデータのプロット](/blog/2017/09/pyspark-randomforest-raw-plot.png "366x252")
 
 今回は花弁とがくの長さだけ使って幅は使いません。2次元のがプロットしやすいし。
 
@@ -206,7 +207,7 @@ pyspark.DataFrameの`.collect()`ってやつを呼ぶと配列になるので、
 >>> plt.show()
 ```
 
-![irisの分類結果のプロット](/blog/2017/09/pyspark-randomforest-predict-plot.png)
+![irisの分類結果のプロット](/blog/2017/09/pyspark-randomforest-predict-plot.png "366x252")
 
 赤い点が間違えて分類したデータ。なるほど間違えそうという感じの場所を間違えている。それっぽい。
 

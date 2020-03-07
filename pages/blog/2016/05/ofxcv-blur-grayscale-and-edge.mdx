@@ -1,6 +1,7 @@
 ---
 title: ofxCvを使ってwebカメラの映像をぼかしたりグレーにしたり輪郭取ったり
 pubtime: 2016-05-28T17:52+0900
+amp: hybrid
 tags: [openFrameworks, ofxCv, webカメラ, openCV, 映像, 画像, Canny]
 image: /blog/2016/05/ofxcv-blur-grayscale-and-edge.jpg
 description: openFrameworksでOpenCVを良い感じに扱うライブラリであるofxCvを使って、webカメラの映像を色々加工する実験をしてみました。
@@ -13,7 +14,7 @@ openFrameworksとOpenCVを組み合せると何か色々出来そうな気がす
 で。openFrameworksの機能でwebカメラの映像を取得して、ofxCvの機能で加工してみたいと思います。
 やりたいのはこんな感じのことです。
 
-![生の画像とぼかした画像、グレースケール、あと輪郭の画像をまとめたやつ。](/blog/2016/05/ofxcv-blur-grayscale-and-edge.jpg)
+![生の画像とぼかした画像、グレースケール、あと輪郭の画像をまとめたやつ。](/blog/2016/05/ofxcv-blur-grayscale-and-edge.jpg "640x480")
 
 左上が生の映像、右上がガウシアンブラーをかけたやつ、左下がグレースケール、右下がCanny法で作った輪郭の映像です。
 

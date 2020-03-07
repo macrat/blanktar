@@ -1,7 +1,9 @@
 ---
 title: gentooのnginxでHTTP2を試してみた。
 pubtime: 2016-04-18T21:09+0900
+amp: hybrid
 tags: [gentoo, nginx, HTTP2, ssl, tls, portage]
+image: /blog/2016/04/http-2.png
 description: gentooにインストールしてあるNginxを使ってHTTP2を有効化して、実際にどのくらいのスピード向上が望めるのかをベンチマークしてみました。
 ---
 
@@ -41,13 +43,13 @@ listen 443 ssl http2;
 導入してみても効果がよく分からないので、このサイトのトップページを[webpagetest](http://www.webpagetest.org/)で測ってみました。
 
 まずは何も導入していないHTTP/1.1から。
-![http1.1での表示速度。](/blog/2016/04/http-plain.png)
+![http1.1での表示速度。](/blog/2016/04/http-plain.png "942x562")
 
 で、こちらがHTTP/1.1 over tls。
-![https1.1での表示速度。](/blog/2016/04/http-tls.png)
+![https1.1での表示速度。](/blog/2016/04/http-tls.png "945x562")
 
 最後、HTTP/2。
-![http2での表示速度。](/blog/2016/04/http-2.png)
+![http2での表示速度。](/blog/2016/04/http-2.png "937x563")
 
 *Load Time*で言うとhttpが最速で0.955s、二番目がhttpsの1.325s、三番目がhttp2の1.428s。
 つまり、どういうことかと言うと、SSLを導入すると遅くなる。

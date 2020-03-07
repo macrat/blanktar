@@ -1,6 +1,7 @@
 ---
 title: pythonでBag-of-Visual Wordsとやらを実装してみた。
 pubtime: 2016-03-05T01:01+0900
+amp: hybrid
 tags: [python, Visual-Words, BoVW, opencv, sklearn, scikit-learn, akaze, numpy]
 description: PythonのOpenCVとscikit-learnを使ってBag-of-Visual Wordsを実装して、類似している画像を検索するプログラムを作ってみました。
 ---
@@ -86,30 +87,30 @@ for f in features:
 
 以下の画像を同じものを探してみます。
 
-![入力に使った太極図](/blog/2016/03/visualwords-input.jpg)
+![入力に使ったドットの目立つ太極図](/blog/2016/03/visualwords-input.jpg "300x297")
 
 類似度で上位20件の画像が以下の通り。
 
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output1.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output2.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output3.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output4.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output5.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output6.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output7.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output8.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output9.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output10.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output11.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output12.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output13.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output14.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output15.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output16.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output17.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output18.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output19.jpg" />
-<img style={{maxWidth: "6em"}} src="/blog/2016/03/visualwords-output20.jpg" />
+![薄い灰色で縁取られた太極図](/blog/2016/03/visualwords-output1.jpg "150x150")
+![小さな文字が入った太極図](/blog/2016/03/visualwords-output2.jpg "132x150")
+![灰色っぽい太極図](/blog/2016/03/visualwords-output3.jpg "150x147")
+![普通の太極図](/blog/2016/03/visualwords-output4.jpg "150x147")
+![勾玉2つの写真](/blog/2016/03/visualwords-output5.jpg "150x139")
+![線が滲んだ太極図](/blog/2016/03/visualwords-output6.jpg "150x148")
+![歪んだ太極図](/blog/2016/03/visualwords-output7.jpg "150x150")
+![横に文字が書かれた太極図](/blog/2016/03/visualwords-output8.jpg "130x150")
+![赤い太極図](/blog/2016/03/visualwords-output9.jpg "150x147")
+![少しノイズの乗った太極図](/blog/2016/03/visualwords-output10.jpg "150x131")
+![背景が黄色い太極図](/blog/2016/03/visualwords-output11.jpg "150x145")
+![点線で書かれた太極図](/blog/2016/03/visualwords-output12.jpg "150x149")
+![背景が青くて尻尾が長い太極図](/blog/2016/03/visualwords-output13.jpg "150x150")
+![パンダのぬいぐるみ](/blog/2016/03/visualwords-output14.jpg "150x150")
+![点が小さめの太極図](/blog/2016/03/visualwords-output15.jpg "150x150")
+![少し小さい太極図](/blog/2016/03/visualwords-output16.jpg "150x136")
+![黒い傘のイラスト](/blog/2016/03/visualwords-output17.jpg "150x131")
+![太極拳のキーホルダー](/blog/2016/03/visualwords-output18.jpg "150x100")
+![勾玉の詩集のようなもの](/blog/2016/03/visualwords-output19.jpg "150x150")
+![青と黒、木目柄で縁取られた太極拳](/blog/2016/03/visualwords-output20.jpg "147x150")
 
 適当に書いたプログラムですが、そこそこの精度が出ているようです。良い感じ。
 パンダが出ているあたり色で見ているように思えますが、特徴点を使う方法では色は関係無い、はず。多分。

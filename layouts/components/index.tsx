@@ -3,6 +3,7 @@ import {MDXProvider} from '@mdx-js/react';
 
 import Code from './Code';
 import Hr from './Hr';
+import Image from './Image';
 import InlineCode from './InlineCode';
 import PS from './PS';
 import Pre from './Pre';
@@ -17,10 +18,12 @@ export type Props = {};
 
 const components = {
     PS: PS,
+
+    code: Code,
     hr: Hr,
+    img: Image as FC,
     inlineCode: InlineCode,
     pre: Pre,
-    code: Code,
     table: Table,
     td: Td as FC,
     th: Th as FC,

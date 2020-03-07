@@ -1,6 +1,21 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
 
+declare namespace JSX {
+    interface AmpImg {
+        alt: string;
+        src: string;
+        srcset?: string,
+        sizes?: string,
+        width: string;
+        height: string;
+        layout?: string;
+    }
+    interface IntrinsicElements {
+        'amp-img': AmpImg;
+    }
+}
+
 declare module '@mdx-js/react' {
     import * as React from 'react';
 
