@@ -3,7 +3,7 @@ import {FC} from 'react';
 
 type Thing = {
     '@type': string,
-    [key: string]: string | number | Thing | Thing[] | undefined,
+    [key: string]: string | string[] | number | Thing | Thing[] | undefined,
 };
 
 
@@ -11,7 +11,11 @@ export const Author: Thing = {
     '@type': 'Person',
     name: 'MacRat',
     url: 'https://blanktar.jp',
-    sameAs: 'https://twitter.com/macrat_jp',
+    sameAs: [
+        'https://twitter.com/macrat_jp',
+        'https://www.instagram.com/macrat_jp/',
+        'http://facebook.com/yuuma.shida',
+    ],
 };
 
 
