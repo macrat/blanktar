@@ -6,6 +6,7 @@ import {useAmp} from 'next/amp';
 import fetch from 'isomorphic-unfetch';
 
 import Header from '../components/Header';
+import JsonLD, {Website} from '../components/JsonLD';
 
 
 const TomboApp = ({Component, pageProps}: AppProps) => {
@@ -47,6 +48,8 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     type="text/css"
                     href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
                     key="style--font" />
+
+                <JsonLD data={Website} />
             </Head>
 
             <Header />

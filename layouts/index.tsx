@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 
 import SearchBar from '../components/SearchBar';
 import Article from '../components/Article';
+import JsonLD, {Author, Publisher} from '../components/JsonLD';
 import ComponentsProvider from './components';
 
 
@@ -70,6 +71,17 @@ export default ({title, pubtime, amp, tags, image, description}: Props) => {
                     <ComponentsProvider>
                         {children}
                     </ComponentsProvider>
+
+                    <JsonLD data={{
+                        '@type': 'BlogPosting',
+                        headline: title,
+                        author: Author,
+                        image: image,
+                        datePublished: pubtime,
+                        publisher: Publisher,
+                        description: description || undefined,
+                        mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
+                    }} />
                 </Article>
             </>
         );

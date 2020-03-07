@@ -7,6 +7,7 @@ import posts, {PageData} from '../../../lib/posts';
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
 import DateTime from '../../../components/DateTime';
+import JsonLD from '../../../components/JsonLD';
 import ErrorPage from '../../_error';
 
 
@@ -40,6 +41,15 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
                     </a></Link></li>
                 ))}
             </ol>
+
+            <JsonLD data={{
+                '@type': 'ItemList',
+                itemListElement: posts.map(({href}, i) => ({
+                    '@type': 'ListItem',
+                    position: i + 1,
+                    url: 'https://blanktar.jp' + href,
+                })),
+            }} />
         </Article>
 
         <style jsx>{`

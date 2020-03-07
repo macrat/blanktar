@@ -1,6 +1,8 @@
 import {FC} from 'react';
 import Link from 'next/link';
 
+import JsonLD from '../JsonLD';
+
 
 export type Props = {
     pages: {
@@ -20,6 +22,24 @@ const BreadList: FC<Props> = ({pages}) => (
                 <Link href={p.href} as={p.as}><a>{p.title}</a></Link>
             </li>
         ))}
+
+        <JsonLD data={{
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Blanktar',
+                    item: 'https://blanktar.jp',
+                },
+                ...pages.map((p, i) => ({
+                    '@type': 'ListItem',
+                    position: i + 2,
+                    name: p.title,
+                    item: 'https://blanktar.jp' + (p.as || p.href),
+                })),
+            ],
+        }} />
 
         <style jsx>{`
             ol {

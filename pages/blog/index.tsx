@@ -7,6 +7,7 @@ import Article from '../../components/Article';
 import SearchBar from '../../components/SearchBar';
 import DateTime from '../../components/DateTime';
 import Pagination from '../../components/Pagination';
+import JsonLD from '../../components/JsonLD';
 
 
 export type Props = {
@@ -37,6 +38,15 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
                 current={page}
                 total={totalPages}
                 href={p => ({pathname: '/blog', query: p > 1 ? {page: p} : undefined})} />
+
+            <JsonLD data={{
+                '@type': 'ItemList',
+                itemListElement: posts.map(({href}, i) => ({
+                    '@type': 'ListItem',
+                    position: i + 1,
+                    url: 'https://blanktar.jp' + href,
+                })),
+            }} />
         </Article>
 
         <style jsx>{`
