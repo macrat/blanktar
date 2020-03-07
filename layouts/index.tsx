@@ -12,11 +12,24 @@ export type Props = {
     pubtime: string,
     tags: string[],
     image?: string,
-    description?: string,
+    description: string,
 };
 
 
 export default ({title, pubtime, tags, image, description}: Props) => {
+    if (!title) {
+        throw `${pubtime}: title is not provided`;
+    }
+    if (!pubtime || !pubtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
+        throw `${title}: pubtime is not provided or invalid format: "${pubtime}"`;
+    }
+    if (!tags || tags.length === 0) {
+        throw `${title} ${pubtime}: tags is not provided`;
+    }
+    if (!description) {
+        throw `${title} ${pubtime}: description is not provided`;
+    }
+
     const BlogArticle: FC<{}> = ({children}) => {
         const router = useRouter();
         const ptime = new Date(pubtime);
