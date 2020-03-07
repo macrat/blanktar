@@ -1,6 +1,10 @@
+---
 title: ブログ用のマークアップ言語を変えた
-date: 2015-08-28 15:31
-keywords: ブログ マークアップ言語
+pubtime: 2015-08-28T15:31+0900
+amp: hybrid
+tags: [ブログ, マークアップ言語]
+description: このブログを書くために使っている自作CMSモドキに入れているマークアップ言語を、これまた新たに作った自作のマークアップ言語「ふにゅう」に置き換えました。
+---
 
 このサイトの管理は自作のCMSモドキでやっているのですが、そのCMSモドキで使用するマークアップ言語を変更しました。
 変更先の言語はこれまた自作の[ふにゅう](https://bitbucket.org/macrat/funyu/)というモノです。ぶっちゃけmarkdownとかにした方が楽な気がしないでもない。
@@ -10,17 +14,17 @@ keywords: ブログ マークアップ言語
 
 pythonからの利用はこんな感じ。
 ``` python
-	>>> import funyu
-	>>> f = funyu.Funyu()
-	>>> f.parse('''title: this is test
+>>> import funyu
+>>> f = funyu.Funyu()
+>>> f.parse('''title: this is test
 
-	hello, <<world>>!
-	''')
-	>>> print(f.as_html())
-	<p>
-	hello, <em>world</em>!
-	</p>
+hello, <<world>>!
+''')
+>>> print(f.as_html())
+<p>
+hello, <em>world</em>!
+</p>
 ```
-{{as_html}}の代わりに{{as_funyu}}とするとふにゅう形式でも取得できます。ぶっちゃけ謎機能。
+`as_html`の代わりに`as_funyu`とするとふにゅう形式でも取得できます。ぶっちゃけ謎機能。
 
 以上、テスト記事、でした。
