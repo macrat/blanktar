@@ -1,6 +1,8 @@
 import {FC, useState, useEffect, createRef} from 'react';
 import Router from 'next/router';
 
+import colors from '../../lib/colors';
+
 
 export type Props = {
     query?: string,
@@ -58,7 +60,7 @@ const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus}) => {
                     flex: 1 1 0;
                     background-color: transparent;
                     border: none;
-                    border-bottom: 1px solid #322;
+                    border-bottom: 1px solid ${colors.fg};
                     padding: 2px 4px;
                 }
                 input:focus {

@@ -2,6 +2,8 @@ import {FC} from 'react';
 import Link from 'next/link';
 import {UrlObject} from 'url';
 
+import colors from '../lib/colors';
+
 
 export type Props = {
     current: number,
@@ -31,13 +33,13 @@ const Pagination: FC<Props> = ({current, total, href}) => (
                 margin: 3mm 2mm;
                 width: 2em;
                 text-align: center;
-                border: .2mm solid #322;
-                color: #322;
+                border: .2mm solid ${colors.fg};
+                color: ${colors.fg};
                 text-decoration: none;
             }
             a.current {
-                color: #eee;
-                background-color: #322;
+                color: ${colors.bg};
+                background-color: ${colors.fg};
             }
         `}</style>
     </ol>

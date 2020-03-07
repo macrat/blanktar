@@ -1,5 +1,7 @@
 import {FC} from 'react';
 
+import colors from '../../lib/colors';
+
 
 export type Props = {};
 
@@ -15,7 +17,7 @@ const Hr: FC<Props> = ({}) => (
                 max-width: 100%;
                 height: .2mm;
                 border: none;
-                background-color: #322;
+                background-color: ${colors.fg};
             }
         `}</style>
     </>

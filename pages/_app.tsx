@@ -5,6 +5,8 @@ import Router from 'next/router';
 import {useAmp} from 'next/amp';
 import fetch from 'isomorphic-unfetch';
 
+import colors from '../lib/colors';
+
 import Header from '../components/Header';
 import JsonLD, {Website} from '../components/JsonLD';
 
@@ -62,8 +64,8 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
 
             <style jsx global>{`
                 html {
-                    background-color: #eee;
-                    color: #322;
+                    background-color: ${colors.bg};
+                    color: ${colors.fg};
                     font-family: 'Noto Sans JP', gothic, sans-serif;
                     overflow: hidden auto;
                 }
@@ -72,11 +74,11 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                 }
                 a {
                     position: relative;
-                    color: #63f;
+                    color: ${colors.link};
                     transition: color .2s ease;
                 }
                 a:hover, a:focus {
-                    color: #f36;
+                    color: ${colors.accent};
                 }
             `}</style>
 
@@ -97,7 +99,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     left: 100%;
                     width: 100vw;
                     height: .3mm;
-                    background-color: #322;
+                    background-color: ${colors.fg};
                     animation: done .5s ease both;
                 }
                 @keyframes done {

@@ -1,6 +1,8 @@
 import {FC} from 'react';
 import Link from 'next/link';
 
+import colors from '../../lib/colors';
+
 
 export type Props = {};
 
@@ -35,7 +37,7 @@ const Navigation: FC<Props> = () => (
                 transition: color .2s ease;
             }
             li:hover a, li:focus-within a {
-                color: white;
+                color: ${colors.bg};
             }
             li:hover::before, li:focus-within::before {
                 top: 0;
@@ -64,7 +66,7 @@ const Navigation: FC<Props> = () => (
                 width: 100%;
                 top: 100%;
                 height: 100%;
-                background-color: #322;
+                background-color: ${colors.fg};
                 animation: menu-bg .3s ease;
                 transition: top .2s ease, height .2s ease;
             }

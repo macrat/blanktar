@@ -1,6 +1,8 @@
 import {FC} from 'react';
 import {useAmp} from 'next/amp';
 
+import colors from '../../lib/colors';
+
 
 export type Props = {
     src: string,
@@ -29,7 +31,7 @@ const Image: FC<Props> = ({src, alt, width, height, title, center=false}) => {
             <amp-img src={src} alt={alt} width={String(width)} height={String(height)} layout="intrinsic" />
             <style jsx>{`
                 amp-img {
-                    background-color: #e6e6e6;
+                    background-color: ${colors.darkbg};
                     margin: 1mm;
                 }
             `}</style>
@@ -57,7 +59,7 @@ const Image: FC<Props> = ({src, alt, width, height, title, center=false}) => {
                 display: ${center ? "block" : "inline-block"};
                 max-width: 100%;
                 height: auto;
-                background-color: #e6e6e6;
+                background-color: ${colors.darkbg};
                 margin: ${center ? "1mm auto" : "1mm"};
             }
         `}</style>
