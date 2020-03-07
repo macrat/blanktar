@@ -6,8 +6,7 @@ import posts, {PageData} from '../../../lib/posts';
 
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
-import DateTime from '../../../components/DateTime';
-import JsonLD from '../../../components/JsonLD';
+import BlogList from '../../../components/BlogList';
 import ErrorPage from '../../_error';
 
 
@@ -33,30 +32,8 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
             href: '/blog/[year]',
             as: `/blog/${year}`,
         }]}>
-            <ol>
-                {posts.map(({href, title, pubtime}) => (
-                    <li key={href}><Link href={href}><a>
-                        <DateTime dateTime={new Date(pubtime)} /><br />
-                        <span>{title}</span>
-                    </a></Link></li>
-                ))}
-            </ol>
-
-            <JsonLD data={{
-                '@type': 'ItemList',
-                itemListElement: posts.map(({href}, i) => ({
-                    '@type': 'ListItem',
-                    position: i + 1,
-                    url: 'https://blanktar.jp' + href,
-                })),
-            }} />
+            <BlogList posts={posts} />
         </Article>
-
-        <style jsx>{`
-            li {
-                margin: 3mm 0;
-            }
-        `}</style>
     </>);
 };
 
@@ -68,6 +45,8 @@ export const unstable_getStaticProps = async ({params}: {params: {year: string}}
         title: x.title,
         href: x.href,
         pubtime: x.pubtime,
+        tags: x.tags,
+        description: x.description,
     }));
 
     return {

@@ -15,7 +15,8 @@ const TagList: FC<Props> = ({tags}) => (
 
         <style jsx>{`
             ul {
-                margin: 0;
+                display: block;
+                margin: 0 -4px;
                 padding: 0;
             }
             li {

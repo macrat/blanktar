@@ -1,13 +1,11 @@
 import {NextPage} from 'next';
-import Link from 'next/link';
 
 import posts, {PageData} from '../../lib/posts';
 
 import Article from '../../components/Article';
 import SearchBar from '../../components/SearchBar';
-import DateTime from '../../components/DateTime';
+import BlogList from '../../components/BlogList';
 import Pagination from '../../components/Pagination';
-import JsonLD from '../../components/JsonLD';
 
 
 export type Props = {
@@ -21,39 +19,18 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     <>
         <SearchBar />
 
-        <Article title="blog index" breadlist={[{
+        <Article title="blog" breadlist={[{
             title: 'blog',
             href: '/blog',
         }]}>
-            <ol>
-                {posts.map(({href, title, pubtime}) => (
-                    <li key={href}><Link href={href}><a>
-                        <DateTime dateTime={new Date(pubtime)} /><br />
-                        <span>{title}</span>
-                    </a></Link></li>
-                ))}
-            </ol>
+
+            <BlogList posts={posts} />
 
             <Pagination
                 current={page}
                 total={totalPages}
                 href={p => ({pathname: '/blog', query: p > 1 ? {page: p} : undefined})} />
-
-            <JsonLD data={{
-                '@type': 'ItemList',
-                itemListElement: posts.map(({href}, i) => ({
-                    '@type': 'ListItem',
-                    position: i + 1,
-                    url: 'https://blanktar.jp' + href,
-                })),
-            }} />
         </Article>
-
-        <style jsx>{`
-            li {
-                margin: 3mm 0;
-            }
-        `}</style>
     </>
 );
 
@@ -64,10 +41,10 @@ BlogIndex.getInitialProps = async ({req, query}) => {
     const resp = await posts(req?.headers?.host, {
         page: page - 1,
         desc: true,
-        limit: 5,
+        limit: 10,
     });
 
-    const totalPages = Math.ceil(resp.totalCount / 5);
+    const totalPages = Math.ceil(resp.totalCount / 10);
 
     return {
         page: page,

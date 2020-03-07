@@ -25,7 +25,7 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
                 margin-bottom: 2em;
             }
             h1 {
-                font-size: 48pt;
+                font-size: 42pt;
                 font-weight: 100;
                 margin: 0 0 .5rem;
                 ${breadlist ? "" : "padding: 2.5rem 0 0;"}
