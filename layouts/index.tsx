@@ -1,7 +1,7 @@
 import {FC} from 'react';
-import Head from 'next/head';
 import {useRouter} from 'next/router';
 
+import MetaData from '../components/MetaData';
 import SearchBar from '../components/SearchBar';
 import Article from '../components/Article';
 import JsonLD, {Author, Publisher} from '../components/JsonLD';
@@ -54,10 +54,7 @@ export default ({title, pubtime, amp, tags, image, description, howto}: Props) =
 
         return (
             <>
-                <Head>
-                    <title>{title} - Blanktar</title>
-                    {description ? <meta name="description" content={description} /> : null}
-                </Head>
+                <MetaData title={title} description={description || undefined} />
 
                 <SearchBar />
 

@@ -4,6 +4,7 @@ import fetch from 'isomorphic-unfetch';
 
 import posts, {PageData} from '../../../lib/posts';
 
+import MetaData from '../../../components/MetaData';
 import Article from '../../../components/Article';
 import SearchBar from '../../../components/SearchBar';
 import BlogList from '../../../components/BlogList';
@@ -22,6 +23,8 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
     }
 
     return (<>
+        <MetaData title={`${year}年の記事`} />
+
         <SearchBar />
 
         <Article title={`${year}年の記事`} breadlist={[{

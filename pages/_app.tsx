@@ -39,6 +39,8 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
     return (
         <div className={loading ? "loading" : ""}>
             <Head>
+                <meta charSet="utf-8" />
+
                 <link
                     rel="dns-prefetch preconnect"
                     href="https://fonts.gstatic.com"
