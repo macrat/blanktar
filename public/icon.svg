@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg width="1024px" height="1024px" viewBox="-2 -1.5 20 20" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <polyline points="1 1, 7 7, 0 14" stroke-width="1" fill="none" stroke="#402020" />
+    <polyline points="0 4, 7 11, 1 17" stroke-width="1" fill="none" stroke="#402020" />
+    <polyline points="15 1, 9 7, 16 14" stroke-width="0.5" fill="none" stroke="#402020" />
+    <polyline points="16 4, 9 11, 15 17" stroke-width="0.5" fill="none" stroke="#402020" />
+</svg>

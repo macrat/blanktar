@@ -22,6 +22,17 @@ export const Author: Thing = {
 export const Publisher: Thing = {
     '@type': 'Organization',
     name: 'Blanktar',
+    logo: [{
+        '@type': 'ImageObject',
+        url: 'https://blanktar.jp/logo.png',
+        width: 313,
+        height: 60,
+    }, {
+        '@type': 'ImageObject',
+        url: 'https://blanktar.jp/icon.png',
+        width: 512,
+        height: 512,
+    }],
 };
 
 

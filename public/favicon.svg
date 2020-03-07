@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg width="256px" height="256px" viewBox="-2 -1.5 20 20" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs><style><![CDATA[
+        polyline {
+            stroke: #402020;
+        }
+        @media (prefers-color-scheme: dark) {
+            polyline {
+                stroke: #fcf8f5;
+            }
+        }
+    ]]></style></defs>
+
+    <polyline points="1 1, 7 7, 0 14" stroke-width="1" fill="none" />
+    <polyline points="0 4, 7 11, 1 17" stroke-width="1" fill="none" />
+    <polyline points="15 1, 9 7, 16 14" stroke-width="0.5" fill="none" />
+    <polyline points="16 4, 9 11, 15 17" stroke-width="0.5" fill="none" />
+</svg>

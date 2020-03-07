@@ -53,6 +53,10 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
                     key="style--font" />
 
+                <meta name="theme-color" content={colors.fg} />
+                <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
+                <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color={colors.fg} key="favicon--mask" />
+
                 <JsonLD data={Website} />
             </Head>
 
