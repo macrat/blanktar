@@ -4,6 +4,21 @@ pubtime: 2018-09-19T20:45+0900
 amp: hybrid
 tags: [fluent, elasticsearch, kibana, docker-compose, docker, ログ]
 description: docker-composeが吐くログをfluentdに流して、kibanaで可視化する方法です。fluentdとkibanaも含めて、全てdocker上で動かしています。
+howto:
+  totalTime: PT10M
+  tool:
+    - docker
+    - docker-compose
+    - fluent/fluentdのイメージ
+    - elasticsearchのイメージ
+    - kibanaのイメージ
+  step:
+    - name: イメージの用意
+      text: Docker Hubの"fluent/fluentd"イメージをベースに、fluent-plugin-elasticsearchプラグインを入れたイメージを作ります。
+    - name: fluentdの設定
+      text: fluentdからelasticsearchにデータを流すための設定ファイルを作ります。
+    - name: docker-composeの設定
+      text: docker-composeに"driver"という設定を追加して、ログをfluentdに流すように設定します。
 ---
 
 最近自宅サーバの環境をモダンにする作業を進めています。
@@ -34,7 +49,7 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
 イベージが出来たら、それ用の設定ファイルを書きます。コンテナイメージの中にCOPYしなかったのはちょこちょこ弄りたいから。
 ここでは、elasticsearchのコンテナの名前はそのまんま`elasticsearch`ということにしておきます。
 
-最小限の内容だと以下のような感じ。受け取った内容をそのまんまfluentdに流すだけ。
+最小限の内容だと以下のような感じ。受け取った内容をそのまんまelasticsearchに流すだけ。
 githubのやつは標準出力にも出すようにしてあります。お好みで。
 
 ``` xml

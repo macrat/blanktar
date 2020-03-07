@@ -8,6 +8,18 @@ import JsonLD, {Author, Publisher} from '../components/JsonLD';
 import ComponentsProvider from './components';
 
 
+type HowTo = {
+    supply?: string[],
+    tool?: string[],
+    step: {
+        name: string,
+        text: string,
+        image?: string,
+    }[],
+    totalTime?: string,
+};
+
+
 export type Props = {
     title: string,
     pubtime: string,
@@ -15,10 +27,11 @@ export type Props = {
     tags: string[],
     image?: string,
     description: string | null,
+    howto?: HowTo,
 };
 
 
-export default ({title, pubtime, amp, tags, image, description}: Props) => {
+export default ({title, pubtime, amp, tags, image, description, howto}: Props) => {
     if (!title) {
         throw `${pubtime}: title is not provided`;
     }
@@ -82,6 +95,30 @@ export default ({title, pubtime, amp, tags, image, description}: Props) => {
                         description: description || undefined,
                         mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
                     }} />
+                    {howto ? (
+                        <JsonLD data={{
+                            '@type': 'HowTo',
+                            name: title,
+                            description: description || undefined,
+                            totalTime: howto?.totalTime,
+                            supply: howto?.supply?.map(x => ({
+                                '@type': 'HowToSupply',
+                                name: x,
+                            })),
+                            tool: howto?.tool?.map(x => ({
+                                '@type': 'HowToTool',
+                                name: x,
+                            })),
+                            step: howto?.step?.map(x => ({
+                                '@type': 'HowToStep',
+                                name: x.name,
+                                text: x.text,
+                                image: image ? 'https://blanktar.jp' + image : undefined,
+                            })),
+                            url: 'https://blanktar.jp' + router.asPath,
+                            image: image ? 'https://blanktar.jp' + image : undefined,
+                        }} />
+                    ) : null}
                 </Article>
             </>
         );

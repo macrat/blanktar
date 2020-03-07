@@ -4,6 +4,15 @@ pubtime: 2018-12-09T14:58+0900
 amp: hybrid
 tags: [gentoo, portage, emerge, sun-jms, distdir, distfiles]
 description: gentooのportageでdev-java/sun-jmsをインストールしようとすると聞かれるライセンス問題への対処方法です。
+howto:
+  totalTime: PT5M
+  step:
+    - name: 必要なファイルをダウンロードする
+      text: Javaのサイトから"jms-1_1-fr-apidocs.zip"をダウンロードします。
+    - name: ダウンロードしたファイルを配置する
+      text: ダウンロードしてきた"jms-1_1-fr-apidocs.zip"を"/usr/portage/distfiles"以下に保存します。
+    - name: もう一度emergeを実行する
+      text: もう一度emergeを実行しなおすと、正常にインストール出来るようになっているはずです。
 ---
 
 gentooで*sun-jms*が必要になったので、emergeしてみたら何かエラーが出ました。以下のようなもの。

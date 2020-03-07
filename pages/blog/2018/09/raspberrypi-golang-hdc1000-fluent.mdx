@@ -5,6 +5,28 @@ amp: hybrid
 tags: [golang, 温度センサ, 湿度センサ, fluent, raspberry-pi]
 image: /blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg
 description: go言語を使ってraspberry Piに付けた温湿度センサ（HDC1000）の値を読み取ってみました。読み取ったデータはfluentdに流して記録しています。
+howto:
+  totalTime: PT10M
+  supply:
+    - 温湿度センサ（HDC1000）
+  tool:
+    - Raspberry Pi
+    - go言語の環境
+    - github.com/macrat/go-i2c
+    - github.com/fluent/fluent-logger-golang
+  step:
+    - name: 回路を組む
+      text: ユニバーサル基板を使って、I2Cで接続します。
+      image: /blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg
+    - name: データを取得する
+      text: |
+        go-i2cライブラリを使ってデータを取得します。
+        0x00に書き込むと、温度と湿度をまとめて取得することが出来ます。
+        取得したデータはデータシートに従って計算すると、摂氏とパーセントにそれぞれ変換出来ます。
+    - name: fluentdにデータを送る
+      text: |
+        fluent公式のfluent-logger-golangライブラリを使って、fluentdにデータを送信します。
+        PostWithTimeを使って送信することで、"@timestamp"が自動的に付与されます。
 ---
 
 私の部屋には温度と湿度を取れるセンサ（HDC1000ってやつ）が付いたラズパイが置いてあって、5分置きにデータをsqliteに記録するようになっています。今のところただ見れるだけなんですが、いずれエアコンとかと連動させたい。
