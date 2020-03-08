@@ -66,7 +66,7 @@ const Navigation: FC<Props> = () => (
                 height: 100%;
                 background-color: var(--colors-fg);
                 animation: menu-bg .3s ease;
-                transition: top .2s ease, height .2s ease;
+                transition: top .2s ease;
             }
             @keyframes menu-bg {
                 from { transform: translate(0, -200%); }
@@ -75,6 +75,21 @@ const Navigation: FC<Props> = () => (
             li:nth-child(2)::before { animation-delay: .1s; }
             li:nth-child(3)::before { animation-delay: .2s; }
             li:nth-child(4)::before { animation-delay: .3s; }
+
+            @media (prefers-reduced-motion: reduce) {
+                a {
+                    animation: none;
+                }
+                li::before, li::before {
+                    top: 0;
+                    opacity: 0;
+                    transition: opacity .2s ease;
+                    animation: none;
+                }
+                li:hover::before, li:focus-within::before {
+                    opacity: 1;
+                }
+            }
         `}</style>
     </nav>
 );

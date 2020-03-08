@@ -59,6 +59,18 @@ const TagList: FC<Props> = ({tags}) => (
                     top: 100%;
                 }
             }
+
+            @media (prefers-reduced-motion: reduce) {
+                li::before {
+                    opacity: 1;
+                    transition: opacity .2s ease;
+                }
+                li:hover::before, li:focus-within::before {
+                    top: 0;
+                    height: 100%;
+                    opacity: 0;
+                }
+            }
         `}</style>
     </ul>
 );

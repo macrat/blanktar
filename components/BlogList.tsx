@@ -20,7 +20,7 @@ const ArticleList: FC<Props> = ({posts}) => (
                 <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" /></svg>
                 <svg width="1px" height="100%" className="line left"><rect x="0" y="0" width="100%" height="100%" /></svg>
 
-                <Link href={href}><div>
+                <Link href={href}><div role="link">
                     <DateTime dateTime={new Date(pubtime)} />
                     <a href={href}><h2>{title}</h2></a>
                     <TagList tags={tags} />
@@ -107,6 +107,18 @@ const ArticleList: FC<Props> = ({posts}) => (
             @keyframes line-vertical {
                 from { transform: translate(0, -100%); }
                   to { transform: translate(0, 0); }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .line {
+                    display: block;
+                    opacity: 0;
+                    transition: opacity .2s ease;
+                }
+                li:hover .line, li:focus-within .line {
+                    opacity: 1;
+                    animation: none !important;
+                }
             }
         `}</style>
     </ol>

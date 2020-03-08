@@ -55,6 +55,12 @@ const TomboAnimation = () => {
                 from { stroke-dashoffset: 40; }
                   to { stroke-dashoffset: 20; }
             }
+
+            @media (prefers-reduced-motion: reduce) {
+                svg.tombo * {
+                    animation: none !important;
+                }
+            }
         `}</style>
     );
 };
