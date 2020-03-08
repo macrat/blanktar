@@ -21,7 +21,7 @@ const MetaData: FC<Props> = ({title, description, image}) => {
             <meta property="og:title" content={title || 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath.startsWith('/blog') ? 'blog' : (router.asPath === '/' ? 'website' : 'article')} key="ogp--type" />
             <meta property="og:url" content={`https://blanktar.jp${router.asPath}`} key="ogp--url" />
-            <meta property="og:image" content={image ? `https://blanktar.jp${image}` : `https://blanktar.jp/api/eyecatch/${encodeURIComponent(title || ' ')}`} key="ogp--image" />
+            <meta property="og:image" content={image ? `https://blanktar.jp${image}` : (title ? `https://blanktar.jp/api/eyecatch/${encodeURIComponent(title)}` : "https://blanktar.jp/img/social-preview.png")} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
             <meta property="fb:app_id" content="3557706767604040" key="facebook--app_id" />

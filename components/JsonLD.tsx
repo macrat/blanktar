@@ -24,12 +24,12 @@ export const Publisher: Thing = {
     name: 'Blanktar',
     logo: [{
         '@type': 'ImageObject',
-        url: 'https://blanktar.jp/logo.png',
+        url: 'https://blanktar.jp/img/blanktar-banner.png',
         width: 313,
         height: 60,
-    }, {
+    },  {
         '@type': 'ImageObject',
-        url: 'https://blanktar.jp/icon.png',
+        url: 'https://blanktar.jp/img/blanktar-logo.png',
         width: 512,
         height: 512,
     }],
