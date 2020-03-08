@@ -91,7 +91,7 @@ export default ({title, pubtime, amp, tags, image, description, howto}: Props) =
                         '@type': 'BlogPosting',
                         headline: title,
                         author: Author,
-                        image: image,
+                        image: image ? `https://blanktar.jp${image}` : `https://blanktar.jp/api/eyecatch/${encodeURIComponent(title)}`,
                         datePublished: pubtime,
                         publisher: Publisher,
                         description: description || undefined,
