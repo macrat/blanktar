@@ -40,7 +40,7 @@ const Error: NextPage<Props> = ({statusCode}) => (
                 font-weight: 1;
                 margin: 0 5mm 0 0;
                 padding: 0 5mm 0 0;
-                border-right: .2mm solid black;
+                border-right: .2mm solid var(--colors-fg);
             }
             div {
                 width: 15cm;

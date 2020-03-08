@@ -1,8 +1,6 @@
 import {FC} from 'react';
 import Link from 'next/link';
 
-import colors from '../../lib/colors';
-
 
 export type Props = {
     tags: string[],
@@ -23,14 +21,14 @@ const TagList: FC<Props> = ({tags}) => (
             }
             li {
                 display: inline-block;
-                border: 1px solid ${colors.fg};
+                border: 1px solid var(--colors-fg);
                 border-radius: 4px;
                 margin: 2px 4px;
                 position: relative;
             }
             li a {
                 position: relative;
-                color: ${colors.bg};
+                color: var(--colors-bg);
                 text-decoration: none;
                 display: inline-block;
                 padding: 2px 4px;
@@ -40,7 +38,7 @@ const TagList: FC<Props> = ({tags}) => (
                 outline: none;
             }
             li:hover a, li:focus-within a {
-                color: ${colors.fg};
+                color: var(--colors-fg);
             }
             li::before {
                 content: '';
@@ -50,11 +48,16 @@ const TagList: FC<Props> = ({tags}) => (
                 left: 0;
                 height: 100%;
                 width: 100%;
-                background-color: ${colors.fg};
-                transition: height .1s ease;
+                background-color: var(--colors-fg);
+                transition: height .1s ease, top .1s ease;
             }
             li:hover::before, li:focus-within::before {
                 height: 0;
+            }
+            @media (prefers-color-scheme: dark) {
+                li:hover::before, li:focus-within::before {
+                    top: 100%;
+                }
             }
         `}</style>
     </ul>

@@ -12,7 +12,7 @@ const Tr: FC<Props> = ({children}) => (
 
         <style jsx>{`
             tr {
-                border: 0 solid #322;
+                border: 0 solid var(--colors-fg);
                 border-width: .2mm 0;
             }
             tr:first-of-type, tr:last-of-type {

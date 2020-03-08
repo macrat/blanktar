@@ -60,39 +60,37 @@ const TomboAnimation = () => {
 };
 
 
-export type Props = {
-    color?: string,
-};
+export type Props = {};
 
 
-const Tombo: FC<Props> = ({children, color='#322'}) => (
+const Tombo: FC<Props> = ({children}) => (
     <div>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo top left">
-            <polyline points="15 0, 15 10, 5 10" fill="none" stroke={color} strokeWidth="0.2" />
-            <polyline points="10 5, 10 15, 0 15" fill="none" stroke={color} strokeWidth="0.2" />
+            <polyline points="15 0, 15 10, 5 10" fill="none" strokeWidth="0.2" />
+            <polyline points="10 5, 10 15, 0 15" fill="none" strokeWidth="0.2" />
         </svg>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo top center">
-            <line x1="0" x2="15" y1="10" y2="10" stroke={color} strokeWidth="0.2" className="horizontal" />
-            <line x1="7.5" x2="7.5" y1="5" y2="11" stroke={color} strokeWidth="0.2" className="vertical" />
+            <line x1="0" x2="15" y1="10" y2="10" strokeWidth="0.2" className="horizontal" />
+            <line x1="7.5" x2="7.5" y1="5" y2="11" strokeWidth="0.2" className="vertical" />
         </svg>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo top right">
-            <polyline points="0 0, 0 10, 10 10" fill="none" stroke={color} strokeWidth="0.2" />
-            <polyline points="5 5, 5 15, 15 15" fill="none" stroke={color} strokeWidth="0.2" />
+            <polyline points="0 0, 0 10, 10 10" fill="none" strokeWidth="0.2" />
+            <polyline points="5 5, 5 15, 15 15" fill="none" strokeWidth="0.2" />
         </svg>
 
         {children}
 
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo bottom left">
-            <polyline points="15 15, 15 5, 5 5" fill="none" stroke={color} strokeWidth="0.2" />
-            <polyline points="10 10, 10 0, 0 0" fill="none" stroke={color} strokeWidth="0.2" />
+            <polyline points="15 15, 15 5, 5 5" fill="none" strokeWidth="0.2" />
+            <polyline points="10 10, 10 0, 0 0" fill="none" strokeWidth="0.2" />
         </svg>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo bottom center">
-            <line x1="0" x2="15" y1="5" y2="5" stroke={color} strokeWidth="0.2" className="horizontal" />
-            <line x1="7.5" x2="7.5" y1="4" y2="10" stroke={color} strokeWidth="0.2" className="vertical" />
+            <line x1="0" x2="15" y1="5" y2="5" strokeWidth="0.2" className="horizontal" />
+            <line x1="7.5" x2="7.5" y1="4" y2="10" strokeWidth="0.2" className="vertical" />
         </svg>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className="tombo bottom right">
-            <polyline points="0 15, 0 5, 10 5" fill="none" stroke={color} strokeWidth="0.2" />
-            <polyline points="5 10, 5 0, 15 0" fill="none" stroke={color} strokeWidth="0.2" />
+            <polyline points="0 15, 0 5, 10 5" fill="none" strokeWidth="0.2" />
+            <polyline points="5 10, 5 0, 15 0" fill="none" strokeWidth="0.2" />
         </svg>
 
         <style jsx>{`
@@ -113,6 +111,7 @@ const Tombo: FC<Props> = ({children, color='#322'}) => (
 
             .tombo {
                 position: absolute;
+                stroke: var(--colors-fg);
             }
             .tombo.top {
                 top: -15mm;

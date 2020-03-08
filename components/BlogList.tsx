@@ -17,8 +17,8 @@ const ArticleList: FC<Props> = ({posts}) => (
     <ol>
         {posts.map(({href, title, pubtime, tags, description}) => (
             <li key={href}>
-                <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" fill="#322" /></svg>
-                <svg width="1px" height="100%" className="line left"><rect x="0" y="0" width="100%" height="100%" fill="#322" /></svg>
+                <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" /></svg>
+                <svg width="1px" height="100%" className="line left"><rect x="0" y="0" width="100%" height="100%" /></svg>
 
                 <Link href={href}><div>
                     <DateTime dateTime={new Date(pubtime)} />
@@ -27,8 +27,8 @@ const ArticleList: FC<Props> = ({posts}) => (
                     <span>{description}</span>
                 </div></Link>
 
-                <svg width="100%" height="1px" className="line bottom"><rect x="0" y="0" width="100%" height="100%" fill="#322" /></svg>
-                <svg width="1px" height="100%" className="line right"><rect x="0" y="0" width="100%" height="100%" fill="#322" /></svg>
+                <svg width="100%" height="1px" className="line bottom"><rect x="0" y="0" width="100%" height="100%" /></svg>
+                <svg width="1px" height="100%" className="line right"><rect x="0" y="0" width="100%" height="100%" /></svg>
             </li>
         ))}
 
@@ -81,6 +81,9 @@ const ArticleList: FC<Props> = ({posts}) => (
             .line {
                 display: none;
                 position: absolute;
+            }
+            .line rect {
+                fill: var(--colors-fg);
             }
             .line.bottom {
                 bottom: 0;

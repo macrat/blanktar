@@ -17,7 +17,7 @@ const PS: FC<Props> = ({date, children}) => {
 
             <style jsx>{`
                 section {
-                    border-left: .2mm solid #322;
+                    border-left: .2mm solid var(--colors-dark-fg);
                     padding-left: 5mm;
                     margin-left: 2mm;
                 }

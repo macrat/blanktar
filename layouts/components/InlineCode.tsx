@@ -13,7 +13,7 @@ const InlineCode: FC<Props> = ({children}) => (
                 display: inline-block;
                 padding: 0 .5em;
                 margin: 0 .2em;
-                border: .2mm solid #322;
+                border: .2mm solid var(--colors-dark-fg);
             }
         `}</style>
     </>

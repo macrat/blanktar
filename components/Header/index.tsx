@@ -1,8 +1,6 @@
 import {FC} from 'react';
 import Link from 'next/link';
 
-import colors from '../../lib/colors';
-
 import Navigation from './Navigation';
 
 
@@ -32,7 +30,7 @@ const Header: FC<Props> = () => (
                 width: 5cm;
                 position: relative;
                 left: calc(50% - 2.5cm);
-                background-color: ${colors.fg};
+                background-color: var(--colors-fg);
             }
             a {
                 color: inherit;
