@@ -9,6 +9,11 @@ import BlogList from '../../components/BlogList';
 import Pagination from '../../components/Pagination';
 
 
+export const config = {
+    amp: 'hybrid',
+};
+
+
 export type Props = {
     page: number,
     totalPages: number,

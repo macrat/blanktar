@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import Link from 'next/link';
+import {useAmp} from 'next/amp';
 
 import {PageData} from '../lib/posts';
 
@@ -24,7 +25,8 @@ const ArticleList: FC<Props> = ({posts}) => (
                     <DateTime dateTime={new Date(pubtime)} />
                     <a href={href}><h2>{title}</h2></a>
                     <TagList tags={tags} />
-                    <span>{description}</span>
+                    <p>{description}</p>
+                    {useAmp() ? <a href={href} className="list-link" /> : ""}
                 </div></Link>
 
                 <svg width="100%" height="1px" className="line bottom"><rect x="0" y="0" width="100%" height="100%" /></svg>
@@ -67,13 +69,25 @@ const ArticleList: FC<Props> = ({posts}) => (
                 text-decoration: none;
                 outline: none;
             }
+            .list-link {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
             h2 {
                 margin: -1mm -3pt 2mm;
                 font-size: 24pt;
                 font-weight: 300;
                 line-height: 1.2em;
             }
-            span {
+            div :global(li) {
+                position: relative;
+                z-index: 10;
+            }
+            p {
                 display: block;
                 margin: 3mm 0 0;
             }
@@ -115,9 +129,9 @@ const ArticleList: FC<Props> = ({posts}) => (
                     opacity: 0;
                     transition: opacity .2s ease;
                 }
-                li:hover .line, li:focus-within .line {
+                ol li:hover svg.line, ol li:focus-within svg.line {
                     opacity: 1;
-                    animation: none !important;
+                    animation: none;
                 }
             }
         `}</style>

@@ -57,8 +57,13 @@ const TomboAnimation = () => {
             }
 
             @media (prefers-reduced-motion: reduce) {
-                svg.tombo * {
-                    animation: none !important;
+                main div > svg.tombo > line.horizontal,
+                main div > svg.tombo > line.vertical,
+                main div > svg.tombo > polyline,
+                div.loading > main div > svg.tombo > line.horizontal,
+                div.loading > main div > svg.tombo > line.vertical,
+                div.loading > main div > svg.tombo > polyline {
+                    animation: none;
                 }
             }
         `}</style>
