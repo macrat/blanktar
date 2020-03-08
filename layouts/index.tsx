@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import Article from '../components/Article';
 import JsonLD, {Author, Publisher} from '../components/JsonLD';
 import ComponentsProvider from './components';
+import SocialShare from '../components/SocialShare';
 
 
 type HowTo = {
@@ -82,6 +83,10 @@ export default ({title, pubtime, amp, tags, image, description, howto}: Props) =
                         {children}
                     </ComponentsProvider>
 
+                    <aside>
+                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} />
+                    </aside>
+
                     <JsonLD data={{
                         '@type': 'BlogPosting',
                         headline: title,
@@ -117,6 +122,12 @@ export default ({title, pubtime, amp, tags, image, description, howto}: Props) =
                         }} />
                     ) : null}
                 </Article>
+
+                <style jsx>{`
+                    aside {
+                        margin-top: 1cm;
+                    }
+                `}</style>
             </>
         );
     };
