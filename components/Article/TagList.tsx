@@ -22,9 +22,11 @@ const TagList: FC<Props> = ({tags}) => (
             li {
                 display: inline-block;
                 border: 1px solid var(--colors-fg);
-                border-radius: 4px;
+                background-color: var(--colors-fg);
+                border-radius: .5mm;
                 margin: 2px 4px;
                 position: relative;
+                overflow: hidden;
             }
             li a {
                 position: relative;
@@ -32,7 +34,7 @@ const TagList: FC<Props> = ({tags}) => (
                 text-decoration: none;
                 display: inline-block;
                 padding: 2px 4px;
-                transition: color .1s ease;
+                transition: color .2s ease;
             }
             a:focus {
                 outline: none;
@@ -48,27 +50,21 @@ const TagList: FC<Props> = ({tags}) => (
                 left: 0;
                 height: 100%;
                 width: 100%;
-                background-color: var(--colors-fg);
-                transition: height .1s ease, top .1s ease;
+                background-color: var(--colors-bg);
+                transform: scaleY(0);
+                transition: transform .2s ease;
             }
             li:hover::before, li:focus-within::before {
-                height: 0;
-            }
-            @media (prefers-color-scheme: dark) {
-                li:hover::before, li:focus-within::before {
-                    top: 100%;
-                }
+                transform: scaleY(1);
             }
 
             @media (prefers-reduced-motion: reduce) {
                 li::before {
-                    opacity: 1;
+                    opacity: 0;
                     transition: opacity .2s ease;
                 }
                 li:hover::before, li:focus-within::before {
-                    top: 0;
-                    height: 100%;
-                    opacity: 0;
+                    opacity: 1;
                 }
             }
         `}</style>
