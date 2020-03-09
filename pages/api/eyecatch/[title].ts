@@ -5,7 +5,7 @@ import {createCanvas, registerFont, loadImage} from 'canvas';
 registerFont('./assets/NotoSansCJKjp-Light.otf', {family: 'NotoSansJP', weight: 'Light'});
 
 
-export default async (req: NextApiResponse, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     const canvas = createCanvas(1200, 1200);
     const ctx = canvas.getContext('2d');
 
@@ -16,7 +16,7 @@ export default async (req: NextApiResponse, res: NextApiResponse) => {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#402020';
 
-    const title = req.query.title || '';
+    const title = String(req.query.title || '');
     const size = ctx.measureText(title);
 
     if (size.width > 1200-120) {
