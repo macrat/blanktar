@@ -17,7 +17,7 @@ description: 並列分散処理のためのライブラリであるSparkを、Py
 今回は、sklearnのirisをRandomForestでクラスタリングしてみました。
 データの用意が簡単なのと、numpy.arrayとspark.dataframeの相互変換の方法が知りたかったので。
 
-## とりあえずプロット
+# とりあえずプロット
 ここはPySpark関係無いです。
 
 ``` python
@@ -34,7 +34,7 @@ description: 並列分散処理のためのライブラリであるSparkを、Py
 
 今回は花弁とがくの長さだけ使って幅は使いません。2次元のがプロットしやすいし。
 
-## PySparkを使う準備
+# PySparkを使う準備
 とてもだいじ。でもわりと省略してるブログとかドキュメントが多くて詰むんですよね…。
 
 ``` python
@@ -49,7 +49,7 @@ description: 並列分散処理のためのライブラリであるSparkを、Py
 `pyspark.sql.SparkSession`は**spark.DataFrame**を使うために必要みたいです。
 古いブログとかだと`pyspark.sql.SQLSession`を使ってたりするけど、今はこっちを使うべきらしい(？)
 
-## numpy.ndarray -> pyspark.DataFrame
+# numpy.ndarray -> pyspark.DataFrame
 sklearnで読み込んだ**numpy.array**なデータをSparkの**DataFrame**ってやつに変換します。
 
 DataFrameって言われてpandasの二次元な表を想像してしまったのですが、なんか若干微妙な形のデータフレームなので注意が必要です。かなり悩んだ。
@@ -80,7 +80,7 @@ DataFrame[label: bigint, features: vector]
 
 これで、Spark側からデータセットを扱う準備が出来ました。
 
-## 訓練用とテスト用のデータを分ける
+# 訓練用とテスト用のデータを分ける
 これは結構簡単に出来てうれしい。
 
 ここでは7:3の割合で分割してみました。
@@ -88,7 +88,7 @@ DataFrame[label: bigint, features: vector]
 >>> traningData, testData = data.randomSplit([0.7, 0.3])
 ```
 
-## データの正規化的なアレをするヤツを作る
+# データの正規化的なアレをするヤツを作る
 これが何なのかさっぱり分かっていない。
 値域の正規化とかラベルの整理とかしてくれるらしいのだけれど、分かりません。
 ちなみに、今回のデータセットだと無くても動きました。
@@ -110,7 +110,7 @@ label = DataFrame[label: bigint, features: vector, indexedFeatures: vector]
 `outputCol`に指定された名前の新しい列を作って、そこに`inputCol`で指定された列を処理した結果を入れているみたいです。
 bigintがdoubleになったりしてるし、何かを良い感じにしてくれているっぽい。
 
-## 学習器を作って前処理のヤツと繋ぎ合わせる
+# 学習器を作って前処理のヤツと繋ぎ合わせる
 やっとデータの準備が出来たので、学習器を作ります。あと少し。
 先ほどのIndexer二つで前処理を行なって、それから**RandomForestClassifier**を使って学習を行ないます。
 
@@ -126,7 +126,7 @@ bigintがdoubleになったりしてるし、何かを良い感じにしてく�
 >>> pipeline = pyspark.ml.Pipeline(stages=[labelIndexer, featureIndexer, rf])
 ```
 
-## 学習して、実行する
+# 学習して、実行する
 作ったPipelineを使ってモデルを作ります。
 ``` python
 >>> model = pipeline.fit(traningData)
@@ -169,7 +169,7 @@ only showing top 20 rows
 
 `label`がデータセットの教師データ、`prediction`がモデルを使って分類した結果です。ちょっと間違ってるけどまあ良い感じ。
 
-## 精度を確かめる
+# 精度を確かめる
 結果が出たので、今度は精度の評価をしてみます。
 自分で計算しても良い気がするけれど、評価用のクラスが用意されているのでこれを使ってみます。
 
@@ -192,7 +192,7 @@ accuracy 94.87%
 accuracy: 94.87%
 ```
 
-## pyspark.DataFrame -> numpy.arrary
+# pyspark.DataFrame -> numpy.arrary
 pyspark.DataFrameの`.collect()`ってやつを呼ぶと配列になるので、それを`numpy.array()`に渡せばnumpyの配列に変換出来ます。
 色々経由しててあんまり効率良くなさそうな気がする。
 
@@ -211,7 +211,7 @@ pyspark.DataFrameの`.collect()`ってやつを呼ぶと配列になるので、
 
 赤い点が間違えて分類したデータ。なるほど間違えそうという感じの場所を間違えている。それっぽい。
 
-## まとめ
+# まとめ
 全部まとめるとこんな感じ。一部端折ってます。
 
 ``` python

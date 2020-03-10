@@ -33,7 +33,7 @@ howto:
 で、最近fluent/elasticsearchを使っていこうぜというマイブームが起きている（[先日の記事とか](/blog/2018/09/docker-compose-fluent-elasticsearch.html)）ので、この温湿度の記録もelasticsearchでやるようにしようかと。
 さらに、折角fluent使うなら複数のホストから取ってがしがし流したいよねということで、Raspberry Pi Zero Wを使ったやつを一台増設してみました。
 
-## 作ったもの（物理）
+# 作ったもの（物理）
 あたらしく作ったのがこんな感じのやつ。
 
 ![HDC1000を載せたRaspberry Pi Zero W](/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg "640x480")
@@ -45,7 +45,7 @@ pHATのユニバーサル基板載っけてI2Cの線を繋いだだけです。�
 [RSコンポーネンツ](https://jp.rs-online.com/web/c/semiconductors/sensor-ics/temperature-humidity-sensors/)で湿度センサとか見てるとチップだけのが色々あって妄想が膨らみます。…まあ、こんなん買ってもハンダ付けられる気がしないですが。
 
 
-## HDC1000のデータをgolangで読む
+# HDC1000のデータをgolangで読む
 HDC1000はI2Cでデータを取得出来ます。今回はgo言語から使いたかったので、[go-i2c](https://github.com/d2r2/go-i2c)というライブラリを使いました。
 ただこのライブラリ、ctrl-Cで止められないとかログを消せないとか色々挙動がアヤシかったので[フォークしたやつ](https://github.com/macrat/go-i2c)を使ってます。
 
@@ -96,7 +96,7 @@ func main() {
 起動時はデフォルトで温度と湿度をまとめて取れるモードになっているので、これを利用しています。コードが短かくて良い感じ。
 個別に取りたいなら設定用のレジスタ(0x02)を弄ればモードを変えられるみたい。
 
-## golangからfluentdにデータを送る
+# golangからfluentdにデータを送る
 取れたデータを今度はfluentdに流し込みます。これは[fluent公式のクライアント](https://github.com/fluent/fluent-logger-golang/)が便利。
 
 ``` go
@@ -131,7 +131,7 @@ func main() {
 
 これだけ。`PostWithTime`を使っておけば`@timestamp`もきちんと記録されます。良い感じ。
 
-## 折角なのできちんと作った
+# 折角なのできちんと作った
 ほんとにこれだけだとちょっと寂しいので、[ちゃんと拡張性がある感じのもの](https://github.com/macrat/doma_logger)を作ってみました。
 Prometheus経由でもっとリアルタイム性の高い記録が出来たり、保存先やらセンサの追加がやりやすかったりします。多分。
 今後プラグインで拡張したり設定ファイルでどのセンサ使うか選べるようにしたい。…モチベーションが上がれば。

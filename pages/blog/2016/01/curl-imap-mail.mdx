@@ -13,7 +13,7 @@ description: curlコマンドはメールを受信するためのIMAPも扱う�
 
 [curlでメールを送信する記事](/blog/2016/01/curl-smtp-mail.html)もあります。あわせてどうぞ。
 
-## メールの件数を取得する
+# メールの件数を取得する
 とりあえず、メールボックスの一覧を取得します。
 ```
 $ curl -u username 'imaps://imap.gmail.com:993'
@@ -41,7 +41,7 @@ Enter host password for user 'username':
 一部適当な数字で置き換えていますが、だいたいこんな出力。
 気にすべきは、`10051 EXISTS`ってところ。10051件のメールがあります。わお。
 
-## メールを読む
+# メールを読む
 そしたら今度は、いよいよメールを読んでみます。
 ```
 $ curl -u username --silent 'imaps://imap.gmail.com:993/INBOX;UID=10051;SECTION=TEXT' | nkf
@@ -53,7 +53,7 @@ Enter host password for user 'username':
 `UID=10051`のところで指定している数字がメールの番号で、数字を大きくすると新しい、小さくすると古いメールになります。
 `;SECTION=TEXT`を外すとヘッダー込みのデータが、`;SECTION=HEADER`にするとヘッダーのみのデータを取得出来ます。
 
-## 未読/既読の操作
+# 未読/既読の操作
 でまあ、こうなると未読メールの一覧も取得したくなるわけです。取得してみます。
 ```
 $ curl -u username 'imaps://imap.gmail.com:993/INBOX' -X 'SEARCH UNSEEN'

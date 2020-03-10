@@ -29,7 +29,7 @@ docker-comopseで立ち上げたコンテナのログを、[fluentd](https://www
 
 なお、ここで使ったファイル一式は[github](https://github.com/macrat/dockercompose-fluent-elasticsearch-kibana)にあります。
 
-## fluentdのイメージを用意する
+# fluentdのイメージを用意する
 Docker Hubに[fluentdのイメージ](https://hub.docker.com/r/fluent/fluentd/)があるにはあるのですが、このままだとelasticsearchにoutputするためのプラグインが入っていません。
 なので、[ドキュメント](https://github.com/fluent/fluentd-docker-image#3-customize-dockerfile-to-install-plugins-optional)を参考にしてDockerfileを作ります。
 
@@ -45,7 +45,7 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
 
 こんな感じでおっけー。ファイル名は`./fluentd/Dockerfile`にしました。
 
-## fluentdの設定ファイルを書く
+# fluentdの設定ファイルを書く
 イベージが出来たら、それ用の設定ファイルを書きます。コンテナイメージの中にCOPYしなかったのはちょこちょこ弄りたいから。
 ここでは、elasticsearchのコンテナの名前はそのまんま`elasticsearch`ということにしておきます。
 
@@ -115,7 +115,7 @@ $ docker-compose up -d
 この状態で[localhost:5601](http://localhost:5601)にアクセスするとkibanaが開いて色々見れるはず。
 ただ、このままだとログも何も流れてこないのでさびしい。
 
-## コンテナのログをfluentdに流す
+# コンテナのログをfluentdに流す
 いよいよ本題。コンテナが吐き出すログを全部fluentdに流して、elasticsearchに保存します。
 
 `./docker-compose.yml`を書き換えて、以下のような感じに。
@@ -181,6 +181,6 @@ versionを変えたくない場合は`logging:`以下にx-loggingの内容（`&d
 
 ---
 
-### 参考：
+## 参考：
 - [docker fluentd logging driver の基礎的な設定 - Qiita](https://qiita.com/moaikids/items/8a8ee90e163f14e6e923)
 - [docker-compose 3.4から追加されたExtension Fieldを使ってdocker-compose.yml でアンカー エイリアスを使う - Qiita](https://qiita.com/kyusyukeigo/items/af20487162ff0a1a6cea)

@@ -10,7 +10,7 @@ webメールが便利すぎて久しくローカルなメールクライアン�
 試してみたので記録しておきます。送信は上手く行きましたが、受信はなんか、とても不満な結果に終わっております。
 gentooと銘打ちましたが、だいたいどんなlinuxでも使える気がします。パッケージマネージャが違うだけですね。
 
-## 送信
+# 送信
 とりあえず簡単そうな送信から。
 送信には**ssmtp**というツールを使います。
 
@@ -43,7 +43,7 @@ $ echo 'hello world' | mail -s 'subject' mailto@example.com
 
 参考： [How To Use Gmail Account To Relay Email From a Shell Prompt](http://www.cyberciti.biz/tips/linux-use-gmail-as-a-smarthost.html)
 
-## 受信
+# 受信
 受信には**fetchmail**で。
 クラシックながらIMAP対応してたりして良い感じ。
 
@@ -98,7 +98,7 @@ $ fetchmail
 - [fetchmailを使ってGmailのメールをダウンロードする - mteramotoの日記](http://d.hatena.ne.jp/mteramoto/20091115/p1)
 - [Procmailの設定](https://www.rcnp.osaka-u.ac.jp/Divisions/CN/computer/ibm/manual/procmail/setting_procmail.html)
 
-### 余談： メールの受信を通知するスクリプト
+## 余談： メールの受信を通知するスクリプト
 fetchmailは受信したメールをMDAのコマンドに引き渡すわけですが、この受け取る側のコマンドを自作してみました。
 
 ``` bash

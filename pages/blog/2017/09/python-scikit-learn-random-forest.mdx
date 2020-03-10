@@ -9,7 +9,7 @@ description: Python/scikit-learnのRandomForestを使ってアヤメの分類を
 
 昨日の[PySparkのRandomForestを使った記事](/blog/2017/09/python-pyspark-random-forest-classifier-with-numpy.html)に引き続き、今日は**scikit-learn**のRandomForestを使ってみます。
 
-## データの読み込みとプロット
+# データの読み込みとプロット
 ``` python
 >>> import matplotlib.pyplot as plt
 >>> import sklearn.datasets
@@ -25,7 +25,7 @@ description: Python/scikit-learnのRandomForestを使ってアヤメの分類を
 
 昨日とほぼ同じです。今回も長さのデータだけで幅は使いません。
 
-## 訓練用とテスト用のデータを分ける
+# 訓練用とテスト用のデータを分ける
 精度を測るべく、訓練用とテスト用のデータを分けます。
 昨日と同じく7:3の割合で行きます。
 
@@ -37,7 +37,7 @@ description: Python/scikit-learnのRandomForestを使ってアヤメの分類を
 
 x（特徴量）とy（ラベル）が別々になっているので、PySparkよりちょっと面倒臭い感じがする。
 
-## 学習器を作って学習
+# 学習器を作って学習
 昨日のと違って前処理をしていないので、かなりシンプル。
 
 ``` python
@@ -49,7 +49,7 @@ x（特徴量）とy（ラベル）が別々になっているので、PySpark�
 
 PySparkの場合と違って、fitの戻り値を保持する必要はありません。
 
-## 実行して、精度を確かめる
+# 実行して、精度を確かめる
 学習が終わったら、実行してみましょう。
 
 ``` python
@@ -70,7 +70,7 @@ PySparkの場合と違って、fitの戻り値を保持する必要はありま�
 実行し直すのでデータ量が多い場合は時間が掛かっちゃいそうな気がします。
 分類結果も使うのであれば、自分で計算した方が良いかもしれません。
 
-## どこを間違えたのかプロットしてみる
+# どこを間違えたのかプロットしてみる
 ``` python
 >>> plt.scatter(*test_x.T, c=[['orange', 'green', 'blue'][answer] if answer == predict else 'red' for answer, predict in zip(test_y, prediction)])
 >>> plt.show()
@@ -82,7 +82,7 @@ PySparkの場合と違って、fitの戻り値を保持する必要はありま�
 
 scikit-learnもmatplotlibもnumpy.arrayを使うので、ほぼ何も変換せずに使えます。せいぜい転置してるくらい。
 
-## まとめ
+# まとめ
 繋げると大体以下のようになります。
 
 ``` python

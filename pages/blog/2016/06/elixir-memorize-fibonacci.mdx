@@ -10,7 +10,7 @@ Elixirの変数は変更不能らしいです。変化出来ない数、変数�
 安全性が高くて良いのですが、Webのアクセスカウンター的なものを作りたいときとか、メモ化とかやりたいときに困ります。
 というときに登場するのが[Agent](http://elixir-lang.org/docs/stable/elixir/Agent.html)ってやつらしいです。
 
-## とりあえず使ってみる
+# とりあえず使ってみる
 ```
 defmodule Counter do
     def counter do
@@ -37,7 +37,7 @@ IO.inspect Counter.counter
 `Counter.counter`関数を実行すると、`Agent.update`関数を使って値を更新して、`Agent.get`関数で値を取得しています。
 単純にカウントするだけだけどちょっと面倒臭い…。
 
-## メモ化のために使ってみる
+# メモ化のために使ってみる
 メモ化といえばフィボナッチ数ということで、フィボナッチ数の実装をやってみました。
 ```
 defmodule Memorize do

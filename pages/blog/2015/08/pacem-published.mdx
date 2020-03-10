@@ -13,18 +13,18 @@ description: 友人とハッカソンをして作った、AR空間上にビー�
 動く状態のものが[webで公開している](http://pacem.blanktar.jp)ので試してみてください。新しめのandroidなら動作すると思います。
 [開発リポジトリ](https://bitbucket.org/radiogym/pacem)も公開してありますのでそちらもどうぞ。
 
-## pacemとは？
+# pacemとは？
 AR空間上にビーコンという目印みたいなものを置くことができるアプリです。
 ビーコンは誰でも見ることができるので、集合場所を伝えたりするのに使えるような気がします。
 
 使用にはアカウントが必要ですが、IDとパスワードを決めるだけで登録できます。適当です。
 
-## サーバーサイド
+# サーバーサイド
 去年と同じく[node.js](http://nodejs.jp/)のサーバーで、[socket.io](http://socket.io/)を使って通信しています。
 データベースには[node-sqlite3](https://github.com/mapbox/node-sqlite3)を使用。SQLは便利だね、やっぱり。
 ホスティングは[Microsoft Azure](http://azure.microsoft.com)を使いました。
 
-## クライアントサイド
+# クライアントサイド
 [three.js](http://threejs.org/)を使って3Dの実装を行ないました。背景に出てる映像はMediaStream APIで取ったやつをvideoタグで流してるだけ。
 3D空間の方を[DeviceOrientationControls](http://threejs.org/examples/misc_controls_deviceorientation.html)っていうので端末の角度に合わせて回してやるとARっぽく。
 位置情報はGeolocation APIを使いました。便利だねーHTML5。そのままだと取得に時間が掛かるので、適当にラッピングして使用。

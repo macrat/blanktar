@@ -11,6 +11,7 @@ import Table from './Table';
 import Td from './Td';
 import Th from './Th';
 import Tr from './Tr';
+import {H1, H2, H3} from './headings';
 
 
 export type Props = {};
@@ -20,6 +21,9 @@ const components = {
     PS: PS,
 
     code: Code,
+    h1: H1,
+    h2: H2,
+    h3: H3,
     hr: Hr,
     img: Image as FC,
     inlineCode: InlineCode,
