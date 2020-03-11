@@ -9,6 +9,7 @@ type Post = {
     title: string,
     lowerTitle: string,
     pubtime: Date,
+    modtime?: Date,
     tags: string[],
     lowerTags: string[],
     image?: string,
@@ -36,6 +37,7 @@ for (let year of fs.readdirSync(blogBase)) {
             type Meta = {
                 title: string,
                 pubtime: string,
+                modtime?: string,
                 tags: string[],
                 image?: string,
                 description?: string,
@@ -48,6 +50,7 @@ for (let year of fs.readdirSync(blogBase)) {
                 lowerTitle: meta.title.toLowerCase(),
                 lowerTags: meta.tags.map(x => x.toLowerCase()),
                 pubtime: new Date(meta.pubtime),
+                modtime: meta.modtime ? new Date(meta.modtime) : null,
                 href: `/blog${path.slice(blogBase.length, -'.mdx'.length)}`,
                 content: article.body,
                 lowerContent: article.body.toLowerCase(),
@@ -75,8 +78,11 @@ const typeDefs = gql`
     type Post @cacheControl(maxAge: 604800) {
         title: String!
 
-        "ISO8601 style timestamp"
+        "ISO8601 style timestamp when article published"
         pubtime: String!
+
+        "ISO8601 style timestamp when article modified"
+        modtime: String
 
         "tags (keywords) of the post"
         tags: [String!]!
@@ -147,6 +153,7 @@ const apolloServer = new ApolloServer({
                 const sliced = filtered.slice(args.offset, args.offset + args.limit).map(x => ({
                     ...x,
                     pubtime: x.pubtime.toISOString(),
+                    modtime: x.modtime?.toISOString()
                 }));
 
                 return {
@@ -175,6 +182,7 @@ const apolloServer = new ApolloServer({
                 const sliced = filtered.slice(args.offset, args.offset + args.limit).map(x => ({
                     ...x,
                     pubtime: x.pubtime.toISOString(),
+                    modtime: x.modtime?.toISOString(),
                 }));
 
                 return {

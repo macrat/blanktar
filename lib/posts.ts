@@ -4,6 +4,7 @@ import fetch from 'isomorphic-unfetch';
 export type PageData = {
     title: string,
     pubtime: string,
+    modtime: string | null,
     href: string,
     tags: string[],
     description: string | null,
@@ -36,7 +37,7 @@ const makeQuery: ((opts: Opts) => string) = opts => {
 
     const query = Object.entries(sendOpts).filter(([k, v]) => v).map(([k, v]) => `${k}:${v}`).join(',');
 
-    return `{posts(${query}){posts{title,pubtime,href,tags,description},totalCount}}`;
+    return `{posts(${query}){posts{title,pubtime,modtime,href,tags,description},totalCount}}`;
 };
 
 
@@ -52,7 +53,7 @@ export default async function(origin?: string, {year, month, desc=false, page=0,
 
 
 export async function search(origin: string | undefined, query: string, page: number = 0): Promise<Response> {
-    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},offset:${page * 20},limit:20){posts{title,pubtime,href,tags,description},totalCount}}`);
+    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},offset:${page * 20},limit:20){posts{title,pubtime,modtime,href,tags,description},totalCount}}`);
 
     if (!resp.ok) {
         throw new Error(`${resp.statusText}: ${await resp.text()}`);

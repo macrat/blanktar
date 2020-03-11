@@ -24,6 +24,7 @@ type HowTo = {
 export type Props = {
     title: string,
     pubtime: string,
+    modtime?: string,
     amp: boolean | 'hybrid',
     tags: string[],
     image?: string,
@@ -32,12 +33,15 @@ export type Props = {
 };
 
 
-export default ({title, pubtime, amp, tags, image, description, howto}: Props) => {
+export default ({title, pubtime, modtime, amp, tags, image, description, howto}: Props) => {
     if (!title) {
         throw `${pubtime}: title is not provided`;
     }
     if (!pubtime || !pubtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
         throw `${title}: pubtime is not provided or invalid format: "${pubtime}"`;
+    }
+    if (modtime && !modtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
+        throw `${title}: modtime is not provided or invalid format: "${modtime}"`;
     }
     if (![true, false, 'hybrid'].includes(amp)) {
         throw `${title} ${pubtime}: amp is not provided or invalid value: "${amp}"`;
@@ -93,6 +97,7 @@ export default ({title, pubtime, amp, tags, image, description, howto}: Props) =
                         author: Author,
                         image: image ? `https://blanktar.jp${image}` : `https://blanktar.jp/api/eyecatch/${encodeURIComponent(title)}`,
                         datePublished: pubtime,
+                        dateModified: modtime,
                         publisher: Publisher,
                         description: description || undefined,
                         mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
