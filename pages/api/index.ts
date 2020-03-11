@@ -50,7 +50,7 @@ for (let year of fs.readdirSync(blogBase)) {
                 lowerTitle: meta.title.toLowerCase(),
                 lowerTags: meta.tags.map(x => x.toLowerCase()),
                 pubtime: new Date(meta.pubtime),
-                modtime: meta.modtime ? new Date(meta.modtime) : null,
+                modtime: meta.modtime ? new Date(meta.modtime) : undefined,
                 href: `/blog${path.slice(blogBase.length, -'.mdx'.length)}`,
                 content: article.body,
                 lowerContent: article.body.toLowerCase(),
