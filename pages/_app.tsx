@@ -59,7 +59,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                 <JsonLD data={Website} />
             </Head>
 
-            <Header />
+            {pageProps.__disableHeader ? null : <Header />}
 
             <main>
                 <Component {...pageProps} />
