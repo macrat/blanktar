@@ -32,9 +32,10 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
                     display: inline-block;
                     height: .7em;
                     width: .7em;
+                    margin-left: .1em;
                 }
                 path {
-                    fill: var(--colors-fg);
+                    fill: var(--colors-dark-fg);
                 }
                 rect {
                     fill: var(--colors-bg);
