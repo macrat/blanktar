@@ -120,10 +120,18 @@ const typeDefs = gql`
         DESC
     }
 
+    """
+    The target of search.
+    """
+    enum SearchTarget {
+        ALL
+        TITLE
+    }
+
     type Query {
         post(href: String!): Post
         posts(year: Int, month: Int, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
-        search(query: String!, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
+        search(query: String!, target: SearchTarget = ALL, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
     }
 `;
 
@@ -166,11 +174,17 @@ const apolloServer = new ApolloServer({
                 let filtered = posts;
 
                 args.query.toLowerCase().split(' ').forEach((q: string) => {
-                    filtered = posts.filter(x => (
-                        x.lowerTitle.includes(q)
-                        || x.lowerTags.includes(q)
-                        || x.lowerContent.includes(q)
-                    ));
+                    const searcher = args.target === 'ALL' ? (
+                        x => (
+                            x.lowerTitle.includes(q)
+                            || x.lowerTags.includes(q)
+                            || x.lowerContent.includes(q)
+                        )
+                    ) : (
+                        x => x.lowerTitle.includes(q)
+                    );
+
+                    filtered = filtered.filter(searcher);
                 });
 
                 if (args.order === 'DESC') {

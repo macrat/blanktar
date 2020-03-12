@@ -61,3 +61,14 @@ export async function search(origin: string | undefined, query: string, page: nu
 
     return (await resp.json()).data.search;
 }
+
+
+export async function searchTitle(origin: string | undefined, query: string): Promise<{title: string, href: string}[]> {
+    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},limit:5,target:TITLE){posts{title,href}}}`);
+
+    if (!resp.ok) {
+        throw new Error(`${resp.statusText}: ${await resp.text()}`);
+    }
+
+    return (await resp.json()).data.search.posts;
+}
