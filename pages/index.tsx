@@ -10,17 +10,15 @@ export type Props = {
 
 
 const Index: NextPage<Props> = () => (
-    <>
+    <div>
         <MetaData />
 
-        <div>
-            <svg width="256" height="256" viewBox="-2 -1.5 20 20">
-                <polyline fill="none" points="1 1, 7 7, 0 14" />
-                <polyline fill="none" points="0 4, 7 11, 1 17" />
-                <polyline fill="none" strokeWidth="0.5" points="15 1, 9 7, 16 14" />
-                <polyline fill="none" strokeWidth="0.5" points="16 4, 9 11, 15 17" />
-            </svg>
-        </div>
+        <svg width="256" height="256" viewBox="-2 -1.5 20 20">
+            <polyline fill="none" points="1 1, 7 7, 0 14" />
+            <polyline fill="none" points="0 4, 7 11, 1 17" />
+            <polyline fill="none" strokeWidth="0.5" points="15 1, 9 7, 16 14" />
+            <polyline fill="none" strokeWidth="0.5" points="16 4, 9 11, 15 17" />
+        </svg>
 
         <ul>
             <li><Link href="/about"><a>about</a></Link></li>
@@ -37,6 +35,7 @@ const Index: NextPage<Props> = () => (
                 width: 100vw;
                 height: 100vh;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;
@@ -46,10 +45,6 @@ const Index: NextPage<Props> = () => (
                 height: auto;
             }
             ul {
-                position: fixed;
-                bottom: calc(50vh - 7cm / 2 - 2em);
-                left: 0;
-                width: 100vw;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
@@ -102,7 +97,7 @@ const Index: NextPage<Props> = () => (
                   to { opacity: 1; }
             }
         `}</style>
-    </>
+    </div>
 );
 
 
