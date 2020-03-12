@@ -131,7 +131,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                 main {
                     flex: 1 1 0;
                 }
-                div::after {
+                div::before {
                     content: '';
                     display: block;
                     position: fixed;
@@ -146,7 +146,7 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
                     from { transform: translate(-100%, 0); }
                       to { transform: translate(0, 0); }
                 }
-                div.loading::after  {
+                div.loading::before  {
                     animation: loading 1s linear infinite;
                 }
                 @keyframes loading {
