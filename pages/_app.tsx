@@ -7,6 +7,7 @@ import fetch from 'isomorphic-unfetch';
 
 import Header from '../components/Header';
 import JsonLD, {Website} from '../components/JsonLD';
+import Footer from '../components/Footer';
 
 
 const TomboApp = ({Component, pageProps}: AppProps) => {
@@ -64,6 +65,8 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
             <main>
                 <Component {...pageProps} />
             </main>
+
+            <Footer />
 
             <style jsx global>{`
                 html {
