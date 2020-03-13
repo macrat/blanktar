@@ -175,13 +175,13 @@ const apolloServer = new ApolloServer({
 
                 args.query.toLowerCase().split(' ').forEach((q: string) => {
                     const searcher = args.target === 'ALL' ? (
-                        x => (
+                        (x: Post) => (
                             x.lowerTitle.includes(q)
                             || x.lowerTags.includes(q)
                             || x.lowerContent.includes(q)
                         )
                     ) : (
-                        x => x.lowerTitle.includes(q)
+                        (x: Post) => x.lowerTitle.includes(q)
                     );
 
                     filtered = filtered.filter(searcher);
