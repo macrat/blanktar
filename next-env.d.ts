@@ -10,6 +10,9 @@ declare namespace JSX {
         width: string;
         height: string;
         layout?: string;
+        style?: {
+            [key: string]: string | number,
+        };
     }
     interface IntrinsicElements {
         'amp-img': AmpImg;

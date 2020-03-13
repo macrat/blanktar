@@ -1,6 +1,8 @@
 import {FC} from 'react';
 import {useAmp} from 'next/amp';
 
+import ImageComponent from '../../components/Image';
+
 
 export type Props = {
     src: string,
@@ -24,45 +26,7 @@ const Image: FC<Props> = ({src, alt, width, height, title, center=false}) => {
         throw `alt is not provided: ![${alt}](${src})`;
     }
 
-    if (useAmp()) {
-        const image = (<>
-            <amp-img src={src} alt={alt} width={String(width)} height={String(height)} layout="intrinsic" />
-            <style jsx>{`
-                amp-img {
-                    background-color: var(--colors-block-bg);
-                    margin: 1mm;
-                }
-            `}</style>
-        </>);
-
-        if (center) {
-            return (<div>
-                {image}
-
-                <style jsx>{`
-                    div {
-                        text-align: center;
-                    }
-                `}</style>
-            </div>);
-        }
-        return (<>{image}</>);
-    }
-
-    return (<>
-        <img src={src} alt={alt} width={String(width)} height={String(height)} loading="lazy" />
-
-        <style jsx>{`
-            img {
-                display: ${center ? "block" : "inline-block"};
-                max-width: 100%;
-                height: auto;
-                background-color: var(--colors-block-bg);
-                margin: ${center ? "1mm auto" : "1mm"};
-            }
-        `}</style>
-    </>);
-
+    return <ImageComponent src={src} alt={alt} width={width} height={height} center={center} />
 };
 
 
