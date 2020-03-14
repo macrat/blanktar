@@ -8,7 +8,7 @@ export type Props = {
 
 
 const ShareButton: FC<Props> = ({href, alt, children}) => (
-    <a href={href} rel="nofollow" target="_blank" title={alt}>
+    <a href={href} rel="noopener nofollow" target="_blank" title={alt}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"

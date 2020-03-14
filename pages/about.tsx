@@ -32,15 +32,15 @@ const About: NextPage<Props> = () => (
             <dt>ハンドルネーム</dt>
             <dd>MacRat</dd>
             <dt>メール</dt>
-            <dd><a href="mailto:m@crat.jp" target="_blank">m@crat.jp</a></dd>
+            <dd><a href="mailto:m@crat.jp" target="_blank" rel="noopener">m@crat.jp</a></dd>
             <dt>Twitter</dt>
-            <dd><a href="https://twitter.com/macrat_jp" target="_blank">@MacRat_jp</a></dd>
+            <dd><a href="https://twitter.com/macrat_jp" target="_blank" rel="noopener">@MacRat_jp</a></dd>
             <dt>Facebook</dt>
-            <dd><a href="https://facebook.com/yuuma.shida" target="_blank">yuuma.shida</a></dd>
+            <dd><a href="https://facebook.com/yuuma.shida" target="_blank" rel="noopener">yuuma.shida</a></dd>
             <dt>GitHub</dt>
-            <dd><a href="https://github.com/macrat" target="_blank">MacRat</a></dd>
+            <dd><a href="https://github.com/macrat" target="_blank" rel="noopener">MacRat</a></dd>
             <dt>資格</dt>
-            <dd>情報処理安全確保支援士（2018年登録, 登録番号: <a href="https://riss.ipa.go.jp/r?r=009528" target="_blank">009528</a>）</dd>
+            <dd>情報処理安全確保支援士（2018年登録, 登録番号: <a href="https://riss.ipa.go.jp/r?r=009528" target="_blank" rel="noopener">009528</a>）</dd>
             <dd>データベーススペシャリスト（2017年春）</dd>
             <dd>ネットワークスペシャリスト（2014年秋）</dd>
             <dd>情報セキュリティスペシャリスト（2013年秋）</dd>

@@ -5,6 +5,7 @@ import Code from './Code';
 import Hr from './Hr';
 import Image from './Image';
 import InlineCode from './InlineCode';
+import Link from './Link';
 import PS from './PS';
 import Pre from './Pre';
 import Table from './Table';
@@ -27,6 +28,7 @@ const components = {
     hr: Hr,
     img: Image as FC,
     inlineCode: InlineCode,
+    a: Link as FC,
     pre: Pre,
     table: Table,
     td: Td as FC,
