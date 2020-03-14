@@ -28,7 +28,7 @@ const Navigation: FC<Props> = () => (
             a {
                 position: relative;
                 display: inline-block;
-                padding: 2px 8px;
+                padding: 3px 10px;
                 z-index: 1;
                 color: inherit;
                 text-decoration: none;

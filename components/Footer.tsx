@@ -18,7 +18,8 @@ const Footer: FC<Props> = () => (
             }
             a, span {
                 display: inline-block;
-                color: var(--colors-dark-fg);
+                color: var(--colors-fg);
+                opacity: .7;
                 margin: 0 2mm;
             }
             a:hover, a:focus {
