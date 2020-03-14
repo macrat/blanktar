@@ -7,6 +7,7 @@ import {useDebounce} from 'use-debounce';
 import {search, Response as Posts} from '../lib/posts';
 
 import Article from '../components/Article';
+import MetaData from '../components/MetaData';
 import SearchBox from '../components/SearchBar/SearchBox';
 import DateTime from '../components/DateTime';
 import Pagination from '../components/Pagination';
@@ -66,6 +67,10 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
 
     return (
         <Article>
+            <MetaData
+                title={`${searchQuery}の検索結果`}
+                description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
+
             <SearchBox
                 query={query}
                 setQuery={q => setQuery(q)}
