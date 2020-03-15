@@ -58,7 +58,7 @@ const TagList: FC<Props> = ({tags}) => (
                 transform: scaleY(1);
             }
 
-            @media (prefers-reduced-motion: reduce) {
+            @media screen and (prefers-reduced-motion: reduce) {
                 li::before {
                     opacity: 0;
                     transition: opacity .2s ease;

@@ -45,24 +45,25 @@ const ArticleList: FC<Props> = ({posts}) => (
 
         <style jsx>{`
             ol {
-                margin: 0 5mm;
+                margin: 0;
                 padding: 0;
-            }
-            @media screen and (max-width: 5cm) {
-                ol {
-                    margin: 0 2mm;
-                }
             }
             li {
                 display: block;
                 position: relative;
-                margin: 7mm 0;
+                margin: 5mm 0;
                 overflow: hidden;
             }
             div {
                 display: block;
-                padding: 5mm 5mm;
+                padding: 7mm 5mm;
                 cursor: pointer;
+                transition: padding .6s ease;
+            }
+            @media (max-width: 40em) {
+                div {
+                    padding: 7mm 2mm;
+                }
             }
             a, a:hover, a:focus {
                 color: inherit;
@@ -123,7 +124,7 @@ const ArticleList: FC<Props> = ({posts}) => (
                   to { transform: translate(0, 0); }
             }
 
-            @media (prefers-reduced-motion: reduce) {
+            @media screen and (prefers-reduced-motion: reduce) {
                 .line {
                     display: block;
                     opacity: 0;

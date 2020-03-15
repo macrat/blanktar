@@ -59,7 +59,7 @@ const PageLink: FC<{current: boolean, page: number, href: HrefFunc}> = ({current
                 stroke-dashoffset: 0;
             }
 
-            @media (prefers-reduced-motion) {
+            @media screen and (prefers-reduced-motion: reduce) {
                 polyline {
                     stroke-dasharray: 0;
                     stroke-dashoffset: 0;
@@ -107,7 +107,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
                     display: inline-block;
                     margin: 3mm 2mm;
                 }
-                @media screen and (max-width: 32em) {
+                @media (max-width: 30em) {
                     li:not(.keep) {
                         display: none;
                     }

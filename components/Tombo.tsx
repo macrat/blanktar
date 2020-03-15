@@ -56,7 +56,7 @@ const TomboAnimation = () => {
                   to { stroke-dashoffset: 20; }
             }
 
-            @media (prefers-reduced-motion: reduce) {
+            @media screen and (prefers-reduced-motion: reduce) {
                 main div > svg.tombo > line.horizontal,
                 main div > svg.tombo > line.vertical,
                 main div > svg.tombo > polyline,

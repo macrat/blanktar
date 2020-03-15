@@ -89,7 +89,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-function: #8d0f1b;
                     --colors-variable: #6f42c1;
                 }
-                @media (prefers-color-scheme: dark) {
+                @media screen and (prefers-color-scheme: dark) {
                     html {
                         --colors-fg: #fcf8f5;
                         --colors-dark-fg: #9f9393;

@@ -41,12 +41,12 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
                 top: -2mm;
                 right: 5mm;
             }
-            @media screen and (max-width: 40em) {
+            @media (max-width: 40em) {
                 h1 {
                     font-size: 36pt;
                 }
             }
-            @media screen and (max-width: 30em) {
+            @media (max-width: 30em) {
                 time {
                     position: initial;
                     text-align: right;

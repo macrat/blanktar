@@ -76,7 +76,7 @@ const Navigation: FC<Props> = () => (
             li:nth-child(3)::before { animation-delay: .2s; }
             li:nth-child(4)::before { animation-delay: .3s; }
 
-            @media (prefers-reduced-motion: reduce) {
+            @media screen and (prefers-reduced-motion: reduce) {
                 a {
                     animation: none;
                 }
