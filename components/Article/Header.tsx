@@ -15,8 +15,8 @@ export type Props = {
 
 const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
     <header>
-        {breadlist ? <BreadList pages={breadlist} /> : null}
         {pubtime ? <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time> : null}
+        {breadlist ? <BreadList pages={breadlist} /> : null}
         {title ? <h1>{title}</h1> : null}
         {tags ? <TagList tags={tags} /> : null}
 
@@ -30,6 +30,7 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
                 margin: 0 0 .5rem;
                 ${breadlist ? "" : "padding: 2.5rem 0 0;"}
                 line-height: 1em;
+                transition: font-size .6s ease;
             }
             time {
                 display: block;
@@ -39,6 +40,17 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
                 position: absolute;
                 top: -2mm;
                 right: 5mm;
+            }
+            @media screen and (max-width: 40em) {
+                h1 {
+                    font-size: 36pt;
+                }
+            }
+            @media screen and (max-width: 30em) {
+                time {
+                    position: initial;
+                    text-align: right;
+                }
             }
         `}</style>
     </header>
