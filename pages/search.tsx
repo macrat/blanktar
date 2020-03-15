@@ -16,6 +16,7 @@ import Pagination from '../components/Pagination';
 export type Props = {
     query: string,
     page: number,
+    __disableSearchBar: boolean,
 };
 
 
@@ -102,6 +103,7 @@ Search.getInitialProps = ({query}) => {
     return {
         query: String(query.q || ''),
         page: Number(String(query.page || 1)),
+        __disableSearchBar: true,
     };
 };
 

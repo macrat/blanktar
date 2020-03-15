@@ -7,6 +7,7 @@ import fetch from 'isomorphic-unfetch';
 
 import Header from '../components/Header';
 import JsonLD, {Website} from '../components/JsonLD';
+import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
 
 
@@ -61,6 +62,8 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
             </Head>
 
             {pageProps.__disableHeader ? null : <Header />}
+
+            {pageProps.__disableSearchBar ? null : <SearchBar />}
 
             <main>
                 <Component {...pageProps} />

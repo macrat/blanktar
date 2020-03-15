@@ -4,7 +4,6 @@ import posts, {PageData} from '../../lib/posts';
 
 import MetaData from '../../components/MetaData';
 import Article from '../../components/Article';
-import SearchBar from '../../components/SearchBar';
 import BlogList from '../../components/BlogList';
 import Pagination from '../../components/Pagination';
 
@@ -24,8 +23,6 @@ export type Props = {
 const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     <>
         <MetaData title="blog" />
-
-        <SearchBar />
 
         <Article title="blog" breadlist={[{
             title: 'blog',

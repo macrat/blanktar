@@ -6,6 +6,7 @@ import MetaData from '../components/MetaData';
 
 export type Props = {
     __disableHeader: boolean,
+    __disableSearchBar: boolean,
 };
 
 
@@ -107,5 +108,6 @@ export default Index;
 export const unstable_getStaticProps = () => ({
     props: {
         __disableHeader: true,
+        __disableSearchBar: true,
     },
 });

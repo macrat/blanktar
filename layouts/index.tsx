@@ -2,7 +2,6 @@ import {FC} from 'react';
 import {useRouter} from 'next/router';
 
 import MetaData from '../components/MetaData';
-import SearchBar from '../components/SearchBar';
 import Article from '../components/Article';
 import JsonLD, {Author, Publisher} from '../components/JsonLD';
 import ComponentsProvider from './components';
@@ -60,8 +59,6 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
         return (
             <>
                 <MetaData title={title} description={description || undefined} />
-
-                <SearchBar />
 
                 <Article
                     title={title}
