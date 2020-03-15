@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useState, memo} from 'react';
 
 import SearchBox from './SearchBox';
 import Suggestion from './Suggestion';
@@ -7,7 +7,7 @@ import Suggestion from './Suggestion';
 export type Props = {};
 
 
-const SearchBar: FC<Props> = props => {
+const SearchBar: FC<Props> = () => {
     const [query, setQuery] = useState<string>('');
 
     return (
@@ -55,4 +55,4 @@ const SearchBar: FC<Props> = props => {
 };
 
 
-export default SearchBar;
+export default memo(SearchBar, () => true);

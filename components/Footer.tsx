@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, memo} from 'react';
 import Link from 'next/link';
 
 
@@ -30,4 +30,4 @@ const Footer: FC<Props> = () => (
 );
 
 
-export default Footer;
+export default memo(Footer, () => true);

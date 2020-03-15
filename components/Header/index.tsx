@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, memo} from 'react';
 import Link from 'next/link';
 
 import Navigation from './Navigation';
@@ -44,4 +44,4 @@ const Header: FC<Props> = () => (
 );
 
 
-export default Header;
+export default memo(Header, () => true);

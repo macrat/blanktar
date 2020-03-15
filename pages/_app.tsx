@@ -1,9 +1,11 @@
-import {useState, useEffect} from 'react';
+import {FC, useState, useEffect, memo} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import {useAmp} from 'next/amp';
 import fetch from 'isomorphic-unfetch';
+
+import useLoading from '../lib/loading';
 
 import Header from '../components/Header';
 import JsonLD, {Website} from '../components/JsonLD';
@@ -11,8 +13,7 @@ import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
 
 
-const BlanktarApp = ({Component, pageProps}: AppProps) => {
-    const [loading, setLoading] = useState<boolean>(false);
+const CommonResources = memo(function CommonResources() {
     const [fontCSS, setFontCSS] = useState<string>("");
     const isAmp = useAmp();
 
@@ -20,46 +21,45 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
         fetch('/api/font')
             .then(resp => resp.text())
             .then(css => setFontCSS(`data:text/css,${encodeURIComponent(css)}`));
-
-        const onStart = () => setLoading(true);
-        const onComplete = () => {
-            setLoading(false);
-            if (document?.activeElement instanceof HTMLElement) {
-                document.activeElement.blur();
-            }
-        };
-
-        Router.events.on('routeChangeStart', onStart);
-        Router.events.on('routeChangeComplete', onComplete);
-
-        return () => {
-            Router.events.off('routeChangeStart', onStart);
-            Router.events.off('routeChangeComplete', onComplete);
-        };
     }, []);
 
     return (
+        <Head>
+            <meta charSet="utf-8" />
+
+            <link
+                rel="dns-prefetch preconnect"
+                href="https://fonts.gstatic.com"
+                key="preconnect--gstatic" />
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
+                key="style--font" />
+
+            <meta name="theme-color" content="#402020" />
+            <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
+            <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
+            <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
+
+            <JsonLD data={Website} />
+        </Head>
+    );
+} as FC<{}>, () => true);
+
+
+const BlanktarApp = ({Component, pageProps}: AppProps) => {
+    const loading = useLoading();
+
+    useEffect(() => {
+        if (loading && document?.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+    }, [loading]);
+
+    return (
         <div className={loading ? "loading" : ""}>
-            <Head>
-                <meta charSet="utf-8" />
-
-                <link
-                    rel="dns-prefetch preconnect"
-                    href="https://fonts.gstatic.com"
-                    key="preconnect--gstatic" />
-                <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
-                    key="style--font" />
-
-                <meta name="theme-color" content="#402020" />
-                <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
-                <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
-                <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
-
-                <JsonLD data={Website} />
-            </Head>
+            <CommonResources />
 
             {pageProps.__disableHeader ? null : <Header />}
 
