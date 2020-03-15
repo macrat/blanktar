@@ -11,7 +11,7 @@ import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
 
 
-const TomboApp = ({Component, pageProps}: AppProps) => {
+const BlanktarApp = ({Component, pageProps}: AppProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [fontCSS, setFontCSS] = useState<string>("");
     const isAmp = useAmp();
@@ -165,4 +165,4 @@ const TomboApp = ({Component, pageProps}: AppProps) => {
 };
 
 
-export default TomboApp;
+export default BlanktarApp;
