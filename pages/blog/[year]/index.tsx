@@ -17,10 +17,6 @@ export type Props = {
 
 
 const YearIndex: NextPage<Props> = ({year, posts}) => {
-    if (!year || !posts) {
-        return <ErrorPage statusCode={404} />;
-    }
-
     return (<>
         <MetaData title={`${year}年の記事`} />
 
@@ -38,13 +34,13 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
 };
 
 
-export const unstable_getStaticProps = async ({params}: {params: {year: string}}) => {
+export const getStaticProps = async ({params}: {params: {year: string}}) => {
     const year = Number(params.year);
 
     const ps = (await import('../../api')).posts.filter(x => x.pubtime.getFullYear() === year).map(x => ({
         title: x.title,
         href: x.href,
-        pubtime: x.pubtime,
+        pubtime: x.pubtime.toISOString(),
         tags: x.tags,
         description: x.description,
     }));
@@ -58,12 +54,13 @@ export const unstable_getStaticProps = async ({params}: {params: {year: string}}
 };
 
 
-export const unstable_getStaticPaths = async () => {
+export const getStaticPaths = async () => {
     const ps = (await import('../../api')).posts;
 
     const years = Array.from(new Set(ps.map(x => x.pubtime.getFullYear())));
 
     return {
+        fallback: false,
         paths: years.map(y => ({params: {year: String(y)}})),
     };
 };

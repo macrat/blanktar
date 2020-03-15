@@ -17,10 +17,6 @@ export type Props = {
 
 
 const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
-    if (!year || !month || !posts) {
-        return <ErrorPage statusCode={404} />;
-    }
-
     return (<>
         <MetaData title={`${year}年${month}月の記事`} />
 
@@ -43,14 +39,14 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
 };
 
 
-export const unstable_getStaticProps = async ({params}: {params: {year: string, month: string}}) => {
+export const getStaticProps = async ({params}: {params: {year: string, month: string}}) => {
     const year = Number(params.year);
     const month = Number(params.month);
 
     const ps = (await import('../../../api')).posts.filter(x => x.pubtime.getFullYear() === year && x.pubtime.getMonth() + 1 === month).map(x => ({
         title: x.title,
         href: x.href,
-        pubtime: x.pubtime,
+        pubtime: x.pubtime.toISOString(),
         tags: x.tags,
         description: x.description,
     }));
@@ -65,7 +61,7 @@ export const unstable_getStaticProps = async ({params}: {params: {year: string, 
 };
 
 
-export const unstable_getStaticPaths = async () => {
+export const getStaticPaths = async () => {
     const ps = (await import('../../../api')).posts;
 
     const pages = Array.from(new Set(ps.map(x => (
@@ -73,6 +69,7 @@ export const unstable_getStaticPaths = async () => {
     ))));
 
     return {
+        fallback: false,
         paths: pages.map(x => ({
             params: {
                 year: String(x.split('/')[0]),

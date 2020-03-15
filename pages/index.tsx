@@ -105,7 +105,7 @@ const Index: NextPage<Props> = () => (
 export default Index;
 
 
-export const unstable_getStaticProps = () => ({
+export const getStaticProps = () => ({
     props: {
         __disableHeader: true,
         __disableSearchBar: true,
