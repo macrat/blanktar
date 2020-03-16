@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {NextPage} from 'next';
 
+import MetaData from '../components/MetaData';
 import SearchBox from '../components/SearchBar/SearchBox';
 
 
@@ -14,6 +15,16 @@ const Error: NextPage<Props> = ({statusCode}) => {
 
     return (
         <article>
+            <MetaData
+                title={
+                    statusCode === 404 ? (
+                        "ページが見つかりませんでした"
+                    ) : statusCode === 500 ? (
+                        "サーバーでエラーが発生しました"
+                    ) : (
+                        "エラーが発生しました"
+                    )
+                } />
             <header>
                 <h1>{statusCode}</h1>
 
