@@ -1,9 +1,36 @@
 import {NextApiRequest, NextApiResponse} from 'next';
+import {promises as fs, constants} from 'fs';
 import {createCanvas, registerFont, Image} from 'canvas';
+import fetch from 'isomorphic-unfetch';
 import preval from 'preval.macro';
 
 
-registerFont('./assets/NotoSansCJKjp-Light.otf', {family: 'NotoSansJP', weight: 'Light'});
+let fontLoaded = false;
+const loadFont = async (origin: String) => {
+    if (fontLoaded) {
+        return
+    }
+
+    let fontPath = './assets/NotoSansCJKjp-Light.otf';
+    try {
+        await fs.access(fontPath);
+    } catch {
+        fontPath = '/tmp/NotoSansCJKjp-Light.otf';
+
+        try {
+            await fs.access(fontPath, constants.R_OK);
+        } catch {
+            await fs.writeFile(
+                fontPath,
+                Buffer.from(await (await fetch(`http://${origin}/assets/NotoSansCJKjp-Light.otf`)).arrayBuffer()),
+            );
+        }
+    }
+
+    registerFont(fontPath, {family: 'NotoSansJP', weight: 'Light'});
+
+    fontLoaded = true;
+};
 
 
 const baseImage = () => {
@@ -22,6 +49,8 @@ const baseImage = () => {
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+    await loadFont(req.headers.host || 'localhost');
+
     const canvas = createCanvas(1200, 1200);
     const ctx = canvas.getContext('2d');
 
