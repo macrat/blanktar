@@ -2,7 +2,8 @@ import {NextPage} from 'next';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 
-import posts, {PageData} from '../../../lib/posts';
+import {PageData} from '../../../lib/posts';
+import posts from '../../../lib/server/posts';
 
 import MetaData from '../../../components/MetaData';
 import Article from '../../../components/Article';
@@ -37,7 +38,7 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
 export const getStaticProps = async ({params}: {params: {year: string}}) => {
     const year = Number(params.year);
 
-    const ps = (await import('../../api')).posts.filter(x => x.pubtime.getFullYear() === year).map(x => ({
+    const ps = posts.filter(x => x.pubtime.getFullYear() === year).map(x => ({
         title: x.title,
         href: x.href,
         pubtime: x.pubtime.toISOString(),
@@ -55,9 +56,7 @@ export const getStaticProps = async ({params}: {params: {year: string}}) => {
 
 
 export const getStaticPaths = async () => {
-    const ps = (await import('../../api')).posts;
-
-    const years = Array.from(new Set(ps.map(x => x.pubtime.getFullYear())));
+    const years = Array.from(new Set(posts.map(x => x.pubtime.getFullYear())));
 
     return {
         fallback: false,

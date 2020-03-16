@@ -1,69 +1,7 @@
-import fm from 'front-matter';
-import fs from 'fs';
 import {ApolloServer, gql} from 'apollo-server-micro';
 
+import posts, {Post} from '../../lib/server/posts';
 
-const blogBase = './pages/blog';
-
-type Post = {
-    title: string,
-    lowerTitle: string,
-    pubtime: Date,
-    modtime?: Date,
-    tags: string[],
-    lowerTags: string[],
-    image?: string,
-    description?: string,
-    href: string,
-    content: string,
-    lowerContent: string,
-    previous?: Post,
-    next?: Post,
-};
-
-export const posts: Post[] = [];
-
-for (let year of fs.readdirSync(blogBase)) {
-    if (!year.match(/^[0-9]{4}$/)) continue;
-
-    for (let month of fs.readdirSync(`${blogBase}/${year}`)) {
-        if (!month.match(/^0[1-9]|1[0-2]$/)) continue;
-
-        for (let file of fs.readdirSync(`${blogBase}/${year}/${month}`)) {
-            if (!file.match(/\.mdx$/)) continue;
-
-            const path = `${blogBase}/${year}/${month}/${file}`;
-
-            type Meta = {
-                title: string,
-                pubtime: string,
-                modtime?: string,
-                tags: string[],
-                image?: string,
-                description?: string,
-            };
-            const article = fm(fs.readFileSync(path, 'utf8'));
-            const meta: Meta = article.attributes as Meta;
-
-            posts.push({
-                ...meta,
-                lowerTitle: meta.title.toLowerCase(),
-                lowerTags: meta.tags.map(x => x.toLowerCase()),
-                pubtime: new Date(meta.pubtime),
-                modtime: meta.modtime ? new Date(meta.modtime) : undefined,
-                href: `/blog${path.slice(blogBase.length, -'.mdx'.length)}`,
-                content: article.body,
-                lowerContent: article.body.toLowerCase(),
-            });
-        }
-    }
-}
-
-posts.sort((x, y) => {
-    if (x.pubtime > y.pubtime) return 1;
-    if (x.pubtime < y.pubtime) return -1;
-    return 0;
-});
 
 for (let i = 0; i < posts.length; i++) {
     posts[i].previous = posts[i - 1];

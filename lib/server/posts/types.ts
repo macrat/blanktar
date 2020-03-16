@@ -1,0 +1,15 @@
+export type Post = {
+    title: string,
+    lowerTitle: string,
+    pubtime: Date,
+    modtime?: Date,
+    tags: string[],
+    lowerTags: string[],
+    image?: string,
+    description?: string,
+    href: string,
+    content: string,
+    lowerContent: string,
+    previous?: Post,
+    next?: Post,
+};
