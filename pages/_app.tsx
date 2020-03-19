@@ -112,7 +112,7 @@ const BlankTarApp = ({Component, pageProps}: AppProps) => {
                 html {
                     background-color: var(--colors-bg);
                     color: var(--colors-fg);
-                    font-family: 'Noto Sans JP', gothic, sans-serif;
+                    font-family: 'Noto Sans JP', 'Hiragino Sans', Meiryo, sans-serif;
                     overflow: hidden auto;
                 }
                 body {
