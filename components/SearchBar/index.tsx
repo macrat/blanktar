@@ -31,6 +31,12 @@ const SearchBar: FC<Props> = () => {
                     width: 7cm;
                     position: relative;
                 }
+                span :global(ul) {
+                    display: none;
+                }
+                span:focus-within :global(ul) {
+                    display: block;
+                }
 
                 @media (max-width: 311mm) {
                     div {
