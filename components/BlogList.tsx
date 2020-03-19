@@ -14,7 +14,7 @@ export type Props = {
 };
 
 
-const ArticleList: FC<Props> = ({posts}) => (
+const BlogList: FC<Props> = ({posts}) => (
     <ol aria-label="記事の一覧">
         {posts.map(({href, title, pubtime, tags, description}) => (
             <li key={href}>
@@ -140,4 +140,4 @@ const ArticleList: FC<Props> = ({posts}) => (
 );
 
 
-export default ArticleList;
+export default BlogList;
