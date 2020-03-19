@@ -1,4 +1,5 @@
-import {ApolloServer, gql} from 'apollo-server-micro';
+import {ApolloServer} from 'apollo-server-micro';
+import {loader} from 'graphql.macro';
 
 import posts, {Post} from '../../lib/server/posts';
 
@@ -9,69 +10,7 @@ for (let i = 0; i < posts.length; i++) {
 }
 
 
-const typeDefs = gql`
-    """
-    A single post.
-    """
-    type Post @cacheControl(maxAge: 604800) {
-        title: String!
-
-        "ISO8601 style timestamp when article published"
-        pubtime: String!
-
-        "ISO8601 style timestamp when article modified"
-        modtime: String
-
-        "tags (keywords) of the post"
-        tags: [String!]!
-
-        "URL path to article without origin"
-        href: String!
-
-        "body of article in markdown"
-        content: String!
-
-        description: String
-
-        "Path to eye-catch image"
-        image: String
-
-        previous: Post @cacheControl(maxAge: 86400)
-
-        next: Post @cacheControl(maxAge: 86400)
-    }
-
-    """
-    List of posts.
-    """
-    type Posts @cacheControl(maxAge: 86400) {
-        posts: [Post!]!
-        count: Int!
-        totalCount: Int!
-    }
-
-    """
-    The order type for search list.
-    """
-    enum Order {
-        ASC
-        DESC
-    }
-
-    """
-    The target of search.
-    """
-    enum SearchTarget {
-        ALL
-        TITLE
-    }
-
-    type Query {
-        post(href: String!): Post
-        posts(year: Int, month: Int, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
-        search(query: String!, target: SearchTarget = ALL, order: Order = ASC, offset: Int = 0, limit: Int = 20): Posts!
-    }
-`;
+const typeDefs = loader('../../api/defs.graphql');
 
 
 const apolloServer = new ApolloServer({
