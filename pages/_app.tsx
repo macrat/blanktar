@@ -117,6 +117,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                 }
                 body {
                     margin: 0;
+                    overflow: hidden;
                 }
                 a {
                     position: relative;
