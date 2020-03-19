@@ -1,4 +1,14 @@
 import fetch from 'isomorphic-unfetch';
+import gql from 'graphql-tag';
+import {ApolloClient} from 'apollo-client';
+import {HttpLink} from 'apollo-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+
+
+const client = new ApolloClient({
+    link: new HttpLink({uri: '/api', fetch: fetch}),
+    cache: new InMemoryCache(),
+});
 
 
 export type PageData = {
@@ -42,33 +52,73 @@ const makeQuery: ((opts: Opts) => string) = opts => {
 
 
 export default async function(origin?: string, {year, month, desc=false, page=0, limit=1000}: Opts = {}): Promise<Response> {
-    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query=${makeQuery({year, month, desc, page, limit})}`);
+    const resp = await client.query({query: gql`
+        {
+            posts(
+                ${year ? `year: ${year}` : ""}
+                ${month ? `month: ${month}` : ""}
+                order: ${desc ? "DESC" : "ASC"}
+                offset: ${page * limit}
+                limit: ${limit}
+            ) {
+                posts {
+                    title
+                    pubtime
+                    modtime
+                    href
+                    tags
+                    description
+                }
+                totalCount
+            }
+        }
+    `});
 
-    if (!resp.ok) {
-        throw new Error(`${resp.statusText}: ${await resp.text()}`);
-    }
-
-    return (await resp.json()).data.posts;
+    return resp.data.posts;
 };
 
 
 export async function search(origin: string | undefined, query: string, page: number = 0): Promise<Response> {
-    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},offset:${page * 20},limit:20){posts{title,pubtime,modtime,href,tags,description},totalCount}}`);
+    const resp = await client.query({query: gql`
+        {
+            search(
+                query: ${JSON.stringify(query)}
+                offset: ${page * 20}
+                limit: 20
+            ) {
+                posts {
+                    title
+                    pubtime
+                    modtime
+                    href
+                    tags
+                    description
+                }
+                totalCount
+            }
+        }
+    `});
 
-    if (!resp.ok) {
-        throw new Error(`${resp.statusText}: ${await resp.text()}`);
-    }
-
-    return (await resp.json()).data.search;
+    return resp.data.search;
 }
 
 
 export async function searchTitle(origin: string | undefined, query: string): Promise<{title: string, href: string}[]> {
-    const resp = await fetch(`${origin ? 'http://' + origin : ''}/api?query={search(query:${JSON.stringify(query)},limit:5,target:TITLE){posts{title,href}}}`);
+    const resp = await client.query({query: gql`
+        {
+            search(
+                query: ${JSON.stringify(query)}
+                target: TITLE
+                limit: 20
+            ) {
+                posts {
+                    title
+                    href
+                }
+                totalCount
+            }
+        }
+    `});
 
-    if (!resp.ok) {
-        throw new Error(`${resp.statusText}: ${await resp.text()}`);
-    }
-
-    return (await resp.json()).data.search.posts;
+    return resp.data.search.posts;
 }

@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/macrat/next-blank#readme",
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
     "apollo-server-micro": "^2.11.0",
     "canvas": "^2.6.1",
     "front-matter": "^3.1.0",
