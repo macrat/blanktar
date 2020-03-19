@@ -1,7 +1,7 @@
 import Document, {Html, Head, Main, NextScript, DocumentContext} from 'next/document';
 
 
-export default class BlanktarDocument extends Document {
+export default class BlankTarDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         return await Document.getInitialProps(ctx);
     }

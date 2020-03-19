@@ -47,7 +47,7 @@ const BreadList: FC<Props> = ({pages}) => (
                 {
                     '@type': 'ListItem',
                     position: 1,
-                    name: 'Blanktar',
+                    name: 'BlankTar',
                     item: 'https://blanktar.jp',
                 },
                 ...pages.map((p, i) => ({

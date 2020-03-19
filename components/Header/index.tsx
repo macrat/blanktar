@@ -9,7 +9,7 @@ export type Props = {};
 
 const Header: FC<Props> = () => (
     <header>
-        <h1><Link href="/"><a>Blanktar</a></Link></h1>
+        <h1><Link href="/"><a>BlankTar</a></Link></h1>
 
         <Navigation />
 

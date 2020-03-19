@@ -70,7 +70,7 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
         <Article>
             <MetaData
                 title={`${searchQuery}の検索結果`}
-                description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
+                description={`BlankTarの記事を"${searchQuery}"で検索した結果の一覧`} />
 
             <SearchBox
                 query={query}
