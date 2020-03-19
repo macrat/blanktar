@@ -24,7 +24,7 @@ const Suggestion: FC<Props> = ({query}) => {
 
 
     return (
-        <ul>
+        <ul aria-label={`「${query}」に関連しそうな記事`}>
             {suggest.map(x => (
                 <li key={x.href}><Link href={x.href}><a>{x.title}</a></Link></li>
             ))}

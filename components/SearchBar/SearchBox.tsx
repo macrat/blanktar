@@ -10,7 +10,7 @@ export type Props = {
 };
 
 
-const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus}) => {
+const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus, children}) => {
     const input = createRef<HTMLInputElement>();
     if (autoFocus) {
         useEffect(() => {
@@ -42,6 +42,8 @@ const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus}) => {
                     value={query}
                     onChange={ev => setQuery(ev.target.value)} />
             </label>
+
+            {children}
 
             <style jsx>{`
                 label {

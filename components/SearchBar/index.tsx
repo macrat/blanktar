@@ -13,8 +13,9 @@ const SearchBar: FC<Props> = () => {
     return (
         <div>
             <span>
-                <SearchBox query={query} setQuery={setQuery} />
-                <Suggestion query={query} />
+                <SearchBox query={query} setQuery={setQuery}>
+                    <Suggestion query={query} />
+                </SearchBox>
             </span>
 
             <style jsx>{`
