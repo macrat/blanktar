@@ -7,7 +7,7 @@ export type Props = {};
 
 const Navigation: FC<Props> = () => (
     <nav>
-        <ul>
+        <ul aria-label="サイトのメニュー">
             <li><Link href="/about"><a>about</a></Link></li>
             <li><Link href="/blog"><a>blog</a></Link></li>
             <li><Link href="/works"><a>works</a></Link></li>

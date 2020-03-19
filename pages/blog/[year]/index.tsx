@@ -25,9 +25,10 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
             title: 'blog',
             href: '/blog',
         }, {
-            title: '2020',
+            title: `${year}`,
             href: '/blog/[year]',
             as: `/blog/${year}`,
+            description: `${year}年の記事`,
         }]}>
             <BlogList posts={posts} />
         </Article>

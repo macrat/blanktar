@@ -9,7 +9,7 @@ type HrefFunc = (page: number) => string | UrlObject;
 const PageLink: FC<{current: boolean, page: number, href: HrefFunc}> = ({current, page, href}) => (
     <>
         <Link href={href(page)}>
-            <a className={current ? "current" : ""}>
+            <a className={current ? "current" : ""} aria-label={current ? `${page}ページ。これは現在のページです` : `${page}ページ`}>
                 {page}
                 <svg width="2.5em" height="1.5em" viewBox="0 0 50 30">
                     <polyline points="50 0, 50 30, 0 30, 0 0, 50, 0" fill="none" strokeWidth=".5mm" />
@@ -88,7 +88,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
     const to = Math.min(total + 1, current + size + 1 + Math.max(0, size + 1 - current));
 
     return (
-        <ol>
+        <ol aria-label="ページの選択">
             {[...new Array(to - from)].map((_, i) => (
                 <li key={i + from} className={Math.abs(current - (i + from)) <= 2 ? "keep" : ""}>
                     <PageLink current={current === i + from} page={i + from} href={href} />

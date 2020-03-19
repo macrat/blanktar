@@ -2,7 +2,7 @@ import {FC} from 'react';
 
 import TagList from './TagList';
 import BreadList, {Props as BreadListProps} from './BreadList';
-import {date2str} from '../DateTime';
+import {date2str, date2readable} from '../DateTime';
 
 
 export type Props = {
@@ -15,7 +15,7 @@ export type Props = {
 
 const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
     <header>
-        {pubtime ? <time dateTime={pubtime.toISOString()}>{date2str(pubtime)}</time> : null}
+        {pubtime ? <time dateTime={pubtime.toISOString()} aria-label={date2readable(pubtime)}>{date2str(pubtime)}</time> : null}
         {breadlist ? <BreadList pages={breadlist} /> : null}
         {title ? <h1>{title}</h1> : null}
         {tags ? <TagList tags={tags} /> : null}

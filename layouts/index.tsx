@@ -71,10 +71,12 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                         title: `${ptime.getFullYear()}`,
                         href: '/blog/[year]',
                         as: `/blog/${ptime.getFullYear()}`,
+                        description: `${ptime.getFullYear()}年の記事`,
                     }, {
                         title: `${String(ptime.getMonth() + 1).padStart(2, '0')}`,
                         href: '/blog/[year]/[month]',
                         as: `/blog/${ptime.getFullYear()}/${String(ptime.getMonth() + 1).padStart(2, '0')}`,
+                        description: `${ptime.getMonth()+1}月の記事`,
                     }, {
                         title: title,
                         href: router.asPath,

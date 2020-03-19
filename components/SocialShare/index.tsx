@@ -10,7 +10,7 @@ export type Props = {
 
 
 const SocialShare: FC<Props> = ({title, href}) => (
-    <ul>
+    <ul aria-label="SNSでシェアする">
         <li><ShareButton alt="Facebookでいいねする" href={`https://www.facebook.com/share.php?u=${encodeURIComponent(href)}`}>
             <path d="M 202.92927,512 V 298.65565 h -77.51904 v -88.25238 h 77.51904 v -67.26279 c 0,-76.517211 45.58001,-118.782938 115.31851,-118.782938 33.40296,0 68.34199,5.962891 68.34199,5.962891 v 75.133837 h -38.49833 c -37.92649,0 -49.75413,23.5343 -49.75413,47.67844 v 57.27056 h 84.67466 l -13.53602,88.25238 H 298.33731 V 512" />
         </ShareButton></li>

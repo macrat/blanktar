@@ -15,7 +15,7 @@ export type Props = {
 
 
 const ArticleList: FC<Props> = ({posts}) => (
-    <ol>
+    <ol aria-label="記事の一覧">
         {posts.map(({href, title, pubtime, tags, description}) => (
             <li key={href}>
                 <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" /></svg>

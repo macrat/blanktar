@@ -6,13 +6,18 @@ export const date2str = (t: Date) => (
 );
 
 
+export const date2readable = (t: Date) => (
+    `${t.getFullYear()}年${String(t.getMonth() + 1).padStart(2, '0')}月${String(t.getDate()).padStart(2, '0')}日 ${t.getHours()}時${t.getMinutes()}分の記事`
+);
+
+
 export type Props = {
     dateTime: Date,
 };
 
 
 const DateTime: FC<Props> = ({dateTime}) => (
-    <time dateTime={dateTime.toISOString()}>{date2str(dateTime)}</time>
+    <time dateTime={dateTime.toISOString()} aria-label={date2readable(dateTime)}>{date2str(dateTime)}</time>
 );
 
 

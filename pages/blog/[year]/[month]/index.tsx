@@ -28,10 +28,12 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
             title: `${year}`,
             href: '/blog/[year]',
             as: `/blog/${year}`,
+            description: `${year}年の記事`,
         }, {
             title: `${String(month).padStart(2, '0')}`,
             href: '/blog/[year]/[month]',
             as: `/blog/${year}/${String(month).padStart(2, '0')}`,
+            description: `${month}月の記事`,
         }]}>
 
             <BlogList posts={posts} />

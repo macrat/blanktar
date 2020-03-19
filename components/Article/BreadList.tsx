@@ -4,22 +4,40 @@ import Link from 'next/link';
 import JsonLD from '../JsonLD';
 
 
+const BreadCrumbIcon = `data:image/svg+xml;base64,${Buffer.from(`
+    <?xml version="1.0" encoding="UTF-8" ?>
+
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 5 10">
+        <defs><style><![CDATA[
+        polyline{stroke:#402020}
+
+        @media (prefers-color-scheme: dark) {
+            polyline{stroke:#fcf8f5}
+        }
+        ]]></style></defs>
+
+        <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5"/>
+    </svg>
+`.replace(/\n+ */, '')).toString('base64')}`;
+
+
 export type Props = {
     pages: {
         title: string,
         href: string,
         as?: string,
+        description?: string,
     }[],
 };
 
 
 const BreadList: FC<Props> = ({pages}) => (
-    <ol>
+    <ol aria-label="この記事の場所">
         <li><Link href="/"><a>top</a></Link></li>
 
         {pages.slice(0, -1).map(p => (
             <li key={p.as ?? p.href}>
-                <Link href={p.href} as={p.as}><a>{p.title}</a></Link>
+                <Link href={p.href} as={p.as}><a aria-label={p.description}>{p.title}</a></Link>
             </li>
         ))}
 
@@ -52,10 +70,20 @@ const BreadList: FC<Props> = ({pages}) => (
             li {
                 display: inline-block;
             }
+            li:first-of-type::after {
+                content: 'から';
+            }
             li::after {
-                content: '>';
+                content: 'の中にある';
                 display: inline-block;
-                margin: 0 .3em;
+                width: 0;
+                height: 0;
+                padding: .4em .25em;
+                overflow: hidden;
+                background-image: url(${BreadCrumbIcon});
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin: .1em .3em -.05em;
             }
             a {
                 color: inherit;

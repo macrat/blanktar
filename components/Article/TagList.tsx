@@ -8,9 +8,9 @@ export type Props = {
 
 
 const TagList: FC<Props> = ({tags}) => (
-    <ul>
+    <ul aria-label="この記事に付けられたタグ">
         {tags.map(x => (
-            <li key={x}><Link href={{pathname: '/search', query: {q: x}}}><a>{x}</a></Link></li>
+            <li key={x}><Link href={{pathname: '/search', query: {q: x}}}><a aria-label={`タグ「${x}」`}>{x}</a></Link></li>
         ))}
 
         <style jsx>{`
