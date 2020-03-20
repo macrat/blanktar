@@ -30,6 +30,14 @@ const CommonResources = memo(function CommonResources() {
                 rel="dns-prefetch preconnect"
                 href="https://fonts.gstatic.com"
                 key="preconnect--gstatic" />
+            {isAmp ? '' : (
+                <link
+                    rel="prefetch"
+                    as="stylesheet"
+                    type="text/css"
+                    href="/font.css"
+                    key="prefetch--font" />
+            )}
             <link
                 rel="stylesheet"
                 type="text/css"
