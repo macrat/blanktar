@@ -8,6 +8,7 @@ import InlineCode from './InlineCode';
 import Link from './Link';
 import PS from './PS';
 import Pre from './Pre';
+import Script from './Script';
 import Table from './Table';
 import Td from './Td';
 import Th from './Th';
@@ -20,6 +21,7 @@ export type Props = {};
 
 const components = {
     PS: PS,
+    Script: Script,
 
     code: Code,
     h1: H1,
