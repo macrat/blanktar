@@ -1,3 +1,6 @@
+const isDebug = process.env.NODE_ENV === 'development';
+
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
@@ -9,9 +12,41 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 });
 
 
+const CSPHeader = [
+    "default-src 'self'",
+    "img-src 'self' data:",
+    "style-src-elem 'self' 'unsafe-inline' blob:",
+    ...(isDebug ? [
+        "style-src-attr 'self' 'unsafe-inline'",
+        "script-src-elem 'self' 'unsafe-inline'",
+    ] : []),
+    "font-src data: https://fonts.gstatic.com",
+    "frame-ancestors 'none'",
+    "report-uri /api/csp-report",
+    "report-to /api/csp-report",
+].join('; ');
+
+
 module.exports = withBundleAnalyzer(withMdxEnhanced({
     pageExtensions: ['ts', 'tsx', 'mdx'],
     experimental: {
+        headers: () => [{
+            source: '/:path*',
+            headers: [
+                {key: 'X-XSS-Protection', value: '1; mode=block'},
+                {key: 'X-Content-Type-Options', value: 'nosniff'},
+                {key: 'X-Frame-Options', value: 'deny'},
+                {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
+                {
+                    key: isDebug ? (
+                        'Content-Security-Policy-Report-Only'
+                    ) : (
+                        'Content-Security-Policy'
+                    ),
+                    value: CSPHeader,
+                },
+            ],
+        }],
         rewrites: () => [
             {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
             {source: '/font.css', destination: '/api/font'},
