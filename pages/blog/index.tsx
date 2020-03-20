@@ -1,10 +1,10 @@
-import {NextPage} from 'next';
+import {NextPage, GetServerSideProps} from 'next';
 
-import posts, {PageData} from '../../lib/posts';
+import posts from '../../lib/server/posts';
 
 import MetaData from '../../components/MetaData';
 import Article from '../../components/Article';
-import BlogList from '../../components/BlogList';
+import BlogList, {Props as BlogListProps} from '../../components/BlogList';
 import Pagination from '../../components/Pagination';
 
 
@@ -13,10 +13,9 @@ export const config = {
 };
 
 
-export type Props = {
+export type Props = BlogListProps & {
     page: number,
     totalPages: number,
-    posts: PageData[],
 };
 
 
@@ -40,21 +39,21 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
 );
 
 
-BlogIndex.getInitialProps = async ({req, query}) => {
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
     const page = Math.max(1, Number(String(query.page ?? 1)));
 
-    const resp = await posts(req?.headers?.host, {
-        page: page - 1,
-        desc: true,
-        limit: 10,
-    });
-
-    const totalPages = Math.ceil(resp.totalCount / 10);
-
     return {
-        page: page,
-        totalPages: totalPages,
-        posts: resp.posts,
+        props: {
+            page: page,
+            totalPages: Math.ceil(posts.length / 10),
+            posts: posts.reverse().slice((page - 1) * 10, page * 10).map(p => ({
+                title: p.title,
+                href: p.href,
+                pubtime: p.pubtime.toISOString(),
+                tags: p.tags,
+                description: p.description,
+            })),
+        },
     };
 };
 

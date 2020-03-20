@@ -1,19 +1,17 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
 
-import {PageData} from '../../../../lib/posts';
 import posts from '../../../../lib/server/posts';
 
 import MetaData from '../../../../components/MetaData';
 import Article from '../../../../components/Article';
-import BlogList from '../../../../components/BlogList';
+import BlogList, {Props as BlogListProps} from '../../../../components/BlogList';
 import ErrorPage from '../../../_error';
 
 
-export type Props = {
+export type Props = BlogListProps & {
     year: number,
     month: number,
-    posts: PageData[],
 };
 
 

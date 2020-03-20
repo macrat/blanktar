@@ -2,15 +2,19 @@ import {FC} from 'react';
 import Link from 'next/link';
 import {useAmp} from 'next/amp';
 
-import {PageData} from '../lib/posts';
-
 import DateTime from './DateTime';
 import TagList from './Article/TagList';
 import JsonLD from './JsonLD';
 
 
 export type Props = {
-    posts: PageData[],
+    posts: {
+        href: string,
+        title: string,
+        pubtime: string,
+        tags: string[],
+        description: string,
+    }[],
 };
 
 
