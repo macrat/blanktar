@@ -33,20 +33,23 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
             <Pagination
                 current={page}
                 total={totalPages}
-                href={p => ({pathname: '/blog', query: p > 1 ? {page: p} : undefined})} />
+                href={p => ({
+                    pathname: '/blog',
+                    query: p > 1 ? {offset: (p-1) * 10} : undefined,
+                })} />
         </Article>
     </>
 );
 
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-    const page = Math.max(1, Number(String(query.page ?? 1)));
+export const getServerSideProps: GetServerSideProps = async ({res, query}) => {
+    const offset = Number(String(query.offset ?? 0));
 
     return {
         props: {
-            page: page,
+            page: Math.ceil((offset+1) / 10),
             totalPages: Math.ceil(posts.length / 10),
-            posts: posts.slice((page - 1) * 10, page * 10).map(p => ({
+            posts: posts.slice(Math.max(0, offset), Math.max(0, offset + 10)).map(p => ({
                 title: p.title,
                 href: p.href,
                 pubtime: p.pubtime,
