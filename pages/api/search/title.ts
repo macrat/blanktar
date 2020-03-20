@@ -17,6 +17,8 @@ export type Response = SuccessResponse | {
 
 
 export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
+    res.setHeader('Cache-Control', 'public, max-age=604800');
+
     const query = String(req.query.q);
 
     if (req.method !== 'GET') {
