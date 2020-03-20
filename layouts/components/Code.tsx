@@ -1,6 +1,5 @@
 import {FC} from 'react';
-
-import HighlightCode from '../../components/HighlightCode';
+import dynamic from 'next/dynamic';
 
 
 export type Props = {
@@ -13,6 +12,11 @@ const Code: FC<Props> = ({children, className}) => {
         return (<code className={className}>{children}</code>);
     }
     const lang = className.replace('language-', '');
+
+    const HighlightCode = dynamic(
+        () => import('../../components/HighlightCode'),
+        {loading: () => (<code>{children}</code>)},
+    );
 
     return (
         <HighlightCode lang={lang}>{
