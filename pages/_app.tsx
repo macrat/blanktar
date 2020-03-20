@@ -127,6 +127,10 @@ const BlankTarApp = ({Component, pageProps}: AppProps) => {
                 a:hover, a:focus {
                     color: var(--colors-accent);
                 }
+                mark {
+                    background-color: var(--colors-block-bg);
+                    color: var(--colors-accent);
+                }
             `}</style>
 
             <style jsx>{`

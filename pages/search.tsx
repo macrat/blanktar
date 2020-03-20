@@ -10,6 +10,7 @@ import {SuccessResponse} from './api/search';
 import Article from '../components/Article';
 import MetaData from '../components/MetaData';
 import SearchBox from '../components/SearchBar/SearchBox';
+import ListItem from '../components/BlogList/ListItem';
 import DateTime from '../components/DateTime';
 import Pagination from '../components/Pagination';
 
@@ -96,12 +97,13 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
 
             <ul>
                 {result.posts.map(x => (
-                    <li key={x.href}>
+                    <ListItem key={x.href}>
                         <Link href={x.href}><a>
                             <DateTime dateTime={new Date(x.pubtime)} />
-                            {` ${x.title}`}
+                            <h2 dangerouslySetInnerHTML={{__html: x.title}} />
+                            <p dangerouslySetInnerHTML={{__html: x.summary}} />
                         </a></Link>
-                    </li>
+                    </ListItem>
                 ))}
             </ul>
 
@@ -110,6 +112,38 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
                 total={Math.ceil(result.totalCount / 20)}
                 href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`}
                 />
+
+            <style jsx>{`
+                ul {
+                    margin: 0;
+                    padding: 0;
+                }
+                li {
+                    display: block;
+                }
+                a {
+                    display: block;
+                    color: inherit;
+                    text-decoration: none;
+                    padding: 7mm 5mm;
+                }
+                a:hover, a:focus {
+                    color: inherit;
+                }
+                @media (max-width: 40em) {
+                    a {
+                        padding: 7mm 2mm;
+                    }
+                }
+                h2 {
+                    margin: 0 0 2mm;
+                    font-size: 18pt;
+                    line-height: 1.2em;
+                }
+                p {
+                    margin: 0;
+                }
+            `}</style>
         </Article>
     );
 };
