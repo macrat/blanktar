@@ -11,4 +11,10 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 module.exports = withBundleAnalyzer(withMdxEnhanced({
     pageExtensions: ['ts', 'tsx', 'mdx'],
+    experimental: {
+        rewrites: () => [
+            {source: '/sitemap.xml', destination: '/api/sitemap'},
+            {source: '/blog/feed.xml', destination: '/api/feed'},
+        ],
+    },
 }));

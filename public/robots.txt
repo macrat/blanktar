@@ -1,0 +1,2 @@
+User-Agent: *
+Sitemap: https://blanktar.jp/sitemap.xml

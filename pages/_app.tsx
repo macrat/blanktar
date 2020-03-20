@@ -42,6 +42,8 @@ const CommonResources = memo(function CommonResources() {
             <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
             <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
 
+            <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
+
             <JsonLD data={Website} />
         </Head>
     );
