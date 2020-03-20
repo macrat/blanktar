@@ -1,7 +1,6 @@
 import {FC, useState, useEffect} from 'react';
 import Link from 'next/link';
 import {useDebounce} from 'use-debounce';
-import fetch from 'unfetch';
 
 import {SuccessResponse} from '../../pages/api/search/title';
 

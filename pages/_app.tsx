@@ -3,7 +3,6 @@ import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import {useAmp} from 'next/amp';
-import fetch from 'unfetch';
 
 import useLoading from '../lib/loading';
 

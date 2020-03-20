@@ -3,7 +3,6 @@ import {NextPage} from 'next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDebounce} from 'use-debounce';
-import fetch from 'unfetch';
 
 import {SuccessResponse} from './api/search';
 
