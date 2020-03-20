@@ -13,6 +13,8 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
     pageExtensions: ['ts', 'tsx', 'mdx'],
     experimental: {
         rewrites: () => [
+            {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
+            {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
         ],

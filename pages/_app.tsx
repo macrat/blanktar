@@ -18,7 +18,7 @@ const CommonResources = memo(function CommonResources() {
     const isAmp = useAmp();
 
     useEffect(() => {
-        fetch('/api/font')
+        fetch('/font.css')
             .then(resp => resp.text())
             .then(css => setFontCSS(`data:text/css,${encodeURIComponent(css)}`));
     }, []);
