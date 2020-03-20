@@ -9,7 +9,7 @@ export type Props = HeaderProps;
 
 const Article: FC<Props> = (props) => (
     <Tombo>
-        <article aria-label={`${props.title}`}>
+        <article aria-labelledby={props.title ? "article-title" : undefined}>
             <Header {...props} />
 
             {props.children}

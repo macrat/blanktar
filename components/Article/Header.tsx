@@ -17,7 +17,7 @@ const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
     <header>
         {pubtime ? <time dateTime={pubtime.toISOString()} aria-label={date2readable(pubtime)}>{date2str(pubtime)}</time> : null}
         {breadlist ? <BreadList pages={breadlist} /> : null}
-        {title ? <h1>{title}</h1> : null}
+        {title ? <h1 id="article-title">{title}</h1> : null}
         {tags ? <TagList tags={tags} /> : null}
 
         <style jsx>{`

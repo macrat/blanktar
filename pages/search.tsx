@@ -95,7 +95,7 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
                 onSearch={() => forceSearch()}
                 autoFocus />
 
-            <ul>
+            <ul aria-label={`"${searchQuery}"の検索結果`}>
                 {result.posts.map(x => (
                     <ListItem key={x.href}>
                         <Link href={x.href}><a>
