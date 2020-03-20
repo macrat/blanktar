@@ -1,8 +1,9 @@
 import {FC, useState, useEffect} from 'react';
 import Link from 'next/link';
 import {useDebounce} from 'use-debounce';
+import fetch from 'unfetch';
 
-import {searchTitle, Response as Posts} from '../../lib/posts';
+import {SuccessResponse} from '../../pages/api/search/title';
 
 
 export type Props = {
@@ -11,21 +12,29 @@ export type Props = {
 
 
 const Suggestion: FC<Props> = ({query}) => {
-    const [suggest, setSuggest] = useState<{title: string, href: string}[]>([]);
+    const [suggest, setSuggest] = useState<SuccessResponse>({posts: []});
     const [delayedQuery] = useDebounce(query, 50);
 
     useEffect(() => {
-        if (query) {
-            searchTitle(undefined, query).then(x => setSuggest(x));
-        } else {
-            setSuggest([]);
+        if (!query) {
+            setSuggest({posts: []});
+            return;
         }
+
+        fetch(`/api/search/title?${new URLSearchParams({
+            q: query,
+        })}`).then(resp => {
+            if (!resp.ok) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        }).then(setSuggest);
     }, [delayedQuery]);
 
 
     return (
         <ul aria-label={`「${query}」に関連しそうな記事`}>
-            {suggest.map(x => (
+            {suggest.posts.map(x => (
                 <li key={x.href}><Link href={x.href}><a>{x.title}</a></Link></li>
             ))}
 

@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next';
-import fetch from 'isomorphic-unfetch';
+import fetch from 'node-fetch';
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

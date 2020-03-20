@@ -1,8 +1,10 @@
 export type Post = {
     title: string,
     lowerTitle: string,
-    pubtime: Date,
-    modtime?: Date,
+    year: number,
+    month: number,
+    pubtime: string,
+    modtime?: string,
     tags: string[],
     lowerTags: string[],
     image?: string,
@@ -10,6 +12,4 @@ export type Post = {
     href: string,
     content: string,
     lowerContent: string,
-    previous?: Post,
-    next?: Post,
 };

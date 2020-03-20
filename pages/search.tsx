@@ -3,8 +3,9 @@ import {NextPage} from 'next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDebounce} from 'use-debounce';
+import fetch from 'unfetch';
 
-import {search, Response as Posts} from '../lib/posts';
+import {SuccessResponse} from './api/search';
 
 import Article from '../components/Article';
 import MetaData from '../components/MetaData';
@@ -22,12 +23,27 @@ export type Props = {
 
 const Search: NextPage<Props> = ({query: initialQuery, page}) => {
     const [query, setQuery] = useState<string>(initialQuery);
-    const [result, setResult] = useState<Posts>({posts: [], totalCount: 0});
+    const [result, setResult] = useState<SuccessResponse>({posts: [], totalCount: 0});
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
 
     const doSearch = () => {
-        search(undefined, query, page - 1).then(setResult);
+        if (!query) {
+            setResult({posts: [], totalCount: 0});
+            return;
+        }
+
+        fetch(`/api/search?${new URLSearchParams({
+            q: query,
+            offset: String(10 * ((page ?? 1) - 1)),
+            limit: '10',
+        })}`).then(resp => {
+            if (!resp.ok) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        }).then(setResult);
+
         cancelDebounce();
     };
 

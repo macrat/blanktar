@@ -1,6 +1,6 @@
 import {NextPage, GetServerSideProps} from 'next';
 
-import posts from '../../lib/server/posts';
+import posts from '../../lib/posts';
 
 import MetaData from '../../components/MetaData';
 import Article from '../../components/Article';
@@ -46,10 +46,10 @@ export const getServerSideProps: GetServerSideProps = async ({query}) => {
         props: {
             page: page,
             totalPages: Math.ceil(posts.length / 10),
-            posts: posts.reverse().slice((page - 1) * 10, page * 10).map(p => ({
+            posts: posts.slice((page - 1) * 10, page * 10).map(p => ({
                 title: p.title,
                 href: p.href,
-                pubtime: p.pubtime.toISOString(),
+                pubtime: p.pubtime,
                 tags: p.tags,
                 description: p.description,
             })),

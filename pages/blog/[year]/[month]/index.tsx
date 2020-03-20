@@ -1,7 +1,7 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
 
-import posts from '../../../../lib/server/posts';
+import posts from '../../../../lib/posts';
 
 import MetaData from '../../../../components/MetaData';
 import Article from '../../../../components/Article';
@@ -44,10 +44,10 @@ export const getStaticProps = async ({params}: {params: {year: string, month: st
     const year = Number(params.year);
     const month = Number(params.month);
 
-    const ps = posts.filter(x => x.pubtime.getFullYear() === year && x.pubtime.getMonth() + 1 === month).map(x => ({
+    const ps = posts.filter(x => x.year === year && x.month === month).map(x => ({
         title: x.title,
         href: x.href,
-        pubtime: x.pubtime.toISOString(),
+        pubtime: x.pubtime,
         tags: x.tags,
         description: x.description,
     }));
@@ -64,7 +64,7 @@ export const getStaticProps = async ({params}: {params: {year: string, month: st
 
 export const getStaticPaths = async () => {
     const pages = Array.from(new Set(posts.map(x => (
-        `${x.pubtime.getFullYear()}/${String(x.pubtime.getMonth() + 1).padStart(2, '0')}`
+        `${x.year}/${String(x.month).padStart(2, '0')}`
     ))));
 
     return {

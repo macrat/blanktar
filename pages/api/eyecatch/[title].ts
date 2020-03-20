@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {promises as fs, constants} from 'fs';
 import {createCanvas, registerFont, Image} from 'canvas';
-import fetch from 'isomorphic-unfetch';
+import fetch from 'node-fetch';
 import preval from 'preval.macro';
 
 
