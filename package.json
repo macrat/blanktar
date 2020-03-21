@@ -40,6 +40,7 @@
     "babel-plugin-macros": "^2.8.0",
     "front-matter": "^3.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
+    "penv.macro": "^0.4.0",
     "preval.macro": "^4.0.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
