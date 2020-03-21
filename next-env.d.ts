@@ -68,3 +68,9 @@ declare module 'prism-react-renderer/prism' {
 
     export default Prism;
 }
+
+declare module 'styled-jsx/macro' {
+    import {resolve} from 'styled-jsx/css';
+
+    export const resolve = resolve;
+}
