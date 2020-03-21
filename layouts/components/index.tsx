@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {MDXProvider} from '@mdx-js/react';
 
+import BlockQuote from './BlockQuote';
 import Code from './Code';
 import Hr from './Hr';
 import Image from './Image';
@@ -23,6 +24,7 @@ const components = {
     PS: PS,
     Script: Script,
 
+    blockquote: BlockQuote,
     code: Code,
     h1: H1,
     h2: H2,

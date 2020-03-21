@@ -25,6 +25,8 @@ const PS: FC<Props> = ({date, children}) => {
                     margin: 0;
                 }
                 ins {
+                    display: block;
+                    margin: 3mm 0;
                     text-decoration: none;
                 }
             `}</style>
