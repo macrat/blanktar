@@ -2,7 +2,7 @@ title: pythonのクラスでprivateっぽいことをしよう
 date: 2014-12-02 17:28
 keywords: python クラス private オブジェクト指向
 
-[さっきのクラスメソッドの記事](/blog/2014/12/python-classmethod.html)にひき続いてオブジェクト指向っぽいネタ。
+[さっきのクラスメソッドの記事](/blog/2014/12/python-classmethod)にひき続いてオブジェクト指向っぽいネタ。
 
 C++とかJavaだとかなり最初の方に学ぶであろう<strong>private</strong>修飾子。クラスの外からアクセスできないってやつですね。
 実はこれに似たようなことがpythonでも出来ます。

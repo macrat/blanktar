@@ -2,7 +2,7 @@ pythonのmax / min関数は意外と便利
 2013-07-30 22:49
 keywords: python 組み込み関数
 
-<aside><b>2014-03-03 追記：</b> もう少し詳しい記事を書きました。 [pythonで最大値、最小値を求める色々](/blog/2014/03/python-max-min.html)</aside>
+<aside><b>2014-03-03 追記：</b> もう少し詳しい記事を書きました。 [pythonで最大値、最小値を求める色々](/blog/2014/03/python-max-min)</aside>
 
 pythonの組み込み関数で<strong>max</strong>とか<strong>min</strong>ってやつがあるじゃないですか。
 あれ、意外と便利なのよね。

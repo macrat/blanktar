@@ -6,7 +6,7 @@ tags: [gentoo, systemd, networkd, MTU, ジャンボフレーム, eth0]
 description: systemd-networkdを使って、MTUの設定（ジャンボフレームの設定）を永続化する方法です。
 ---
 
-すこし前にsystemdに乗り換えたのですが、そのせいで[前に設定したジャンボフレーム](/blog/2014/10/jumbo-frame-in-gentoo.html)が無効になってしまっていました。
+すこし前にsystemdに乗り換えたのですが、そのせいで[前に設定したジャンボフレーム](/blog/2014/10/jumbo-frame-in-gentoo)が無効になってしまっていました。
 特段困りもしないので放置していたのですが、なんとなく設定しなおしてみました。
 
 `/etc/systemd/network/eth0.network`を開いて、以下のような記述を追加します。

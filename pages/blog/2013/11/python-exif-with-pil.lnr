@@ -6,7 +6,7 @@ keywords: python PIL Exif 画像 カメラ
 <b>2014-02-05 追記:</b>
 pyexiv2というライブラリを使って読み書き方法も書きました。
 対応する要素の種類も多いっぽい。
-[pythonのpyexiv2でExifをごにょごにょする](/blog/2014/02/python-pyexiv2.html)
+[pythonのpyexiv2でExifをごにょごにょする](/blog/2014/02/python-pyexiv2)
 </aside>
 
 大抵のデジタル画像にはExif情報ってのが付いてます。

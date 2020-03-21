@@ -2,7 +2,7 @@ title: node.jsで404と500のエラー処理
 date: 2014-12-10 10:40
 keywords: node.js エラー処理 404 500
 
-[昨日](/blog/2014/12/nodejs-nunjucks.html)に引き続き<strong>node.js</strong>触ってます。
+[昨日](/blog/2014/12/nodejs-nunjucks)に引き続き<strong>node.js</strong>触ってます。
 socket.ioとかと親和性が高くて素敵。なんですが、なぜかエラー処理の情報が少ないんですよね。
 そんな状態で公開できるかってことで（いや多分普通はnginxとかで処理するんだろうけど）、調べてみました。
 

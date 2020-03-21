@@ -2,7 +2,7 @@ title: pythonで経過日数を計算する。ライブラリは使わない。
 date: 2014-12-26 17:55
 keywords: python
 
-[jskny氏の記事](http://www.risdy.net/2014/12/blog-post_56.html)に便乗した[さっきの記事](/blog/2014/12/calc-your-lived-days.html)はズルして楽に書いていたので、きちんと自分で日数を計算するコードを書いてみました。
+[jskny氏の記事](http://www.risdy.net/2014/12/blog-post_56.html)に便乗した[さっきの記事](/blog/2014/12/calc-your-lived-days)はズルして楽に書いていたので、きちんと自分で日数を計算するコードを書いてみました。
 基本的な手順はjskny氏のものと一緒なのだけれど、コードの見た目は全然違う。
 for文の代わりにリスト内包表記を使うあたりがpythonic・・・なのかも？
 ループも関数も使いまくりなので速度遅そうだけれど、意味と見た目が一致しているので吉とする。

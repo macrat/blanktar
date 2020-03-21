@@ -2,10 +2,10 @@ apache2でURLの最後のスラッシュの省略をさせない
 2014-01-03 19:47
 keywords: apache2 httpd.conf .htaccess URL リダイレクト
 
-<b>2014-02-11 追記</b>: もっとシンプルな方法がありました。 [パス末尾のスラッシュを強制するapacheの設定](/blog/2014/02/apache-directory-slash.html)
+<b>2014-02-11 追記</b>: もっとシンプルな方法がありました。 [パス末尾のスラッシュを強制するapacheの設定](/blog/2014/02/apache-directory-slash)
 
 あけおめですよ。新年一発目の技術系のpostで御座います。
-内容としては [apache2のhttpd.confでURLの正規化をやってみたメモ。](/blog/2013/03/apache-url-normalization.html) の発展というか、一部です。そちらもどうぞ。
+内容としては [apache2のhttpd.confでURLの正規化をやってみたメモ。](/blog/2013/03/apache-url-normalization) の発展というか、一部です。そちらもどうぞ。
 
 うちのブログのインデックス1ページ目やworksのページ群は大体がディレクトリ名でアクセスできるようになっております。
 具体的には

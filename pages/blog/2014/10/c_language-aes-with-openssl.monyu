@@ -2,7 +2,7 @@ title: OpenSSLを使ってC言語でAES暗号
 date: 2014-10-07 15:43
 keywords: OpenSSL C言語 AES暗号
 
-前回（[OpenSSLのBIGNUM関連の関数群に関するメモ](http://blanktar.jp/blog/2014/10/openssl-bignum.html)）から引き続きOpenSSLです。暗号です。
+前回（[OpenSSLのBIGNUM関連の関数群に関するメモ](/blog/2014/10/openssl-bignum)）から引き続きOpenSSLです。暗号です。
 C言語でOpenSSLを使ってAES暗号を扱ってみたので、テストコードを公開します。
 
 EVPとかいうもので抽象化されていて、ちょっと煩雑な手続きが必要。

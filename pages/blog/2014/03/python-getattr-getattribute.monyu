@@ -4,7 +4,7 @@ keywords: python __getattr__ __getattribute__
 description: pythonの__getattr__と__getattribute__の違い。
 
 <aside>%
-<b>2014-03-23 追記</b>：[setattrについての記事](/blog/2014/03/python-setattr.html)もどうぞ。
+<b>2014-03-23 追記</b>：[setattrについての記事](/blog/2014/03/python-setattr)もどうぞ。
 </aside>%
 
 pythonで<b>test.a</b>みたいなアクセスの仕方をする時、実は裏側では<b>__gettattr__(test, 'a')</b>なんてメソッドが呼ばれてるらしい。

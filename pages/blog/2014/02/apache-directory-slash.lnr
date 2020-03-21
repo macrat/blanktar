@@ -2,7 +2,7 @@
 2014-02-11 03:16
 keywords: apache パス mod_dir スラッシュ DirectorySlash
 
-前に書いた[apache2でURLの最後のスラッシュの省略をさせない](/blog/2014/01/apache-path-last-slash.html)と同じ内容ですが、かなりシンプルな方法を発見。
+前に書いた[apache2でURLの最後のスラッシュの省略をさせない](/blog/2014/01/apache-path-last-slash)と同じ内容ですが、かなりシンプルな方法を発見。
 
 apacheのドキュメント見てたら、こんなのが。
 	DirectorySlash ディレクティブ

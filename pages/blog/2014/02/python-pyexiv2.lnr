@@ -2,7 +2,7 @@ pythonのpyexiv2でExifをごにょごにょする
 2014-02-05 01:56
 keywords: python pyexiv2 Exif
 
-前に[PILでExifを読む方法](/blog/2013/11/python-exif-with-pil.html)を書いたけれど、今回は書き込む方法。
+前に[PILでExifを読む方法](/blog/2013/11/python-exif-with-pil)を書いたけれど、今回は書き込む方法。
 どうやらPILでは出来ないらしいので、<strong>pyexiv2</strong>ってライブラリを使います。
 ダウンロードは<a href="http://tilloy.net/dev/pyexiv2/" target="_blank">公式サイト</a>からどうぞ。インストールは適当に。
 

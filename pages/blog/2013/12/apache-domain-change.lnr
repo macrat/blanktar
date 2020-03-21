@@ -10,7 +10,7 @@ www.blanktar.jp でも繋がるようになったのが大き・・・くない�
 で、現在、blanktar.dip.jp にアクセスすると blanktar.jp に飛ばされるようになっています。
 同様に www.blanktar.jp にアクセスしても飛ばされます。
 こういうドメインの正規化をやってみよう、というお話。
-ドメイン以下の/なんたらの部分については[URLの正規化をやったときの記事](/blog/2013/03/apache-url-normalization.html)をどうぞ。
+ドメイン以下の/なんたらの部分については[URLの正規化をやったときの記事](/blog/2013/03/apache-url-normalization)をどうぞ。
 
 前回と同じ<b>httpd.conf</b>なり<b>00_default_vhost.conf</b>なりに
     RewriteEngine On

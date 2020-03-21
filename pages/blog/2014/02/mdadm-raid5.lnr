@@ -5,7 +5,7 @@ keywords: mdadm RAID5 HDD ディスク
 うちのサーバーのHDDを増設するタイミングでソフトウェアRAIDとか試してみようかと思ったりして。
 という訳で色々実験。の、記録です。
 
-ZFSを試した時の記事（[重複排除編](/blog/2013/07/zfs-deduplication.html)、[データ圧縮編](/blog/2013/07/zfs-data-compress.html)）も御覧ください。
+ZFSを試した時の記事（[重複排除編](/blog/2013/07/zfs-deduplication)、[データ圧縮編](/blog/2013/07/zfs-data-compress)）も御覧ください。
 
 -- インストール
     仮想環境のubuntuでテストします。

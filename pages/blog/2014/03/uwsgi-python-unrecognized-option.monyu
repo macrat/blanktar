@@ -2,7 +2,7 @@ title: uwsgiでpython動かそうとしたらunrecognized optionって言われ�
 date: 2014-03-07 00:45
 keywords: uwsgi python plugin
 
-[nginxを試す流れ](/blog/2014/03/nginx-erropage.html)でuwsgiも試してます。拍手ページと検索ページがpythonだからねー。
+[nginxを試す流れ](/blog/2014/03/nginx-erropage)でuwsgiも試してます。拍手ページと検索ページがpythonだからねー。
 引き続きubuntuにuwsgiをインストールして、起動しようとしたら
 	$ uwsgi --http 0.0.0.0:8080 --wsgi-file test.py --callable app
 	uwsgi: unrecognized option '--wsgi-file'

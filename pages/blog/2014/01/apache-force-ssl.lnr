@@ -6,7 +6,7 @@ keywords: apache mod_rewrite httpd.conf htaccess
 いや、うちは全く関係ないんですけれどね。
 そういうサイトをいじらせてもらう機会があったので、メモ。
 
-mod_rewriteについては [apache2のhttpd.confでURLの正規化をやってみたメモ。](/blog/2013/03/apache-url-normalization.html) なんかもどうぞ。
+mod_rewriteについては [apache2のhttpd.confでURLの正規化をやってみたメモ。](/blog/2013/03/apache-url-normalization) なんかもどうぞ。
 
 全部のURLで転送したい場合、<b>httpd.conf</b>か<b>.htaccess</b>に
     RewriteEngine on

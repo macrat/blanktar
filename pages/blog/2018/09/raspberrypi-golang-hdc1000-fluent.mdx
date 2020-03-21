@@ -30,7 +30,7 @@ howto:
 ---
 
 私の部屋には温度と湿度を取れるセンサ（HDC1000ってやつ）が付いたラズパイが置いてあって、5分置きにデータをsqliteに記録するようになっています。今のところただ見れるだけなんですが、いずれエアコンとかと連動させたい。
-で、最近fluent/elasticsearchを使っていこうぜというマイブームが起きている（[先日の記事とか](/blog/2018/09/docker-compose-fluent-elasticsearch.html)）ので、この温湿度の記録もelasticsearchでやるようにしようかと。
+で、最近fluent/elasticsearchを使っていこうぜというマイブームが起きている（[先日の記事とか](/blog/2018/09/docker-compose-fluent-elasticsearch)）ので、この温湿度の記録もelasticsearchでやるようにしようかと。
 さらに、折角fluent使うなら複数のホストから取ってがしがし流したいよねということで、Raspberry Pi Zero Wを使ったやつを一台増設してみました。
 
 # 作ったもの（物理）

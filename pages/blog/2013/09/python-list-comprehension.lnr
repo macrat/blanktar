@@ -16,7 +16,7 @@ keywords: python リスト内包表記
 なんて感じでif文も仕込める。
 
 ま、ここまでは序の口だ。
-[前に書いた](/blog/2013/06/python-generator-like-list-comprehension.html)けど、
+[前に書いた](/blog/2013/06/python-generator-like-list-comprehension)けど、
 	>>> (x*3 for x in range(10)) #doctest: +ELLIPSIS
 	<generator object <genexpr> at 0x...>
 みたいにジェネレーターを作ることも出来る。
