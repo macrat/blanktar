@@ -1,0 +1,33 @@
+<goml>
+	<!--
+	 		thetaビューワ的な
+	 	2014/11/23 Microsoft Azure x jThree Class Tokyo #2 での成果物、の、改良。
+							MIT License (c)2014 MacRat
+	 -->
+
+	<head>
+		<rdr frame="body" camera="camera:first" param="antialias: true; clearColor: #fff;" />
+
+		<geo id="sphere" type="Sphere" param="32 24 24" />
+
+		<txr id="img0" src="img/0.jpg" />
+		<mtl id="ball0" type="MeshBasic" param="map: #img0;" />
+		<txr id="img1" src="img/1.jpg" />
+		<mtl id="ball1" type="MeshBasic" param="map: #img1;" />
+		<txr id="img2" src="img/2.jpg" />
+		<mtl id="ball2" type="MeshBasic" param="map: #img2;" />
+		<txr id="img3" src="img/3.jpg" />
+		<mtl id="ball3" type="MeshBasic" param="map: #img3;" />
+		<txr id="img4" src="img/4.jpg" />
+		<mtl id="ball4" type="MeshBasic" param="map: #img4;" />
+	</head>
+
+	<body>
+		<scene fog="#fff 900 1200">
+			<camera style="cameraFar: 1200; position: 400 100 400;" />
+			<light type="Amb" style="lightColor: #fff;" />
+		</scene>
+	</body>
+</goml>
+
+<!-- vim: set ft=xml : -->
