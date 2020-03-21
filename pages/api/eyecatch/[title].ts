@@ -1,8 +1,12 @@
-import {NextApiRequest, NextApiResponse} from 'next';
 import {promises as fs, constants} from 'fs';
+
+import {NextApiRequest, NextApiResponse} from 'next';
 import {createCanvas, registerFont, Image} from 'canvas';
 import fetch from 'node-fetch';
 import preval from 'preval.macro';
+
+import withCache from '../../../lib/api/cache';
+import createETag from '../../../lib/api/etag';
 
 
 let fontLoaded = false;
@@ -48,7 +52,19 @@ const baseImage = () => {
 };
 
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const hash = preval`
+    module.exports = (
+        require('crypto')
+            .createHash('md5')
+            .update(
+                require('fs').readFileSync('./assets/eyecatch-base.svg', 'utf8')
+            )
+            .digest('hex')
+    );
+`;
+
+
+export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     await loadFont(req.headers.host || 'localhost');
 
     const canvas = createCanvas(1200, 1200);
@@ -70,7 +86,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         ctx.fillText(title, 600, 600, 1200-120);
     }
 
-    res.setHeader('Cache-Control', 'public, max-age=31536000');
     res.setHeader('Content-Type', 'image/png');
     res.send(canvas.toBuffer());
-};
+}, {
+    etag: (req: NextApiRequest) => createETag(hash + req.query.title),
+    control: 'public, max-age=31536000',
+});

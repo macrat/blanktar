@@ -1,11 +1,14 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import sitemap from '../../lib/sitemap';
+import sitemap, {hash} from '../../lib/sitemap';
+import withCache from '../../lib/api/cache';
 
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default withCache((req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'text/xml; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=604800');
 
     res.send(sitemap);
-};
+}, {
+    etag: `"${hash}"`,
+    control: 'public, max-age=604800',
+});

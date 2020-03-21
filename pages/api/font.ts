@@ -1,5 +1,8 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import fetch from 'node-fetch';
+import {createHash} from 'crypto';
+
+import createETag from '../../lib/api/etag';
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,8 +18,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const link = resp.headers.get('Link');
     if (link) res.setHeader('Link', link);
 
-    const lastModified = resp.headers.get('Last-Modified');
-    if (lastModified) res.setHeader('Last-Modified', lastModified);
+    const css = await resp.text();
+    const etag = createETag(css);
 
-    res.send(await resp.text());
+    res.setHeader('ETag', etag);
+
+    if (req.headers['if-none-match'] === etag) {
+        res.status(304).end();
+        return
+    }
+
+    res.send(css);
 };

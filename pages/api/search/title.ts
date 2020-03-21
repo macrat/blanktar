@@ -1,6 +1,8 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import posts from '../../../lib/posts';
+import posts, {hash} from '../../../lib/posts';
+import withCache from '../../../lib/api/cache';
+import createETag from '../../../lib/api/etag';
 
 
 export type SuccessResponse = {
@@ -16,9 +18,7 @@ export type Response = SuccessResponse | {
 };
 
 
-export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
-    res.setHeader('Cache-Control', 'public, max-age=604800');
-
+export default withCache(async (req: NextApiRequest, res: NextApiResponse<Response>) => {
     const query = String(req.query.q);
 
     if (req.method !== 'GET') {
@@ -40,4 +40,9 @@ export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
             href: p.href,
         })),
     });
-};
+}, {
+    etag: (req: NextApiRequest) => (
+        createETag(hash + String(req.query.q).toLowerCase())
+    ),
+    control: 'public, max-age=604800',
+});
