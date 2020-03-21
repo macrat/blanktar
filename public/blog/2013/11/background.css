@@ -1,0 +1,160 @@
+/*
+ *  オサレな背景。どや。
+ * svgにするべきか迷ってる。
+ */
+
+
+body {
+	background-color: #666;
+}
+
+/* 320 < screen width < 800 */
+@media screen and (min-width: 320px) and (max-width: 800px) {
+
+#circleA {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -360px;
+
+	width: 300px;
+	height: 600px;
+	border-width: 60px 0px 60px 60px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 600px 0px 0px 600px;
+}
+
+#circleB {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -630px;
+
+	width: 600px;
+	height: 1200px;
+	border-width: 30px 0px 30px 30px;
+	border-style: solid;
+	border-color; #000;
+	border-radius: 600px 0px 0px 600px;
+}
+
+#circleC {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -510px;
+
+	width: 500px;
+	height: 1000px;
+	border-width: 10px 0px 10px 10px;
+	border-style: solid;
+	botder-color: #000;
+	border-radius: 500px 0px 0px 500px;
+}
+
+#circleD {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -255px;
+
+	width: 250px;
+	height: 500px;
+	border-width: 5px 0px 5px 5px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 250px 0px 0px 250px;
+}
+
+} /* 320 < screen width < 800 */
+
+
+/* screen width > 800 */
+@media screen and (min-width: 800px) {
+
+#circleA {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -550px;
+
+	width: 450px;
+	height: 900px;
+	border-width: 100px 0px 100px 100px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 900px 0px 0px 900px;
+}
+
+#circleB {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -950px;
+
+	width: 900px;
+	height: 1800px;
+	border-width: 50px 0px 50px 50px;
+	border-style: solid;
+	border-color; #000;
+	border-radius: 1800px 0px 0px 1800px;
+}
+
+#circleC {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -770px;
+
+	width: 750px;
+	height: 1500px;
+	border-width: 20px 0px 20px 20px;
+	border-style: solid;
+	botder-color: #000;
+	border-radius: 1500px 0px 0px 1500px;
+}
+
+#circleD {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -400px;
+
+	width: 390px;
+	height: 780px;
+	border-width: 10px 0px 10px 10px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 780px 0px 0px 780px;
+}
+
+#circleE {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -1160px;
+
+	width: 1150px;
+	height: 2300px;
+	border-width: 10px 0px 10px 10px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 1150px 0px 0px 1150px;
+}
+
+#circleF {
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+	bottom: -1255px;
+
+	width: 1250px;
+	height: 2500px;
+	border-width: 5px 0px 5px 5px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 1250px 0px 0px 1250px;
+}
+
+} /* screen width > 800 */
