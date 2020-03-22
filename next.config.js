@@ -12,6 +12,7 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 module.exports = withBundleAnalyzer(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
+    exportTrailingSlash: true,
     experimental: {
         rewrites: () => [
             {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
