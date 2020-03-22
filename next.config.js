@@ -30,7 +30,6 @@ const CSPHeader = [
 module.exports = withBundleAnalyzer(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
-    exportTrailingSlash: true,
     experimental: {
         headers: () => [{
             source: '/(.*)',
