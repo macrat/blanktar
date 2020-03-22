@@ -10,7 +10,7 @@
     "export": "next export",
     "analyze": "ANALYZE=true next build",
     "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,9 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.3.1",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^25.1.4",
     "@types/node": "^13.9.2",
     "@types/node-fetch": "^2.5.5",
     "@types/preval.macro": "^3.0.0",
@@ -38,12 +41,16 @@
     "@types/react": "^16.9.23",
     "@types/styled-jsx": "^2.2.8",
     "babel-plugin-macros": "^2.8.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "front-matter": "^3.1.0",
+    "jest": "^25.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
     "preval.macro": "^4.0.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
+    "ts-jest": "^25.2.1",
     "typescript": "^3.8.3",
     "use-debounce": "^3.4.0",
     "xmlbuilder": "^15.0.0"
