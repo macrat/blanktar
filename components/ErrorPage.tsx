@@ -1,7 +1,7 @@
 import {FC, useState} from 'react';
 
-import MetaData from '../components/MetaData';
-import SearchBox from '../components/SearchBar/SearchBox';
+import MetaData from './MetaData';
+import SearchBox from './SearchBar/SearchBox';
 
 
 export type Props = {

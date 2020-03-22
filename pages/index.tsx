@@ -1,7 +1,7 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
 
-import MetaData from '../components/MetaData';
+import MetaData from '~/components/MetaData';
 
 
 export type Props = {

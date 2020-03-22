@@ -1,12 +1,12 @@
 import {NextPage} from 'next';
 import Link from 'next/link';
 
-import posts from '../../../lib/posts';
+import posts from '~/lib/posts';
 
-import MetaData from '../../../components/MetaData';
-import Article from '../../../components/Article';
-import BlogList, {Props as BlogListProps} from '../../../components/BlogList';
-import ErrorPage from '../../_error';
+import MetaData from '~/components/MetaData';
+import Article from '~/components/Article';
+import BlogList, {Props as BlogListProps} from '~/components/BlogList';
+import ErrorPage from '~/pages/_error';
 
 
 export type Props = BlogListProps & {

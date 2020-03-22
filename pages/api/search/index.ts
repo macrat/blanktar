@@ -1,8 +1,8 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import posts, {hash} from '../../../lib/posts';
-import withCache from '../../../lib/api/cache';
-import createETag from '../../../lib/api/etag';
+import posts, {hash} from '~/lib/posts';
+import withCache from '~/lib/api/cache';
+import createETag from '~/lib/api/etag';
 
 
 export type SuccessResponse = {

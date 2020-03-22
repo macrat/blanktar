@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import fetch from 'node-fetch';
 import {createHash} from 'crypto';
 
-import createETag from '../../lib/api/etag';
+import createETag from '~/lib/api/etag';
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

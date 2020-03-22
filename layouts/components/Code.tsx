@@ -14,7 +14,7 @@ const Code: FC<Props> = ({children, className}) => {
     const lang = className.replace('language-', '');
 
     const HighlightCode = dynamic(
-        () => import('../../components/HighlightCode'),
+        () => import('~/components/HighlightCode'),
         {loading: () => (<code>{children}</code>)},
     );
 

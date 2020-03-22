@@ -29,6 +29,10 @@ const CSPHeader = [
 module.exports = withBundleAnalyzer(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
+    webpack(config, options) {
+        config.resolve.alias['~'] = __dirname;
+        return config;
+    },
     experimental: {
         headers: () => [{
             source: '/(.*)',

@@ -6,12 +6,12 @@ import {useDebounce} from 'use-debounce';
 
 import {SuccessResponse} from './api/search';
 
-import Article from '../components/Article';
-import MetaData from '../components/MetaData';
-import SearchBox from '../components/SearchBar/SearchBox';
-import ListItem from '../components/BlogList/ListItem';
-import DateTime from '../components/DateTime';
-import Pagination from '../components/Pagination';
+import Article from '~/components/Article';
+import MetaData from '~/components/MetaData';
+import SearchBox from '~/components/SearchBar/SearchBox';
+import ListItem from '~/components/BlogList/ListItem';
+import DateTime from '~/components/DateTime';
+import Pagination from '~/components/Pagination';
 
 
 export type Props = {

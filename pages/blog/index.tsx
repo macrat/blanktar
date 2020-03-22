@@ -1,11 +1,11 @@
 import {NextPage, GetServerSideProps} from 'next';
 
-import posts from '../../lib/posts';
+import posts from '~/lib/posts';
 
-import MetaData from '../../components/MetaData';
-import Article from '../../components/Article';
-import BlogList, {Props as BlogListProps} from '../../components/BlogList';
-import Pagination from '../../components/Pagination';
+import MetaData from '~/components/MetaData';
+import Article from '~/components/Article';
+import BlogList, {Props as BlogListProps} from '~/components/BlogList';
+import Pagination from '~/components/Pagination';
 
 
 export const config = {

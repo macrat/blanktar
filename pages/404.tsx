@@ -1,6 +1,6 @@
 import {NextPage, GetStaticProps} from 'next';
 
-import ErrorPage from '../components/ErrorPage';
+import ErrorPage from '~/components/ErrorPage';
 
 
 export type Props = {

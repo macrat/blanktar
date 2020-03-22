@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {useAmp} from 'next/amp';
 
-import ImageComponent from '../../components/Image';
+import ImageComponent from '~/components/Image';
 
 
 export type Props = {

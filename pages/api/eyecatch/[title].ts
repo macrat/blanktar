@@ -5,8 +5,8 @@ import {createCanvas, registerFont, Image} from 'canvas';
 import fetch from 'node-fetch';
 import preval from 'preval.macro';
 
-import withCache from '../../../lib/api/cache';
-import createETag from '../../../lib/api/etag';
+import withCache from '~/lib/api/cache';
+import createETag from '~/lib/api/etag';
 
 
 let fontLoaded = false;

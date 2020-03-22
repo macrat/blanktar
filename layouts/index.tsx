@@ -1,11 +1,11 @@
 import {FC} from 'react';
 import {useRouter} from 'next/router';
 
-import MetaData from '../components/MetaData';
-import Article from '../components/Article';
-import JsonLD, {Author, Publisher} from '../components/JsonLD';
+import MetaData from '~/components/MetaData';
+import Article from '~/components/Article';
+import JsonLD, {Author, Publisher} from '~/components/JsonLD';
 import ComponentsProvider from './components';
-import SocialShare from '../components/SocialShare';
+import SocialShare from '~/components/SocialShare';
 
 
 type HowTo = {

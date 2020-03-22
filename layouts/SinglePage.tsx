@@ -1,7 +1,7 @@
 import {FC} from 'react';
 
-import MetaData from '../components/MetaData';
-import Article from '../components/Article';
+import MetaData from '~/components/MetaData';
+import Article from '~/components/Article';
 import ComponentsProvider from './components';
 
 

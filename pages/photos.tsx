@@ -1,6 +1,6 @@
 import {NextPage} from 'next';
 
-import Article from '../components/Article';
+import Article from '~/components/Article';
 
 
 export type Props = {};

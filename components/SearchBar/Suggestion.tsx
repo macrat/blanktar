@@ -2,7 +2,7 @@ import {FC, useState, useEffect} from 'react';
 import Link from 'next/link';
 import {useDebounce} from 'use-debounce';
 
-import {SuccessResponse} from '../../pages/api/search/title';
+import {SuccessResponse} from '~/pages/api/search/title';
 
 
 export type Props = {

@@ -4,12 +4,12 @@ import Head from 'next/head';
 import Router from 'next/router';
 import {useAmp} from 'next/amp';
 
-import useLoading from '../lib/loading';
+import useLoading from '~/lib/loading';
 
-import Header from '../components/Header';
-import JsonLD, {Website} from '../components/JsonLD';
-import SearchBar from '../components/SearchBar';
-import Footer from '../components/Footer';
+import Header from '~/components/Header';
+import JsonLD, {Website} from '~/components/JsonLD';
+import SearchBar from '~/components/SearchBar';
+import Footer from '~/components/Footer';
 
 
 const CommonResources = memo(function CommonResources() {
