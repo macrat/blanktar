@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 
 const AnchorLink: FC<{before: string}> = ({before, children}) => (
-    <Link href="." as={`#${children}`}>
+    <Link href="" as={`#${children}`} prefetch={false}>
         <a id={`${children}`}>
             {children}
 
