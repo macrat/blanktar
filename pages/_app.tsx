@@ -19,7 +19,7 @@ const CommonResources = memo(function CommonResources() {
     useEffect(() => {
         fetch('/font.css')
             .then(resp => resp.text())
-            .then(css => setFontCSS(`data:text/css,${encodeURIComponent(css)}`));
+            .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
     }, []);
 
     return (
