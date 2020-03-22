@@ -1,12 +1,18 @@
-pythonのpyevolveで遺伝的アルゴリズム。
-2013-05-01 01:05
-keywords: python 遺伝的アルゴリズム pyevolve
+---
+title: pythonのpyevolveで遺伝的アルゴリズム。
+pubtime: 2013-05-01T01:05+0900
+amp: hybrid
+tags: [python, 遺伝的アルゴリズム, pyevolve]
+description: Pythonの「pyevolve」というライブラリを使って、遺伝的アルゴリズムの実装を試してみました。
+---
 
-<a href="/blog/2013/04/what-is-genetic-algorithm">前回</a>の予告通り、今回は遺伝的アルゴリズムを実装してみるよ。<br>
-<a href="http://pyevolve.sourceforge.net/">pyevolve</a>っていうライブラリを使います。<br>
-portageには無いのよね。残念。<br>
-<br>
-<pre class="code"><code>import random
+[前回](/blog/2013/04/what-is-genetic-algorithm)の予告通り、今回は遺伝的アルゴリズムを実装してみるよ。
+
+[pyevolve](http://pyevolve.sourceforge.net/)っていうライブラリを使います。
+portageには無いのよね。残念。
+
+``` python
+import random
 from pyevolve import G1DList
 from pyevolve import GSimpleGA
 
@@ -54,8 +60,9 @@ print best
 # 出てきた答えと、そのスコアだけを表示する
 print 'genome :', best.genomeList
 print 'score :', best.getRawScore()
-</code></pre>
-こんな感じで使えます。<br>
-手軽だよねー。<br>
-考えるべきは評価関数の事だけになるから、とっても楽ちん。<br>
-ま、評価関数作るのがむつかしいんだけれどね、大抵。<br>
+```
+こんな感じで使えます。
+
+手軽だよねー。
+考えるべきは評価関数の事だけになるから、とっても楽ちん。
+ま、評価関数作るのがむつかしいんだけれどね、大抵。

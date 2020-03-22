@@ -1,14 +1,19 @@
-scheme（gauche）でTCP通信してみる
-2013-04-25 17:33
-keywords: scheme gauche tcp通信
+---
+title: scheme（gauche）でTCP通信してみる
+pubtime: 2013-04-25T17:33+0900
+amp: hybrid
+tags: [lisp, scheme, gauche, tcp通信]
+description: lisp方言の1つであるScheme（Gauche）を使って、TCP通信の実験をしてみました。
+---
 
-しばらく前に試してみたことを今更公開。<br>
-schemeでtcp通信をやってみました。<br>
-<b>gauche.net</b>ってやつを使ってることから分かるとおり、gauche専用です。<br>
-<br>
-<section>
-	<h3>受信側</h3>
-	<pre class="code"><code>(use gauche.net)
+しばらく前に試してみたことを今更公開。
+
+schemeでtcp通信をやってみました。
+**gauche.net**ってやつを使ってることから分かるとおり、gauche専用です。
+
+# 受信側
+``` scheme
+(use gauche.net)
 
 (define (handler sock)
   (let ((recv (socket-recv sock 1024)))
@@ -28,13 +33,13 @@ schemeでtcp通信をやってみました。<br>
     (let ((sock (socket-accept server-sock)))
       (display "recv start...\n")
       (handler sock))))
-</code></pre>
-	こんな感じ。<br>
-	ただのエコーサーバーっすね。<br>
-</section>
-<section>
-	<h3>送信側</h3>
-	<pre class="code"><code>(use gauche.net)
+```
+こんな感じ。
+ただのエコーサーバーっすね。
+
+# 送信側
+``` scheme
+(use gauche.net)
 
 (define (input-line)
   (display "&gt;&gt; ")(flush)
@@ -49,10 +54,10 @@ schemeでtcp通信をやってみました。<br>
       (socket-send sock input)
       (display (socket-recv sock 1024))(newline)
       (loop (input-line)))))
-</code></pre>
-	こんなもんで。<br>
-	プロンプトっぽいのを出して、入力されたのをひたすら送信します。<br>
-</section>
-<br>
-こうやってみると、やっぱりpythonは手軽でいいな、とか思ってしまうよね。<br>
-かんすうこわい。<br>
+```
+こんなもんで。
+
+プロンプトっぽいのを出して、入力されたのをひたすら送信します。
+
+こうやってみると、やっぱりpythonは手軽でいいな、とか思ってしまうよね。
+かんすうこわい。
