@@ -20,10 +20,9 @@ const CSPHeader = [
         "style-src-attr 'self' 'unsafe-inline'",
         "script-src-elem 'self' 'unsafe-inline'",
     ] : []),
-    "font-src data: https://fonts.gstatic.com",
+    "font-src https://fonts.gstatic.com/",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
-    "report-to /api/csp-report",
 ].join('; ');
 
 
