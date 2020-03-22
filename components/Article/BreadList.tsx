@@ -61,6 +61,7 @@ const BreadList: FC<Props> = ({pages}) => (
 
         <style jsx>{`
             ol {
+                display: inline-block;
                 margin: 0 0 0 3mm;
                 padding: 0;
                 font-weight: 200;
