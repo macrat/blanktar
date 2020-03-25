@@ -1,7 +1,7 @@
 import posts from '../';
 
 
-export default (query: string, offset: int, limit: int) => {
+export default (query: string, offset: number, limit: number) => {
     const queries = query.toLowerCase().split(' ');
 
     let filtered = posts;
