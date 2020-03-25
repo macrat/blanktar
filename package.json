@@ -31,9 +31,6 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.3.1",
-    "@types/enzyme": "^3.10.5",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/jest": "^25.1.4",
     "@types/node": "^13.9.2",
     "@types/node-fetch": "^2.5.5",
     "@types/preval.macro": "^3.0.0",
@@ -50,7 +47,6 @@
     "preval.macro": "^4.0.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
-    "ts-jest": "^25.2.1",
     "typescript": "^3.8.3",
     "use-debounce": "^3.4.0",
     "xmlbuilder": "^15.0.0"

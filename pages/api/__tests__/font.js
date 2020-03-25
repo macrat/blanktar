@@ -1,4 +1,4 @@
-import font from '../../pages/api/font';
+import font from '../font';
 
 
 test('fetch by google', async () => {
@@ -7,14 +7,14 @@ test('fetch by google', async () => {
     await font({
         headers: {},
     }, {
-        setHeader(name: string, value: string) {
+        setHeader(name, value) {
             headers[name] = value;
             return this;
         },
-        status(code: number) {
+        status(code) {
             return this;
         },
-        send(value: string) {
+        send(value) {
             return this;
         },
     })

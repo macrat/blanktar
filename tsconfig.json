@@ -19,6 +19,7 @@
     "jsx": "preserve"
   },
   "exclude": [
+    "jest.setup.ts",
     "node_modules"
   ],
   "include": [

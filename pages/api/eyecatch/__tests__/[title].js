@@ -1,4 +1,4 @@
-import eyecatch from '../../../pages/api/eyecatch/[title].ts';
+import eyecatch from '../[title]';
 
 
 describe("don't crash", () => {
@@ -17,11 +17,11 @@ describe("don't crash", () => {
                     title: title,
                 },
             }, {
-                setHeader(name: string, value: string) {
+                setHeader(name, value) {
                     headers[name] = value;
                     return this;
                 },
-                send(data: Buffer) {
+                send(data) {
                     return this;
                 },
             });
