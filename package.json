@@ -10,7 +10,7 @@
     "export": "next export",
     "analyze": "ANALYZE=true next build",
     "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,10 @@
     "@types/react": "^16.9.23",
     "@types/styled-jsx": "^2.2.8",
     "babel-plugin-macros": "^2.8.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "front-matter": "^3.1.0",
+    "jest": "^25.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
     "preval.macro": "^4.0.0",

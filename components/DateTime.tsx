@@ -7,7 +7,7 @@ export const date2str = (t: Date) => (
 
 
 export const date2readable = (t: Date) => (
-    `${t.getFullYear()}年${String(t.getMonth() + 1).padStart(2, '0')}月${String(t.getDate()).padStart(2, '0')}日 ${t.getHours()}時${t.getMinutes()}分の記事`
+    `${t.getFullYear()}年${t.getMonth() + 1}月${t.getDate()}日 ${t.getHours()}時${t.getMinutes()}分の記事`
 );
 
 
