@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import posts, {hash} from '~/lib/posts';
+import {hash} from '~/lib/posts';
+import search from '~/lib/posts/search/title';
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
 
@@ -28,18 +29,7 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
         res.status(400).json({error: '`q` is required'});
     }
 
-    let filtered = posts;
-
-    query.toLowerCase().split(' ').forEach(q => {
-        filtered = filtered.filter(x => x.lowerTitle.includes(q));
-    });
-
-    res.json({
-        posts: filtered.slice(0, 5).map(p => ({
-            title: p.title,
-            href: p.href,
-        })),
-    });
+    res.json(search(query));
 }, {
     etag: (req: NextApiRequest) => (
         createETag(hash + String(req.query.q).toLowerCase())
