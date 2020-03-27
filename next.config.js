@@ -15,12 +15,14 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 const CSPHeader = [
     "default-src 'self'",
     "img-src 'self' data:",
-    "style-src-elem 'self' 'unsafe-inline' blob:",
+    "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
         "style-src-attr 'self' 'unsafe-inline'",
-        "script-src-elem 'self' 'unsafe-inline'",
-    ] : []),
-    "font-src https://fonts.gstatic.com/",
+        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/",
+    ] : [
+        "script-src-elem 'self' https://cdn.ampproject.org/",
+    ]),
+    "font-src https://fonts.gstatic.com/s/notosansjp/",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
