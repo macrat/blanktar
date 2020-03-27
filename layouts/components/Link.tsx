@@ -10,6 +10,8 @@ export type Props = {
 const AutoLink: FC<Props> = ({href, children}) => (
     href.startsWith('/') ? (
         <Link href={href}><a>{children}</a></Link>
+    ) : href.startsWith('#') ? (
+        <a href={href}>{children}</a>
     ) : (
         <a href={href} target="_blank" rel="noopener">{children}</a>
     )
