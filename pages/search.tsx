@@ -94,17 +94,32 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
                 onSearch={() => forceSearch()}
                 autoFocus />
 
-            <ul aria-label={`"${searchQuery}"の検索結果`}>
-                {result.posts.map(x => (
-                    <ListItem key={x.href}>
-                        <Link href={x.href}><a>
-                            <DateTime dateTime={new Date(x.pubtime)} />
-                            <h2 dangerouslySetInnerHTML={{__html: x.title}} />
-                            <p dangerouslySetInnerHTML={{__html: x.summary}} />
-                        </a></Link>
-                    </ListItem>
-                ))}
-            </ul>
+            {result.posts.length === 0 ? (
+                <p className="no-result">
+                    一致する記事がありません
+
+                    <style>{`
+                        p.no-result {
+                            opacity: .5;
+                            text-align: center;
+                            font-size: 150%;
+                            margin: 1cm 0;
+                        }
+                    `}</style>
+                </p>
+            ) : (
+                <ul aria-label={`"${searchQuery}"の検索結果`}>
+                    {result.posts.map(x => (
+                        <ListItem key={x.href}>
+                            <Link href={x.href}><a>
+                                <DateTime dateTime={new Date(x.pubtime)} />
+                                <h2 dangerouslySetInnerHTML={{__html: x.title}} />
+                                <p dangerouslySetInnerHTML={{__html: x.summary}} />
+                            </a></Link>
+                        </ListItem>
+                    ))}
+                </ul>
+            )}
 
             <Pagination
                 current={page}
