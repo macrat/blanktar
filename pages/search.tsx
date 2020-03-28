@@ -1,9 +1,10 @@
 import {useState, useEffect} from 'react';
-import {NextPage} from 'next';
+import {NextPage, GetServerSideProps} from 'next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDebounce} from 'use-debounce';
 
+import search from '~/lib/posts/search';
 import {SuccessResponse} from './api/search';
 
 import Article from '~/components/Article';
@@ -17,13 +18,14 @@ import Pagination from '~/components/Pagination';
 export type Props = {
     query: string,
     page: number,
+    result: SuccessResponse,
     __disableSearchBar: boolean,
 };
 
 
-const Search: NextPage<Props> = ({query: initialQuery, page}) => {
+const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, page}) => {
     const [query, setQuery] = useState<string>(initialQuery);
-    const [result, setResult] = useState<SuccessResponse>({posts: [], totalCount: 0});
+    const [result, setResult] = useState<SuccessResponse>(initialResult);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
 
@@ -163,11 +165,17 @@ const Search: NextPage<Props> = ({query: initialQuery, page}) => {
 };
 
 
-Search.getInitialProps = ({query}) => {
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
+    const q = String(query.q || '');
+    const page = Number(String(query.page || 1));
+
     return {
-        query: String(query.q || ''),
-        page: Number(String(query.page || 1)),
-        __disableSearchBar: true,
+        props: {
+            query: q,
+            page: page,
+            result: search(q, 10 * (page - 1), 10),
+            __disableSearchBar: true,
+        },
     };
 };
 
