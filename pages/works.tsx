@@ -127,12 +127,13 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 color: inherit;
                 text-decoration: none;
                 color: var(--colors-fg);
+                transition: color .2s ease;
                 background-color: rgba(255, 255, 255, .7);
                 overflow: hidden;
             }
             @media screen and (prefers-color-scheme: dark) {
                 a {
-                    background-color: rgba(0, 0, 0, .7);
+                    background-color: rgba(0, 0, 0, .5);
                 }
             }
             a::before {
@@ -156,6 +157,16 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
             a:hover::before, a:focus::before {
                 transform: translate(0, 0);
             }
+            @media screen and (prefers-reduced-motion: reduce) {
+                a::before {
+                    transform: translate(0, 0);
+                    opacity: 0;
+                    transition: opacity: .2s ease;
+                }
+                a:hover::before, a:focus::before {
+                    opacity: 1;
+                }
+            }
             h3 {
                 font-size: 36pt;
                 font-weight: 300;
@@ -164,8 +175,8 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
             }
             span {
                 display: block;
-                margin: 1mm 0 3mm;
-                font-size: 80%;
+                margin: 1mm 0 2mm;
+                font-size: 90%;
             }
             p {
                 font-size: 120%;
@@ -268,6 +279,16 @@ const Works: NextPage<Props> = ({github}) => (
             .view-more:hover::before, .view-more:focus::before {
                 transform: scaleY(1);
                 z-index: -1;
+            }
+            @media screen and (prefers-reduced-motion: reduce) {
+                .view-more::before {
+                    opacity: 0;
+                    transform: scaleY(1);
+                    transition: opacity .2s ease;
+                }
+                .view-more:hover::before, .view-more:focus::before {
+                    opacity: 1;
+                }
             }
         `}</style>
     </Article>
