@@ -15,15 +15,15 @@ const MetaData: FC<Props> = ({title, description, image}) => {
 
     return (
         <Head>
-            <title>{title ? `${title} - BlankTar` : 'BlankTar'}</title>
+            <title>{title ? `${title} - Blanktar` : 'Blanktar'}</title>
             {description ? <meta name="description" content={description} /> : null}
 
-            <meta property="og:title" content={title || 'BlankTar'} key="ogp--title" />
+            <meta property="og:title" content={title || 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath.startsWith('/blog') ? 'blog' : (router.asPath === '/' ? 'website' : 'article')} key="ogp--type" />
             <meta property="og:url" content={`https://blanktar.jp${router.asPath}`} key="ogp--url" />
             <meta property="og:image" content={image ? `https://blanktar.jp${image}` : (title ? `https://blanktar.jp/img/eyecatch/${encodeURIComponent(title)}.png` : "https://blanktar.jp/img/social-preview.png")} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
-            <meta property="og:site_name" content="BlankTar" key="ogp--site_name" />
+            <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
             <meta property="fb:app_id" content="3557706767604040" key="facebook--app_id" />
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} key="twitter--card" />
             <meta name="twitter:creator" content="@macrat_jp" key="twitter-creator" />

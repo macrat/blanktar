@@ -57,7 +57,7 @@ const CommonResources = memo(function CommonResources() {
 } as FC<{}>, () => true);
 
 
-const BlankTarApp = ({Component, pageProps}: AppProps) => {
+const BlanktarApp = ({Component, pageProps}: AppProps) => {
     const loading = useLoading();
 
     useEffect(() => {
@@ -179,4 +179,4 @@ const BlankTarApp = ({Component, pageProps}: AppProps) => {
 };
 
 
-export default BlankTarApp;
+export default BlanktarApp;
