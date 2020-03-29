@@ -3,5 +3,28 @@
     "env": {
       "GITHUB_TOKEN": "@blanktar--github-token"
     }
-  }
+  },
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/about.html",
+      "destination": "/about"
+    },
+    {
+      "source": "/blog/(20[0-9]{2})/",
+      "destination": "/blog/$1"
+    },
+    {
+      "source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/",
+      "destination": "/blog/$1/$2"
+    },
+    {
+      "source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+).html",
+      "destination": "/blog/$1/$2/$3"
+    },
+    {
+      "source": "/blog/index([0-9]+).html",
+      "destination": "/blog?offset=$10"
+    }
+  ]
 }
