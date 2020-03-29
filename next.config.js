@@ -14,10 +14,10 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "img-src 'self' data:",
+    "img-src 'self' data: https://repository-images.githubusercontent.com/",
     "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
+    "style-src-attr 'self' 'unsafe-inline'",
     ...(isDebug ? [
-        "style-src-attr 'self' 'unsafe-inline'",
         "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/",
     ] : [
         "script-src-elem 'self' https://cdn.ampproject.org/",
@@ -34,6 +34,9 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
     webpack(config, options) {
         config.resolve.alias['~'] = __dirname;
         return config;
+    },
+    env: {
+        GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     },
     experimental: {
         headers: () => [{
