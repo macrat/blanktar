@@ -1,4 +1,3 @@
-next-blank
-==========
+[![Blanktar](./assets/social-preview-2x1.svg)](https://blanktar.jp)
 
-次期BlankTarのためのプレイグラウンド。
+[MacRatのホームページ「Blanktar」](https://blanktar.jp)のリポジトリ
