@@ -89,11 +89,26 @@ const Pagination: FC<Props> = ({current, total, href}) => {
 
     return (
         <ol aria-label="ページの選択">
+            {current > 1 ? (
+                <li className="prev"><Link href={href(current - 1)}><a aria-label="前のページへ">前へ</a></Link></li>
+            ) : (
+                <li className="prev disabled" aria-label="このページが最初のページです">前へ</li>
+            )}
+
             {[...new Array(to - from)].map((_, i) => (
-                <li key={i + from} className={Math.abs(current - (i + from)) <= 2 ? "keep" : ""}>
+                <li
+                    key={i + from}
+                    className={(current == i + from ? "current " : "") + (Math.abs(current - (i + from)) <= 2 ? "keep" : "")}>
+
                     <PageLink current={current === i + from} page={i + from} href={href} />
                 </li>
             ))}
+
+            {current < total ? (
+                <li className="next"><Link href={href(current + 1)}><a aria-label="次のページへ">次へ</a></Link></li>
+            ) : (
+                <li className="next disabled" aria-label="このページが最後のページです">次へ</li>
+            )}
 
             <style jsx>{`
                 ol {
@@ -107,8 +122,21 @@ const Pagination: FC<Props> = ({current, total, href}) => {
                     display: inline-block;
                     margin: 3mm 2mm;
                 }
-                @media (max-width: 30em) {
-                    li:not(.keep) {
+                .disabled {
+                    opacity: .4;
+                    cursor: default;
+                }
+                .prev a, .next a {
+                    color: inherit;
+                    text-decoration: none;
+                }
+                @media (max-width: 34em) {
+                    li:not(.keep):not(.next):not(.prev) {
+                        display: none;
+                    }
+                }
+                @media (max-width: 24em) {
+                    li:not(.current):not(.next):not(.prev) {
                         display: none;
                     }
                 }
