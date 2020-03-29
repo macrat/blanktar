@@ -25,7 +25,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "front-matter": "^3.1.0",
-    "next": "^9.3.1",
+    "next": "^9.3.2",
     "node-fetch": "^2.6.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
@@ -34,22 +34,22 @@
     "use-debounce": "^3.4.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^9.3.1",
-    "@types/node": "^13.9.4",
+    "@next/bundle-analyzer": "^9.3.2",
+    "@types/node": "^13.9.5",
     "@types/node-fetch": "^2.5.5",
     "@types/preval.macro": "^3.0.0",
     "@types/prismjs": "^1.16.0",
-    "@types/react": "^16.9.25",
+    "@types/react": "^16.9.27",
     "@types/styled-jsx": "^2.2.8",
     "asyncmark": "^0.3.2",
     "babel-plugin-macros": "^2.8.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "jest": "^25.1.0",
+    "jest": "^25.2.3",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
-    "preval.macro": "^4.0.0",
+    "preval.macro": "^5.0.0",
     "typescript": "^3.8.3",
-    "xmlbuilder": "^15.0.0"
+    "xmlbuilder": "^15.1.0"
   }
 }
