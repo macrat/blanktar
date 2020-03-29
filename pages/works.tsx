@@ -350,7 +350,7 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
             github: data.data.user.repositories.nodes.map(repo => ({
                 name: repo.parent?.nameWithOwner ?? repo.name,
                 description: repo.description,
-                url: repo.homepageUrl ?? repo.url,
+                url: repo.homepageUrl || repo.url,
                 image: repo.usesCustomOpenGraphImage ? repo.openGraphImageUrl : null,
                 languages: repo.languages.nodes.map(lang => ({
                     name: lang.name,
