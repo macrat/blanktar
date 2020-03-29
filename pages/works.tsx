@@ -60,12 +60,31 @@ export type Props = {
 };
 
 
+const LanguageListItem: FC<{name: string, color: string}> = ({name, color}) => (
+    <li>
+        <span>{name}</span>
+
+        <style jsx>{`
+            li {
+                background-color: ${color};
+                display: inline-block;
+                padding: 0 2mm;
+                border-radius: 1mm;
+                margin: 0 1mm;
+            }
+            span {
+                color: ${color};
+                filter: invert(100%) grayscale(100%) contrast(100);
+            }
+        `}</style>
+    </li>
+);
+
+
 const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languages}) => (
     <ul aria-label="使用言語">
         {languages.map(lang => (
-            <li key={lang.name} style={{backgroundColor: lang.color}}>
-                <span style={{color: lang.color}}>{lang.name}</span>
-            </li>
+            <LanguageListItem key={lang.name} {...lang} />
         ))}
 
         <style jsx>{`
@@ -74,22 +93,13 @@ const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languag
                 margin: 0 -1mm;
                 padding: 0;
             }
-            li {
-                display: inline-block;
-                padding: 0 2mm;
-                border-radius: 1mm;
-                margin: 0 1mm;
-            }
-            span {
-                filter: invert(100%) grayscale(100%) contrast(100);
-            }
         `}</style>
     </ul>
 );
 
 
 const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, updatedAt, languages, description}) => (
-    <li style={{backgroundImage: image ? `url(${image})` : undefined}}>
+    <li>
 
         <a href={url || undefined} target="_blank" rel="noopener">
             <h3>{name}</h3>
@@ -107,7 +117,7 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 width: calc(100% / 2 - 2mm * 2);
                 height: 7cm;
                 margin: 2mm;
-                background-color: var(--colors-dark-fg);
+                background: ${image ? `url(${image})` : 'var(--colors-dark-fg)'};
                 background-size: cover;
                 background-position: center;
             }
