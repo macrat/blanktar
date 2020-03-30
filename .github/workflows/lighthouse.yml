@@ -13,7 +13,8 @@ jobs:
       - name: npm install
       - run: npm ci
       - run: npm run build
-      - uses: treosh/lighthouse-ci-action@v2
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v2
         with:
           uploadArtifacts: true
           configPath: ./.github/workflows/lighthouse.json
