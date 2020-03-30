@@ -27,7 +27,7 @@ const CommonResources = memo(function CommonResources() {
             <meta charSet="utf-8" />
 
             <link
-                rel="dns-prefetch preconnect"
+                rel="preconnect"
                 href="https://fonts.gstatic.com"
                 key="preconnect--gstatic" />
             {isAmp ? '' : (
