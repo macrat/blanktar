@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v1
       - name: npm install
         run: |
-        npm install -g @lhci/cli
-        npm ci
+          npm install -g @lhci/cli
+          npm ci
       - run: npm run build
       - run: lhci autorun --config=./.github/workflows/lighthouse.json
