@@ -9,11 +9,9 @@ const BlockQuote: FC<Props> = ({children}) => (
         {children}
 
         <style jsx>{`
-            blockquote {
-                padding: 1mm 2mm 1mm 4mm;
-                margin: 2mm;
-                border-left: 1px solid var(--colors-dark-fg);
-            }
+            padding: 1mm 2mm 1mm 4mm;
+            margin: 2mm;
+            border-left: 1px solid var(--colors-dark-fg);
         `}</style>
     </blockquote>
 );

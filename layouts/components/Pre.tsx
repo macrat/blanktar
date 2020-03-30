@@ -9,11 +9,9 @@ const Pre: FC<Props> = ({children}) => (
         <pre>{children}</pre>
 
         <style jsx>{`
-            pre {
-                padding: 5mm;
-                overflow: auto;
-                background-color: var(--colors-block-bg);
-            }
+            padding: 5mm;
+            overflow: auto;
+            background-color: var(--colors-block-bg);
         `}</style>
     </>
 );

@@ -5,10 +5,8 @@ export type Props = {};
 
 
 const Tr: FC<Props> = ({children}) => (
-    <>
-        <tr>
-            {children}
-        </tr>
+    <tr>
+        {children}
 
         <style jsx>{`
             tr {
@@ -19,7 +17,7 @@ const Tr: FC<Props> = ({children}) => (
                 border-width: 0;
             }
         `}</style>
-    </>
+    </tr>
 );
 
 

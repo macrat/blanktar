@@ -22,9 +22,6 @@ const Footer: FC<Props> = () => (
                 opacity: .7;
                 margin: 0 2mm;
             }
-            a:hover, a:focus {
-                color: var(--colors-accent);
-            }
         `}</style>
     </footer>
 );

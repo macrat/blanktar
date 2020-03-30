@@ -5,17 +5,13 @@ export type Props = {};
 
 
 const Table: FC<Props> = ({children}) => (
-    <>
-        <table>
-            {children}
-        </table>
+    <table>
+        {children}
 
         <style jsx>{`
-            table {
-                border-collapse: collapse;
-            }
+            border-collapse: collapse;
         `}</style>
-    </>
+    </table>
 );
 
 

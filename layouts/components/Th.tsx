@@ -7,10 +7,8 @@ export type Props = {
 
 
 const Th: FC<Props> = ({align, children}) => (
-    <>
-        <th align={align}>
-            {children}
-        </th>
+    <th align={align}>
+        {children}
 
         <style jsx>{`
             th {
@@ -23,7 +21,7 @@ const Th: FC<Props> = ({align, children}) => (
                 border-width: 0 0 .2mm;
             }
         `}</style>
-    </>
+    </th>
 );
 
 

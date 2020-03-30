@@ -8,10 +8,10 @@ export type Props = {};
 const Navigation: FC<Props> = () => (
     <nav>
         <ul aria-label="サイトのメニュー">
-            <li><Link href="/about"><a>about</a></Link></li>
-            <li><Link href="/blog"><a>blog</a></Link></li>
-            <li><Link href="/works"><a>works</a></Link></li>
-            <li><Link href="/photos"><a>photos</a></Link></li>
+            <li className="about"><Link href="/about"><a>about</a></Link></li>
+            <li className="blog"><Link href="/blog"><a>blog</a></Link></li>
+            <li className="works"><Link href="/works"><a>works</a></Link></li>
+            <li className="photos"><Link href="/photos"><a>photos</a></Link></li>
         </ul>
 
         <style jsx>{`
@@ -36,21 +36,19 @@ const Navigation: FC<Props> = () => (
             }
             li:hover a, li:focus-within a {
                 color: var(--colors-bg);
+                outline: none;
             }
             li:hover::before, li:focus-within::before {
                 top: 0;
                 height: 100%;
             }
-            a:focus {
-                outline: none;
-            }
 
             a {
                 animation: menu-fg .3s ease both;
             }
-            li:nth-child(2) a { animation-delay: .1s; }
-            li:nth-child(3) a { animation-delay: .2s; }
-            li:nth-child(4) a { animation-delay: .3s; }
+            .blog a { animation-delay: .1s; }
+            .works a { animation-delay: .2s; }
+            .photos a { animation-delay: .3s; }
             @keyframes menu-fg {
                  0%     { opacity: 0; }
                 40%     { opacity: 0; }
@@ -72,9 +70,9 @@ const Navigation: FC<Props> = () => (
                 from { transform: translate(0, -200%); }
                   to { transform: translate(0, 0); }
             }
-            li:nth-child(2)::before { animation-delay: .1s; }
-            li:nth-child(3)::before { animation-delay: .2s; }
-            li:nth-child(4)::before { animation-delay: .3s; }
+            .blog::before { animation-delay: .1s; }
+            .works::before { animation-delay: .2s; }
+            .photos::before { animation-delay: .3s; }
 
             @media screen and (prefers-reduced-motion: reduce) {
                 a {

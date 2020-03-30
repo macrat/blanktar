@@ -15,17 +15,17 @@ const Index: NextPage<Props> = () => (
         <MetaData description="MacRatの個人Webサイト「Blanktar」。ブログとか色々。" />
 
         <svg width="256" height="256" viewBox="-2 -1.5 20 20">
-            <polyline fill="none" points="1 1, 7 7, 0 14" />
-            <polyline fill="none" points="0 4, 7 11, 1 17" />
-            <polyline fill="none" strokeWidth="0.5" points="15 1, 9 7, 16 14" />
-            <polyline fill="none" strokeWidth="0.5" points="16 4, 9 11, 15 17" />
+            <polyline className="polyline-a" fill="none" points="1 1, 7 7, 0 14" />
+            <polyline className="polyline-b" fill="none" points="0 4, 7 11, 1 17" />
+            <polyline className="polyline-c" fill="none" strokeWidth="0.5" points="15 1, 9 7, 16 14" />
+            <polyline className="polyline-c" fill="none" strokeWidth="0.5" points="16 4, 9 11, 15 17" />
         </svg>
 
         <ul>
-            <li><Link href="/about"><a>about</a></Link></li>
-            <li><Link href="/blog"><a>blog</a></Link></li>
-            <li><Link href="/works"><a>works</a></Link></li>
-            <li><Link href="/photos"><a>photos</a></Link></li>
+            <li className="about"><Link href="/about"><a>about</a></Link></li>
+            <li className="blog"><Link href="/blog"><a>blog</a></Link></li>
+            <li className="works"><Link href="/works"><a>works</a></Link></li>
+            <li className="photos"><Link href="/photos"><a>photos</a></Link></li>
         </ul>
 
         <style jsx>{`
@@ -65,10 +65,9 @@ const Index: NextPage<Props> = () => (
                 stroke: var(--colors-fg);
                 stroke-dasharray: 18.38;
             }
-            polyline:nth-of-type(1) { animation: line-show 1s ease both; }
-            polyline:nth-of-type(2) { animation: line-show 1s ease .5s both; }
-            polyline:nth-of-type(3) { animation: line-show 1s ease 1s both; }
-            polyline:nth-of-type(4) { animation: line-show 1s ease 1s both; }
+            .polyline-a { animation: line-show 1s ease both; }
+            .polyline-b { animation: line-show 1s ease .5s both; }
+            .polyline-c { animation: line-show 1s ease 1s both; }
             @keyframes line-show {
                 from { stroke-dashoffset: 18.38; }
                   to { stroke-dashoffset: 0; }
@@ -89,10 +88,10 @@ const Index: NextPage<Props> = () => (
                   to { transform: translate(50%, 0); }
             }
 
-            li:nth-of-type(1) { animation: link-show 1.4s ease 1.5s both; }
-            li:nth-of-type(2) { animation: link-show 1.4s ease 1.6s both; }
-            li:nth-of-type(3) { animation: link-show 1.4s ease 1.7s both; }
-            li:nth-of-type(4) { animation: link-show 1.4s ease 1.8s both; }
+            .about { animation: link-show 1.4s ease 1.5s both; }
+            .blog { animation: link-show 1.4s ease 1.6s both; }
+            .works { animation: link-show 1.4s ease 1.7s both; }
+            .photos { animation: link-show 1.4s ease 1.8s both; }
             @keyframes link-show {
                 from { opacity: 0; }
                   to { opacity: 1; }

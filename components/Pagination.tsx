@@ -27,7 +27,7 @@ const PageLink: FC<{current: boolean, page: number, href: HrefFunc}> = ({current
                 text-decoration: none;
                 position: relative;
             }
-            a.current {
+            .current {
                 color: var(--colors-bg);
                 background-color: var(--colors-fg);
             }
@@ -35,7 +35,7 @@ const PageLink: FC<{current: boolean, page: number, href: HrefFunc}> = ({current
                 color: var(--colors-fg);
                 outline: none;
             }
-            a.current:hover, a.current:focus {
+            .current:hover, .current:focus {
                 color: var(--colors-bg);
             }
             svg {
@@ -51,7 +51,7 @@ const PageLink: FC<{current: boolean, page: number, href: HrefFunc}> = ({current
                 stroke-dashoffset: 160;
                 transition: stroke-dashoffset .4s ease;
             }
-            a.current polyline {
+            .current polyline {
                 stroke: var(--colors-accent);
                 stroke-width: .8mm;
             }
@@ -90,7 +90,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
     return (
         <ol aria-label="ページの選択">
             {current > 1 ? (
-                <li className="prev"><Link href={href(current - 1)}><a aria-label="前のページへ">前へ</a></Link></li>
+                <li className="prev keep"><Link href={href(current - 1)}><a aria-label="前のページへ">前へ</a></Link></li>
             ) : null}
 
             {[...new Array(to - from)].map((_, i) => (
@@ -103,7 +103,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
             ))}
 
             {current < total ? (
-                <li className="next"><Link href={href(current + 1)}><a aria-label="次のページへ">次へ</a></Link></li>
+                <li className="next keep"><Link href={href(current + 1)}><a aria-label="次のページへ">次へ</a></Link></li>
             ) : null}
 
             <style jsx>{`
@@ -123,13 +123,16 @@ const Pagination: FC<Props> = ({current, total, href}) => {
                     text-decoration: none;
                 }
                 @media (max-width: 34em) {
-                    li:not(.keep):not(.next):not(.prev) {
+                    li:not(.keep) {
                         display: none;
                     }
                 }
                 @media (max-width: 24em) {
-                    li:not(.current):not(.next):not(.prev) {
+                    li {
                         display: none;
+                    }
+                    li.current, li.next, li.prev {
+                        display: inline-block;
                     }
                 }
             `}</style>
