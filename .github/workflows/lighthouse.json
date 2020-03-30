@@ -11,8 +11,8 @@
     },
     "assert": {
       "preset": "lighthouse:recommended",
-      "canonical": "off",
       "category:pwa": "off",
+      "canonical": "off",
       "link-text": "warn",
       "uses-http2": "off",
       "uses-webp-images": "warn"
