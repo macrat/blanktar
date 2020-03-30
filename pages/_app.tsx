@@ -89,7 +89,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-link: #6941e1;
                     --colors-accent: #e2005a;
 
-                    --colors-comment: #a89494;
+                    --colors-comment: #706c6c;
                     --colors-namespace: #786b6b;
                     --colors-string: #d70c64;
                     --colors-operator: #393a34;
@@ -107,7 +107,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-link: #b1afef;
                         --colors-accent: #ff96b0;
 
-                        --colors-comment: #b8a5a5;
+                        --colors-comment: #cbc1c1;
                         --colors-namespace: #d3cfcd;
                         --colors-string: #ffa1ca;
                         --colors-operator: #d8d9d3;
