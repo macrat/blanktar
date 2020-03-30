@@ -87,13 +87,13 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-bg: #fcf8f5;
                     --colors-block-bg: #f7f0ec;
                     --colors-link: #6941e1;
-                    --colors-accent: #ff245b;
+                    --colors-accent: #e2005a;
 
                     --colors-comment: #a89494;
                     --colors-namespace: #786b6b;
-                    --colors-string: #e3116c;
+                    --colors-string: #d70c64;
                     --colors-operator: #393a34;
-                    --colors-value: #36acaa;
+                    --colors-value: #007c60;
                     --colors-keyword: #3838aa;
                     --colors-function: #8d0f1b;
                     --colors-variable: #6f42c1;
@@ -103,16 +103,16 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-fg: #fcf8f5;
                         --colors-dark-fg: #9f9393;
                         --colors-bg: #4d4444;
-                        --colors-block-bg: #5a5050;
-                        --colors-link: #a09dff;
-                        --colors-accent: #ff245b;
+                        --colors-block-bg: #554a4a;
+                        --colors-link: #b1afef;
+                        --colors-accent: #ff96b0;
 
                         --colors-comment: #b8a5a5;
                         --colors-namespace: #d3cfcd;
-                        --colors-string: #ff348c;
+                        --colors-string: #ffa1ca;
                         --colors-operator: #d8d9d3;
-                        --colors-value: #36acaa;
-                        --colors-keyword: #a4a4ff;
+                        --colors-value: #74cad3;
+                        --colors-keyword: #b7b7ff;
                         --colors-function: #ecc2c6;
                         --colors-variable: #6f42c1;
                     }
@@ -131,6 +131,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                 a {
                     position: relative;
                     color: var(--colors-link);
+                    text-decoration: underline dotted;
                     transition: color .2s ease;
                 }
                 a:hover, a:focus {
