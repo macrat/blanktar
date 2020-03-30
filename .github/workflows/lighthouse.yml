@@ -16,5 +16,5 @@ jobs:
 
       - uses: treosh/lighthouse-ci-action@v2
         with:
-          configPath: '.github/actions/lighthouse.json'
+          configPath: '.github/workflows/lighthouse.json'
           uploadArtifacts: true
