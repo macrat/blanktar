@@ -1,11 +1,11 @@
-name: Test
+name: Unit Test
 
 on:
   push:
 
 jobs:
   test:
-    name: Test
+    name: Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
