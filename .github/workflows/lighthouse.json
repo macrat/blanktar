@@ -11,9 +11,11 @@
     },
     "assert": {
       "preset": "lighthouse:recommended",
-      "seo/canonical": "off",
-      "dobetterweb/uses-http2": "off",
-      "byte-efficiency/uses-webp-images": "warn"
+      "canonical": "off",
+      "category:pwa": "off",
+      "link-text": "warn",
+      "uses-http2": "off",
+      "uses-webp-images": "warn"
     },
     "upload": {
       "target": "temporary-public-storage"
