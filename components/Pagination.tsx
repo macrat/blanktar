@@ -91,9 +91,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
         <ol aria-label="ページの選択">
             {current > 1 ? (
                 <li className="prev"><Link href={href(current - 1)}><a aria-label="前のページへ">前へ</a></Link></li>
-            ) : (
-                <li className="prev disabled" aria-label="このページが最初のページです">前へ</li>
-            )}
+            ) : null}
 
             {[...new Array(to - from)].map((_, i) => (
                 <li
@@ -106,9 +104,7 @@ const Pagination: FC<Props> = ({current, total, href}) => {
 
             {current < total ? (
                 <li className="next"><Link href={href(current + 1)}><a aria-label="次のページへ">次へ</a></Link></li>
-            ) : (
-                <li className="next disabled" aria-label="このページが最後のページです">次へ</li>
-            )}
+            ) : null}
 
             <style jsx>{`
                 ol {
@@ -121,10 +117,6 @@ const Pagination: FC<Props> = ({current, total, href}) => {
                 li {
                     display: inline-block;
                     margin: 3mm 2mm;
-                }
-                .disabled {
-                    opacity: .4;
-                    cursor: default;
                 }
                 .prev a, .next a {
                     color: inherit;
