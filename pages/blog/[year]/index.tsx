@@ -16,7 +16,9 @@ export type Props = BlogListProps & {
 
 const YearIndex: NextPage<Props> = ({year, posts}) => {
     return (<>
-        <MetaData title={`${year}年の記事`} />
+        <MetaData
+            title={`${year}年の記事`}
+            description={`Blanktarの${year}年の記事一覧。「${posts[0]?.title}」${posts.length > 1 ? `「${posts[1]?.title}」` : ""}ほか${posts.length}件。`} />
 
         <Article title={`${year}年の記事`} breadlist={[{
             title: 'blog',
