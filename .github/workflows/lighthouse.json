@@ -10,12 +10,13 @@
       ]
     },
     "assert": {
-      "preset": "lighthouse:recommended",
-      "category:pwa": "off",
-      "canonical": "off",
-      "link-text": "warn",
-      "uses-http2": "off",
-      "uses-webp-images": "warn"
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "canonical": "off",
+        "link-text": "warn",
+        "uses-http2": "off",
+        "uses-webp-images": "warn"
+      }
     },
     "upload": {
       "target": "temporary-public-storage"
