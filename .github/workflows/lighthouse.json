@@ -10,7 +10,8 @@
       ]
     },
     "assert": {
-      "preset": "lighthouse:recommended"
+      "preset": "lighthouse:recommended",
+      "seo/canonical": ["warn", {"minScore": 0}]
     },
     "upload": {
       "target": "temporary-public-storage"
