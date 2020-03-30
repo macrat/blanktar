@@ -12,7 +12,7 @@ export type Props = {
 
 const Index: NextPage<Props> = () => (
     <div>
-        <MetaData />
+        <MetaData description="MacRatの個人Webサイト「Blanktar」。ブログとか色々。" />
 
         <svg width="256" height="256" viewBox="-2 -1.5 20 20">
             <polyline fill="none" points="1 1, 7 7, 0 14" />
