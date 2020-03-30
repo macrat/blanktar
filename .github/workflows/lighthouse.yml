@@ -14,5 +14,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - uses: treosh/lighthouse-ci-action@v2
-        uploadArtifacts: true
-        configPath: ./.github/workflows/lighthouse.json
+        with:
+          uploadArtifacts: true
+          configPath: ./.github/workflows/lighthouse.json
