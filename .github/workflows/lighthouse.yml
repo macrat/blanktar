@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
       - name: npm install
-        run: |
-          npm install -g @lhci/cli
-          npm ci
+      - run: npm ci
       - run: npm run build
-      - run: lhci autorun --config=./.github/workflows/lighthouse.json
+      - uses: treosh/lighthouse-ci-action@v2
+        uploadArtifacts: true
+        configPath: ./.github/workflows/lighthouse.json
