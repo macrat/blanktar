@@ -46,7 +46,7 @@ const ShareButton: FC<Props> = ({href, alt, children}) => (
             a:hover::before, a:focus::before {
                 transform: scaleY(1);
             }
-            a > svg {
+            svg {
                 height: 26px;
                 width: auto;
                 position: relative;

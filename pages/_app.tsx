@@ -163,7 +163,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     from { transform: translate(-100%, 0); }
                       to { transform: translate(0, 0); }
                 }
-                div.loading::before  {
+                .loading::before  {
                     animation: loading 1s linear infinite;
                 }
                 @keyframes loading {

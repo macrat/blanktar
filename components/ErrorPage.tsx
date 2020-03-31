@@ -23,7 +23,7 @@ const ErrorPage: FC<Props> = ({statusCode, title, message}) => {
 
                 <div className="message">
                     <h1>{title}</h1>
-                    {message ? (<span>{message}</span>) : null}
+                    {message ? (<span className="detail">{message}</span>) : null}
                 </div>
             </header>
 
@@ -45,14 +45,14 @@ const ErrorPage: FC<Props> = ({statusCode, title, message}) => {
                     padding: 0 5mm 0 0;
                     border-right: .2mm solid var(--colors-fg);
                 }
-                .message h1 {
+                h1 {
                     font-size: inherit;
                     margin: 0;
                     padding: 0;
                     line-height: inherit;
                     font-weight: 400;
                 }
-                .message span {
+                .detail {
                     font-weight: 300;
                 }
                 .search {

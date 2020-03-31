@@ -11,12 +11,11 @@ const Td: FC<Props> = ({align, children}) => (
         {children}
 
         <style jsx>{`
-            td {
-                padding: 1mm 4mm;
-                border: 0 solid var(--colors-dark-fg);
-                border-width: 0 .2mm;
-            }
-            td:first-of-type, td:last-of-type {
+            padding: 1mm 4mm;
+            border: 0 solid var(--colors-dark-fg);
+            border-width: 0 .2mm;
+
+            :first-of-type, :last-of-type {
                 border-width: 0;
             }
         `}</style>
