@@ -92,11 +92,9 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-comment: #706c6c;
                     --colors-namespace: #786b6b;
                     --colors-string: #d70c64;
-                    --colors-operator: #393a34;
                     --colors-value: #007c60;
                     --colors-keyword: #3838aa;
                     --colors-function: #8d0f1b;
-                    --colors-variable: #6f42c1;
                 }
                 @media screen and (prefers-color-scheme: dark) {
                     html {
@@ -110,11 +108,9 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-comment: #cbc1c1;
                         --colors-namespace: #d3cfcd;
                         --colors-string: #ffa1ca;
-                        --colors-operator: #d8d9d3;
                         --colors-value: #74cad3;
                         --colors-keyword: #b7b7ff;
                         --colors-function: #ecc2c6;
-                        --colors-variable: #6f42c1;
                     }
                 }
 
