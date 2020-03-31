@@ -10,10 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
-      - name: npm install
+
       - run: npm ci
       - run: npm run build
+
       - uses: treosh/lighthouse-ci-action@v2
         with:
+          configPath: '.github/workflows/lighthouse.json'
           uploadArtifacts: true
-          configPath: ./.github/workflows/lighthouse.json

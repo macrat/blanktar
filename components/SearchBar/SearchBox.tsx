@@ -68,7 +68,7 @@ const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus, children}) 
                     color: var(--colors-fg);
                     padding: 2px 4px;
                 }
-                input:focus {
+                :focus {
                     outline: none;
                 }
             `}</style>

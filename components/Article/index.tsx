@@ -16,9 +16,7 @@ const Article: FC<Props> = (props) => (
         </article>
 
         <style jsx>{`
-            article {
-                padding-bottom: 3mm;
-            }
+            padding-bottom: 3mm;
         `}</style>
     </Tombo>
 );

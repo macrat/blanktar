@@ -20,7 +20,7 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
                 color: inherit;
                 text-decoration: none;
             }
-            a:hover, a:focus {
+            :hover, :focus {
                 color: inherit;
             }
             a::before {
@@ -42,7 +42,7 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
             .inner {
                 animation: inner-out .2s ease .05s both;
             }
-            a:hover .inner, a:focus .inner {
+            :hover .inner, :focus .inner {
                 animation: inner-in .2s ease both;
             }
             @keyframes inner-in {
@@ -56,7 +56,7 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
             .outer {
                 animation: outer-out .1s ease both;
             }
-            a:hover .outer, a:focus .outer {
+            :hover .outer, :focus .outer {
                 animation: outer-in .1s ease .1s both;
             }
             @keyframes outer-in {

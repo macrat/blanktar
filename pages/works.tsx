@@ -88,11 +88,9 @@ const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languag
         ))}
 
         <style jsx>{`
-            ul {
-                display: block;
-                margin: 0 -1mm;
-                padding: 0;
-            }
+            display: block;
+            margin: 0 -1mm;
+            padding: 0;
         `}</style>
     </ul>
 );
@@ -100,15 +98,14 @@ const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languag
 
 const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, updatedAt, languages, description}) => (
     <li>
-
         <a href={url || undefined} target="_blank" rel="noopener">
-            <h3>{name}</h3>
+            <h3 className="card-inner">{name}</h3>
 
-            <span><DateTime dateTime={new Date(createdAt)} readableSuffix="公開" /> 〜 <DateTime dateTime={new Date(updatedAt)} readableSuffix="更新" /></span>
+            <span className="card-inner"><DateTime dateTime={new Date(createdAt)} readableSuffix="公開" /> 〜 <DateTime dateTime={new Date(updatedAt)} readableSuffix="更新" /></span>
 
-            <div><LanguageList languages={languages} /></div>
+            <div className="card-inner"><LanguageList languages={languages} /></div>
 
-            <p>{description}</p>
+            <p className="card-inner">{description}</p>
         </a>
 
         <style jsx>{`
@@ -161,9 +158,6 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
             a:hover, a:focus {
                 color: var(--colors-bg);
             }
-            a:hover > *, a:focus > * {
-                position: relative;
-            }
             a:hover::before, a:focus::before {
                 transform: translate(0, 0);
             }
@@ -176,6 +170,9 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 a:hover::before, a:focus::before {
                     opacity: 1;
                 }
+            }
+            .card-inner {
+                position: relative;
             }
             h3 {
                 font-size: 36pt;

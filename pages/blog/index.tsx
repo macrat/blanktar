@@ -21,7 +21,9 @@ export type Props = BlogListProps & {
 
 const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     <>
-        <MetaData title="blog" />
+        <MetaData
+            title="blog"
+            description={`Blanktarのブログ記事一覧の${totalPages}ページ中${page}ページ目。「${posts[0]?.title}」「${posts[1]?.title}」ほか${posts.length}件。`} />
 
         <Article title="blog" breadlist={[{
             title: 'blog',

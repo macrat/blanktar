@@ -88,6 +88,10 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
 
                     <aside>
                         <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} />
+
+                        <style jsx>{`
+                            margin-top: 1cm;
+                        `}</style>
                     </aside>
 
                     <JsonLD data={{
@@ -126,12 +130,6 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                         }} />
                     ) : null}
                 </Article>
-
-                <style jsx>{`
-                    aside {
-                        margin-top: 1cm;
-                    }
-                `}</style>
             </>
         );
     };

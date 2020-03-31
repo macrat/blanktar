@@ -28,7 +28,7 @@ const TagList: FC<Props> = ({tags}) => (
                 position: relative;
                 overflow: hidden;
             }
-            li a {
+            a {
                 position: relative;
                 color: var(--colors-bg);
                 text-decoration: none;

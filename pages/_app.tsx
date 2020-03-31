@@ -27,8 +27,9 @@ const CommonResources = memo(function CommonResources() {
             <meta charSet="utf-8" />
 
             <link
-                rel="dns-prefetch preconnect"
+                rel="preconnect"
                 href="https://fonts.gstatic.com"
+                crossOrigin="anonymous"
                 key="preconnect--gstatic" />
             {isAmp ? '' : (
                 <link
@@ -42,6 +43,7 @@ const CommonResources = memo(function CommonResources() {
                 rel="stylesheet"
                 type="text/css"
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
+                crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
             <meta name="theme-color" content="#402020" />
@@ -87,34 +89,30 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-bg: #fcf8f5;
                     --colors-block-bg: #f7f0ec;
                     --colors-link: #6941e1;
-                    --colors-accent: #ff245b;
+                    --colors-accent: #e2005a;
 
-                    --colors-comment: #a89494;
+                    --colors-comment: #706c6c;
                     --colors-namespace: #786b6b;
-                    --colors-string: #e3116c;
-                    --colors-operator: #393a34;
-                    --colors-value: #36acaa;
+                    --colors-string: #d70c64;
+                    --colors-value: #007c60;
                     --colors-keyword: #3838aa;
                     --colors-function: #8d0f1b;
-                    --colors-variable: #6f42c1;
                 }
                 @media screen and (prefers-color-scheme: dark) {
                     html {
                         --colors-fg: #fcf8f5;
                         --colors-dark-fg: #9f9393;
                         --colors-bg: #4d4444;
-                        --colors-block-bg: #5a5050;
-                        --colors-link: #a09dff;
-                        --colors-accent: #ff245b;
+                        --colors-block-bg: #554a4a;
+                        --colors-link: #b1afef;
+                        --colors-accent: #ff96b0;
 
-                        --colors-comment: #b8a5a5;
+                        --colors-comment: #cbc1c1;
                         --colors-namespace: #d3cfcd;
-                        --colors-string: #ff348c;
-                        --colors-operator: #d8d9d3;
-                        --colors-value: #36acaa;
-                        --colors-keyword: #a4a4ff;
+                        --colors-string: #ffa1ca;
+                        --colors-value: #74cad3;
+                        --colors-keyword: #b7b7ff;
                         --colors-function: #ecc2c6;
-                        --colors-variable: #6f42c1;
                     }
                 }
 
@@ -131,6 +129,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                 a {
                     position: relative;
                     color: var(--colors-link);
+                    text-decoration: underline dotted;
                     transition: color .2s ease;
                 }
                 a:hover, a:focus {
@@ -166,7 +165,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     from { transform: translate(-100%, 0); }
                       to { transform: translate(0, 0); }
                 }
-                div.loading::before  {
+                .loading::before  {
                     animation: loading 1s linear infinite;
                 }
                 @keyframes loading {

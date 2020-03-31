@@ -50,11 +50,9 @@ export default css.resolve`
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
-        .horizontal,
-        .vertical,
+        line,
         polyline,
-        :global(div.loading) .horizontal,
-        :global(div.loading) .vertical,
+        :global(div.loading) line,
         :global(div.loading) polyline {
             animation: none;
         }

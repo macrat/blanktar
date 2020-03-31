@@ -6,14 +6,18 @@
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/blog",
-        "http://localhost:3000/blog/2018/09/raspberrypi-golang-hdc1000-fluent"
+        "http://localhost:3000/blog/2020/03/javascript-make-promise"
       ]
     },
     "assert": {
-      "preset": "lighthouse:recommended",
-      "seo/canonical": "off",
-      "dobetterweb/uses-http2": "off",
-      "byte-efficiency/uses-webp-images": "warn"
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "canonical": "off",
+        "dom-size": "warn",
+        "link-text": "warn",
+        "uses-http2": "off",
+        "uses-webp-images": "warn"
+      }
     },
     "upload": {
       "target": "temporary-public-storage"

@@ -5,21 +5,18 @@ export type Props = {};
 
 
 const Tr: FC<Props> = ({children}) => (
-    <>
-        <tr>
-            {children}
-        </tr>
+    <tr>
+        {children}
 
         <style jsx>{`
-            tr {
-                border: 0 solid var(--colors-fg);
-                border-width: .2mm 0;
-            }
-            tr:first-of-type, tr:last-of-type {
+            border: 0 solid var(--colors-fg);
+            border-width: .2mm 0;
+
+            :first-of-type, :last-of-type {
                 border-width: 0;
             }
         `}</style>
-    </>
+    </tr>
 );
 
 

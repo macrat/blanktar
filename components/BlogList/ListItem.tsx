@@ -26,23 +26,23 @@ const ListItem: FC<Props> = ({children}) => (
                 display: none;
                 position: absolute;
             }
-            .line rect {
+            rect {
                 fill: var(--colors-fg);
             }
-            .line.bottom {
+            .bottom {
                 bottom: 0;
             }
-            .line.right {
+            .right {
                 top: 0;
                 right: 0;
             }
             li:hover .line, li:focus-within .line {
                 display: block;
             }
-            li:hover .line.top, li:focus-within .line.top { animation: line-horizontal .4s ease both; }
-            li:hover .line.left, li:focus-within .line.left { animation: line-vertical .1s ease both; }
-            li:hover .line.bottom, li:focus-within .line.bottom { animation: line-horizontal .4s ease .1s both; }
-            li:hover .line.right, li:focus-within .line.right { animation: line-vertical .1s ease .4s both; }
+            li:hover .top, li:focus-within .top { animation: line-horizontal .4s ease both; }
+            li:hover .left, li:focus-within .left { animation: line-vertical .1s ease both; }
+            li:hover .bottom, li:focus-within .bottom { animation: line-horizontal .4s ease .1s both; }
+            li:hover .right, li:focus-within .right { animation: line-vertical .1s ease .4s both; }
 
             @keyframes line-horizontal {
                 from { transform: translate(-100%, 0); }
@@ -59,7 +59,7 @@ const ListItem: FC<Props> = ({children}) => (
                     opacity: 0;
                     transition: opacity .2s ease;
                 }
-                li:hover svg.line, li:focus-within svg.line {
+                li:hover .line, li:focus-within .line {
                     opacity: 1;
                     animation: none;
                 }

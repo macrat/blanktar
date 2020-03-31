@@ -101,7 +101,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
                     一致する記事がありません
 
                     <style>{`
-                        p.no-result {
+                        .no-result {
                             opacity: .5;
                             text-align: center;
                             font-size: 150%;

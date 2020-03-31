@@ -26,10 +26,8 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
                 layout="intrinsic" />
 
             <style jsx>{`
-                amp-img {
-                    background-color: var(--colors-block-bg);
-                    margin: 1mm;
-                }
+                background-color: var(--colors-block-bg);
+                margin: 1mm;
             `}</style>
         </>);
 
@@ -38,9 +36,7 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
                 {image}
 
                 <style jsx>{`
-                    div {
-                        text-align: center;
-                    }
+                    text-align: center;
                 `}</style>
             </div>);
         }
@@ -57,13 +53,11 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
             loading="lazy" />
 
         <style jsx>{`
-            img {
-                display: ${center ? "block" : "inline-block"};
-                max-width: 100%;
-                height: auto;
-                background-color: var(--colors-block-bg);
-                margin: ${center ? "1mm auto" : "1mm"};
-            }
+            display: ${center ? "block" : "inline-block"};
+            max-width: 100%;
+            height: auto;
+            background-color: var(--colors-block-bg);
+            margin: ${center ? "1mm auto" : "1mm"};
         `}</style>
     </>);
 };
