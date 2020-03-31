@@ -14,7 +14,7 @@ export type Props = {
         title: string,
         pubtime: string,
         tags: string[],
-        description: string,
+        description: string | undefined,
     }[],
 };
 
@@ -27,7 +27,7 @@ const BlogList: FC<Props> = ({posts}) => (
                     <DateTime dateTime={new Date(pubtime)} />
                     <a href={href}><h2>{title}</h2></a>
                     <TagList tags={tags} />
-                    <p>{description}</p>
+                    {description ? <p>{description}</p> : null}
                     {useAmp() ? <a href={href} className="list-link" /> : ""}
                 </div></Link>
             </ListItem>
