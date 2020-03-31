@@ -13,6 +13,7 @@
       "preset": "lighthouse:no-pwa",
       "assertions": {
         "canonical": "off",
+        "dom-size": "warn",
         "link-text": "warn",
         "uses-http2": "off",
         "uses-webp-images": "warn"
