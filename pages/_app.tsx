@@ -29,6 +29,7 @@ const CommonResources = memo(function CommonResources() {
             <link
                 rel="preconnect"
                 href="https://fonts.gstatic.com"
+                crossOrigin="anonymous"
                 key="preconnect--gstatic" />
             {isAmp ? '' : (
                 <link
@@ -42,6 +43,7 @@ const CommonResources = memo(function CommonResources() {
                 rel="stylesheet"
                 type="text/css"
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
+                crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
             <meta name="theme-color" content="#402020" />
