@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "GITHUB_TOKEN": "@blanktar--github-token"
+      "GITHUB_TOKEN": "@blanktar--github-token",
+      "INSTAGRAM_TOKEN": "@blanktar--instagram-token"
     }
   },
   "trailingSlash": false,
