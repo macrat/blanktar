@@ -8,19 +8,6 @@ import ServiceBanner from '~/components/ServiceBanner';
 import ViewMore from '~/components/ViewMore';
 
 
-const INSTAGRAM_TOKEN = process.env.INSTAGRAM_TOKEN;
-
-
-type RawInstagramResponse = {
-    data: {
-        id: string,
-        permalink: string,
-        media_url: string,
-        caption: string,
-    }[],
-};
-
-
 export type Props = {
     photos: {
         url: string,
@@ -179,20 +166,21 @@ const Photos: NextPage<Props> = ({photos}) => (
 );
 
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({res}) => {
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-
-    const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${INSTAGRAM_TOKEN}`);
+export const getStaticProps: GetServerSideProps<Props> = async () => {
+    const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${process.env.INSTAGRAM_TOKEN}`);
 
     if (!resp.ok) {
-        console.error(resp.status, resp.statusText);
-        res.statusCode = 500;
-        return {
-            props: {
-                photos: [],
-            },
-        };
+        throw new Error(`failed to fetch Instagram data: ${resp.status} ${resp.statusText}`);
     }
+
+    type RawInstagramResponse = {
+        data: {
+            id: string,
+            permalink: string,
+            media_url: string,
+            caption: string,
+        }[],
+    };
 
     const data: RawInstagramResponse = await resp.json();
 
