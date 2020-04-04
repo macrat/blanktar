@@ -56,7 +56,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, caption}) => (
                 align-items: center;
             }
             a:hover, a:focus {
-                color: inherit;
+                color: white;
             }
             figure:hover figcaption {
                 opacity: 1;
