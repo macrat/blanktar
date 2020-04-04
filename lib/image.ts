@@ -2,7 +2,7 @@ import {Image} from 'canvas';
 
 
 export const loadImage = (src: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<Image>((resolve, reject) => {
         const img = new Image();
 
         img.onload = () => resolve(img);
