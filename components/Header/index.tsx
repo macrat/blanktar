@@ -39,6 +39,10 @@ const Header: FC<Props> = () => (
             a:hover, a:focus {
                 color: inherit;
             }
+
+            @media print {
+                display: none;
+            }
         `}</style>
     </header>
 );

@@ -12,6 +12,11 @@ const Pre: FC<Props> = ({children}) => (
             padding: 5mm;
             overflow: auto;
             background-color: var(--colors-block-bg);
+
+            @media print {
+                background: none;
+                border: 1px solid var(--colors-fg);
+            }
         `}</style>
     </>
 );

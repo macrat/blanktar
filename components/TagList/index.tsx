@@ -71,6 +71,12 @@ const TagList: FC<Props> = ({tags, children}) => (
                     opacity: 1;
                 }
             }
+
+            @media print {
+                li {
+                    background-color: transparent;
+                }
+            }
         `}</style>
     </ul>
 );

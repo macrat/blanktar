@@ -90,6 +90,20 @@ const BreadList: FC<Props> = ({pages}) => (
                 color: inherit;
                 text-decoration: none;
             }
+
+            @media print {
+                .top a {
+                    display: none;
+                }
+                .top::before {
+                    content: 'blanktar.jp';
+                }
+                li::after {
+                    content: '>' !important;
+                    display: inline;
+                    background: none;
+                }
+            }
         `}</style>
     </ol>
 );

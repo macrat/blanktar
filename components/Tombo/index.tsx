@@ -68,6 +68,16 @@ const Tombo: FC<Props> = ({children}) => (
             .bottom {
                 bottom: -15mm;
             }
+
+            @media print {
+                div {
+                    width: 100%;
+                    margin: 0;
+                }
+                .tombo {
+                    display: none;
+                }
+            }
         `}</style>
 
         {useAmp() ? null : animation.styles}

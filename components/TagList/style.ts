@@ -18,4 +18,8 @@ export const {className, styles} = css.resolve`
     :global(li:hover) > &, :global(li:focus-within) > & {
         color: var(--colors-fg);
     }
+
+    @media print {
+        color: var(--colors-fg);
+    }
 `;

@@ -115,6 +115,11 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-function: #ecc2c6;
                     }
                 }
+                @media print {
+                    html {
+                        background-color: transparent !important;
+                    }
+                }
 
                 html {
                     background-color: var(--colors-bg);

@@ -56,6 +56,10 @@ const SearchBar: FC<Props> = () => {
                         flex: 1 1 0;
                     }
                 }
+
+                @media print {
+                    display: none !important;
+                }
             `}</style>
         </div>
     );

@@ -67,6 +67,12 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
                 from { transform: translate(50%, 0) scaleX(0); }
                   to { transform: translate(0, 0) scaleX(1); }
             }
+
+            @media print {
+                svg {
+                    display: none;
+                }
+            }
         `}</style>
     </a>
 );

@@ -40,6 +40,10 @@ const SocialShare: FC<Props> = ({title, href}) => (
                 display: block;
                 margin: 0 2mm;
             }
+
+            @media print {
+                display: none !important;
+            }
         `}</style>
     </ul>
 );
