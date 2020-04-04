@@ -22,6 +22,12 @@ const Footer: FC<Props> = () => (
                 opacity: .7;
                 margin: 0 2mm;
             }
+
+            @media print  {
+                a {
+                    display: none;
+                }
+            }
         `}</style>
     </footer>
 );
