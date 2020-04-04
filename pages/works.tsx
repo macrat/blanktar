@@ -14,38 +14,6 @@ export const config = {
 };
 
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-
-
-type RawGithubResponse = {
-    data: {
-        user: {
-            repositories: {
-                nodes: {
-                    name: string,
-                    description: string | null,
-                    url: string,
-                    homepageUrl: string | null,
-                    languages: {
-                        nodes: {
-                            name: string,
-                            color: string,
-                        }[],
-                    },
-                    parent: {
-                        nameWithOwner: string,
-                    } | null,
-                    updatedAt: string,
-                    createdAt: string,
-                    openGraphImageUrl: string,
-                    usesCustomOpenGraphImage: boolean,
-                }[],
-            },
-        },
-    },
-};
-
-
 export type Props = {
     github: {
         name: string,
@@ -237,14 +205,12 @@ const Works: NextPage<Props> = ({github}) => (
 );
 
 
-export const getServerSideProps: GetServerSideProps = async ({res}) => {
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-
+export const getStaticProps: GetServerSideProps = async () => {
     const resp = await fetch('https://api.github.com/graphql', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
         },
         body: JSON.stringify({
             query: `{
@@ -276,14 +242,36 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
     });
 
     if (!resp.ok) {
-        console.error(resp.status, resp.statusText);
-        res.statusCode = 500;
-        return {
-            props: {
-                github: [],
-            },
-        };
+        throw new Error(`failed to fetch GitHub data: ${resp.status} ${resp.statusText}`);
     }
+
+    type RawGithubResponse = {
+        data: {
+            user: {
+                repositories: {
+                    nodes: {
+                        name: string,
+                        description: string | null,
+                        url: string,
+                        homepageUrl: string | null,
+                        languages: {
+                            nodes: {
+                                name: string,
+                                color: string,
+                            }[],
+                        },
+                        parent: {
+                            nameWithOwner: string,
+                        } | null,
+                        updatedAt: string,
+                        createdAt: string,
+                        openGraphImageUrl: string,
+                        usesCustomOpenGraphImage: boolean,
+                    }[],
+                },
+            },
+        },
+    };
 
     const data: RawGithubResponse = await resp.json();
 
