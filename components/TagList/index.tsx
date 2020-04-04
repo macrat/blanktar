@@ -1,17 +1,35 @@
-import {FC} from 'react';
+import {FC, ReactNode} from 'react';
 import Link from 'next/link';
+
+import {className, styles} from './style';
+
+
+type ChildrenProps = {
+    tag: string,
+    props: {
+        className: string,
+        "aria-label": string,
+    },
+};
 
 
 export type Props = {
     tags: string[],
+    children: (props: ChildrenProps) => ReactNode,
 };
 
 
-const TagList: FC<Props> = ({tags}) => (
+const TagList: FC<Props> = ({tags, children}) => (
     <ul aria-label="この記事に付けられたタグ">
-        {tags.map(x => (
-            <li key={x}><Link href={{pathname: '/search', query: {q: x}}}><a aria-label={`タグ「${x}」`}>{x}</a></Link></li>
+        {tags.map(tag => (
+            <li key={tag}>
+                <Link href={{pathname: '/search', query: {q: tag}}} prefetch={false}>{
+                    children({tag, props: {className, "aria-label": `タグ「${tag}」`}})
+                }</Link>
+            </li>
         ))}
+
+        {styles}
 
         <style jsx>{`
             ul {
@@ -27,20 +45,6 @@ const TagList: FC<Props> = ({tags}) => (
                 margin: 2px 4px;
                 position: relative;
                 overflow: hidden;
-            }
-            a {
-                position: relative;
-                color: var(--colors-bg);
-                text-decoration: none;
-                display: inline-block;
-                padding: 2px 4px;
-                transition: color .2s ease;
-            }
-            a:focus {
-                outline: none;
-            }
-            li:hover a, li:focus-within a {
-                color: var(--colors-fg);
             }
             li::before {
                 content: '';

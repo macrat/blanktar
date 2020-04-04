@@ -4,7 +4,7 @@ import {useAmp} from 'next/amp';
 
 import ListItem from './ListItem';
 import DateTime from '../DateTime';
-import TagList from '../Article/TagList';
+import TagList from '../TagList';
 import JsonLD from '../JsonLD';
 
 
@@ -23,13 +23,15 @@ const BlogList: FC<Props> = ({posts}) => (
     <ol aria-label="記事の一覧">
         {posts.map(({href, title, pubtime, tags, description}) => (
             <ListItem key={href}>
-                <Link href={href}><div role="link">
+                <Link href={href}><a>
                     <DateTime dateTime={new Date(pubtime)} />
-                    <a href={href}><h2>{title}</h2></a>
-                    <TagList tags={tags} />
+                    <h2>{title}</h2>
+                    <TagList tags={tags}>{
+                        ({tag, props}) => <button {...props}>{tag}</button>
+                    }</TagList>
                     {description ? <p>{description}</p> : null}
                     {useAmp() ? <a href={href} className="list-link" /> : ""}
-                </div></Link>
+                </a></Link>
             </ListItem>
         ))}
 
@@ -47,14 +49,14 @@ const BlogList: FC<Props> = ({posts}) => (
                 margin: 0;
                 padding: 0;
             }
-            div {
+            a {
                 display: block;
                 padding: 7mm 5mm;
                 cursor: pointer;
                 transition: padding .6s ease;
             }
             @media (max-width: 40em) {
-                div {
+                a {
                     padding: 7mm 2mm;
                 }
             }
