@@ -115,17 +115,17 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-function: #ecc2c6;
                     }
                 }
-                @media print {
-                    html {
-                        background-color: transparent;
-                    }
-                }
 
                 html {
                     background-color: var(--colors-bg);
                     color: var(--colors-fg);
                     font-family: 'Noto Sans JP', 'Hiragino Sans', Meiryo, sans-serif;
                     overflow: hidden auto;
+                }
+                @media print {
+                    html {
+                        background: none;
+                    }
                 }
                 body {
                     margin: 0;
