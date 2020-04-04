@@ -1,5 +1,6 @@
 import {NextPage, GetServerSideProps} from 'next';
 import {FC} from 'react';
+import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 
 import {detectSize} from '~/lib/image';
@@ -8,6 +9,11 @@ import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
 import ServiceBanner from '~/components/ServiceBanner';
 import ViewMore from '~/components/ViewMore';
+
+
+export const config = {
+    amp: 'hybrid',
+}
 
 
 export type Props = {
@@ -23,7 +29,11 @@ export type Props = {
 
 const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption}) => (
     <figure>
-        <img src={image} width={width} height={height} alt="" loading="lazy" />
+        {useAmp() ? (
+            <amp-img src={image} width={String(width)} height={String(height)} alt="" layout="intrinsic" />
+        ) : (
+            <img src={image} width={width} height={height} alt="" loading="lazy" />
+        )}
         <figcaption><a href={url}>{caption}</a></figcaption>
 
         <style jsx>{`
@@ -31,7 +41,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 margin: 0;
                 position: relative;
             }
-            img {
+            img, amp-img {
                 display: block;
                 width: 100%;
                 height: auto;
