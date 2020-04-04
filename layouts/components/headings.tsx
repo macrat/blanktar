@@ -69,6 +69,9 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
             }
 
             @media print {
+                a::before {
+                    opacity: .5;
+                }
                 svg {
                     display: none;
                 }
@@ -86,10 +89,13 @@ export const H1: FC<Props> = ({children}) => (
         <AnchorLink before="#">{children}</AnchorLink>
 
         <style jsx>{`
-            h2 {
-                font-weight: 400;
-                font-size: 28pt;
-                margin: 12mm 0 0;
+            font-weight: 400;
+            font-size: 28pt;
+            margin: 12mm 0 0;
+
+            @media print {
+                margin: 6mm 0 0;
+                font-weight: 300;
             }
         `}</style>
     </h2>
@@ -101,10 +107,13 @@ export const H2: FC<Props> = ({children}) => (
         <AnchorLink before="##">{children}</AnchorLink>
 
         <style jsx>{`
-            h3 {
-                font-weight: 400;
-                font-size: 20pt;
-                margin: 10mm 0 0;
+            font-weight: 400;
+            font-size: 20pt;
+            margin: 10mm 0 0;
+
+            @media print {
+                margin: 5mm 0 0;
+                font-weight: 300;
             }
         `}</style>
     </h3>
@@ -116,10 +125,13 @@ export const H3: FC<Props> = ({children}) => (
         <AnchorLink before="###">{children}</AnchorLink>
 
         <style jsx>{`
-            h4 {
-                font-weight: 400;
-                font-size: 18pt;
-                margin: 6mm 0 0;
+            font-weight: 400;
+            font-size: 18pt;
+            margin: 6mm 0 0;
+
+            @media print {
+                margin: 4mm 0 0;
+                font-weight: 300;
             }
         `}</style>
     </h4>

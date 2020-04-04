@@ -125,6 +125,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                 @media print {
                     html {
                         background: none;
+                        font-size: 10.5pt;
                     }
                 }
                 body {
