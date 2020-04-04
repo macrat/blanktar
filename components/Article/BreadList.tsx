@@ -98,8 +98,8 @@ const BreadList: FC<Props> = ({pages}) => (
                 .top::before {
                     content: 'blanktar.jp';
                 }
-                li::after {
-                    content: '>' !important;
+                .top::after, li::after {
+                    content: '>';
                     display: inline;
                     background: none;
                 }

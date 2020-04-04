@@ -58,7 +58,9 @@ const SearchBar: FC<Props> = () => {
                 }
 
                 @media print {
-                    display: none !important;
+                    div {
+                        display: none;
+                    }
                 }
             `}</style>
         </div>

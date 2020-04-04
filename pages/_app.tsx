@@ -117,7 +117,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                 }
                 @media print {
                     html {
-                        background-color: transparent !important;
+                        background-color: transparent;
                     }
                 }
 

@@ -42,7 +42,7 @@ const SocialShare: FC<Props> = ({title, href}) => (
             }
 
             @media print {
-                display: none !important;
+                display: none;
             }
         `}</style>
     </ul>
