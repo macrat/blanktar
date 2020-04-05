@@ -216,7 +216,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
     return {
         props: {
             photos: await Promise.all(data.data.map(async post => ({
-                ...(await detectSize(post.media_url).then(({width, height}) => ({width: 320, height: 320*height/width}))),
+                ...(await detectSize(post.media_url).then(({width, height}) => ({width: 480, height: Math.round(480*height/width)}))),
                 url: post.permalink,
                 image: await optimizeImage(post.media_url),
                 caption: post.caption,
