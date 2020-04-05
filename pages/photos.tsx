@@ -3,7 +3,7 @@ import {FC} from 'react';
 import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 
-import {detectSize} from '~/lib/image';
+import {detectSize, optimizeImage} from '~/lib/image';
 
 import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
@@ -19,7 +19,10 @@ export const config = {
 export type Props = {
     photos: {
         url: string,
-        image: string,
+        image: {
+            mdpi: string,
+            hdpi: string,
+        },
         width: number,
         height: number,
         caption: string,
@@ -30,9 +33,21 @@ export type Props = {
 const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption}) => (
     <figure>
         {useAmp() ? (
-            <amp-img src={image} width={String(width)} height={String(height)} alt="" layout="intrinsic" />
+            <amp-img
+                srcset={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                src={image.mdpi}
+                width={String(width)}
+                height={String(height)}
+                alt=""
+                layout="intrinsic" />
         ) : (
-            <img src={image} width={width} height={height} alt="" loading="lazy" />
+            <img
+                srcSet={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                src={image.mdpi}
+                width={width}
+                height={height}
+                alt=""
+                loading="lazy" />
         )}
         <figcaption><a href={url}>{caption}</a></figcaption>
 
@@ -201,9 +216,9 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
     return {
         props: {
             photos: await Promise.all(data.data.map(async post => ({
-                ...(await detectSize(post.media_url)),
+                ...(await detectSize(post.media_url).then(({width, height}) => ({width: 320, height: 320*height/width}))),
                 url: post.permalink,
-                image: post.media_url,
+                image: await optimizeImage(post.media_url),
                 caption: post.caption,
             }))),
         },
