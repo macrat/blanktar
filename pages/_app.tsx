@@ -88,6 +88,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                     --colors-dark-fg: #c0b3b3;
                     --colors-bg: #fcf8f5;
                     --colors-block-bg: #f7f0ec;
+                    --colors-img-trace: #d0c3c3;
                     --colors-link: #6941e1;
                     --colors-accent: #e2005a;
 
@@ -104,6 +105,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                         --colors-dark-fg: #9f9393;
                         --colors-bg: #4d4444;
                         --colors-block-bg: #554a4a;
+                        --colors-img-trace: #2d1b1b;
                         --colors-link: #b1afef;
                         --colors-accent: #ff96b0;
 

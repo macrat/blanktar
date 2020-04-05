@@ -3,7 +3,7 @@ import {FC} from 'react';
 import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 
-import {detectSize} from '~/lib/image';
+import {detectSize, optimizeImage} from '~/lib/image';
 
 import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
@@ -19,7 +19,11 @@ export const config = {
 export type Props = {
     photos: {
         url: string,
-        image: string,
+        image: {
+            mdpi: string,
+            hdpi: string,
+            tracePath: string,
+        },
         width: number,
         height: number,
         caption: string,
@@ -29,10 +33,29 @@ export type Props = {
 
 const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption}) => (
     <figure>
+        <svg
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+            dangerouslySetInnerHTML={{__html: image.tracePath}}
+            aria-hidden="true" />
+
         {useAmp() ? (
-            <amp-img src={image} width={String(width)} height={String(height)} alt="" layout="intrinsic" />
+            <amp-img
+                srcset={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                src={image.mdpi}
+                width={String(width)}
+                height={String(height)}
+                alt=""
+                layout="intrinsic" />
         ) : (
-            <img src={image} width={width} height={height} alt="" loading="lazy" />
+            <img
+                srcSet={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                src={image.mdpi}
+                width={width}
+                height={height}
+                alt=""
+                loading="lazy" />
         )}
         <figcaption><a href={url}>{caption}</a></figcaption>
 
@@ -41,10 +64,24 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 margin: 0;
                 position: relative;
             }
-            img, amp-img {
-                display: block;
+            svg {
                 width: 100%;
                 height: auto;
+                display: block;
+            }
+            img, amp-img {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                animation: show-image 1s;
+                transition: opacity .2s;
+            }
+            @keyframes show-image {
+                from { opacity: 0; }
+                  to { opacity: 1; }
             }
             figcaption {
                 position: absolute;
@@ -54,23 +91,28 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 right: 0;
                 opacity: 0;
                 visibility: hidden;
-                transition: opacity .2s ease, visibility .2s;
+                transition: opacity .2s, visibility .2s;
             }
             a {
                 display: block;
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                background-color: rgba(0, 0, 0, .7);
+                background-color: rgba(64, 64, 64, .5);
                 color: white;
                 text-decoration: none;
                 padding: 5mm;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow: hidden;
+                white-space: pre-wrap;
             }
             a:hover, a:focus {
                 color: white;
+            }
+            figure:hover img {
+                opacity: .2;
             }
             figure:hover figcaption {
                 opacity: 1;
@@ -201,9 +243,9 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
     return {
         props: {
             photos: await Promise.all(data.data.map(async post => ({
-                ...(await detectSize(post.media_url)),
+                ...(await detectSize(post.media_url).then(({width, height}) => ({width: 480, height: Math.round(480*height/width)}))),
                 url: post.permalink,
-                image: post.media_url,
+                image: await optimizeImage(post.media_url),
                 caption: post.caption,
             }))),
         },

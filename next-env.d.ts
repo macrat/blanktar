@@ -13,6 +13,7 @@ declare namespace JSX {
         style?: {
             [key: string]: string | number,
         };
+        children?: Element;
     }
     interface IntrinsicElements {
         'amp-img': AmpImg;
@@ -73,4 +74,21 @@ declare module 'styled-jsx/macro' {
     import {resolve} from 'styled-jsx/css';
 
     export const resolve = resolve;
+}
+
+declare module 'potrace' {
+    interface Params {
+        turdSize?: number;
+        color?: string;
+        background?: string;
+    };
+
+    interface Potrace {
+        readonly setParameters: (params: Params) => void;
+        readonly getSVG: () => string;
+        readonly getPathTag: () => string;
+        readonly loadImage: (image: string | Buffer, callback: (err: Error) => void) => void;
+    };
+
+    export class Potrace extends Potrace {};
 }
