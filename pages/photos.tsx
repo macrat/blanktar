@@ -77,6 +77,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 width: 100%;
                 height: auto;
                 animation: show-image 1s;
+                transition: opacity .2s;
             }
             @keyframes show-image {
                 from { opacity: 0; }
@@ -90,23 +91,28 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 right: 0;
                 opacity: 0;
                 visibility: hidden;
-                transition: opacity .2s ease, visibility .2s;
+                transition: opacity .2s, visibility .2s;
             }
             a {
                 display: block;
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                background-color: rgba(0, 0, 0, .7);
+                background-color: rgba(64, 64, 64, .5);
                 color: white;
                 text-decoration: none;
                 padding: 5mm;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow: hidden;
+                white-space: pre-wrap;
             }
             a:hover, a:focus {
                 color: white;
+            }
+            figure:hover img {
+                opacity: .2;
             }
             figure:hover figcaption {
                 opacity: 1;
