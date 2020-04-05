@@ -7,7 +7,6 @@ import preval from 'preval.macro';
 
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
-import {loadImage} from '~/lib/image';
 
 
 let fontLoaded = false;
