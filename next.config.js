@@ -12,6 +12,9 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 });
 
 
+const withPreact = require('next-preactx-plugin');
+
+
 const CSPHeader = [
     "default-src 'self'",
     "img-src 'self' data: https://repository-images.githubusercontent.com/ https://*.xx.fbcdn.net/v/",
@@ -28,7 +31,8 @@ const CSPHeader = [
 ].join('; ');
 
 
-module.exports = withBundleAnalyzer(withMdxEnhanced({
+module.exports = withBundleAnalyzer(withMdxEnhanced(withPreact({
+    target: 'serverless',
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
@@ -64,4 +68,4 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
             {source: '/blog/feed.xml', destination: '/api/feed'},
         ],
     },
-}));
+})));

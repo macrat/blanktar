@@ -23,14 +23,17 @@
   },
   "homepage": "https://github.com/macrat/next-blank#readme",
   "dependencies": {
+    "@zeit/next-preact": "^0.1.0",
     "canvas": "^2.6.1",
     "front-matter": "^3.1.0",
     "next": "^9.3.3",
+    "next-preactx-plugin": "^1.1.3",
     "node-fetch": "^2.6.0",
+    "preact": "^10.3.4",
+    "preact-render-to-string": "^5.1.4",
+    "preact-ssr-prepass": "^1.0.1",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.19.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "use-debounce": "^3.4.0"
   },
   "devDependencies": {
@@ -49,6 +52,8 @@
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
     "preval.macro": "^5.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "typescript": "^3.8.3",
     "xmlbuilder": "^15.1.0"
   }
