@@ -2,6 +2,7 @@ import {NextPage, GetServerSideProps} from 'next';
 import {FC} from 'react';
 import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
+import LazyLoad from 'react-lazyload';
 
 import {detectSize, optimizeImage} from '~/lib/image';
 
@@ -49,13 +50,14 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 alt=""
                 layout="intrinsic" />
         ) : (
-            <img
-                srcSet={`${image.mdpi} 1x, ${image.hdpi} 2x`}
-                src={image.mdpi}
-                width={width}
-                height={height}
-                alt=""
-                loading="lazy" />
+            <LazyLoad offset={height}>
+                <img
+                    srcSet={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                    src={image.mdpi}
+                    width={width}
+                    height={height}
+                    alt="" />
+            </LazyLoad>
         )}
         <figcaption><a href={url}>{caption}</a></figcaption>
 
