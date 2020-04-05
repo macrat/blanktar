@@ -12,6 +12,9 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 });
 
 
+const withOptimizedImages = require('next-optimized-images');
+
+
 const CSPHeader = [
     "default-src 'self'",
     "img-src 'self' data: https://repository-images.githubusercontent.com/ https://*.xx.fbcdn.net/v/",
@@ -28,9 +31,10 @@ const CSPHeader = [
 ].join('; ');
 
 
-module.exports = withBundleAnalyzer(withMdxEnhanced({
+module.exports = withBundleAnalyzer(withMdxEnhanced(withOptimizedImages({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
+    handleImages: ['jpeg', 'png', 'webp'],
     webpack(config, options) {
         config.resolve.alias['~'] = __dirname;
         return config;
@@ -64,4 +68,4 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
             {source: '/blog/feed.xml', destination: '/api/feed'},
         ],
     },
-}));
+})));

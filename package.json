@@ -45,11 +45,16 @@
     "babel-plugin-macros": "^2.8.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "image-trace-loader": "^1.0.2",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-optipng": "^7.1.0",
     "jest": "^25.2.4",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
+    "next-optimized-images": "^2.5.7",
     "penv.macro": "^0.4.0",
     "preval.macro": "^5.0.0",
     "typescript": "^3.8.3",
+    "webp-loader": "^0.6.0",
     "xmlbuilder": "^15.1.0"
   }
 }

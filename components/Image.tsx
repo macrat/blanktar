@@ -15,19 +15,33 @@ export type Props = {
 
 
 const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => {
+    const optimized = require(`../public${src}?url`);
+    const webp = require(`../public${src}?url?webp`);
+    const {trace} = require(`../public${src}?trace`);
+
     if (useAmp()) {
         const image = (<>
             <amp-img
-                src={src}
+                class="image"
+                src={optimized}
                 alt={alt}
                 width={String(width)}
                 height={String(height)}
                 style={style}
-                layout="intrinsic" />
+                layout="intrinsic">
+
+                <amp-img
+                    fallback
+                    src={optimized}
+                    width={String(width)}
+                    height={String(height)} />
+            </amp-img>
 
             <style jsx>{`
-                background-color: var(--colors-block-bg);
-                margin: 1mm;
+                .image {
+                    background-image: url("${trace}");
+                    margin: 1mm;
+                }
             `}</style>
         </>);
 
@@ -43,9 +57,13 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
         return (<>{image}</>);
     }
 
-    return (<>
+    return (<picture>
+        <source
+            type="webp"
+            src={webp} />
+
         <img
-            src={src}
+            src={optimized}
             alt={alt}
             width={String(width)}
             height={String(height)}
@@ -56,10 +74,10 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
             display: ${center ? "block" : "inline-block"};
             max-width: 100%;
             height: auto;
-            background-color: var(--colors-block-bg);
+            background-image: url("${trace}");
             margin: ${center ? "1mm auto" : "1mm"};
         `}</style>
-    </>);
+    </picture>);
 };
 
 
