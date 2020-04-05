@@ -3,7 +3,8 @@
 
 declare namespace JSX {
     interface AmpImg {
-        alt: string;
+        className?: string;
+        alt?: string;
         src: string;
         srcset?: string,
         sizes?: string,
@@ -13,6 +14,8 @@ declare namespace JSX {
         style?: {
             [key: string]: string | number,
         };
+        fallback?: boolean;
+        children?: Element;
     }
     interface IntrinsicElements {
         'amp-img': AmpImg;

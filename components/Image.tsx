@@ -22,8 +22,8 @@ const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => 
     if (useAmp()) {
         const image = (<>
             <amp-img
-                class="image"
-                src={optimized}
+                className="image"
+                src={webp}
                 alt={alt}
                 width={String(width)}
                 height={String(height)}
