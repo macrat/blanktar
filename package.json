@@ -51,6 +51,7 @@
     "jest": "^25.2.7",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
+    "potrace": "^2.1.5",
     "preval.macro": "^5.0.0",
     "sharp": "^0.25.2",
     "typescript": "^3.8.3",

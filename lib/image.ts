@@ -4,6 +4,7 @@ import {promises as fs} from 'fs';
 import {Image} from 'canvas';
 import sharp from 'sharp';
 import mozjpeg from 'imagemin-mozjpeg';
+import {Potrace} from 'potrace';
 
 
 export const loadImage = (src: string) => {
@@ -25,6 +26,24 @@ export const detectSize = async (src: string) => {
         width: img.naturalWidth,
         height: img.naturalHeight,
     };
+};
+
+
+const tracePath = (image: Buffer) => {
+    return new Promise<string>((resolve, reject) => {
+        const trace = new Potrace();
+        trace.setParameters({
+            turdSize: 200,
+            color: 'var(--colors-img-trace)',
+        });
+        trace.loadImage(image, err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(trace.getPathTag());
+            }
+        });
+    });
 };
 
 
@@ -61,5 +80,6 @@ export const optimizeImage = async (src: string) => {
     return {
         mdpi: `/_next/static/photos/${hash}.jpg`,
         hdpi: `/_next/static/photos/${hash}@2x.jpg`,
+        tracePath: await tracePath(await sharp(original).resize(480).toBuffer()),
     };
 };

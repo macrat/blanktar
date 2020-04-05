@@ -22,6 +22,7 @@ export type Props = {
         image: {
             mdpi: string,
             hdpi: string,
+            tracePath: string,
         },
         width: number,
         height: number,
@@ -32,6 +33,13 @@ export type Props = {
 
 const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption}) => (
     <figure>
+        <svg
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+            dangerouslySetInnerHTML={{__html: image.tracePath}}
+            aria-hidden="true" />
+
         {useAmp() ? (
             <amp-img
                 srcset={`${image.mdpi} 1x, ${image.hdpi} 2x`}
@@ -56,10 +64,23 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
                 margin: 0;
                 position: relative;
             }
-            img, amp-img {
-                display: block;
+            svg {
                 width: 100%;
                 height: auto;
+                display: block;
+            }
+            img, amp-img {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                animation: show-image 1s;
+            }
+            @keyframes show-image {
+                from { opacity: 0; }
+                  to { opacity: 1; }
             }
             figcaption {
                 position: absolute;
