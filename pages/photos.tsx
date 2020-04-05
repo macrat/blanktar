@@ -254,7 +254,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
                 return {
                     ...img.size,
                     url: post.permalink,
-                    image: await img.optimize(480),
+                    image: await img.optimize('photos', 480),
                     trace: await img.trace(),
                     caption: post.caption,
                 };

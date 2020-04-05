@@ -92,3 +92,13 @@ declare module 'potrace' {
 
     export class Potrace extends Potrace {};
 }
+
+declare module 'imagemin-zopfli' {
+    interface Options {
+        transparent?: boolean,
+    };
+
+    const imageminZopfli: (opts: Options) => (buf: Buffer) => Promise<Buffer>;
+
+    export default imageminZopfli;
+}

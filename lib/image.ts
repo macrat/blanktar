@@ -3,10 +3,8 @@ import {createHash} from 'crypto';
 import {promises as fs} from 'fs';
 import Jimp from 'jimp';
 import mozjpeg from 'imagemin-mozjpeg';
+import zopflipng from 'imagemin-zopfli';
 import {Potrace} from 'potrace';
-
-
-const compressJpeg = mozjpeg({quality: 80});
 
 
 const tracePath = (image: Buffer) => {
@@ -28,7 +26,9 @@ const tracePath = (image: Buffer) => {
 
 
 export default class Image {
-    private constructor(img: Jimp.Image) {
+    private readonly img: Jimp;
+
+    private constructor(img: Jimp) {
         this.img = img;
     }
 
@@ -43,8 +43,16 @@ export default class Image {
         };
     }
 
+    get mimetype() {
+        return this.img.getMIME();
+    }
+
     get extension() {
-        return this.img.getExtension();
+        const ext = this.img.getExtension();
+        if (ext === 'jpeg') {
+            return 'jpg';
+        }
+        return ext;
     }
 
     hash() {
@@ -52,27 +60,38 @@ export default class Image {
     }
 
     private async resize(width: number) {
-        return await this.img.resize(width, Jimp.AUTO).getBufferAsync(this.img.getMIME());
+        return await this.img.resize(width, Jimp.AUTO).getBufferAsync(this.mimetype);
     }
 
-    async optimize(width: number) {
+    private async compress(img: Buffer) {
+        switch (this.mimetype) {
+        case 'image/jpeg':
+            return await mozjpeg({quality: 80})(img);
+        case 'image/png':
+            return await zopflipng({transparent: this.img.hasAlpha()})(img);
+        default:
+            return img;
+        }
+    }
+
+    async optimize(path: string, width: number) {
         try {
-            await fs.mkdir('./.next/static/photos', {recursive: true});
+            await fs.mkdir(`./.next/static/${path}`, {recursive: true});
         } catch(e) {}
 
         const hash = this.hash();
 
         await fs.writeFile(
-            `./.next/static/photos/${hash}@2x.${this.extension}`,
-            await compressJpeg(await this.resize(width*2)),
+            `./.next/static/${path}/${hash}@2x.${this.extension}`,
+            await this.compress(await this.resize(width*2)),
         );
         await fs.writeFile(
-            `./.next/static/photos/${hash}.${this.extension}`,
-            await compressJpeg(await this.resize(width)),
+            `./.next/static/${path}/${hash}.${this.extension}`,
+            await this.compress(await this.resize(width)),
         );
 
-        const hdpi = `/_next/static/photos/${hash}@2x.${this.extension}`;
-        const mdpi = `/_next/static/photos/${hash}.${this.extension}`;
+        const hdpi = `/_next/static/${path}/${hash}@2x.${this.extension}`;
+        const mdpi = `/_next/static/${path}/${hash}.${this.extension}`;
 
         return {
             mdpi: mdpi,
