@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import {createHash} from 'crypto';
 import {promises as fs} from 'fs';
 import {Image} from 'canvas';
-import sharp from 'sharp';
+import Jimp from 'jimp';
 import mozjpeg from 'imagemin-mozjpeg';
 import {Potrace} from 'potrace';
 
@@ -62,24 +62,26 @@ export const optimizeImage = async (src: string) => {
 
     const compress = mozjpeg({quality: 80});
 
+    const img = await Jimp.read(original);
+
     await fs.writeFile(
         `./.next/static/photos/${hash}@2x.jpg`,
-        await sharp(original)
-            .resize(960)
-            .toBuffer()
+        await img
+            .resize(960, Jimp.AUTO)
+            .getBufferAsync(img.getMIME())
             .then(compress)
     );
     await fs.writeFile(
         `./.next/static/photos/${hash}.jpg`,
-        await sharp(original)
-            .resize(480)
-            .toBuffer()
+        await img
+            .resize(480, Jimp.AUTO)
+            .getBufferAsync(img.getMIME())
             .then(compress)
     );
 
     return {
         mdpi: `/_next/static/photos/${hash}.jpg`,
         hdpi: `/_next/static/photos/${hash}@2x.jpg`,
-        tracePath: await tracePath(await sharp(original).resize(480).toBuffer()),
+        tracePath: await tracePath(await img.resize(480, Jimp.AUTO).getBufferAsync(img.getMIME())),
     };
 };
