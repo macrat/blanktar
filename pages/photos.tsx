@@ -4,7 +4,7 @@ import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 import LazyLoad from 'react-lazyload';
 
-import {detectSize, optimizeImage} from '~/lib/image';
+import Image from '~/lib/image';
 
 import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
@@ -23,7 +23,11 @@ export type Props = {
         image: {
             mdpi: string,
             hdpi: string,
-            tracePath: string,
+            srcSet: string,
+        },
+        trace: {
+            path: string,
+            viewBox: string,
         },
         width: number,
         height: number,
@@ -32,18 +36,18 @@ export type Props = {
 };
 
 
-const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption}) => (
+const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, caption}) => (
     <figure>
         <svg
             width={width}
             height={height}
-            viewBox={`0 0 ${width} ${height}`}
-            dangerouslySetInnerHTML={{__html: image.tracePath}}
+            viewBox={trace.viewBox}
+            dangerouslySetInnerHTML={{__html: trace.path}}
             aria-hidden="true" />
 
         {useAmp() ? (
             <amp-img
-                srcset={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                srcset={image.srcSet}
                 src={image.mdpi}
                 width={String(width)}
                 height={String(height)}
@@ -52,7 +56,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, width, height, caption})
         ) : (
             <LazyLoad offset={height}>
                 <img
-                    srcSet={`${image.mdpi} 1x, ${image.hdpi} 2x`}
+                    srcSet={image.srcSet}
                     src={image.mdpi}
                     width={width}
                     height={height}
@@ -244,12 +248,17 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
 
     return {
         props: {
-            photos: await Promise.all(data.data.map(async post => ({
-                ...(await detectSize(post.media_url).then(({width, height}) => ({width: 480, height: Math.round(480*height/width)}))),
-                url: post.permalink,
-                image: await optimizeImage(post.media_url),
-                caption: post.caption,
-            }))),
+            photos: await Promise.all(data.data.map(async post => {
+                const img = await Image.read(post.media_url);
+
+                return {
+                    ...img.size,
+                    url: post.permalink,
+                    image: await img.optimize(480),
+                    trace: await img.trace(),
+                    caption: post.caption,
+                };
+            })),
         },
     };
 };

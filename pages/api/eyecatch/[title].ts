@@ -1,7 +1,7 @@
 import {promises as fs, constants} from 'fs';
 
 import {NextApiRequest, NextApiResponse} from 'next';
-import {createCanvas, registerFont} from 'canvas';
+import {createCanvas, registerFont, Image} from 'canvas';
 import fetch from 'node-fetch';
 import preval from 'preval.macro';
 
@@ -39,10 +39,17 @@ const loadFont = async (origin: String) => {
 
 
 const baseImage = () => {
-    return loadImage(preval`
-        const fs = require('fs');
-        module.exports = 'data:image/svg+xml;base64,' + fs.readFileSync('./assets/eyecatch-base.svg', 'base64');
-    `);
+    return new Promise<Image>((resolve, reject) => {
+        const img = new Image();
+
+        img.onload = () => resolve(img);
+        img.onerror = err => reject(err);
+
+        img.src = preval`
+            const fs = require('fs');
+            module.exports = 'data:image/svg+xml;base64,' + fs.readFileSync('./assets/eyecatch-base.svg', 'base64');
+        `;
+    });
 };
 
 
