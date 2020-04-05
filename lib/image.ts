@@ -31,14 +31,14 @@ export const detectSize = async (src: string) => {
 export const optimizeImage = async (src: string) => {
     const resp = await fetch(src);
     if (!resp.ok) {
-        throw new Error(`failed to get image: ${original.status} ${original.statusText}: ${url}`);
+        throw new Error(`failed to get image: ${resp.status} ${resp.statusText}: ${src}`);
     }
     const original = await resp.buffer();
 
     const hash = createHash('md5').update(original).digest('hex');
 
     try {
-        await fs.mkdir('./.next/static/photos', {recrusive: true});
+        await fs.mkdir('./.next/static/photos', {recursive: true});
     } catch(e) {}
 
     const compress = mozjpeg({quality: 80});
