@@ -54,7 +54,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
                 alt=""
                 layout="intrinsic" />
         ) : (
-            <LazyLoad offset={height}>
+            <LazyLoad offset={height/2}>
                 <img
                     srcSet={image.srcSet}
                     src={image.mdpi}
