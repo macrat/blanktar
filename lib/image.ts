@@ -7,6 +7,15 @@ import zopflipng from 'imagemin-zopfli';
 import {Potrace} from 'potrace';
 
 
+const writeTask = async (path: string, task: () => Promise<Buffer>) => {
+    try {
+        await fs.access(path);
+    } catch {
+        await fs.writeFile(path, await task());
+    }
+};
+
+
 const tracePath = (image: Buffer) => {
     return new Promise<string>((resolve, reject) => {
         const trace = new Potrace();
@@ -60,7 +69,7 @@ export default class Image {
     }
 
     private async resize(width: number) {
-        return await this.img.resize(width, Jimp.AUTO).getBufferAsync(this.mimetype);
+        return await this.img.clone().resize(width, Jimp.AUTO).getBufferAsync(this.mimetype);
     }
 
     private async compress(img: Buffer) {
@@ -81,13 +90,13 @@ export default class Image {
 
         const hash = this.hash();
 
-        await fs.writeFile(
+        await writeTask(
             `./.next/static/${path}/${hash}@2x.${this.extension}`,
-            await this.compress(await this.resize(width*2)),
+            async () => await this.compress(await this.resize(width*2)),
         );
-        await fs.writeFile(
+        await writeTask(
             `./.next/static/${path}/${hash}.${this.extension}`,
-            await this.compress(await this.resize(width)),
+            async () => await this.compress(await this.resize(width)),
         );
 
         const hdpi = `/_next/static/${path}/${hash}@2x.${this.extension}`;
@@ -98,13 +107,13 @@ export default class Image {
             hdpi: hdpi,
             srcSet: `${hdpi} 2x, ${mdpi} 1x`,
             width: width,
-            height: width * this.size.height / this.size.width,
+            height: Math.round(width * this.size.height / this.size.width),
         };
     }
 
     async trace() {
         return {
-            viewBox: `0 0 240 ${240 * this.size.height / this.size.width}`,
+            viewBox: `0 0 240 ${Math.round(240 * this.size.height / this.size.width)}`,
             path: await tracePath(await this.resize(240))
         };
     }
