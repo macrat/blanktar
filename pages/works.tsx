@@ -11,11 +11,6 @@ import ServiceBanner from '~/components/ServiceBanner';
 import ViewMore from '~/components/ViewMore';
 
 
-export const config = {
-    amp: 'hybrid',
-};
-
-
 export type Props = {
     github: {
         name: string,
