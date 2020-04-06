@@ -2,6 +2,8 @@ import {NextPage, GetServerSideProps} from 'next';
 import {FC} from 'react';
 import fetch from 'node-fetch';
 
+import Image from '~/lib/image';
+
 import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
 import DateTime from '~/components/DateTime';
@@ -19,7 +21,10 @@ export type Props = {
         name: string,
         description: string,
         url: string | null,
-        image: string | null,
+        image: null | {
+            mdpi: string,
+            hdpi: string,
+        },
         languages: {
             name: string,
             color: string,
@@ -84,9 +89,12 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 width: calc(100% / 2 - 2mm * 2);
                 height: 7cm;
                 margin: 2mm;
-                background: ${image ? `url(${image})` : 'var(--colors-dark-fg)'};
-                background-size: cover;
-                background-position: center;
+                background: ${image ? `url(${image.mdpi})` : 'var(--colors-dark-fg)'} center/cover;
+            }
+            @media (min-resolution: 1.5dppx) {
+                li {
+                    background: ${image ? `url(${image.hdpi})` : 'var(--colors-dark-fg)'} center/cover;
+                }
             }
             @media (max-width: 24cm) {
                 li {
@@ -104,7 +112,7 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 color: inherit;
                 text-decoration: none;
                 color: var(--colors-fg);
-                transition: color .2s ease;
+                transition: color .2s;
                 background-color: rgba(255, 255, 255, .7);
                 overflow: hidden;
             }
@@ -119,23 +127,23 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                bottom: 0;
+                right: 0;
                 background-color: var(--colors-fg);
-                transform: translate(-101%, 0);
-                transition: transform .2s ease;
+                transform: scaleY(0);
+                transition: transform .2s;
             }
             a:hover, a:focus {
                 color: var(--colors-bg);
             }
             a:hover::before, a:focus::before {
-                transform: translate(0, 0);
+                transform: scaleY(1);
             }
             @media screen and (prefers-reduced-motion: reduce) {
                 a::before {
                     transform: translate(0, 0);
                     opacity: 0;
-                    transition: opacity: .2s ease;
+                    transition: opacity: .2s;
                 }
                 a:hover::before, a:focus::before {
                     opacity: 1;
@@ -277,18 +285,18 @@ export const getStaticProps: GetServerSideProps = async () => {
 
     return {
         props: {
-            github: data.data.user.repositories.nodes.map(repo => ({
+            github: await Promise.all(data.data.user.repositories.nodes.map(async repo => ({
                 name: repo.parent?.nameWithOwner ?? repo.name,
                 description: repo.description,
                 url: repo.homepageUrl || repo.url,
-                image: repo.usesCustomOpenGraphImage ? repo.openGraphImageUrl : null,
+                image: repo.usesCustomOpenGraphImage ? await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640) : null,
                 languages: repo.languages.nodes.map(lang => ({
                     name: lang.name,
                     color: lang.color,
                 })),
                 updatedAt: repo.updatedAt,
                 createdAt: repo.createdAt,
-            })),
+            }))),
         },
     };
 };
