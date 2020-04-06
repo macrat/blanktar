@@ -130,14 +130,14 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 width: 100%;
                 height: 100%;
                 background-color: var(--colors-fg);
-                transform: translate(-101%, 0);
-                transition: transform .2s ease;
+                transform: scaleY(0);
+                transition: transform .2s;
             }
             a:hover, a:focus {
                 color: var(--colors-bg);
             }
             a:hover::before, a:focus::before {
-                transform: translate(0, 0);
+                transform: scaleY(1);
             }
             @media screen and (prefers-reduced-motion: reduce) {
                 a::before {
