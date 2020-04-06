@@ -2,6 +2,8 @@ import {NextPage, GetServerSideProps} from 'next';
 import {FC} from 'react';
 import fetch from 'node-fetch';
 
+import Image from '~/lib/image';
+
 import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
 import DateTime from '~/components/DateTime';
@@ -19,7 +21,10 @@ export type Props = {
         name: string,
         description: string,
         url: string | null,
-        image: string | null,
+        image: null | {
+            mdpi: string,
+            hdpi: string,
+        },
         languages: {
             name: string,
             color: string,
@@ -84,9 +89,12 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 width: calc(100% / 2 - 2mm * 2);
                 height: 7cm;
                 margin: 2mm;
-                background: ${image ? `url(${image})` : 'var(--colors-dark-fg)'};
-                background-size: cover;
-                background-position: center;
+                background: ${image ? `url(${image.mdpi})` : 'var(--colors-dark-fg)'} center/cover;
+            }
+            @media (min-resolution: 1.5dppx) {
+                li {
+                    background: ${image ? `url(${image.hdpi})` : 'var(--colors-dark-fg)'} center/cover;
+                }
             }
             @media (max-width: 24cm) {
                 li {
@@ -277,18 +285,18 @@ export const getStaticProps: GetServerSideProps = async () => {
 
     return {
         props: {
-            github: data.data.user.repositories.nodes.map(repo => ({
+            github: await Promise.all(data.data.user.repositories.nodes.map(async repo => ({
                 name: repo.parent?.nameWithOwner ?? repo.name,
                 description: repo.description,
                 url: repo.homepageUrl || repo.url,
-                image: repo.usesCustomOpenGraphImage ? repo.openGraphImageUrl : null,
+                image: repo.usesCustomOpenGraphImage ? await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640) : null,
                 languages: repo.languages.nodes.map(lang => ({
                     name: lang.name,
                     color: lang.color,
                 })),
                 updatedAt: repo.updatedAt,
                 createdAt: repo.createdAt,
-            })),
+            }))),
         },
     };
 };

@@ -14,7 +14,7 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "img-src 'self' data: https://repository-images.githubusercontent.com/",
+    "img-src 'self' data:",
     "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
         "style-src-attr 'self' 'unsafe-inline'",
