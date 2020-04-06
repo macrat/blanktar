@@ -83,7 +83,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
                 width: 100%;
                 height: auto;
                 animation: show-image .4s;
-                transition: opacity .2s;
+                transition: opacity .2s, filter .2s;
             }
             @keyframes show-image {
                 from { opacity: 0; }
@@ -104,7 +104,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                background-color: rgba(64, 64, 64, .5);
+                background-color: rgba(128, 128, 128, .5);
                 color: white;
                 text-decoration: none;
                 padding: 5mm;
@@ -118,7 +118,8 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
                 color: white;
             }
             figure:hover img {
-                opacity: .2;
+                opacity: .1;
+                filter: contrast(4);
             }
             figure:hover figcaption {
                 opacity: 1;
