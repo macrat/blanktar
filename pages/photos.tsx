@@ -82,7 +82,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
                 left: 0;
                 width: 100%;
                 height: auto;
-                animation: show-image 1s;
+                animation: show-image .4s;
                 transition: opacity .2s;
             }
             @keyframes show-image {
