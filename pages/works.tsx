@@ -112,7 +112,7 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 color: inherit;
                 text-decoration: none;
                 color: var(--colors-fg);
-                transition: color .2s ease;
+                transition: color .2s;
                 background-color: rgba(255, 255, 255, .7);
                 overflow: hidden;
             }
@@ -127,8 +127,8 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                bottom: 0;
+                right: 0;
                 background-color: var(--colors-fg);
                 transform: scaleY(0);
                 transition: transform .2s;
@@ -143,7 +143,7 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 a::before {
                     transform: translate(0, 0);
                     opacity: 0;
-                    transition: opacity: .2s ease;
+                    transition: opacity: .2s;
                 }
                 a:hover::before, a:focus::before {
                     opacity: 1;
