@@ -1,6 +1,8 @@
 import {NextPage, GetServerSideProps} from 'next';
+import {useAmp} from 'next/amp';
 import {FC} from 'react';
 import fetch from 'node-fetch';
+import LazyLoad from 'react-lazyload';
 
 import Image from '~/lib/image';
 
@@ -24,6 +26,7 @@ export type Props = {
         image: null | {
             mdpi: string,
             hdpi: string,
+            srcSet: string,
         },
         languages: {
             name: string,
@@ -73,6 +76,26 @@ const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languag
 
 const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, updatedAt, languages, description}) => (
     <li>
+        {image ? (
+            useAmp() ? (
+                <amp-img
+                    srcset={image.srcSet}
+                    src={image.mdpi}
+                    width="2"
+                    height="1"
+                    alt=""
+                    layout="intrinsic" />
+            ) : (
+                <LazyLoad height="7cm">
+                    <img
+                        srcSet={image.srcSet}
+                        src={image.mdpi}
+                        width="14cm"
+                        height="7cm" />
+                </LazyLoad>
+            )
+        ) : null}
+
         <a href={url || undefined} target="_blank" rel="noopener">
             <h3 className="card-inner">{name}</h3>
 
@@ -89,12 +112,8 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                 width: calc(100% / 2 - 2mm * 2);
                 height: 7cm;
                 margin: 2mm;
-                background: ${image ? `url(${image.mdpi})` : 'var(--colors-dark-fg)'} center/cover;
-            }
-            @media (min-resolution: 1.5dppx) {
-                li {
-                    background: ${image ? `url(${image.hdpi})` : 'var(--colors-dark-fg)'} center/cover;
-                }
+                background-color: var(--colors-dark-fg);
+                position: relative;
             }
             @media (max-width: 24cm) {
                 li {
@@ -102,6 +121,14 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
                     height: auto;
                     margin: 2mm 0;
                 }
+            }
+            img, amp-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
             a {
                 display: block;
