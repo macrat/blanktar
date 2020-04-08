@@ -1,6 +1,5 @@
 import {NextPage, GetServerSideProps} from 'next';
 import {FC} from 'react';
-import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 import LazyLoad from 'react-lazyload';
 
@@ -40,40 +39,20 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, images, trace, width, height, c
             dangerouslySetInnerHTML={{__html: trace.path}}
             aria-hidden="true" />
 
-        {useAmp() ? (
-            <amp-img
-                srcset={images[1].srcSet}
-                src={images[1].mdpi}
-                width={String(width)}
-                height={String(height)}
-                alt=""
-                layout="intrinsic">
+        <LazyLoad offset={height/2}>
+            <picture>
+                {images.reverse().map(({srcSet, mdpi}) => (
+                    <source key={mdpi} srcSet={srcSet} src={mdpi} />
+                ))}
 
-                <amp-img
-                    fallback={true}
-                    srcset={images[0].srcSet}
+                <img
+                    srcSet={images[0].srcSet}
                     src={images[0].mdpi}
-                    width={String(width)}
-                    height={String(height)}
-                    alt=""
-                    layout="intrinsic" />
-            </amp-img>
-        ) : (
-            <LazyLoad offset={height/2}>
-                <picture>
-                    {images.reverse().map(({srcSet, mdpi}) => (
-                        <source key={mdpi} srcSet={srcSet} src={mdpi} />
-                    ))}
-
-                    <img
-                        srcSet={images[0].srcSet}
-                        src={images[0].mdpi}
-                        width={width}
-                        height={height}
-                        alt="" />
-                </picture>
-            </LazyLoad>
-        )}
+                    width={width}
+                    height={height}
+                    alt="" />
+            </picture>
+        </LazyLoad>
         <figcaption><a href={url}>{caption}</a></figcaption>
 
         <style jsx>{`
@@ -86,7 +65,7 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, images, trace, width, height, c
                 height: auto;
                 display: block;
             }
-            img, amp-img {
+            img {
                 display: block;
                 position: absolute;
                 top: 0;
