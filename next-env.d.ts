@@ -10,6 +10,7 @@ declare namespace JSX {
         width: string;
         height: string;
         layout?: string;
+        fallback?: boolean;
         style?: {
             [key: string]: string | number,
         };

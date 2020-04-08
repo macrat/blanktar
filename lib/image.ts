@@ -4,6 +4,7 @@ import {promises as fs} from 'fs';
 import Jimp from 'jimp';
 import mozjpeg from 'imagemin-mozjpeg';
 import zopflipng from 'imagemin-zopfli';
+import webp from 'imagemin-webp';
 import {Potrace} from 'potrace';
 
 
@@ -83,6 +84,10 @@ export default class Image {
         }
     }
 
+    private async webpCompress(img: Buffer) {
+        return await webp({lossless: this.mimetype === 'image/png'})(img);
+    }
+
     async optimize(path: string, width: number) {
         try {
             await fs.mkdir(`./.next/static/${path}`, {recursive: true});
@@ -99,13 +104,28 @@ export default class Image {
             async () => await this.compress(await this.resize(width)),
         );
 
-        const hdpi = `/_next/static/${path}/${hash}@2x.${this.extension}`;
-        const mdpi = `/_next/static/${path}/${hash}.${this.extension}`;
+        await writeTask(
+            `./.next/static/${path}/${hash}@2x.webp`,
+            async () => await this.webpCompress(await this.resize(width*2)),
+        );
+        await writeTask(
+            `./.next/static/${path}/${hash}.webp`,
+            async () => await this.webpCompress(await this.resize(width)),
+        );
+
+        const hdpi = `/_next/static/${path}/${hash}@2x.`;
+        const mdpi = `/_next/static/${path}/${hash}.`;
 
         return {
-            mdpi: mdpi,
-            hdpi: hdpi,
-            srcSet: `${hdpi} 2x, ${mdpi} 1x`,
+            images: [{
+                mdpi: mdpi + 'webp',
+                hdpi: hdpi + 'webp',
+                srcSet: `${hdpi}webp 2x, ${mdpi}webp 1x`,
+            }, {
+                mdpi: mdpi + this.extension,
+                hdpi: hdpi + this.extension,
+                srcSet: `${hdpi}${this.extension} 2x, ${mdpi}${this.extension} 1x`,
+            }],
             width: width,
             height: Math.round(width * this.size.height / this.size.width),
         };

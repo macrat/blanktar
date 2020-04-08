@@ -15,11 +15,11 @@ import ViewMore from '~/components/ViewMore';
 export type Props = {
     photos: {
         url: string,
-        image: {
+        images: {
             mdpi: string,
             hdpi: string,
             srcSet: string,
-        },
+        }[],
         trace: {
             path: string,
             viewBox: string,
@@ -31,7 +31,7 @@ export type Props = {
 };
 
 
-const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, caption}) => (
+const PhotoItem: FC<Props["photos"][0]> = ({url, images, trace, width, height, caption}) => (
     <figure>
         <svg
             width={width}
@@ -42,20 +42,36 @@ const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, ca
 
         {useAmp() ? (
             <amp-img
-                srcset={image.srcSet}
-                src={image.mdpi}
+                srcset={images[1].srcSet}
+                src={images[1].mdpi}
                 width={String(width)}
                 height={String(height)}
                 alt=""
-                layout="intrinsic" />
+                layout="intrinsic">
+
+                <amp-img
+                    fallback={true}
+                    srcset={images[0].srcSet}
+                    src={images[0].mdpi}
+                    width={String(width)}
+                    height={String(height)}
+                    alt=""
+                    layout="intrinsic" />
+            </amp-img>
         ) : (
             <LazyLoad offset={height/2}>
-                <img
-                    srcSet={image.srcSet}
-                    src={image.mdpi}
-                    width={width}
-                    height={height}
-                    alt="" />
+                <picture>
+                    {images.reverse().map(({srcSet, mdpi}) => (
+                        <source key={mdpi} srcSet={srcSet} src={mdpi} />
+                    ))}
+
+                    <img
+                        srcSet={images[0].srcSet}
+                        src={images[0].mdpi}
+                        width={width}
+                        height={height}
+                        alt="" />
+                </picture>
             </LazyLoad>
         )}
         <figcaption><a href={url}>{caption}</a></figcaption>
@@ -250,7 +266,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => {
                 return {
                     ...img.size,
                     url: post.permalink,
-                    image: await img.optimize('photos', 480),
+                    images: (await img.optimize('photos', 480)).images,
                     trace: await img.trace(),
                     caption: post.caption,
                 };

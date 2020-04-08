@@ -49,6 +49,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-webp": "^5.1.0",
     "imagemin-zopfli": "^6.0.0",
     "jest": "^25.2.7",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",

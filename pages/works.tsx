@@ -17,11 +17,11 @@ export type Props = {
         name: string,
         description: string,
         url: string | null,
-        image: null | {
+        images: null | {
             srcSet: string,
             mdpi: string,
             hdpi: string,
-        },
+        }[],
         languages: {
             name: string,
             color: string,
@@ -68,11 +68,17 @@ const LanguageList: FC<{languages: {name: string, color: string}[]}> = ({languag
 );
 
 
-const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, updatedAt, languages, description}) => (
+const GithubRepository: FC<Props['github'][0]> = ({name, images, url, createdAt, updatedAt, languages, description}) => (
     <li>
-        {image ? (
+        {images ? (
             <LazyLoad>
-                <img width={640} height={480} srcSet={image.srcSet} src={image.mdpi} alt="" aria-hidden="true" />
+                <picture>
+                    {images.reverse().map(img => (
+                        <source key={img.mdpi} srcSet={img.srcSet} />
+                    ))}
+
+                    <img width={640} height={480} srcSet={images[0].srcSet} src={images[0].mdpi} alt="" aria-hidden="true" />
+                </picture>
             </LazyLoad>
         ) : null}
 
@@ -297,7 +303,7 @@ export const getStaticProps: GetServerSideProps = async () => {
                 name: repo.parent?.nameWithOwner ?? repo.name,
                 description: repo.description,
                 url: repo.homepageUrl || repo.url,
-                image: repo.usesCustomOpenGraphImage ? await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640) : null,
+                images: repo.usesCustomOpenGraphImage ? (await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640)).images : null,
                 languages: repo.languages.nodes.map(lang => ({
                     name: lang.name,
                     color: lang.color,
