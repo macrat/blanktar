@@ -40,6 +40,11 @@ const CommonResources = memo(function CommonResources() {
                     key="prefetch--font" />
             )}
             <link
+                rel="preconnect"
+                href="https://www.google-analytics.com"
+                crossOrigin="anonymous"
+                key="preconnect--google-analytics" />
+            <link
                 rel="stylesheet"
                 type="text/css"
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
