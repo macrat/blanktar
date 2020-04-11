@@ -1,24 +1,27 @@
 import React, {FC} from 'react';
 import Link from 'next/link';
+import preval from 'preval.macro';
 
 import JsonLD from '../JsonLD';
 
 
-const BreadCrumbIcon = `data:image/svg+xml;base64,${Buffer.from(`
-    <?xml version="1.0" encoding="UTF-8" ?>
+const BreadCrumbIcon = preval`
+    module.exports = 'data:image/svg+xml;base64,' + Buffer.from(${'`'}
+        <?xml version="1.0" encoding="UTF-8" ?>
 
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 5 10">
-        <defs><style><![CDATA[
-        polyline{stroke:#402020}
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 5 10">
+            <defs><style><![CDATA[
+                polyline{stroke:#402020}
 
-        @media (prefers-color-scheme: dark) {
-            polyline{stroke:#fcf8f5}
-        }
-        ]]></style></defs>
+                @media (prefers-color-scheme: dark) {
+                    polyline{stroke:#fcf8f5}
+                }
+            ]]></style></defs>
 
-        <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5"/>
-    </svg>
-`.replace(/\n+ */, '')).toString('base64')}`;
+            <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5"/>
+        </svg>
+    ${'`'}.replace(/\\n+ */, '')).toString('base64');
+`;
 
 
 export type Props = {
