@@ -20,12 +20,12 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
     }, [loading]);
 
     return (
-        <div className={loading ? "loading" : ""}>
+        <main className={loading ? "loading" : ""}>
             <CommonResources />
 
-            <main>
+            <div>
                 <Component {...pageProps} />
-            </main>
+            </div>
 
             <Footer />
 
@@ -97,15 +97,15 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
             `}</style>
 
             <style jsx>{`
-                div {
+                main {
                     min-height: 100vh;
                     display: flex;
                     flex-direction: column;
                 }
-                main {
+                div {
                     flex: 1 1 0;
                 }
-                div::before {
+                main::before {
                     content: '';
                     display: block;
                     position: fixed;
@@ -128,7 +128,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                       to { transform: translate(0, 0); }
                 }
             `}</style>
-        </div>
+        </main>
     );
 };
 
