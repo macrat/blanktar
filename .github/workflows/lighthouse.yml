@@ -1,4 +1,4 @@
-name: Lighthouse Test
+name: Lighthouse
 
 on:
   push:
