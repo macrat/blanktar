@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage, GetStaticProps} from 'next';
+import {NextPage} from 'next';
 
 import ErrorPage from '~/components/ErrorPage';
 
