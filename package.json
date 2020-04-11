@@ -11,7 +11,7 @@
     "analyze": "ANALYZE=true next build",
     "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
     "test": "jest",
-    "lint": "eslint {pages,components,lib,layouts}/**/*.ts*"
+    "lint": "eslint {pages,components,lib,layouts}/{**/*.ts*,*.ts*}"
   },
   "repository": {
     "type": "git",

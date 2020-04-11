@@ -1,67 +1,11 @@
-import React, {FC, useState, useEffect, memo} from 'react';
+import React, {useEffect} from 'react';
 import {AppProps} from 'next/app';
-import Head from 'next/head';
-import {useAmp} from 'next/amp';
 
 import useLoading from '~/lib/loading';
 import useAnalytics from '~/lib/analytics';
 
-import Header from '~/components/Header';
-import JsonLD, {Website} from '~/components/JsonLD';
-import SearchBar from '~/components/SearchBar';
+import CommonResources from '~/components/CommonResources';
 import Footer from '~/components/Footer';
-
-
-const CommonResources = memo(function CommonResources() {
-    const [fontCSS, setFontCSS] = useState<string>("");
-    const isAmp = useAmp();
-
-    useEffect(() => {
-        fetch('/font.css')
-            .then(resp => resp.text())
-            .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
-    }, []);
-
-    return (
-        <Head>
-            <meta charSet="utf-8" />
-
-            <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
-                crossOrigin="anonymous"
-                key="preconnect--gstatic" />
-            {isAmp ? '' : (
-                <link
-                    rel="prefetch"
-                    as="stylesheet"
-                    type="text/css"
-                    href="/font.css"
-                    key="prefetch--font" />
-            )}
-            <link
-                rel="preconnect"
-                href="https://www.google-analytics.com"
-                crossOrigin="anonymous"
-                key="preconnect--google-analytics" />
-            <link
-                rel="stylesheet"
-                type="text/css"
-                href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
-                crossOrigin={isAmp ? "anonymous" : undefined}
-                key="style--font" />
-
-            <meta name="theme-color" content="#402020" />
-            <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
-            <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
-            <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
-
-            <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
-
-            <JsonLD data={Website} />
-        </Head>
-    );
-} as FC<{}>, () => true);
 
 
 const BlanktarApp = ({Component, pageProps}: AppProps) => {
@@ -76,16 +20,12 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
     }, [loading]);
 
     return (
-        <div className={loading ? "loading" : ""}>
+        <main className={loading ? "loading" : ""}>
             <CommonResources />
 
-            {pageProps.__disableHeader ? null : <Header />}
-
-            {pageProps.__disableSearchBar ? null : <SearchBar />}
-
-            <main>
+            <div>
                 <Component {...pageProps} />
-            </main>
+            </div>
 
             <Footer />
 
@@ -157,15 +97,15 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
             `}</style>
 
             <style jsx>{`
-                div {
+                main {
                     min-height: 100vh;
                     display: flex;
                     flex-direction: column;
                 }
-                main {
+                div {
                     flex: 1 1 0;
                 }
-                div::before {
+                main::before {
                     content: '';
                     display: block;
                     position: fixed;
@@ -188,7 +128,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
                       to { transform: translate(0, 0); }
                 }
             `}</style>
-        </div>
+        </main>
     );
 };
 

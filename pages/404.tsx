@@ -1,12 +1,10 @@
 import React from 'react';
-import {NextPage, GetStaticProps} from 'next';
+import {NextPage} from 'next';
 
 import ErrorPage from '~/components/ErrorPage';
 
 
-export type Props = {
-    __disableSearchBar: true,
-};
+export type Props = {};
 
 
 const NotFound: NextPage<Props> = () => (
@@ -15,13 +13,6 @@ const NotFound: NextPage<Props> = () => (
         title="ページが見つかりません"
         message="サイト内検索をお試しください。" />
 );
-
-
-export const getStaticProps: GetStaticProps<Props> = async () => ({
-    props: {
-        __disableSearchBar: true,
-    },
-});
 
 
 export default NotFound;

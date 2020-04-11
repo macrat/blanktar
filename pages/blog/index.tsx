@@ -5,6 +5,8 @@ import posts from '~/lib/posts';
 
 import NotFound from '../404';
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
 import BlogList, {Props as BlogListProps} from '~/components/BlogList';
 import Pagination from '~/components/Pagination';
@@ -23,16 +25,20 @@ export type Props = BlogListProps & {
 
 const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     posts.length === 0 ? (
-        <NotFound __disableSearchBar={true} />
-    ) : (
+        <NotFound />
+    ) : (<>
+        <MetaData
+            title="blog"
+            description={`Blanktarのブログ記事一覧の${totalPages}ページ中${page}ページ目。「${posts[0]?.title}」「${posts[1]?.title}」ほか${posts.length}件。`} />
+
+        <Header />
+
+        <SearchBar />
+
         <Article title="blog" breadlist={[{
             title: 'blog',
             href: '/blog',
         }]}>
-
-            <MetaData
-                title="blog"
-                description={`Blanktarのブログ記事一覧の${totalPages}ページ中${page}ページ目。「${posts[0]?.title}」「${posts[1]?.title}」ほか${posts.length}件。`} />
 
             <BlogList posts={posts} />
 
@@ -44,7 +50,7 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
                     query: p > 1 ? {offset: (p-1) * 10} : undefined,
                 })} />
         </Article>
-    )
+    </>)
 );
 
 

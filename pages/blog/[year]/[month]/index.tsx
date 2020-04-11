@@ -4,6 +4,8 @@ import {NextPage} from 'next';
 import posts from '~/lib/posts';
 
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
 import BlogList, {Props as BlogListProps} from '~/components/BlogList';
 
@@ -19,6 +21,10 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
         <MetaData
             title={`${year}年${month}月の記事`}
             description={`Blanktarの${year}年${month}月の記事一覧。「${posts[0]?.title}」${posts.length > 1 ? `「${posts[1]?.title}」` : ""}ほか${posts.length}件。`} />
+
+        <Header />
+
+        <SearchBar />
 
         <Article title={`${year}年${month}月の記事`} breadlist={[{
             title: 'blog',
