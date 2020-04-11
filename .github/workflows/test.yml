@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: npm ci
       - run: npm test
 
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: npm ci
       - run: npm run lint
 
@@ -26,8 +26,8 @@ jobs:
     name: Lighthouse Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
 
       - run: npm ci
       - run: npm run build
