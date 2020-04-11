@@ -14,5 +14,5 @@ jobs:
         with:
           zeit-token: ${{ secrets.NOW_TOKEN }}
           now-args: '--prod'
-          now-org-id: ${{ secrets.NOW_ORG_ID }}
+          now-org-id: macrat
           now-project-id: ${{ secrets.NOW_PROJECT_ID }}
