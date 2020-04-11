@@ -1,8 +1,10 @@
 import {FC, useState, useEffect, memo} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import {useAmp} from 'next/amp';
+import ReactGA from 'react-ga';
+import env from 'penv.macro';
 
 import useLoading from '~/lib/loading';
 
@@ -12,9 +14,27 @@ import SearchBar from '~/components/SearchBar';
 import Footer from '~/components/Footer';
 
 
+ReactGA.initialize(
+    process.env.GOOGLE_ANALYTICS!,
+    env({
+        development: {
+            debug: true,
+            gaOptions: {
+                siteSpeedSampleRate: 100,
+            },
+        },
+    }, {}),
+);
+
+
 const CommonResources = memo(function CommonResources() {
     const [fontCSS, setFontCSS] = useState<string>("");
     const isAmp = useAmp();
+    const router = useRouter();
+
+    useEffect(() => {
+        ReactGA.pageview(router.pathname);
+    }, [router.pathname]);
 
     useEffect(() => {
         fetch('/font.css')
