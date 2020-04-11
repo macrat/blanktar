@@ -9,6 +9,7 @@ jobs:
     name: Deployment
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
       - name: install now
         run: npm i now
