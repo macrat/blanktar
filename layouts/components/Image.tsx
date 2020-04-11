@@ -1,5 +1,4 @@
-import {FC} from 'react';
-import {useAmp} from 'next/amp';
+import React, {FC} from 'react';
 
 import ImageComponent from '~/components/Image';
 
@@ -18,7 +17,7 @@ export type Props = {
 
 
 const Image: FC<Props> = ({src, alt, width, height, title, center=false, style={}}) => {
-    const [_, w, h] = title?.match(/^([0-9]+)x([0-9]+)$/) || [];
+    const [w, h] = title?.match(/^([0-9]+)x([0-9]+)$/)?.slice(1) || [];
     width = Number(String(width || w)) || undefined;
     height = Number(String(height || h)) || undefined;
 

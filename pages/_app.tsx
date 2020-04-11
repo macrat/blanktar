@@ -1,4 +1,4 @@
-import {FC, useState, useEffect, memo} from 'react';
+import React, {FC, useState, useEffect, memo} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import {useAmp} from 'next/amp';

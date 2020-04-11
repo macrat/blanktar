@@ -1,6 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import fetch from 'node-fetch';
-import {createHash} from 'crypto';
 
 import createETag from '~/lib/api/etag';
 

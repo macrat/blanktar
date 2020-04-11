@@ -1,5 +1,5 @@
+import React, {FC} from 'react';
 import {NextPage, GetServerSideProps} from 'next';
-import {FC} from 'react';
 import {useAmp} from 'next/amp';
 import fetch from 'node-fetch';
 import LazyLoad from 'react-lazyload';

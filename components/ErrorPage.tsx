@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import React, {FC, useState} from 'react';
 
 import MetaData from './MetaData';
 import SearchBox from './SearchBar/SearchBox';

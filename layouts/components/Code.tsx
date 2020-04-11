@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import dynamic from 'next/dynamic';
 
 
@@ -13,9 +13,10 @@ const Code: FC<Props> = ({children, className}) => {
     }
     const lang = className.replace('language-', '');
 
+    const NoHighlightCode = () => (<code>{children}</code>);
     const HighlightCode = dynamic(
         () => import('~/components/HighlightCode'),
-        {loading: () => (<code>{children}</code>)},
+        {loading: NoHighlightCode},
     );
 
     return (

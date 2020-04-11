@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {MDXProvider} from '@mdx-js/react';
 
 import BlockQuote from './BlockQuote';
