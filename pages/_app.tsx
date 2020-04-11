@@ -1,12 +1,10 @@
 import {FC, useState, useEffect, memo} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
 import {useAmp} from 'next/amp';
-import ReactGA from 'react-ga';
-import env from 'penv.macro';
 
 import useLoading from '~/lib/loading';
+import useAnalytics from '~/lib/analytics';
 
 import Header from '~/components/Header';
 import JsonLD, {Website} from '~/components/JsonLD';
@@ -14,45 +12,14 @@ import SearchBar from '~/components/SearchBar';
 import Footer from '~/components/Footer';
 
 
-ReactGA.initialize(
-    process.env.GOOGLE_ANALYTICS!,
-    env({
-        development: {
-            debug: true,
-            gaOptions: {
-                siteSpeedSampleRate: 100,
-            },
-        },
-    }, {}),
-);
-
-
 const CommonResources = memo(function CommonResources() {
     const [fontCSS, setFontCSS] = useState<string>("");
     const isAmp = useAmp();
-    const router = useRouter();
-
-    useEffect(() => {
-        ReactGA.pageview(router.pathname);
-    }, [router.pathname]);
 
     useEffect(() => {
         fetch('/font.css')
             .then(resp => resp.text())
             .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
-
-        const reportCSP = (ev: SecurityPolicyViolationEvent) => {
-            ReactGA.event({
-                category: 'CSP Report',
-                action: ev.violatedDirective,
-                label: ev.blockedURI,
-                nonInteraction: true,
-            });
-        };
-        document.addEventListener('securitypolicyviolation', reportCSP);
-        return () => {
-            document.removeEventListener('securitypolicyviolation', reportCSP);
-        };
     }, []);
 
     return (
@@ -93,6 +60,8 @@ const CommonResources = memo(function CommonResources() {
 
 
 const BlanktarApp = ({Component, pageProps}: AppProps) => {
+    useAnalytics();
+
     const loading = useLoading();
 
     useEffect(() => {
