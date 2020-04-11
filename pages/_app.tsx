@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {AppProps} from 'next/app';
 
 import useLoading from '~/lib/loading';
