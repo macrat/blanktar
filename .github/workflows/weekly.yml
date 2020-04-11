@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npx now -- --prod --token $NOW_TOKEN
+      - name: install now
+        run: npm i now
+      - name: deploy
+        run: ./node_modules/.bin/now --prod --token $NOW_TOKEN
         env:
           NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
