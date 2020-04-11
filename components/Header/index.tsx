@@ -1,4 +1,4 @@
-import {FC, memo} from 'react';
+import React, {FC, memo} from 'react';
 import Link from 'next/link';
 
 import Navigation from './Navigation';

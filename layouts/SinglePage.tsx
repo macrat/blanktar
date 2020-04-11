@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 import MetaData from '~/components/MetaData';
 import Article from '~/components/Article';

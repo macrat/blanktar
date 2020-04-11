@@ -1,5 +1,4 @@
-import {FC} from 'react';
-import Link from 'next/link';
+import React, {FC} from 'react';
 
 
 const AnchorLink: FC<{before: string}> = ({before, children}) => (

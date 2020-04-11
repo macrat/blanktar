@@ -1,5 +1,5 @@
+import React, {FC} from 'react';
 import {NextPage, GetServerSideProps} from 'next';
-import {FC} from 'react';
 import fetch from 'node-fetch';
 import LazyLoad from 'react-lazyload';
 
@@ -76,7 +76,7 @@ const GithubRepository: FC<Props['github'][0]> = ({name, image, url, createdAt, 
             </LazyLoad>
         ) : null}
 
-        <a href={url || undefined} target="_blank" rel="noopener">
+        <a href={url || undefined} target="_blank" rel="noopener noreferrer">
             <h3 className="card-inner">{name}</h3>
 
             <span className="card-inner"><DateTime dateTime={new Date(createdAt)} readableSuffix="公開" /> 〜 <DateTime dateTime={new Date(updatedAt)} readableSuffix="更新" /></span>

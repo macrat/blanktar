@@ -11,7 +11,7 @@ type Opts = {
 
 export default (handler: NextApiHandler, {etag, control}: Opts) => {
     const getEtag = typeof etag === 'string' ? (
-        (req: NextApiRequest) => etag
+        () => etag
     ) : (
         (req: NextApiRequest) => etag(req)
     );

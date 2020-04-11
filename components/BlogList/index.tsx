@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import Link from 'next/link';
 import {useAmp} from 'next/amp';
 

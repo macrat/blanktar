@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {useRouter} from 'next/router';
 
 import MetaData from '~/components/MetaData';
