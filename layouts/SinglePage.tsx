@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
 import ComponentsProvider from './components';
 
@@ -28,7 +30,11 @@ export default ({title, description, breadlist, amp}: Props) => {
         throw `${title}: description is not provided`;
     }
 
-    const SinglePage: FC<{}> = ({children}) => (
+    const SinglePage: FC<{}> = ({children}) => (<>
+        <Header />
+
+        <SearchBar />
+
         <Article title={title} breadlist={breadlist}>
             <MetaData title={title} description={description || undefined} />
 
@@ -36,7 +42,7 @@ export default ({title, description, breadlist, amp}: Props) => {
                 {children}
             </ComponentsProvider>
         </Article>
-    );
+    </>);
 
     return SinglePage;
 };

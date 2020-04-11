@@ -5,8 +5,6 @@ import useLoading from '~/lib/loading';
 import useAnalytics from '~/lib/analytics';
 
 import CommonResources from '~/components/CommonResources';
-import Header from '~/components/Header';
-import SearchBar from '~/components/SearchBar';
 import Footer from '~/components/Footer';
 
 
@@ -24,10 +22,6 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
     return (
         <div className={loading ? "loading" : ""}>
             <CommonResources />
-
-            {pageProps.__disableHeader ? null : <Header />}
-
-            {pageProps.__disableSearchBar ? null : <SearchBar />}
 
             <main>
                 <Component {...pageProps} />

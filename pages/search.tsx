@@ -8,8 +8,9 @@ import {pageview} from 'react-ga';
 import search from '~/lib/posts/search';
 import {SuccessResponse} from './api/search';
 
-import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import Article from '~/components/Article';
 import SearchBox from '~/components/SearchBar/SearchBox';
 import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
@@ -87,12 +88,14 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
         doSearch();
     }, [router.query]);
 
-    return (
-        <Article>
-            <MetaData
-                title={`${searchQuery}の検索結果`}
-                description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
+    return (<>
+        <MetaData
+            title={`${searchQuery}の検索結果`}
+            description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
 
+        <Header />
+
+        <Article>
             <SearchBox
                 query={query}
                 setQuery={q => setQuery(q)}
@@ -164,7 +167,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
                 }
             `}</style>
         </Article>
-    );
+    </>);
 };
 
 

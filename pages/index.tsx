@@ -5,10 +5,7 @@ import Link from 'next/link';
 import MetaData from '~/components/MetaData';
 
 
-export type Props = {
-    __disableHeader: boolean,
-    __disableSearchBar: boolean,
-};
+export type Props = {};
 
 
 const Index: NextPage<Props> = () => (
@@ -103,11 +100,3 @@ const Index: NextPage<Props> = () => (
 
 
 export default Index;
-
-
-export const getStaticProps = () => ({
-    props: {
-        __disableHeader: true,
-        __disableSearchBar: true,
-    },
-});
