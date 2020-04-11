@@ -40,6 +40,19 @@ const CommonResources = memo(function CommonResources() {
         fetch('/font.css')
             .then(resp => resp.text())
             .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
+
+        const reportCSP = (ev: SecurityPolicyViolationEvent) => {
+            ReactGA.event({
+                category: 'CSP Report',
+                action: ev.violatedDirective,
+                label: ev.blockedURI,
+                nonInteraction: true,
+            });
+        };
+        document.addEventListener('securitypolicyviolation', reportCSP);
+        return () => {
+            document.removeEventListener('securitypolicyviolation', reportCSP);
+        };
     }, []);
 
     return (
