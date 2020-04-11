@@ -19,4 +19,4 @@ export default class BlanktarDocument extends Document {
             </Html>
         );
     }
-};
+}

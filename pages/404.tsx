@@ -9,7 +9,7 @@ export type Props = {
 };
 
 
-const NotFound: NextPage<Props> = ({}) => (
+const NotFound: NextPage<Props> = () => (
     <ErrorPage
         statusCode={404}
         title="ページが見つかりません"

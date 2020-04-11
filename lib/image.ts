@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import {createHash} from 'crypto';
 import {promises as fs} from 'fs';
 import Jimp from 'jimp';
@@ -84,9 +83,7 @@ export default class Image {
     }
 
     async optimize(path: string, width: number) {
-        try {
-            await fs.mkdir(`./.next/static/${path}`, {recursive: true});
-        } catch(e) {}
+        await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => {});
 
         const hash = this.hash();
 
@@ -117,4 +114,4 @@ export default class Image {
             path: await tracePath(await this.resize(240))
         };
     }
-};
+}
