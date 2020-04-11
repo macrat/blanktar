@@ -3,6 +3,7 @@ import {NextPage, GetServerSideProps} from 'next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDebounce} from 'use-debounce';
+import {pageview} from 'react-ga';
 
 import search from '~/lib/posts/search';
 import {SuccessResponse} from './api/search';
@@ -47,6 +48,8 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
         }).then(setResult);
 
         cancelDebounce();
+
+        pageview( `/search?q=${encodeURIComponent(query)}`);
     };
 
     useEffect(doSearch, [searchQuery]);

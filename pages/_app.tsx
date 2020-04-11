@@ -1,10 +1,10 @@
 import {FC, useState, useEffect, memo} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
-import Router from 'next/router';
 import {useAmp} from 'next/amp';
 
 import useLoading from '~/lib/loading';
+import useAnalytics from '~/lib/analytics';
 
 import Header from '~/components/Header';
 import JsonLD, {Website} from '~/components/JsonLD';
@@ -40,6 +40,11 @@ const CommonResources = memo(function CommonResources() {
                     key="prefetch--font" />
             )}
             <link
+                rel="preconnect"
+                href="https://www.google-analytics.com"
+                crossOrigin="anonymous"
+                key="preconnect--google-analytics" />
+            <link
                 rel="stylesheet"
                 type="text/css"
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
@@ -60,6 +65,8 @@ const CommonResources = memo(function CommonResources() {
 
 
 const BlanktarApp = ({Component, pageProps}: AppProps) => {
+    useAnalytics();
+
     const loading = useLoading();
 
     useEffect(() => {
