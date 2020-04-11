@@ -1,9 +1,27 @@
-name: Lighthouse
+name: Test
 
 on:
   push:
 
 jobs:
+  test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - run: npm test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - run: npm run lint
+
   lighthouse:
     name: Lighthouse Test
     runs-on: ubuntu-latest
