@@ -10,7 +10,8 @@
     "export": "next export",
     "analyze": "ANALYZE=true next build",
     "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint {pages,components,lib,layouts}/**/*.ts*"
   },
   "repository": {
     "type": "git",
@@ -45,10 +46,14 @@
     "@types/react": "^16.9.34",
     "@types/react-lazyload": "^2.6.0",
     "@types/styled-jsx": "^2.2.8",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
     "asyncmark": "^0.3.2",
     "babel-plugin-macros": "^2.8.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-zopfli": "^6.0.0",
     "jest": "^25.3.0",
