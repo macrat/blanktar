@@ -2,7 +2,7 @@ name: Weekly
 
 on:
   schedule:
-    - cron: '0 0 * * MON'
+    - cron: '*/5 * * * *'
 
 jobs:
   deploy:
