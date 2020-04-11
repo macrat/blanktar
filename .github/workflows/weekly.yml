@@ -11,9 +11,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
-      - name: install now
-        run: npm i now
       - name: deploy
-        run: ./node_modules/.bin/now --prod --token $NOW_TOKEN --confirm
+        run: npx now --prod --token $NOW_TOKEN --confirm
         env:
           NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
