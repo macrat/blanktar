@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: amondnet/now-deployment@v2
-        with:
-          zeit-token: ${{ secrets.NOW_TOKEN }}
-          now-args: '--prod'
-          now-org-id: macrat
-          now-project-id: ${{ secrets.NOW_PROJECT_ID }}
+      - run: npx now -- --prod --token $NOW_TOKEN
+        env:
+          NOW_TOKEN: secrets.NOW_TOKEN
