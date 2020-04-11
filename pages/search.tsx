@@ -21,7 +21,6 @@ export type Props = {
     query: string,
     page: number,
     result: SuccessResponse,
-    __disableSearchBar: boolean,
 };
 
 
@@ -180,7 +179,6 @@ export const getServerSideProps: GetServerSideProps = async ({query}) => {
             query: q,
             page: page,
             result: search(q, 10 * (page - 1), 10),
-            __disableSearchBar: true,
         },
     };
 };

@@ -6,7 +6,6 @@ import ErrorPage from '~/components/ErrorPage';
 
 export type Props = {
     statusCode: number,
-    __disableSearchBar: true,
 };
 
 
@@ -42,7 +41,6 @@ const Error: NextPage<Props> = ({statusCode}) => (
 
 Error.getInitialProps = ({res, err}) => ({
     statusCode: res?.statusCode ?? err?.statusCode ?? 404,
-    __disableSearchBar: true,
 });
 
 

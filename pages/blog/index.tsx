@@ -25,7 +25,7 @@ export type Props = BlogListProps & {
 
 const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
     posts.length === 0 ? (
-        <NotFound __disableSearchBar={true} />
+        <NotFound />
     ) : (<>
         <MetaData
             title="blog"
