@@ -14,6 +14,6 @@ jobs:
       - name: install now
         run: npm i now
       - name: deploy
-        run: ./node_modules/.bin/now --prod --token $NOW_TOKEN
+        run: ./node_modules/.bin/now --prod --token $NOW_TOKEN --confirm
         env:
           NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
