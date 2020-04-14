@@ -97,7 +97,7 @@ const fetchGitHub: (() => Promise<Repository[]>) = async () => {
 
     return await Promise.all(data.user.repositories.nodes.map(async repo => ({
         name: repo.parent?.nameWithOwner ?? repo.name,
-        description: repo.description,
+        description: repo.description ?? '',
         url: repo.homepageUrl || repo.url,
         image: repo.usesCustomOpenGraphImage ? await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640) : null,
         languages: repo.languages.nodes.map(lang => ({
