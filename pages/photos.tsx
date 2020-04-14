@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
 import {NextPage, GetServerSideProps} from 'next';
 import {useAmp} from 'next/amp';
-import fetch from 'node-fetch';
 import LazyLoad from 'react-lazyload';
 
-import Image from '~/lib/image';
+import fetchInstagram, {Photo} from '~/lib/instagram';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -15,25 +14,11 @@ import ViewMore from '~/components/ViewMore';
 
 
 export type Props = {
-    photos: {
-        url: string,
-        image: {
-            mdpi: string,
-            hdpi: string,
-            srcSet: string,
-        },
-        trace: {
-            path: string,
-            viewBox: string,
-        },
-        width: number,
-        height: number,
-        caption: string,
-    }[],
+    photos: Photo[],
 };
 
 
-const PhotoItem: FC<Props["photos"][0]> = ({url, image, trace, width, height, caption}) => (
+const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
     <figure>
         <svg
             width={width}
@@ -232,40 +217,11 @@ const Photos: NextPage<Props> = ({photos}) => (
 );
 
 
-export const getStaticProps: GetServerSideProps<Props> = async () => {
-    const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${process.env.INSTAGRAM_TOKEN}`);
-
-    if (!resp.ok) {
-        throw new Error(`failed to fetch Instagram data: ${resp.status} ${resp.statusText}`);
-    }
-
-    type RawInstagramResponse = {
-        data: {
-            id: string,
-            permalink: string,
-            media_url: string,
-            caption: string,
-        }[],
-    };
-
-    const data: RawInstagramResponse = await resp.json();
-
-    return {
-        props: {
-            photos: await Promise.all(data.data.map(async post => {
-                const img = await Image.read(post.media_url);
-
-                return {
-                    ...img.size,
-                    url: post.permalink,
-                    image: await img.optimize('photos', 480),
-                    trace: await img.trace(),
-                    caption: post.caption,
-                };
-            })),
-        },
-    };
-};
+export const getStaticProps: GetServerSideProps<Props> = async () => ({
+    props: {
+        photos: await fetchInstagram(),
+    },
+});
 
 
 export default Photos;
