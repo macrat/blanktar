@@ -1,8 +1,16 @@
 module.exports = {
     setupFiles: ['./jest.setup.ts'],
-    testMatch: ['**/__tests__/**/*.js?(x)'],
+    testMatch: ['**/__tests__/**/*.(js|jsx|ts|tsx)'],
     moduleNameMapper: {
         '~/(.+)': '<rootDir>/$1',
+    },
+    transform: {
+        '\\.(ts|tsx)$': 'ts-jest',
+    },
+    globals: {
+        'ts-jest': {
+            babelConfig: true,
+        },
     },
     testPathIgnorePatterns: [
         '/.git/',
