@@ -60,7 +60,9 @@ const HighlightCode: FC<Props> = ({children, lang}) => (
                         <div key={i}>
                             {line.map((token, key) => {
                                 const {className, children} = getTokenProps({token, key});
-                                return <span key={key} className={classNameMap[className.split('token ')[1]]}>{children}</span>
+                                return (
+                                    <span key={key} className={classNameMap[className.split('token ')[1]]}>{children}</span>
+                                );
                             })}
                         </div>
                     ))}

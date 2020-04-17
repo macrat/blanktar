@@ -28,7 +28,9 @@ const Image: FC<Props> = ({src, alt, width, height, title, center=false, style={
         throw new Error(`alt is not provided: ![${alt}](${src})`);
     }
 
-    return <ImageComponent src={src} alt={alt} width={width} height={height} center={center} style={style} />
+    return (
+        <ImageComponent src={src} alt={alt} width={width} height={height} center={center} style={style} />
+    );
 };
 
 

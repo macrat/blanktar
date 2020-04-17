@@ -28,5 +28,5 @@ export default (handler: NextApiHandler, {etag, control}: Opts) => {
         }
 
         await handler(req, res);
-    }
+    };
 };

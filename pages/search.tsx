@@ -131,8 +131,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
             <Pagination
                 current={page}
                 total={Math.ceil(result.totalCount / 20)}
-                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`}
-                />
+                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
                 ul {

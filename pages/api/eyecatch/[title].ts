@@ -12,7 +12,7 @@ import createETag from '~/lib/api/etag';
 let fontLoaded = false;
 const loadFont = async (origin: string) => {
     if (fontLoaded) {
-        return
+        return;
     }
 
     let fontPath = './assets/NotoSansCJKjp-Light.otf';
