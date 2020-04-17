@@ -29,6 +29,8 @@ test('hit', async () => {
 
 
 test('miss', async () => {
+    let called = false;
+
     const req = new Request({
         headers: {'if-none-match': '"test2"'},
     });
@@ -41,8 +43,6 @@ test('miss', async () => {
             expect(res.statusCode).toBe(200);
         },
     });
-
-    let called = false;
 
     const handler = withCache(() => {
         called = true;

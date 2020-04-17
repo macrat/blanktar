@@ -8,14 +8,14 @@ interface RequestOptions extends MockRequestOptions {
     cookies?: {
         [key: string]: string;
     };
-    body?: any;
+    body?: any;  // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 
 export class Request extends RequestMock {
     readonly query: {[key: string]: string | string[]};
     readonly cookies: {[key: string]: string};
-    readonly body: any;
+    readonly body: any;  // eslint-disable-line @typescript-eslint/no-explicit-any
 
     constructor(options: RequestOptions = {}) {
         super(options);
@@ -28,7 +28,7 @@ export class Request extends RequestMock {
     get env() {
         return {};
     }
-};
+}
 
 
 export class Response<T> extends ResponseMock {
@@ -45,6 +45,7 @@ export class Response<T> extends ResponseMock {
         return this;
     }
 
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     setPreviewData(data: string | object, options?: {maxAge?: number | undefined} | undefined): Response<T> {
         return this;
     }
@@ -52,4 +53,4 @@ export class Response<T> extends ResponseMock {
     clearPreviewData(): Response<T> {
         return this;
     }
-};
+}
