@@ -54,7 +54,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
         throw `${title} ${pubtime}: description is not provided`;
     }
 
-    const BlogArticle: FC<{}> = ({children}) => {
+    const BlogArticle: FC = ({children}) => {
         const router = useRouter();
         const ptime = new Date(pubtime);
 

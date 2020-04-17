@@ -30,7 +30,7 @@ export default ({title, description, breadlist, amp}: Props) => {
         throw `${title}: description is not provided`;
     }
 
-    const SinglePage: FC<{}> = ({children}) => (<>
+    const SinglePage: FC = ({children}) => (<>
         <Header />
 
         <SearchBar />

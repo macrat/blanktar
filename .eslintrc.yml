@@ -33,9 +33,7 @@ rules:
   '@typescript-eslint/no-throw-literal': error
   '@typescript-eslint/no-unnecessary-condition': error
   '@typescript-eslint/no-unnecessary-type-arguments': warn
-  '@typescript-eslint/no-unsafe-assignment': error
   '@typescript-eslint/no-unsafe-call': error
-  '@typescript-eslint/no-unsafe-access': error
   '@typescript-eslint/no-unsafe-return': error
   react/prop-types: off
 
