@@ -60,11 +60,13 @@
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-zopfli": "^6.0.0",
     "jest": "^25.3.0",
+    "jest-raw-loader": "^1.0.1",
     "mock-http": "^1.0.2",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
     "potrace": "^2.1.6",
     "preval.macro": "^5.0.0",
+    "raw-loader": "^4.0.1",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3",
     "xmlbuilder": "^15.1.1"

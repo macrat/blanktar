@@ -6,6 +6,7 @@ module.exports = {
     },
     transform: {
         '\\.(ts|tsx)$': 'ts-jest',
+        '\\.svg$': 'jest-raw-loader',
     },
     globals: {
         'ts-jest': {

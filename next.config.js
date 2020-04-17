@@ -34,6 +34,13 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
         config.resolve.alias['~'] = __dirname;
+        config.module.rules.push({
+            test: /\.svg$/i,
+            use: [{
+                loader: 'raw-loader',
+                options: {esModule: false},
+            }],
+        });
         return config;
     },
     env: {
