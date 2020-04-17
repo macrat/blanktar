@@ -60,6 +60,7 @@
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-zopfli": "^6.0.0",
     "jest": "^25.3.0",
+    "mock-http": "^1.0.2",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "penv.macro": "^0.4.0",
     "potrace": "^2.1.5",

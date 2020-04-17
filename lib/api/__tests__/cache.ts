@@ -1,43 +1,47 @@
+import {Request, Response} from '../testutil';
+
 import withCache from '../cache';
 
 
 test('hit', async () => {
+    const req = new Request({
+        headers: {'if-none-match': '"test"'},
+    });
+
+    const res = new Response({
+        onEnd() {
+            expect(res.getHeader('ETag')).toBe('"test"');
+            expect(res.getHeader('Cache-Control')).toBe('public, max-age=123');
+            expect(res.statusCode).toBe(304);
+        },
+    });
+
     const handler = withCache(() => {
         throw new Error("don't call me!");
     }, {
         etag: '"test"',
         control: 'public, max-age=123',
     });
-    const respHeaders: {[key: string]: string} = {};
-    let respCode = 0;
 
-    await handler({
-        headers: {'if-none-match': '"test"'},
-    }, {
-        setHeader(name: string, value: string) {
-            respHeaders[name] = value;
-            return this;
-        },
-        status(code: number) {
-            respCode = code;
-            return this;
-        },
-        end() {
-            return this;
-        },
-    });
-
-    expect(respHeaders).toStrictEqual({
-        ETag: '"test"',
-        'Cache-Control': 'public, max-age=123',
-    });
-    expect(respCode).toBe(304);
+    await handler(req, res);
+    res.end();
 });
 
 
 test('miss', async () => {
-    const respHeaders: {[key: string]: string} = {};
-    let respCode = -1;
+    const req = new Request({
+        headers: {'if-none-match': '"test2"'},
+    });
+
+    const res = new Response({
+        onEnd() {
+            expect(called).toBe(true);
+            expect(res.getHeader('ETag')).toBe('"test"');
+            expect(res.getHeader('Cache-Control')).toBe('public, max-age=123');
+            expect(res.statusCode).toBe(200);
+        },
+    });
+
     let called = false;
 
     const handler = withCache(() => {
@@ -47,26 +51,6 @@ test('miss', async () => {
         control: 'public, max-age=123',
     });
 
-    await handler({
-        headers: {'if-none-match': '"test2"'},
-    }, {
-        setHeader(name: string, value: string) {
-            respHeaders[name] = value;
-            return this;
-        },
-        status(code: number) {
-            respCode = code;
-            return this;
-        },
-        end() {
-            return this;
-        },
-    });
-
-    expect(called).toBe(true);
-    expect(respHeaders).toStrictEqual({
-        ETag: '"test"',
-        'Cache-Control': 'public, max-age=123',
-    });
-    expect(respCode).toBe(-1);
+    await handler(req, res);
+    res.end();
 });

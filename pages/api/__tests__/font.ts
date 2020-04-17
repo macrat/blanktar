@@ -1,24 +1,19 @@
+import {Request, Response} from '~/lib/api/testutil';
+
 import font from '../font';
 
 
 test('fetch by google', async () => {
-    const headers: {[key: string]: string} = {};
+    const req = new Request();
 
-    await font({
-        headers: {},
-    }, {
-        setHeader(name: string, value: string) {
-            headers[name] = value;
-            return this;
-        },
-        status() {
-            return this;
-        },
-        send() {
-            return this;
+    const res = new Response({
+        onEnd() {
+            expect(res.getHeader('Content-Type')).toBe('text/css; charset=utf-8');
+            expect(res.getHeader('Link')).toBe('<https://fonts.gstatic.com>; rel=preconnect; crossorigin');
+            expect(res.statusCode).toBe(200);
         },
     });
 
-    expect(headers['Content-Type']).toBe('text/css; charset=utf-8');
-    expect(headers['Link']).toBe('<https://fonts.gstatic.com>; rel=preconnect; crossorigin');
+    await font(req, res);
+    res.end();
 });
