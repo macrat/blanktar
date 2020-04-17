@@ -4,10 +4,7 @@ import Image from '../image';
 
 
 beforeEach(async () => {
-    try {
-        await fs.rmdir('./.next/static/__test__', {recursive: true});
-    } catch {
-    }
+    await fs.rmdir('./.next/static/__test__', {recursive: true}).catch(() => null);
 });
 
 

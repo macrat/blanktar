@@ -16,13 +16,13 @@ const execute = async (title: string) => {
             headers[name] = value;
             return this;
         },
-        send(data: any) {
+        send() {
             return this;
         },
     });
 
     return {headers};
-}
+};
 
 
 describe("don't crash", () => {

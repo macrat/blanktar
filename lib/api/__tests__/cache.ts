@@ -2,11 +2,11 @@ import withCache from '../cache';
 
 
 test('hit', async () => {
-    const handler = withCache((req, res) => {
+    const handler = withCache(() => {
         throw new Error("don't call me!");
     }, {
-         etag: '"test"',
-         control: 'public, max-age=123',
+        etag: '"test"',
+        control: 'public, max-age=123',
     });
     const respHeaders: {[key: string]: string} = {};
     let respCode = 0;
@@ -40,11 +40,11 @@ test('miss', async () => {
     let respCode = -1;
     let called = false;
 
-    const handler = withCache((req, res) => {
+    const handler = withCache(() => {
         called = true;
     }, {
-         etag: '"test"',
-         control: 'public, max-age=123',
+        etag: '"test"',
+        control: 'public, max-age=123',
     });
 
     await handler({

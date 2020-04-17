@@ -11,13 +11,13 @@ test('fetch by google', async () => {
             headers[name] = value;
             return this;
         },
-        status(code: number) {
+        status() {
             return this;
         },
-        send(value: any) {
+        send() {
             return this;
         },
-    })
+    });
 
     expect(headers['Content-Type']).toBe('text/css; charset=utf-8');
     expect(headers['Link']).toBe('<https://fonts.gstatic.com>; rel=preconnect; crossorigin');
