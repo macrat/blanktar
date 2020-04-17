@@ -5,13 +5,13 @@ import ErrorPage from '~/components/ErrorPage';
 
 
 export type Props = {
-    statusCode: number,
+    statusCode: number;
 };
 
 
 type MessageSet = {
-    [key: number]: string,
-    default: string,
+    [key: number]: string | undefined;
+    default: string;
 };
 
 

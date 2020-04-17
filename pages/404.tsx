@@ -4,10 +4,7 @@ import {NextPage} from 'next';
 import ErrorPage from '~/components/ErrorPage';
 
 
-export type Props = {};
-
-
-const NotFound: NextPage<Props> = () => (
+const NotFound: NextPage = () => (
     <ErrorPage
         statusCode={404}
         title="ページが見つかりません"

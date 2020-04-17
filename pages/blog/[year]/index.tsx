@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage} from 'next';
+import {NextPage, GetStaticProps, GetStaticPaths} from 'next';
 
 import posts from '~/lib/posts';
 
@@ -11,7 +11,7 @@ import BlogList, {Props as BlogListProps} from '~/components/BlogList';
 
 
 export type Props = BlogListProps & {
-    year: number,
+    year: number;
 };
 
 
@@ -40,7 +40,11 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
 };
 
 
-export const getStaticProps = async ({params}: {params: {year: string}}) => {
+export const getStaticProps: GetStaticProps<Props, {year: string}> = async ({params}) => {
+    if (params?.year === undefined) {
+        throw new Error('year is must be some number');
+    }
+
     const year = Number(params.year);
 
     const ps = posts.filter(x => x.year === year).map(x => ({
@@ -60,7 +64,7 @@ export const getStaticProps = async ({params}: {params: {year: string}}) => {
 };
 
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const years = Array.from(new Set(posts.map(x => x.year)));
 
     return {

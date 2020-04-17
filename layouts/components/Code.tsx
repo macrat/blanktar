@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 
 
 export type Props = {
-    className?: string,
+    className?: string;
 };
 
 

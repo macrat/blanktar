@@ -5,7 +5,7 @@ import env from 'penv.macro';
 
 
 ReactGA.initialize(
-    process.env.GOOGLE_ANALYTICS!,
+    process.env.GOOGLE_ANALYTICS ?? '',
     env({
         development: {
             debug: true,

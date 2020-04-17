@@ -1,11 +1,7 @@
 import React, {FC} from 'react';
 
 
-export type Props = {
-};
-
-
-const ListItem: FC<Props> = ({children}) => (
+const ListItem: FC = ({children}) => (
     <li>
         <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" /></svg>
         <svg width="1px" height="100%" className="line left"><rect x="0" y="0" width="100%" height="100%" /></svg>

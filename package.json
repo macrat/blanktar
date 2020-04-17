@@ -11,7 +11,7 @@
     "analyze": "ANALYZE=true next build",
     "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
     "test": "jest",
-    "lint": "eslint {pages,components,lib,layouts}/{**/*.ts*,*.ts*}"
+    "lint": "eslint --ext .ts,.tsx ."
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.3.4",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/imagemin-mozjpeg": "^8.0.0",
     "@types/node": "^13.11.1",
     "@types/node-fetch": "^2.5.6",

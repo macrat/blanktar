@@ -4,8 +4,8 @@ import ShareButton from './ShareButton';
 
 
 export type Props = {
-    title: string,
-    href: string,
+    title: string;
+    href: string;
 };
 
 

@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (req.headers['if-none-match'] === etag) {
         res.status(304).end();
-        return
+        return;
     }
 
     res.send(css);

@@ -5,10 +5,7 @@ import Head from 'next/head';
 import JsonLD, {Website} from '~/components/JsonLD';
 
 
-export type Props = {};
-
-
-const CommonResources: FC<Props> = () => {
+const CommonResources: FC = () => {
     const [fontCSS, setFontCSS] = useState<string>("");
     const isAmp = useAmp();
 

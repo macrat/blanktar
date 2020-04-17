@@ -3,10 +3,8 @@ import {useAmp} from 'next/amp';
 
 import animation from './animation';
 
-export type Props = {};
 
-
-const Tombo: FC<Props> = ({children}) => (
+const Tombo: FC = ({children}) => (
     <div>
         <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top left ${animation.className}`}>
             <polyline points="15 0, 15 10, 5 10" fill="none" strokeWidth="0.2" className={animation.className} />

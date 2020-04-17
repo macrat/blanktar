@@ -2,10 +2,10 @@ import React, {FC} from 'react';
 
 
 export type Props = {
-    name: string,
-    href: string,
-    viewBox: string,
-    path: string,
+    name: string;
+    href: string;
+    viewBox: string;
+    path: string;
 };
 
 

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 
 
 export type Props = {
-    date: string,
+    date: string;
 };
 
 

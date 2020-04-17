@@ -1,10 +1,7 @@
 import React, {FC} from 'react';
 
 
-export type Props = {};
-
-
-const InlineCode: FC<Props> = ({children}) => (
+const InlineCode: FC = ({children}) => (
     <code>
         {children}
 

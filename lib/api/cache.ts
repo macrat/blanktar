@@ -4,8 +4,8 @@ import {NextApiRequest, NextApiResponse, NextApiHandler} from 'next';
 type ETagFunc = (req: NextApiRequest) => string;
 
 type Opts = {
-    etag: string | ETagFunc,
-    control: string,
+    etag: string | ETagFunc;
+    control: string;
 };
 
 
@@ -28,5 +28,5 @@ export default (handler: NextApiHandler, {etag, control}: Opts) => {
         }
 
         await handler(req, res);
-    }
+    };
 };

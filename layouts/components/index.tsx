@@ -17,9 +17,6 @@ import Tr from './Tr';
 import {H1, H2, H3} from './headings';
 
 
-export type Props = {};
-
-
 const components = {
     PS: PS,
     Script: Script,
@@ -41,7 +38,7 @@ const components = {
 };
 
 
-const MDXComponentsProvider: FC<Props> = ({children}) => (
+const MDXComponentsProvider: FC = ({children}) => (
     <MDXProvider components={components}>
         {children}
     </MDXProvider>

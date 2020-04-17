@@ -26,7 +26,7 @@ export default (query: string, offset: number, limit: number) => {
             const summary = queries.reduce((s, q) => {
                 const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
                 return s.replace(re, `<mark>${q}</mark>`);
-            }, sanitize(p.description || ''));
+            }, sanitize(p.description ?? ''));
 
             return {
                 title: title,

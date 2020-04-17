@@ -6,7 +6,7 @@ import {SuccessResponse} from '~/pages/api/search/title';
 
 
 export type Props = {
-    query: string,
+    query: string;
 };
 
 

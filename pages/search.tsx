@@ -18,9 +18,9 @@ import Pagination from '~/components/Pagination';
 
 
 export type Props = {
-    query: string,
-    page: number,
-    result: SuccessResponse,
+    query: string;
+    page: number;
+    result: SuccessResponse;
 };
 
 
@@ -38,7 +38,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 
         fetch(`/api/search?${new URLSearchParams({
             q: query,
-            offset: String(10 * ((page ?? 1) - 1)),
+            offset: String(10 * (page - 1)),
             limit: '10',
         })}`).then(resp => {
             if (!resp.ok) {
@@ -83,7 +83,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
 
     useEffect(() => {
-        setQuery(String(router.query.q || ''));
+        setQuery(String(router.query.q));
         doSearch();
     }, [router.query]);
 
@@ -131,8 +131,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
             <Pagination
                 current={page}
                 total={Math.ceil(result.totalCount / 20)}
-                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`}
-                />
+                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
                 ul {
@@ -171,8 +170,8 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 
 
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
-    const q = String(query.q || '');
-    const page = Number(String(query.page || 1));
+    const q = String(query.q ? query.q : '');
+    const page = Number(String(query.page ? query.page : 1));
 
     return {
         props: {
