@@ -76,7 +76,7 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#402020';
 
-    const title = String(req.query.title ?? '');
+    const title = String(req.query.title);
     const size = ctx.measureText(title);
 
     if (size.width > 1200-120) {

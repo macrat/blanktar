@@ -83,7 +83,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
 
     useEffect(() => {
-        setQuery(String(router.query.q ?? ''));
+        setQuery(String(router.query.q));
         doSearch();
     }, [router.query]);
 

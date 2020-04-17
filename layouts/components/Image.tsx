@@ -18,8 +18,8 @@ export type Props = {
 
 const Image: FC<Props> = ({src, alt, width, height, title, center=false, style={}}) => {
     const [w, h] = title?.match(/^([0-9]+)x([0-9]+)$/)?.slice(1) ?? [];
-    width = Number(String(width || w)) ?? undefined;
-    height = Number(String(height || h)) ?? undefined;
+    width = Number(String(width || w));
+    height = Number(String(height || h));
 
     if (!width || !height) {
         throw new Error(`width or height is not provided: ![${alt}](${src})`);
