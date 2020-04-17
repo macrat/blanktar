@@ -37,7 +37,7 @@ const loadFont = async (origin: string) => {
 };
 
 
-const baseImageSVG = require('~/assets/eyecatch-base.svg');
+const baseImageSVG = require('~/assets/eyecatch-base.svg') as string;  // eslint-disable-line @typescript-eslint/no-var-requires
 const baseImageURI = 'data:image/svg+xml;base64,' + Buffer.from(baseImageSVG).toString('base64');
 const hash = createHash('md5').update(baseImageSVG).digest('hex');
 
