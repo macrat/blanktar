@@ -18,6 +18,7 @@ parserOptions:
     jsx: true
   ecmaVersion: 2018
   sourceType: module
+  project: ./tsconfig.json
 
 plugins:
   - react
@@ -28,6 +29,7 @@ rules:
   '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/naming-convention': warn
   '@typescript-eslint/no-for-in-array': error
+  '@typescript-eslint/no-implied-eval': error
   '@typescript-eslint/no-throw-literal': error
   '@typescript-eslint/no-unnecessary-condition': error
   '@typescript-eslint/no-unnecessary-type-arguments': warn
