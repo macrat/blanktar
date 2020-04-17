@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.3.4",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/imagemin-mozjpeg": "^8.0.0",
     "@types/node": "^13.11.1",
     "@types/node-fetch": "^2.5.6",
