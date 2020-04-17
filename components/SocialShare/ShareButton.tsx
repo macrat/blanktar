@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 
 
 export type Props = {
-    href: string,
-    alt: string,
+    href: string;
+    alt: string;
 };
 
 

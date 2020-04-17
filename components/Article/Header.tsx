@@ -6,10 +6,10 @@ import {date2str, date2readable} from '../DateTime';
 
 
 export type Props = {
-    pubtime?: Date,
-    title?: string,
-    tags?: string[],
-    breadlist?: BreadListProps['pages'],
+    pubtime?: Date;
+    title?: string;
+    tags?: string[];
+    breadlist?: BreadListProps['pages'];
 };
 
 

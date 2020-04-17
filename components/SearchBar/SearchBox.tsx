@@ -3,10 +3,10 @@ import Router from 'next/router';
 
 
 export type Props = {
-    query: string,
-    setQuery: (query: string) => void,
-    onSearch?: (query: string) => void,
-    autoFocus?: boolean,
+    query: string;
+    setQuery: (query: string) => void;
+    onSearch?: (query: string) => void;
+    autoFocus?: boolean;
 };
 
 

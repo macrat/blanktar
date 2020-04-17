@@ -7,9 +7,9 @@ export type HrefFunc = (page: number) => string | UrlObject;
 
 
 export type Props = {
-    current: boolean,
-    page: number,
-    href: HrefFunc,
+    current: boolean;
+    page: number;
+    href: HrefFunc;
 };
 
 

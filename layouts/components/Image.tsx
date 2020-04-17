@@ -4,15 +4,15 @@ import ImageComponent from '~/components/Image';
 
 
 export type Props = {
-    src: string,
-    alt: string,
-    width?: number,
-    height?: number,
-    title?: string,
-    center?: boolean,
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    title?: string;
+    center?: boolean;
     style?: {
-        [key: string]: string | number,
-    },
+        [key: string]: string | number;
+    };
 };
 
 

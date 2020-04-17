@@ -40,22 +40,22 @@ export default class Image {
         this.img = img;
     }
 
-    public static async read(src: string) {
+    public static async read(src: string): Promise<Image> {
         return new Image(await Jimp.read(src));
     }
 
-    get size() {
+    get size(): {width: number, height: number} {
         return {
             width: this.img.bitmap.width,
             height: this.img.bitmap.height,
         };
     }
 
-    get mimetype() {
+    get mimetype(): string {
         return this.img.getMIME();
     }
 
-    get extension() {
+    get extension(): string {
         const ext = this.img.getExtension();
         if (ext === 'jpeg') {
             return 'jpg';
@@ -63,15 +63,15 @@ export default class Image {
         return ext;
     }
 
-    hash() {
+    hash(): string {
         return createHash('md5').update(this.img.bitmap.data).digest('hex');
     }
 
-    private async resize(width: number) {
+    private async resize(width: number): Promise<Buffer> {
         return await this.img.clone().resize(width, Jimp.AUTO).getBufferAsync(this.mimetype);
     }
 
-    private async compress(img: Buffer) {
+    private async compress(img: Buffer): Promise<Buffer> {
         switch (this.mimetype) {
         case 'image/jpeg':
             return await mozjpeg({quality: 80})(img);
@@ -83,7 +83,7 @@ export default class Image {
     }
 
     async optimize(path: string, width: number) {
-        await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => {});
+        await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => null);
 
         const hash = this.hash();
 

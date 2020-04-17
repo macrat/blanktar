@@ -3,6 +3,7 @@ import {useAmp} from 'next/amp';
 
 import animation from './animation';
 
+
 export type Props = {};
 
 

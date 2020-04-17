@@ -18,8 +18,8 @@ export const config = {
 
 
 export type Props = BlogListProps & {
-    page: number,
-    totalPages: number,
+    page: number;
+    totalPages: number;
 };
 
 

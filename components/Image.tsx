@@ -3,14 +3,14 @@ import {useAmp} from 'next/amp';
 
 
 export type Props = {
-    src: string,
-    alt: string,
-    width: number,
-    height: number,
-    center?: boolean,
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    center?: boolean;
     style?: {
-        [key: string]: string | number,
-    },
+        [key: string]: string | number;
+    };
 };
 
 

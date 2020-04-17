@@ -5,9 +5,9 @@ import PageLink, {HrefFunc} from './PageLink';
 
 
 export type Props = {
-    current: number,
-    total: number,
-    href: HrefFunc,
+    current: number;
+    total: number;
+    href: HrefFunc;
 };
 
 

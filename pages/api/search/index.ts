@@ -8,17 +8,17 @@ import createETag from '~/lib/api/etag';
 
 export type SuccessResponse = {
     posts: {
-        title: string,
-        href: string,
-        pubtime: string,
-        summary: string,
-    }[],
-    totalCount: number,
+        title: string;
+        href: string;
+        pubtime: string;
+        summary: string;
+    }[];
+    totalCount: number;
 };
 
 
 export type Response = SuccessResponse | {
-    error: string,
+    error: string;
 };
 
 

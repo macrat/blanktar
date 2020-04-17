@@ -18,9 +18,9 @@ import Pagination from '~/components/Pagination';
 
 
 export type Props = {
-    query: string,
-    page: number,
-    result: SuccessResponse,
+    query: string;
+    page: number;
+    result: SuccessResponse;
 };
 
 

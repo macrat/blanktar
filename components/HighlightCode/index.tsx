@@ -6,8 +6,8 @@ import './language-supports';
 
 
 export type Props = {
-    children: string,
-    lang: string,
+    children: string;
+    lang: string;
 };
 
 

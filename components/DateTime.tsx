@@ -12,8 +12,8 @@ export const date2readable = (t: Date) => (
 
 
 export type Props = {
-    dateTime: Date,
-    readableSuffix?: string,
+    dateTime: Date;
+    readableSuffix?: string;
 };
 
 

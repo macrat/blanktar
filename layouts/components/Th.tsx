@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 
 
 export type Props = {
-    align?: 'left' | 'center' | 'right' | 'justify' | 'char',
+    align?: 'left' | 'center' | 'right' | 'justify' | 'char';
 };
 
 

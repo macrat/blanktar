@@ -10,7 +10,7 @@ import createETag from '~/lib/api/etag';
 
 
 let fontLoaded = false;
-const loadFont = async (origin: String) => {
+const loadFont = async (origin: string) => {
     if (fontLoaded) {
         return
     }

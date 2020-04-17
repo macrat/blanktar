@@ -95,7 +95,7 @@ declare module 'potrace' {
 
 declare module 'imagemin-zopfli' {
     interface Options {
-        transparent?: boolean,
+        transparent?: boolean;
     };
 
     const imageminZopfli: (opts: Options) => (buf: Buffer) => Promise<Buffer>;

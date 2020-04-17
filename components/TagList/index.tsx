@@ -5,11 +5,11 @@ import {className, styles} from './style';
 
 
 type ChildrenProps = {
-    tag: string,
+    tag: string;
     props: {
-        className: string,
-        "aria-label": string,
-    },
+        className: string;
+        "aria-label": string;
+    };
 };
 
 

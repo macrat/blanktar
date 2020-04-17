@@ -11,26 +11,26 @@ import SocialShare from '~/components/SocialShare';
 
 
 type HowTo = {
-    supply?: string[],
-    tool?: string[],
+    supply?: string[];
+    tool?: string[];
     step: {
-        name: string,
-        text: string,
-        image?: string,
-    }[],
-    totalTime?: string,
+        name: string;
+        text: string;
+        image?: string;
+    }[];
+    totalTime?: string;
 };
 
 
 export type Props = {
-    title: string,
-    pubtime: string,
-    modtime?: string,
-    amp: boolean | 'hybrid',
-    tags: string[],
-    image?: string,
-    description: string | null,
-    howto?: HowTo,
+    title: string;
+    pubtime: string;
+    modtime?: string;
+    amp: boolean | 'hybrid';
+    tags: string[];
+    image?: string;
+    description: string | null;
+    howto?: HowTo;
 };
 
 

@@ -4,29 +4,29 @@ import Image from '~/lib/image';
 
 
 export type Photo = {
-    url: string,
+    url: string;
     image: {
-        mdpi: string,
-        hdpi: string,
-        srcSet: string,
-    },
+        mdpi: string;
+        hdpi: string;
+        srcSet: string;
+    };
     trace: {
-        path: string,
-        viewBox: string,
-    },
-    width: number,
-    height: number,
-    caption: string,
+        path: string;
+        viewBox: string;
+    };
+    width: number;
+    height: number;
+    caption: string;
 };
 
 
 type RawInstagramResponse = {
     data: {
-        id: string,
-        permalink: string,
-        media_url: string,
-        caption: string,
-    }[],
+        id: string;
+        permalink: string;
+        media_url: string;
+        caption: string;
+    }[];
 };
 
 

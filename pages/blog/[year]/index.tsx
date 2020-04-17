@@ -11,7 +11,7 @@ import BlogList, {Props as BlogListProps} from '~/components/BlogList';
 
 
 export type Props = BlogListProps & {
-    year: number,
+    year: number;
 };
 
 

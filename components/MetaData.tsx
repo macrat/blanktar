@@ -4,9 +4,9 @@ import {useRouter} from 'next/router';
 
 
 export type Props = {
-    title?: string,
-    description?: string,
-    image?: string,
+    title?: string;
+    description?: string;
+    image?: string;
 };
 
 

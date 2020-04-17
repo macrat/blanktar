@@ -14,7 +14,7 @@ import ViewMore from '~/components/ViewMore';
 
 
 export type Props = {
-    photos: Photo[],
+    photos: Photo[];
 };
 
 

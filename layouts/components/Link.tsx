@@ -4,7 +4,7 @@ import {OutboundLink} from 'react-ga';
 
 
 export type Props = {
-    href: string,
+    href: string;
 };
 
 

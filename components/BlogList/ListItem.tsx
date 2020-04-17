@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 
 
-export type Props = {
-};
+export type Props = {};
 
 
 const ListItem: FC<Props> = ({children}) => (

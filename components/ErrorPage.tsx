@@ -6,9 +6,9 @@ import SearchBox from './SearchBar/SearchBox';
 
 
 export type Props = {
-    statusCode: number,
-    title: string,
-    message?: string,
+    statusCode: number;
+    title: string;
+    message?: string;
 };
 
 

@@ -26,11 +26,11 @@ const BreadCrumbIcon = preval`
 
 export type Props = {
     pages: {
-        title: string,
-        href: string,
-        as?: string,
-        description?: string,
-    }[],
+        title: string;
+        href: string;
+        as?: string;
+        description?: string;
+    }[];
 };
 
 

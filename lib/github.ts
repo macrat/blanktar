@@ -4,23 +4,23 @@ import Image from '~/lib/image';
 
 
 export type Language = {
-    name: string,
-    color: string,
+    name: string;
+    color: string;
 };
 
 
 export type Repository = {
-    name: string,
-    description: string,
-    url: string | null,
+    name: string;
+    description: string;
+    url: string | null;
     image: null | {
-        srcSet: string,
-        mdpi: string,
-        hdpi: string,
-    },
-    languages: Language[],
-    updatedAt: string,
-    createdAt: string,
+        srcSet: string;
+        mdpi: string;
+        hdpi: string;
+    };
+    languages: Language[];
+    updatedAt: string;
+    createdAt: string;
 };
 
 
