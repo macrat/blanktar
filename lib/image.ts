@@ -33,6 +33,12 @@ const tracePath = (image: Buffer) => {
 };
 
 
+type ImageSize = {
+    width: number;
+    height: number;
+};
+
+
 export default class Image {
     private readonly img: Jimp;
 
@@ -44,7 +50,7 @@ export default class Image {
         return new Image(await Jimp.read(src));
     }
 
-    get size(): {width: number, height: number} {
+    get size(): ImageSize {
         return {
             width: this.img.bitmap.width,
             height: this.img.bitmap.height,

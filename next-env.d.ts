@@ -87,7 +87,7 @@ declare module 'potrace' {
         readonly setParameters: (params: Params) => void;
         readonly getSVG: () => string;
         readonly getPathTag: () => string;
-        readonly loadImage: (image: string | Buffer, callback: (err: Error) => void) => void;
+        readonly loadImage: (image: string | Buffer, callback: (err?: Error) => void) => void;
     };
 
     export class Potrace extends Potrace {};

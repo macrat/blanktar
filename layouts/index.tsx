@@ -27,7 +27,7 @@ export type Props = {
     pubtime: string;
     modtime?: string;
     amp: boolean | 'hybrid';
-    tags: string[];
+    tags?: string[];
     image?: string;
     description: string | null;
     howto?: HowTo;
@@ -36,22 +36,22 @@ export type Props = {
 
 export default ({title, pubtime, modtime, amp, tags, image, description, howto}: Props) => {
     if (!title) {
-        throw `${pubtime}: title is not provided`;
+        throw new Error(`${pubtime}: title is not provided`);
     }
     if (!pubtime || !pubtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw `${title}: pubtime is not provided or invalid format: "${pubtime}"`;
+        throw new Error(`${title}: pubtime is not provided or invalid format: "${pubtime}"`);
     }
     if (modtime && !modtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw `${title}: modtime is not provided or invalid format: "${modtime}"`;
+        throw new Error(`${title}: modtime is not provided or invalid format: "${modtime}"`);
     }
     if (![true, false, 'hybrid'].includes(amp)) {
-        throw `${title} ${pubtime}: amp is not provided or invalid value: "${amp}"`;
+        throw new Error(`${title} ${pubtime}: amp is not provided or invalid value: "${amp}"`);
     }
     if (!tags || tags.length === 0) {
-        throw `${title} ${pubtime}: tags is not provided`;
+        throw new Error(`${title} ${pubtime}: tags is not provided`);
     }
     if (!description && description !== null) {
-        throw `${title} ${pubtime}: description is not provided`;
+        throw new Error(`${title} ${pubtime}: description is not provided`);
     }
 
     const BlogArticle: FC = ({children}) => {
@@ -60,7 +60,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
 
         return (
             <>
-                <MetaData title={title} description={description || undefined} />
+                <MetaData title={title} description={description ?? undefined} />
 
                 <Header />
 
@@ -108,14 +108,14 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                         datePublished: pubtime,
                         dateModified: modtime,
                         publisher: Publisher,
-                        description: description || undefined,
+                        description: description ?? undefined,
                         mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
                     }} />
                     {howto ? (
                         <JsonLD data={{
                             '@type': 'HowTo',
                             name: title,
-                            description: description || undefined,
+                            description: description ?? undefined,
                             totalTime: howto?.totalTime,
                             supply: howto?.supply?.map(x => ({
                                 '@type': 'HowToSupply',
@@ -125,7 +125,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                                 '@type': 'HowToTool',
                                 name: x,
                             })),
-                            step: howto?.step?.map(x => ({
+                            step: howto?.step.map(x => ({
                                 '@type': 'HowToStep',
                                 name: x.name,
                                 text: x.text,

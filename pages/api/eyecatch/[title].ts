@@ -65,7 +65,7 @@ const hash = preval`
 
 
 export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
-    await loadFont(req.headers.host || 'localhost');
+    await loadFont(req.headers.host ?? 'localhost');
 
     const canvas = createCanvas(1200, 1200);
     const ctx = canvas.getContext('2d');
@@ -76,7 +76,7 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#402020';
 
-    const title = String(req.query.title || '');
+    const title = String(req.query.title ?? '');
     const size = ctx.measureText(title);
 
     if (size.width > 1200-120) {

@@ -55,7 +55,7 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
 
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({res, query}) => {
-    const offset = Number(String(query.offset ?? 0));
+    const offset = Number(String(query.offset ? query.offset : 0));
 
     const ps = posts.slice(Math.max(0, offset), Math.max(0, offset + 10)).map(p => ({
         title: p.title,

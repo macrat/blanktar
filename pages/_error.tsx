@@ -10,7 +10,7 @@ export type Props = {
 
 
 type MessageSet = {
-    [key: number]: string;
+    [key: number]: string | undefined;
     default: string;
 };
 
