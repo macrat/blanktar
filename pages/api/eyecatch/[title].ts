@@ -1,9 +1,9 @@
 import {promises as fs, constants} from 'fs';
+import {createHash} from 'crypto';
 
 import {NextApiRequest, NextApiResponse} from 'next';
 import {createCanvas, registerFont, Image} from 'canvas';
 import fetch from 'node-fetch';
-import preval from 'preval.macro';
 
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
@@ -37,6 +37,11 @@ const loadFont = async (origin: string) => {
 };
 
 
+const baseImageSVG = require('~/assets/eyecatch-base.svg') as string;  // eslint-disable-line @typescript-eslint/no-var-requires
+const baseImageURI = 'data:image/svg+xml;base64,' + Buffer.from(baseImageSVG).toString('base64');
+const hash = createHash('md5').update(baseImageSVG).digest('hex');
+
+
 const baseImage = () => {
     return new Promise<Image>((resolve, reject) => {
         const img = new Image();
@@ -44,24 +49,9 @@ const baseImage = () => {
         img.onload = () => resolve(img);
         img.onerror = err => reject(err);
 
-        img.src = preval`
-            const fs = require('fs');
-            module.exports = 'data:image/svg+xml;base64,' + fs.readFileSync('./assets/eyecatch-base.svg', 'base64');
-        `;
+        img.src = baseImageURI;
     });
 };
-
-
-const hash = preval`
-    module.exports = (
-        require('crypto')
-            .createHash('md5')
-            .update(
-                require('fs').readFileSync('./assets/eyecatch-base.svg', 'utf8')
-            )
-            .digest('hex')
-    );
-`;
 
 
 export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {

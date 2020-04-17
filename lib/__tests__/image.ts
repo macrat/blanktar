@@ -4,10 +4,7 @@ import Image from '../image';
 
 
 beforeEach(async () => {
-    try {
-        await fs.rmdir('./.next/static/__test__', {recursive: true});
-    } catch {
-    }
+    await fs.rmdir('./.next/static/__test__', {recursive: true}).catch(() => null);
 });
 
 
@@ -108,8 +105,8 @@ describe('optimize', () => {
         expect(second.mdpi).toBe(first.mdpi);
         expect(second.hdpi).toBe(first.hdpi);
 
-        expect(end - lap).toBeLessThan(500);
-        expect(end - lap).toBeLessThan(lap - start);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(500);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(lap.getTime() - start.getTime());
     });
 });
 
