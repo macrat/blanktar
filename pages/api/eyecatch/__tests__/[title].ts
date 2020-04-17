@@ -3,8 +3,8 @@ import Benchmark from 'asyncmark';
 import eyecatch from '../[title]';
 
 
-const execute = async (title) => {
-    const headers = {};
+const execute = async (title: string) => {
+    const headers: {[key: string]: string} = {};
 
     await eyecatch({
         headers: {},
@@ -12,11 +12,11 @@ const execute = async (title) => {
             title: title,
         },
     }, {
-        setHeader(name, value) {
+        setHeader(name: string, value: string) {
             headers[name] = value;
             return this;
         },
-        send(data) {
+        send(data: any) {
             return this;
         },
     });

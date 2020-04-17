@@ -108,8 +108,8 @@ describe('optimize', () => {
         expect(second.mdpi).toBe(first.mdpi);
         expect(second.hdpi).toBe(first.hdpi);
 
-        expect(end - lap).toBeLessThan(500);
-        expect(end - lap).toBeLessThan(lap - start);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(500);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(lap.getTime() - start.getTime());
     });
 });
 

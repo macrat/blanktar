@@ -8,17 +8,17 @@ test('hit', async () => {
          etag: '"test"',
          control: 'public, max-age=123',
     });
-    const respHeaders = {};
+    const respHeaders: {[key: string]: string} = {};
     let respCode = 0;
 
     await handler({
         headers: {'if-none-match': '"test"'},
     }, {
-        setHeader(name, value) {
+        setHeader(name: string, value: string) {
             respHeaders[name] = value;
             return this;
         },
-        status(code) {
+        status(code: number) {
             respCode = code;
             return this;
         },
@@ -36,7 +36,7 @@ test('hit', async () => {
 
 
 test('miss', async () => {
-    const respHeaders = {};
+    const respHeaders: {[key: string]: string} = {};
     let respCode = -1;
     let called = false;
 
@@ -50,11 +50,11 @@ test('miss', async () => {
     await handler({
         headers: {'if-none-match': '"test2"'},
     }, {
-        setHeader(name, value) {
+        setHeader(name: string, value: string) {
             respHeaders[name] = value;
             return this;
         },
-        status(code) {
+        status(code: number) {
             respCode = code;
             return this;
         },

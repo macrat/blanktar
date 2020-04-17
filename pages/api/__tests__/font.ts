@@ -2,19 +2,19 @@ import font from '../font';
 
 
 test('fetch by google', async () => {
-    const headers = {};
+    const headers: {[key: string]: string} = {};
 
     await font({
         headers: {},
     }, {
-        setHeader(name, value) {
+        setHeader(name: string, value: string) {
             headers[name] = value;
             return this;
         },
-        status(code) {
+        status(code: number) {
             return this;
         },
-        send(value) {
+        send(value: any) {
             return this;
         },
     })
