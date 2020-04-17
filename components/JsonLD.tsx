@@ -50,7 +50,7 @@ export const Website: Thing = {
 
 
 export type Props = {
-    data: Thing,
+    data: Thing;
 };
 
 

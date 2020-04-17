@@ -14,8 +14,8 @@ type ChildrenProps = {
 
 
 export type Props = {
-    tags: string[],
-    children: (props: ChildrenProps) => ReactNode,
+    tags: string[];
+    children: (props: ChildrenProps) => ReactNode;
 };
 
 

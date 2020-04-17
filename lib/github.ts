@@ -29,27 +29,27 @@ type RawGitHubResponse = {
         user: {
             repositories: {
                 nodes: {
-                    name: string,
-                    description: string | null,
-                    url: string,
-                    homepageUrl: string | null,
+                    name: string;
+                    description: string | null;
+                    url: string;
+                    homepageUrl: string | null;
                     languages: {
                         nodes: {
-                            name: string,
-                            color: string,
-                        }[],
-                    },
+                            name: string;
+                            color: string;
+                        }[];
+                    };
                     parent: {
-                        nameWithOwner: string,
-                    } | null,
-                    updatedAt: string,
-                    createdAt: string,
-                    openGraphImageUrl: string,
-                    usesCustomOpenGraphImage: boolean,
-                }[],
-            },
-        },
-    },
+                        nameWithOwner: string;
+                    } | null;
+                    updatedAt: string;
+                    createdAt: string;
+                    openGraphImageUrl: string;
+                    usesCustomOpenGraphImage: boolean;
+                }[];
+            };
+        };
+    };
 };
 
 
