@@ -1,10 +1,7 @@
 import React, {FC} from 'react';
 
 
-export type Props = {};
-
-
-const BlockQuote: FC<Props> = ({children}) => (
+const BlockQuote: FC = ({children}) => (
     <blockquote>
         {children}
 

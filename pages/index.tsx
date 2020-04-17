@@ -5,10 +5,7 @@ import Link from 'next/link';
 import MetaData from '~/components/MetaData';
 
 
-export type Props = {};
-
-
-const Index: NextPage<Props> = () => (
+const Index: NextPage = () => (
     <div>
         <MetaData description="MacRatの個人Webサイト「Blanktar」。ブログとか色々。" />
 
