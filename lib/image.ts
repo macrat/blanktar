@@ -34,9 +34,27 @@ const tracePath = (image: Buffer) => {
 };
 
 
-type ImageSize = {
+export type ImageSize = {
     width: number;
     height: number;
+};
+
+
+export type ImageSet = {
+    mdpi: string;
+    hdpi: string;
+    srcSet: string;
+}[];
+
+
+export type OptimizedImage = ImageSize & {
+    images: ImageSet;
+};
+
+
+export type TracedImage = {
+    viewBox: string;
+    path: string;
 };
 
 
@@ -89,11 +107,11 @@ export default class Image {
         }
     }
 
-    private async webpCompress(img: Buffer) {
+    private async webpCompress(img: Buffer): Promise<Buffer> {
         return await webp({lossless: this.mimetype === 'image/png'})(img);
     }
 
-    async optimize(path: string, width: number) {
+    async optimize(path: string, width: number): Promise<OptimizedImage> {
         await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => null);
 
         const hash = this.hash();
@@ -134,7 +152,7 @@ export default class Image {
         };
     }
 
-    async trace() {
+    async trace(): Promise<TracedImage> {
         return {
             viewBox: `0 0 240 ${Math.round(240 * this.size.height / this.size.width)}`,
             path: await tracePath(await this.resize(240))

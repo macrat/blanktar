@@ -1,21 +1,11 @@
 import fetch from 'node-fetch';
 
-import Image from '~/lib/image';
+import Image, {OptimizedImage, TracedImage} from '~/lib/image';
 
 
-export type Photo = {
+export type Photo = OptimizedImage & {
     url: string;
-    images: {
-        mdpi: string;
-        hdpi: string;
-        srcSet: string;
-    }[];
-    trace: {
-        path: string;
-        viewBox: string;
-    };
-    width: number;
-    height: number;
+    trace: TracedImage;
     caption: string;
 };
 
@@ -30,7 +20,7 @@ type RawInstagramResponse = {
 };
 
 
-const fetchInstagram: (() => Promise<Photo[]>) = async () => {
+const fetchInstagram = async (): Promise<Photo[]> => {
     const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${process.env.INSTAGRAM_TOKEN}`);
 
     if (!resp.ok) {
@@ -43,9 +33,9 @@ const fetchInstagram: (() => Promise<Photo[]>) = async () => {
         const img = await Image.read(post.media_url);
 
         return {
+            ...(await img.optimize('photos', 480)),
             ...img.size,
             url: post.permalink,
-            images: (await img.optimize('photos', 480)).images,
             trace: await img.trace(),
             caption: post.caption,
         };
