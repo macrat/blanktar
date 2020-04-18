@@ -6,6 +6,68 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 
+const withOffline = config => {
+    return require('next-offline')({
+        ...config,
+        generateInDevMode: true,
+        workboxOpts: {
+            swDest: 'static/service-worker.js',
+            runtimeCaching: [{
+                urlPattern: /\.(webp|png|jpg|gif|bmp|svg|mp4)$/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'media',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /(\/_next\/static\/|\/font\.css)/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'static',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/blog\/[0-9]{4}\/[0-9]{2}\//,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'article',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 7 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/(blog|about|works|photos)/,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'content',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 1 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /^https:\/\/fonts.gstatic.com/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'webfont',
+                    expiration: {
+                        maxEntries: 200,
+                        maxAgeSeconds: 30 * 24 * 60 * 60,
+                    },
+                },
+            }],
+        },
+    });
+};
+
+
 const withMdxEnhanced = require('next-mdx-enhanced')({
     defaultLayout: true,
     exportFrontmatterAs: 'config',
@@ -16,20 +78,21 @@ const CSPHeader = [
     "default-src 'self'",
     "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
-        "img-src 'self' data: www.google-analytics.com",
+        "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net",
         "style-src-attr 'self' 'unsafe-inline'",
         "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js",
     ] : [
-        "img-src 'self' data: https://www.google-analytics.com",
+        "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net",
         "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
 
 
-module.exports = withBundleAnalyzer(withMdxEnhanced({
+module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
@@ -71,6 +134,7 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
             {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
+            {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
         ],
     },
-}));
+})));

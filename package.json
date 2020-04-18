@@ -65,6 +65,7 @@
     "jest-raw-loader": "^1.0.1",
     "mock-http": "^1.0.2",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
+    "next-offline": "^5.0.0",
     "penv.macro": "^0.4.0",
     "potrace": "^2.1.6",
     "preval.macro": "^5.0.0",
