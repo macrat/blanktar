@@ -118,6 +118,19 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
             figure:hover a {
                 transform: scaleY(1);
             }
+
+            @media screen and (prefers-reduced-motion: reduce) {
+                figure:hover img {
+                    filter: contrast(4);
+                    transform: scale(1);
+                }
+                figure:hover svg {
+                    transform: scale(1);
+                }
+                a {
+                    transform: scaleY(1);
+                }
+            }
         `}</style>
     </figure>
 );
