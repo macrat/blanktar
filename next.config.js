@@ -87,6 +87,7 @@ const CSPHeader = [
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
+    "object-src 'none'",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
