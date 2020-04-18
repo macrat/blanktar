@@ -80,5 +80,5 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     res.send(canvas.toBuffer());
 }, {
     etag: (req: NextApiRequest) => createETag(hash + req.query.title),
-    control: 'public, max-age=31536000',
+    control: 'public, max-age=31536000, immutable',
 });

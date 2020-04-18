@@ -6,7 +6,7 @@ import createETag from '~/lib/api/etag';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'text/css; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
 
     const resp = await fetch('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese', {
         headers: {
