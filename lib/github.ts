@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import Image from '~/lib/image';
+import Image, {ImageSet} from '~/lib/image';
 
 
 export type Language = {
@@ -13,11 +13,7 @@ export type Repository = {
     name: string;
     description: string;
     url: string | null;
-    image: null | {
-        srcSet: string;
-        mdpi: string;
-        hdpi: string;
-    };
+    images: null | ImageSet;
     languages: Language[];
     updatedAt: string;
     createdAt: string;
@@ -53,7 +49,7 @@ type RawGitHubResponse = {
 };
 
 
-const fetchGitHub: (() => Promise<Repository[]>) = async () => {
+const fetchGitHub = async (): Promise<Repository[]> => {
     const resp = await fetch('https://api.github.com/graphql', {
         method: 'POST',
         headers: {
@@ -99,7 +95,7 @@ const fetchGitHub: (() => Promise<Repository[]>) = async () => {
         name: repo.parent?.nameWithOwner ?? repo.name,
         description: repo.description ?? '',
         url: repo.homepageUrl || repo.url,
-        image: repo.usesCustomOpenGraphImage ? await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640) : null,
+        images: repo.usesCustomOpenGraphImage ? (await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640)).images : null,
         languages: repo.languages.nodes.map(lang => ({
             name: lang.name,
             color: lang.color,

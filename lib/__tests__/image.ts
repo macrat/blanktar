@@ -57,12 +57,11 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(240);
 
-        const mdpiSize = (await Image.read(optimized.mdpi.replace(/^\/_next/, './.next'))).size;
+        const mdpiSize = (await Image.read(optimized.images[1].mdpi.replace(/^\/_next/, './.next'))).size;
         expect(mdpiSize.width).toBe(320);
         expect(mdpiSize.height).toBe(240);
 
-
-        const hdpiSize = (await Image.read(optimized.hdpi.replace(/^\/_next/, './.next'))).size;
+        const hdpiSize = (await Image.read(optimized.images[1].hdpi.replace(/^\/_next/, './.next'))).size;
         expect(hdpiSize.width).toBe(640);
         expect(hdpiSize.height).toBe(480);
     });
@@ -76,12 +75,11 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(216);
 
-        const mdpiSize = (await Image.read(optimized.mdpi.replace(/^\/_next/, './.next'))).size;
+        const mdpiSize = (await Image.read(optimized.images[1].mdpi.replace(/^\/_next/, './.next'))).size;
         expect(mdpiSize.width).toBe(320);
         expect(mdpiSize.height).toBe(216);
 
-
-        const hdpiSize = (await Image.read(optimized.hdpi.replace(/^\/_next/, './.next'))).size;
+        const hdpiSize = (await Image.read(optimized.images[1].hdpi.replace(/^\/_next/, './.next'))).size;
         expect(hdpiSize.width).toBe(640);
         expect(hdpiSize.height).toBe(433);
     });
@@ -102,8 +100,7 @@ describe('optimize', () => {
         expect(second.width).toBe(320);
         expect(second.height).toBe(320);
 
-        expect(second.mdpi).toBe(first.mdpi);
-        expect(second.hdpi).toBe(first.hdpi);
+        expect(second).toStrictEqual(first);
 
         expect(end.getTime() - lap.getTime()).toBeLessThan(500);
         expect(end.getTime() - lap.getTime()).toBeLessThan(lap.getTime() - start.getTime());
