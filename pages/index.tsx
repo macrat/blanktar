@@ -22,10 +22,10 @@ const Index: NextPage = () => (
             </h1>
 
             <ul>
-                <li className="about"><Link href="/about"><a>about</a></Link></li>
-                <li className="blog"><Link href="/blog"><a>blog</a></Link></li>
-                <li className="works"><Link href="/works"><a>works</a></Link></li>
-                <li className="photos"><Link href="/photos"><a>photos</a></Link></li>
+                <li><Link href="/about"><a>about</a></Link></li>
+                <li><Link href="/blog"><a>blog</a></Link></li>
+                <li><Link href="/works"><a>works</a></Link></li>
+                <li><Link href="/photos"><a>photos</a></Link></li>
             </ul>
         </div>
 
@@ -40,6 +40,28 @@ const Index: NextPage = () => (
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                overflow: hidden;
+            }
+            .container::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--colors-fg);
+                animation: shutter 1s both;
+            }
+            @keyframes shutter {
+                from { transform: translate(-100%, 0); }
+                  to { transform: translate(100%, 0); }
+            }
+            .content {
+                animation: visible-in .1s both .3s;
+            }
+            @keyframes visible-in {
+                from { visibility: hidden; }
+                  to { visibility: visible; }
             }
             svg {
                 width: auto;
