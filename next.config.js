@@ -86,7 +86,7 @@ const CSPHeader = [
         "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
-    "worker-src 'self'",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
