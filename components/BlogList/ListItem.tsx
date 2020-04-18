@@ -16,7 +16,6 @@ const ListItem: FC = ({children}) => (
                 display: block;
                 position: relative;
                 margin: 5mm 0;
-                overflow: hidden;
             }
             .line {
                 display: none;
@@ -35,18 +34,18 @@ const ListItem: FC = ({children}) => (
             li:hover .line, li:focus-within .line {
                 display: block;
             }
-            li:hover .top, li:focus-within .top { animation: line-horizontal .4s ease both; }
-            li:hover .left, li:focus-within .left { animation: line-vertical .1s ease both; }
-            li:hover .bottom, li:focus-within .bottom { animation: line-horizontal .4s ease .1s both; }
-            li:hover .right, li:focus-within .right { animation: line-vertical .1s ease .4s both; }
+            li:hover .top, li:focus-within .top { animation: line-horizontal .3s ease both; }
+            li:hover .left, li:focus-within .left { animation: line-vertical .3s ease both; }
+            li:hover .bottom, li:focus-within .bottom { animation: line-horizontal .3s ease both; }
+            li:hover .right, li:focus-within .right { animation: line-vertical .3s ease both; }
 
             @keyframes line-horizontal {
-                from { transform: translate(-100%, 0); }
-                  to { transform: translate(0, 0); }
+                from { transform: scaleX(0); }
+                  to { transform: scaleX(1); }
             }
             @keyframes line-vertical {
-                from { transform: translate(0, -100%); }
-                  to { transform: translate(0, 0); }
+                from { transform: scaleY(0); }
+                  to { transform: scaleY(1); }
             }
 
             @media screen and (prefers-reduced-motion: reduce) {
