@@ -24,7 +24,7 @@ describe('detect image size', () => {
     });
 
     test('from online', async () => {
-        const {width, height} = (await Image.read('https://blanktar.jp/macrat.png')).size;
+        const {width, height} = (await Image.read('https://source.unsplash.com/128x128')).size;
 
         expect(width).toBe(256);
         expect(height).toBe(256);
