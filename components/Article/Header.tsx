@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 import TagList from '../TagList';
 import BreadList, {Props as BreadListProps} from './BreadList';
@@ -6,10 +6,10 @@ import {date2str, date2readable} from '../DateTime';
 
 
 export type Props = {
-    pubtime?: Date,
-    title?: string,
-    tags?: string[],
-    breadlist?: BreadListProps['pages'],
+    pubtime?: Date;
+    title?: string;
+    tags?: string[];
+    breadlist?: BreadListProps['pages'];
 };
 
 

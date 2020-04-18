@@ -1,11 +1,8 @@
-import {FC, memo} from 'react';
+import React, {FC, memo} from 'react';
 import Link from 'next/link';
 
 
-export type Props = {};
-
-
-const Footer: FC<Props> = () => (
+const Footer: FC = () => (
     <footer>
         <small>
             <Link href="/privacy-policy"><a>プライバシーポリシー</a></Link>

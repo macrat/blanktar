@@ -1,3 +1,4 @@
+import React from 'react';
 import Document, {Html, Head, Main, NextScript, DocumentContext} from 'next/document';
 
 
@@ -18,4 +19,4 @@ export default class BlanktarDocument extends Document {
             </Html>
         );
     }
-};
+}

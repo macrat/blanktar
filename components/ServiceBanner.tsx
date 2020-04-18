@@ -1,17 +1,17 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 
 export type Props = {
-    name: string,
-    href: string,
-    viewBox: string,
-    path: string,
+    name: string;
+    href: string;
+    viewBox: string;
+    path: string;
 };
 
 
 const ServiceBanner: FC<Props> = ({name, href, viewBox, path}) => (
     <div>
-        <a href={href} target="_blank" rel="noopener">
+        <a href={href} target="_blank" rel="noopener noreferrer">
             <h2>
                 <svg viewBox={viewBox} aria-hidden="true">
                     <path fillRule="evenodd" d={path} />

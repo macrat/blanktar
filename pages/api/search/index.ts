@@ -8,17 +8,17 @@ import createETag from '~/lib/api/etag';
 
 export type SuccessResponse = {
     posts: {
-        title: string,
-        href: string,
-        pubtime: string,
-        summary: string,
-    }[],
-    totalCount: number,
+        title: string;
+        href: string;
+        pubtime: string;
+        summary: string;
+    }[];
+    totalCount: number;
 };
 
 
 export type Response = SuccessResponse | {
-    error: string,
+    error: string;
 };
 
 
@@ -26,8 +26,8 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
     res.setHeader('Cache-Control', 'public, max-age=604800');
 
     const query = String(req.query.q);
-    const offset = Number(req.query.offset || 0);
-    const limit = Number(req.query.limit || 10);
+    const offset = Number(req.query.offset);
+    const limit = Number(req.query.limit) === 0 ? 10 : Number(req.query.limit);
 
     if (req.method !== 'GET') {
         res.status(405).json({error: 'method not allowed'});

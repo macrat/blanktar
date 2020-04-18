@@ -1,10 +1,7 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 
-export type Props = {};
-
-
-const Pre: FC<Props> = ({children}) => (
+const Pre: FC = ({children}) => (
     <>
         <pre>{children}</pre>
 

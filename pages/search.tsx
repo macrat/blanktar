@@ -1,14 +1,17 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NextPage, GetServerSideProps} from 'next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDebounce} from 'use-debounce';
+import {pageview} from 'react-ga';
 
 import search from '~/lib/posts/search';
 import {SuccessResponse} from './api/search';
+import {useContext} from '~/lib/context';
 
-import Article from '~/components/Article';
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import Article from '~/components/Article';
 import SearchBox from '~/components/SearchBar/SearchBox';
 import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
@@ -16,10 +19,9 @@ import Pagination from '~/components/Pagination';
 
 
 export type Props = {
-    query: string,
-    page: number,
-    result: SuccessResponse,
-    __disableSearchBar: boolean,
+    query: string;
+    page: number;
+    result: SuccessResponse;
 };
 
 
@@ -28,6 +30,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     const [result, setResult] = useState<SuccessResponse>(initialResult);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
+    const {setLoading} = useContext();
 
     const doSearch = () => {
         if (!query) {
@@ -35,11 +38,13 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
             return;
         }
 
+        setLoading(true);
         fetch(`/api/search?${new URLSearchParams({
             q: query,
-            offset: String(10 * ((page ?? 1) - 1)),
+            offset: String(10 * (page - 1)),
             limit: '10',
         })}`).then(resp => {
+            setLoading(false);
             if (!resp.ok) {
                 throw new Error(resp.statusText);
             }
@@ -47,6 +52,8 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
         }).then(setResult);
 
         cancelDebounce();
+
+        pageview( `/search?q=${encodeURIComponent(query)}`);
     };
 
     useEffect(doSearch, [searchQuery]);
@@ -80,16 +87,18 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
 
     useEffect(() => {
-        setQuery(String(router.query.q || ''));
+        setQuery(String(router.query.q));
         doSearch();
     }, [router.query]);
 
-    return (
-        <Article>
-            <MetaData
-                title={`${searchQuery}の検索結果`}
-                description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
+    return (<>
+        <MetaData
+            title={`${searchQuery}の検索結果`}
+            description={`Blanktarの記事を"${searchQuery}"で検索した結果の一覧`} />
 
+        <Header />
+
+        <Article>
             <SearchBox
                 query={query}
                 setQuery={q => setQuery(q)}
@@ -126,8 +135,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
             <Pagination
                 current={page}
                 total={Math.ceil(result.totalCount / 20)}
-                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`}
-                />
+                href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
                 ul {
@@ -161,20 +169,19 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
                 }
             `}</style>
         </Article>
-    );
+    </>);
 };
 
 
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
-    const q = String(query.q || '');
-    const page = Number(String(query.page || 1));
+    const q = String(query.q ? query.q : '');
+    const page = Number(String(query.page ? query.page : 1));
 
     return {
         props: {
             query: q,
             page: page,
             result: search(q, 10 * (page - 1), 10),
-            __disableSearchBar: true,
         },
     };
 };

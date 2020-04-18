@@ -5,14 +5,15 @@ declare namespace JSX {
     interface AmpImg {
         alt: string;
         src: string;
-        srcset?: string,
-        sizes?: string,
+        srcset?: string;
+        sizes?: string;
         width: string;
         height: string;
         layout?: string;
         style?: {
-            [key: string]: string | number,
+            [key: string]: string | number;
         };
+        children?: Element;
     }
     interface IntrinsicElements {
         'amp-img': AmpImg;
@@ -50,15 +51,16 @@ declare module '@mdx-js/react' {
         | 'ul';
 
     export type Components = {
-        [key in ComponentType]?: React.ComponentType<{children: React.ReactNode, className?: string}>
+        [key in ComponentType]?: React.ComponentType<{children: React.ReactNode; className?: string}>;
     };
 
     export interface MDXProviderProps {
-        children: React.ReactNode,
-        components: Components,
-    };
+        children: React.ReactNode;
+        components: Components;
+    }
 
-    export class MDXProvider extends React.Component<MDXProviderProps> {};
+    export class MDXProvider extends React.Component<MDXProviderProps> {
+    }
 }
 
 declare module 'prism-react-renderer/prism' {
@@ -73,4 +75,32 @@ declare module 'styled-jsx/macro' {
     import {resolve} from 'styled-jsx/css';
 
     export const resolve = resolve;
+}
+
+declare module 'potrace' {
+    interface Params {
+        turdSize?: number;
+        color?: string;
+        background?: string;
+    }
+
+    interface Potrace {
+        readonly setParameters: (params: Params) => void;
+        readonly getSVG: () => string;
+        readonly getPathTag: () => string;
+        readonly loadImage: (image: string | Buffer, callback: (err?: Error) => void) => void;
+    }
+
+    export class Potrace extends Potrace {
+    }
+}
+
+declare module 'imagemin-zopfli' {
+    interface Options {
+        transparent?: boolean;
+    }
+
+    const imageminZopfli: (opts: Options) => (buf: Buffer) => Promise<Buffer>;
+
+    export default imageminZopfli;
 }

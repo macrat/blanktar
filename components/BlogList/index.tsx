@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import Link from 'next/link';
 import {useAmp} from 'next/amp';
 
@@ -10,12 +10,12 @@ import JsonLD from '../JsonLD';
 
 export type Props = {
     posts: {
-        href: string,
-        title: string,
-        pubtime: string,
-        tags: string[],
-        description: string | undefined,
-    }[],
+        href: string;
+        title: string;
+        pubtime: string;
+        tags: string[];
+        description: string | undefined;
+    }[];
 };
 
 
