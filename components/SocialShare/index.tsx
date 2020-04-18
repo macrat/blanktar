@@ -1,11 +1,11 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 import ShareButton from './ShareButton';
 
 
 export type Props = {
-    title: string,
-    href: string,
+    title: string;
+    href: string;
 };
 
 

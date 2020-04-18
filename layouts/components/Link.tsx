@@ -1,9 +1,10 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import Link from 'next/link';
+import {OutboundLink} from 'react-ga';
 
 
 export type Props = {
-    href: string,
+    href: string;
 };
 
 
@@ -13,7 +14,7 @@ const AutoLink: FC<Props> = ({href, children}) => (
     ) : href.startsWith('#') ? (
         <a href={href}>{children}</a>
     ) : (
-        <a href={href} target="_blank" rel="noopener">{children}</a>
+        <OutboundLink eventLabel={String(children)} to={href} target="_blank">{children}</OutboundLink>
     )
 );
 

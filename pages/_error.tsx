@@ -1,17 +1,17 @@
+import React from 'react';
 import {NextPage} from 'next';
 
 import ErrorPage from '~/components/ErrorPage';
 
 
 export type Props = {
-    statusCode: number,
-    __disableSearchBar: true,
+    statusCode: number;
 };
 
 
 type MessageSet = {
-    [key: number]: string,
-    default: string,
+    [key: number]: string | undefined;
+    default: string;
 };
 
 
@@ -41,7 +41,6 @@ const Error: NextPage<Props> = ({statusCode}) => (
 
 Error.getInitialProps = ({res, err}) => ({
     statusCode: res?.statusCode ?? err?.statusCode ?? 404,
-    __disableSearchBar: true,
 });
 
 

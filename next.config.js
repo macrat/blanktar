@@ -14,13 +14,14 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "img-src 'self' data:",
     "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
+        "img-src 'self' data: www.google-analytics.com",
         "style-src-attr 'self' 'unsafe-inline'",
-        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/",
+        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js",
     ] : [
-        "script-src-elem 'self' https://cdn.ampproject.org/",
+        "img-src 'self' data: https://www.google-analytics.com",
+        "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "frame-ancestors 'none'",
@@ -33,11 +34,19 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
         config.resolve.alias['~'] = __dirname;
+        config.module.rules.push({
+            test: /\.svg$/i,
+            use: [{
+                loader: 'raw-loader',
+                options: {esModule: false},
+            }],
+        });
         return config;
     },
     env: {
         GITHUB_TOKEN: process.env.GITHUB_TOKEN,
         INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
+        GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
     experimental: {
         headers: () => [{

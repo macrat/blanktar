@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 import Tombo from '../Tombo';
 import Header, {Props as HeaderProps} from './Header';

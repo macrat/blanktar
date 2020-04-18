@@ -1,9 +1,9 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 
 type Thing = {
-    '@type': string,
-    [key: string]: string | string[] | number | Thing | Thing[] | undefined,
+    '@type': string;
+    [key: string]: string | string[] | number | Thing | Thing[] | undefined;
 };
 
 
@@ -50,7 +50,7 @@ export const Website: Thing = {
 
 
 export type Props = {
-    data: Thing,
+    data: Thing;
 };
 
 

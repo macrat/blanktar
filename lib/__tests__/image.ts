@@ -4,10 +4,7 @@ import Image from '../image';
 
 
 beforeEach(async () => {
-    try {
-        await fs.rmdir('./.next/static/__test__', {recursive: true});
-    } catch {
-    }
+    await fs.rmdir('./.next/static/__test__', {recursive: true}).catch(() => null);
 });
 
 
@@ -27,10 +24,10 @@ describe('detect image size', () => {
     });
 
     test('from online', async () => {
-        const {width, height} = (await Image.read('https://blanktar.jp/macrat.png')).size;
+        const {width, height} = (await Image.read('https://source.unsplash.com/128x64')).size;
 
-        expect(width).toBe(256);
-        expect(height).toBe(256);
+        expect(width).toBe(128);
+        expect(height).toBe(64);
     });
 });
 
@@ -106,8 +103,8 @@ describe('optimize', () => {
         expect(second.mdpi).toBe(first.mdpi);
         expect(second.hdpi).toBe(first.hdpi);
 
-        expect(end - lap).toBeLessThan(500);
-        expect(end - lap).toBeLessThan(lap - start);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(500);
+        expect(end.getTime() - lap.getTime()).toBeLessThan(lap.getTime() - start.getTime());
     });
 });
 

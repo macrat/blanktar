@@ -1,17 +1,18 @@
-import {NextPage} from 'next';
-import Link from 'next/link';
+import React from 'react';
+import {NextPage, GetStaticProps, GetStaticPaths} from 'next';
 
 import posts from '~/lib/posts';
 
 import MetaData from '~/components/MetaData';
+import Header from '~/components/Header';
+import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
 import BlogList, {Props as BlogListProps} from '~/components/BlogList';
-import ErrorPage from '~/pages/_error';
 
 
 export type Props = BlogListProps & {
-    year: number,
-    month: number,
+    year: number;
+    month: number;
 };
 
 
@@ -20,6 +21,10 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
         <MetaData
             title={`${year}年${month}月の記事`}
             description={`Blanktarの${year}年${month}月の記事一覧。「${posts[0]?.title}」${posts.length > 1 ? `「${posts[1]?.title}」` : ""}ほか${posts.length}件。`} />
+
+        <Header />
+
+        <SearchBar />
 
         <Article title={`${year}年${month}月の記事`} breadlist={[{
             title: 'blog',
@@ -42,7 +47,11 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
 };
 
 
-export const getStaticProps = async ({params}: {params: {year: string, month: string}}) => {
+export const getStaticProps: GetStaticProps<Props, {year: string; month: string}> = async ({params}) => {
+    if (params === undefined || params.year === undefined || params.month === undefined) {
+        throw new Error('year and month is must be some number');
+    }
+
     const year = Number(params.year);
     const month = Number(params.month);
 
@@ -64,7 +73,7 @@ export const getStaticProps = async ({params}: {params: {year: string, month: st
 };
 
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const pages = Array.from(new Set(posts.map(x => (
         `${x.year}/${String(x.month).padStart(2, '0')}`
     ))));

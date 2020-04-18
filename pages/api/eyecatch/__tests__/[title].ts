@@ -1,28 +1,24 @@
 import Benchmark from 'asyncmark';
 
+import {Request, Response} from '~/lib/api/testutil';
+
 import eyecatch from '../[title]';
 
 
-const execute = async (title) => {
-    const headers = {};
-
-    await eyecatch({
-        headers: {},
+const execute = async (title: string) => {
+    const req = new Request({
         query: {
             title: title,
         },
-    }, {
-        setHeader(name, value) {
-            headers[name] = value;
-            return this;
-        },
-        send(data) {
-            return this;
-        },
     });
 
-    return {headers};
-}
+    const res = new Response();
+
+    await eyecatch(req, res);
+    res.end();
+
+    return res;
+};
 
 
 describe("don't crash", () => {
@@ -33,9 +29,10 @@ describe("don't crash", () => {
         ['long japanese', 'テスト '.repeat(30)],
     ].forEach(([name, title]) => {
         test(name, async () => {
-            const {headers} = await execute(title);
+            const res = await execute(title);
 
-            expect(headers['Content-Type']).toBe('image/png');
+            expect(res.statusCode).toBe(200);
+            expect(res.getHeader('Content-Type')).toBe('image/png');
         });
     });
 });

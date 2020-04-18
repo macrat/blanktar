@@ -1,86 +1,68 @@
-import {FC, useState, useEffect, memo} from 'react';
+import React, {FC} from 'react';
 import {AppProps} from 'next/app';
-import Head from 'next/head';
-import Router from 'next/router';
-import {useAmp} from 'next/amp';
 
-import useLoading from '~/lib/loading';
+import {ContextProvider, useContext} from '~/lib/context';
+import useAnalytics from '~/lib/analytics';
 
-import Header from '~/components/Header';
-import JsonLD, {Website} from '~/components/JsonLD';
-import SearchBar from '~/components/SearchBar';
+import CommonResources from '~/components/CommonResources';
 import Footer from '~/components/Footer';
 
 
-const CommonResources = memo(function CommonResources() {
-    const [fontCSS, setFontCSS] = useState<string>("");
-    const isAmp = useAmp();
-
-    useEffect(() => {
-        fetch('/font.css')
-            .then(resp => resp.text())
-            .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
-    }, []);
+const BlanktarContentWrapper: FC = ({children}) => {
+    const {loading} = useContext();
 
     return (
-        <Head>
-            <meta charSet="utf-8" />
+        <main className={loading ? "loading" : ""}>
+            {children}
 
-            <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
-                crossOrigin="anonymous"
-                key="preconnect--gstatic" />
-            {isAmp ? '' : (
-                <link
-                    rel="prefetch"
-                    as="stylesheet"
-                    type="text/css"
-                    href="/font.css"
-                    key="prefetch--font" />
-            )}
-            <link
-                rel="stylesheet"
-                type="text/css"
-                href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
-                crossOrigin={isAmp ? "anonymous" : undefined}
-                key="style--font" />
+            <style jsx>{`
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
 
-            <meta name="theme-color" content="#402020" />
-            <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
-            <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
-            <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
+                ::before {
+                    content: '';
+                    display: block;
+                    position: fixed;
+                    top: 0;
+                    left: 100%;
+                    width: 100vw;
+                    height: 1px;
+                    background-color: var(--colors-fg);
+                    animation: done .5s ease both;
+                }
+                @keyframes done {
+                    from { transform: translate(-100%, 0); }
+                      to { transform: translate(0, 0); }
+                }
 
-            <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
-
-            <JsonLD data={Website} />
-        </Head>
+                .loading::before  {
+                    animation: loading 1s linear infinite;
+                }
+                @keyframes loading {
+                    from { transform: translate(-200%, 0); }
+                      to { transform: translate(0, 0); }
+                }
+            `}</style>
+        </main>
     );
-} as FC<{}>, () => true);
+};
 
 
 const BlanktarApp = ({Component, pageProps}: AppProps) => {
-    const loading = useLoading();
-
-    useEffect(() => {
-        if (loading && document?.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
-        }
-    }, [loading]);
+    useAnalytics();
 
     return (
-        <div className={loading ? "loading" : ""}>
+        <ContextProvider>
             <CommonResources />
 
-            {pageProps.__disableHeader ? null : <Header />}
+            <BlanktarContentWrapper>
+                <div>
+                    <Component {...pageProps} />
+                </div>
 
-            {pageProps.__disableSearchBar ? null : <SearchBar />}
-
-            <main>
-                <Component {...pageProps} />
-            </main>
-
-            <Footer />
+                <Footer />
+            </BlanktarContentWrapper>
 
             <style jsx global>{`
                 html {
@@ -151,37 +133,10 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
 
             <style jsx>{`
                 div {
-                    min-height: 100vh;
-                    display: flex;
-                    flex-direction: column;
-                }
-                main {
                     flex: 1 1 0;
                 }
-                div::before {
-                    content: '';
-                    display: block;
-                    position: fixed;
-                    top: 0;
-                    left: 100%;
-                    width: 100vw;
-                    height: .3mm;
-                    background-color: var(--colors-fg);
-                    animation: done .5s ease both;
-                }
-                @keyframes done {
-                    from { transform: translate(-100%, 0); }
-                      to { transform: translate(0, 0); }
-                }
-                .loading::before  {
-                    animation: loading 1s linear infinite;
-                }
-                @keyframes loading {
-                    from { transform: translate(-200%, 0); }
-                      to { transform: translate(0, 0); }
-                }
             `}</style>
-        </div>
+        </ContextProvider>
     );
 };
 

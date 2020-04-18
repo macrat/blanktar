@@ -1,18 +1,18 @@
 import {promises as fs, constants} from 'fs';
+import {createHash} from 'crypto';
 
 import {NextApiRequest, NextApiResponse} from 'next';
 import {createCanvas, registerFont, Image} from 'canvas';
 import fetch from 'node-fetch';
-import preval from 'preval.macro';
 
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
 
 
 let fontLoaded = false;
-const loadFont = async (origin: String) => {
+const loadFont = async (origin: string) => {
     if (fontLoaded) {
-        return
+        return;
     }
 
     let fontPath = './assets/NotoSansCJKjp-Light.otf';
@@ -37,6 +37,11 @@ const loadFont = async (origin: String) => {
 };
 
 
+const baseImageSVG = require('~/assets/eyecatch-base.svg') as string;  // eslint-disable-line @typescript-eslint/no-var-requires
+const baseImageURI = 'data:image/svg+xml;base64,' + Buffer.from(baseImageSVG).toString('base64');
+const hash = createHash('md5').update(baseImageSVG).digest('hex');
+
+
 const baseImage = () => {
     return new Promise<Image>((resolve, reject) => {
         const img = new Image();
@@ -44,28 +49,13 @@ const baseImage = () => {
         img.onload = () => resolve(img);
         img.onerror = err => reject(err);
 
-        img.src = preval`
-            const fs = require('fs');
-            module.exports = 'data:image/svg+xml;base64,' + fs.readFileSync('./assets/eyecatch-base.svg', 'base64');
-        `;
+        img.src = baseImageURI;
     });
 };
 
 
-const hash = preval`
-    module.exports = (
-        require('crypto')
-            .createHash('md5')
-            .update(
-                require('fs').readFileSync('./assets/eyecatch-base.svg', 'utf8')
-            )
-            .digest('hex')
-    );
-`;
-
-
 export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
-    await loadFont(req.headers.host || 'localhost');
+    await loadFont(req.headers.host ?? 'localhost');
 
     const canvas = createCanvas(1200, 1200);
     const ctx = canvas.getContext('2d');
@@ -76,7 +66,7 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#402020';
 
-    const title = String(req.query.title || '');
+    const title = String(req.query.title);
     const size = ctx.measureText(title);
 
     if (size.width > 1200-120) {

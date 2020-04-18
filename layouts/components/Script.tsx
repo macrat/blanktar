@@ -1,8 +1,8 @@
-import {FC, useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 
 
 export type Props = {
-    children: () => void,
+    children: () => void;
 };
 
 
