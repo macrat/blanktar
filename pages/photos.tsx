@@ -29,7 +29,7 @@ const PhotoItem: FC<Photo> = ({url, images, trace, width, height, caption}) => (
         <LazyLoad offset={height/2}>
             <picture>
                 {images.reverse().map(({srcSet, mdpi}) => (
-                    <source key={mdpi} srcSet={srcSet} src={mdpi} />
+                    <source key={mdpi} srcSet={srcSet} />
                 ))}
 
                 <img
