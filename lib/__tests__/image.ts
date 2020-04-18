@@ -100,8 +100,7 @@ describe('optimize', () => {
         expect(second.width).toBe(320);
         expect(second.height).toBe(320);
 
-        expect(second.mdpi).toBe(first.mdpi);
-        expect(second.hdpi).toBe(first.hdpi);
+        expect(second).toStrictEqual(first);
 
         expect(end.getTime() - lap.getTime()).toBeLessThan(500);
         expect(end.getTime() - lap.getTime()).toBeLessThan(lap.getTime() - start.getTime());
