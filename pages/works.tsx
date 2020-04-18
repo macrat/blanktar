@@ -63,7 +63,13 @@ const GithubRepository: FC<Repository> = ({name, images, url, createdAt, updated
                         <source key={img.mdpi} srcSet={img.srcSet} />
                     ))}
 
-                    <img width={640} height={480} srcSet={images[0].srcSet} src={images[0].mdpi} alt="" aria-hidden="true" />
+                    <img
+                        width={640}
+                        height={480}
+                        srcSet={images[images.length - 1].srcSet}
+                        src={images[images.length - 1].mdpi}
+                        alt=""
+                        aria-hidden="true" />
                 </picture>
             </LazyLoad>
         ) : null}

@@ -33,8 +33,8 @@ const PhotoItem: FC<Photo> = ({url, images, trace, width, height, caption}) => (
                 ))}
 
                 <img
-                    srcSet={images[0].srcSet}
-                    src={images[0].mdpi}
+                    srcSet={images[images.length - 1].srcSet}
+                    src={images[images.length - 1].mdpi}
                     width={width}
                     height={height}
                     alt="" />
