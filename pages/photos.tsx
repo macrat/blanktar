@@ -51,11 +51,13 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
             figure {
                 margin: 0;
                 position: relative;
+                overflow: hidden;
             }
             svg {
                 width: 100%;
                 height: auto;
                 display: block;
+                transition: transform .2s;
             }
             img, amp-img {
                 display: block;
@@ -65,7 +67,7 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
                 width: 100%;
                 height: auto;
                 animation: show-image .4s;
-                transition: opacity .2s, filter .2s;
+                transition: opacity .2s, filter .2s, transform .2s;
             }
             @keyframes show-image {
                 from { opacity: 0; }
@@ -77,6 +79,7 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
                 left: 0;
                 bottom: 0;
                 right: 0;
+                background-color: rgba(128, 128, 128, .5);
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity .2s, visibility .2s;
@@ -86,7 +89,6 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                background-color: rgba(128, 128, 128, .5);
                 color: white;
                 text-decoration: none;
                 padding: 5mm;
@@ -95,6 +97,8 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
                 align-items: center;
                 overflow: hidden;
                 white-space: pre-wrap;
+                transform: scaleY(0);
+                transition: transform .2s;
             }
             a:hover, a:focus {
                 color: white;
@@ -102,10 +106,17 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
             figure:hover img {
                 opacity: .1;
                 filter: contrast(4);
+                transform: scale(1.1);
+            }
+            figure:hover svg {
+                transform: scale(1.1);
             }
             figure:hover figcaption {
                 opacity: 1;
                 visibility: visible;
+            }
+            figure:hover a {
+                transform: scaleY(1);
             }
         `}</style>
     </figure>
