@@ -103,6 +103,7 @@ const Index: NextPage = () => (
             }
             a:focus, a:hover {
                 color: var(--colors-bg);
+                outline: none;
             }
             a::before {
                 content: '';
