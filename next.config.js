@@ -6,6 +6,17 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 
+const withOffline = config => {
+    return require('next-offline')({
+        ...config,
+        generateInDevMode: true,
+        workboxOpts: {
+            swDest: 'static/service-worker.js',
+        },
+    });
+};
+
+
 const withMdxEnhanced = require('next-mdx-enhanced')({
     defaultLayout: true,
     exportFrontmatterAs: 'config',
@@ -29,7 +40,7 @@ const CSPHeader = [
 ].join('; ');
 
 
-module.exports = withBundleAnalyzer(withMdxEnhanced({
+module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
@@ -71,6 +82,7 @@ module.exports = withBundleAnalyzer(withMdxEnhanced({
             {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
+            {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
         ],
     },
-}));
+})));
