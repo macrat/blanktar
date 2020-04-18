@@ -1,5 +1,4 @@
-import {FC} from 'react';
-import Link from 'next/link';
+import React, {FC} from 'react';
 
 
 const AnchorLink: FC<{before: string}> = ({before, children}) => (
@@ -81,10 +80,7 @@ const AnchorLink: FC<{before: string}> = ({before, children}) => (
 );
 
 
-export type Props = {};
-
-
-export const H1: FC<Props> = ({children}) => (
+export const H1: FC = ({children}) => (
     <h2>
         <AnchorLink before="#">{children}</AnchorLink>
 
@@ -102,7 +98,7 @@ export const H1: FC<Props> = ({children}) => (
 );
 
 
-export const H2: FC<Props> = ({children}) => (
+export const H2: FC = ({children}) => (
     <h3>
         <AnchorLink before="##">{children}</AnchorLink>
 
@@ -120,7 +116,7 @@ export const H2: FC<Props> = ({children}) => (
 );
 
 
-export const H3: FC<Props> = ({children}) => (
+export const H3: FC = ({children}) => (
     <h4>
         <AnchorLink before="###">{children}</AnchorLink>
 

@@ -1,10 +1,7 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 
-export type Props = {};
-
-
-const Hr: FC<Props> = ({}) => (
+const Hr: FC = () => (
     <>
         <hr />
 

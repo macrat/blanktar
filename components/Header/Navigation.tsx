@@ -1,11 +1,8 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import Link from 'next/link';
 
 
-export type Props = {};
-
-
-const Navigation: FC<Props> = () => (
+const Navigation: FC = () => (
     <nav>
         <ul aria-label="サイトのメニュー">
             <li className="about"><Link href="/about"><a>about</a></Link></li>

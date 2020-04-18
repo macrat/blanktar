@@ -19,14 +19,14 @@ export default (query: string, offset: number, limit: number) => {
             const sanitize = (s: string) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
             const title = queries.reduce((s, q) => {
-                const re = new RegExp(sanitize(q).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
+                const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
                 return s.replace(re, `<mark>${q}</mark>`);
             }, sanitize(p.title));
 
             const summary = queries.reduce((s, q) => {
-                const re = new RegExp(sanitize(q).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
+                const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
                 return s.replace(re, `<mark>${q}</mark>`);
-            }, sanitize(p.description || ''));
+            }, sanitize(p.description ?? ''));
 
             return {
                 title: title,

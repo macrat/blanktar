@@ -1,20 +1,23 @@
-import {FC, useState} from 'react';
+import React, {FC, useState} from 'react';
 
 import MetaData from './MetaData';
+import Header from './Header';
 import SearchBox from './SearchBar/SearchBox';
 
 
 export type Props = {
-    statusCode: number,
-    title: string,
-    message?: string,
+    statusCode: number;
+    title: string;
+    message?: string;
 };
 
 
 const ErrorPage: FC<Props> = ({statusCode, title, message}) => {
     const [query, setQuery] = useState<string>('');
 
-    return (
+    return (<>
+        <Header />
+
         <article>
             <MetaData title={title} />
 
@@ -63,7 +66,7 @@ const ErrorPage: FC<Props> = ({statusCode, title, message}) => {
                 }
             `}</style>
         </article>
-    );
+    </>);
 };
 
 

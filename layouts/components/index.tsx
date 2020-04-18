@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {MDXProvider} from '@mdx-js/react';
 
 import BlockQuote from './BlockQuote';
@@ -15,9 +15,6 @@ import Td from './Td';
 import Th from './Th';
 import Tr from './Tr';
 import {H1, H2, H3} from './headings';
-
-
-export type Props = {};
 
 
 const components = {
@@ -41,7 +38,7 @@ const components = {
 };
 
 
-const MDXComponentsProvider: FC<Props> = ({children}) => (
+const MDXComponentsProvider: FC = ({children}) => (
     <MDXProvider components={components}>
         {children}
     </MDXProvider>

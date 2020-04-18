@@ -8,7 +8,7 @@ test('search all', async () => {
     const result = await new Benchmark({
         name: 'search all',
         fun: () => {
-            search('python', 0, 10);
+            search('python', 0, 5);
         },
     }).run();
 
@@ -20,7 +20,7 @@ test('search title', async () => {
     const result = await new Benchmark({
         name: 'search title',
         fun: () => {
-            title('python', 0, 10);
+            title('python');
         },
     }).run();
 

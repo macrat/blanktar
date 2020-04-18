@@ -1,13 +1,10 @@
-import {FC, memo} from 'react';
+import React, {FC, memo} from 'react';
 import Link from 'next/link';
 
 import Navigation from './Navigation';
 
 
-export type Props = {};
-
-
-const Header: FC<Props> = () => (
+const Header: FC = () => (
     <header>
         <h1><Link href="/"><a>Blanktar</a></Link></h1>
 

@@ -1,21 +1,21 @@
-import {FC, ReactNode} from 'react';
+import React, {FC, ReactNode} from 'react';
 import Link from 'next/link';
 
 import {className, styles} from './style';
 
 
 type ChildrenProps = {
-    tag: string,
+    tag: string;
     props: {
-        className: string,
-        "aria-label": string,
-    },
+        className: string;
+        "aria-label": string;
+    };
 };
 
 
 export type Props = {
-    tags: string[],
-    children: (props: ChildrenProps) => ReactNode,
+    tags: string[];
+    children: (props: ChildrenProps) => ReactNode;
 };
 
 
