@@ -12,6 +12,57 @@ const withOffline = config => {
         generateInDevMode: true,
         workboxOpts: {
             swDest: 'static/service-worker.js',
+            runtimeCaching: [{
+                urlPattern: /\.(webp|png|jpg|gif|bmp|svg|mp4)$/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'media',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/_next\/static\//,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'static',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/blog\/[0-9]{4}\/[0-9]{2}\//,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'article',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 7 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/(blog|about|works|photos)/,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'content',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 1 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /^https:\/\/fonts.gstatic.com/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'webfont',
+                    expiration: {
+                        maxEntries: 200,
+                        maxAgeSeconds: 30 * 24 * 60 * 60,
+                    },
+                },
+            }],
         },
     });
 };
