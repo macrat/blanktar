@@ -78,14 +78,15 @@ const CSPHeader = [
     "default-src 'self'",
     "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
-        "img-src 'self' data: www.google-analytics.com",
+        "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net",
         "style-src-attr 'self' 'unsafe-inline'",
         "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js",
     ] : [
-        "img-src 'self' data: https://www.google-analytics.com",
+        "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net",
         "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
+    "worker-src 'self'",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
