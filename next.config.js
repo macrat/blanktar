@@ -23,7 +23,7 @@ const withOffline = config => {
                     },
                 },
             }, {
-                urlPattern: /\/_next\/static\//,
+                urlPattern: /(\/_next\/static\/|\/font\.css)/,
                 handler: 'CacheFirst',
                 options: {
                     cacheName: 'static',
