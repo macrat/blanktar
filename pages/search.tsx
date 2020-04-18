@@ -7,6 +7,7 @@ import {pageview} from 'react-ga';
 
 import search from '~/lib/posts/search';
 import {SuccessResponse} from './api/search';
+import {useContext} from '~/lib/context';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -29,6 +30,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     const [result, setResult] = useState<SuccessResponse>(initialResult);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
+    const {setLoading} = useContext();
 
     const doSearch = () => {
         if (!query) {
@@ -36,11 +38,13 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
             return;
         }
 
+        setLoading(true);
         fetch(`/api/search?${new URLSearchParams({
             q: query,
             offset: String(10 * (page - 1)),
             limit: '10',
         })}`).then(resp => {
+            setLoading(false);
             if (!resp.ok) {
                 throw new Error(resp.statusText);
             }
