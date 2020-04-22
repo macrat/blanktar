@@ -9,7 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const withOffline = config => {
     return require('next-offline')({
         ...config,
-        generateInDevMode: true,
+        generateInDevMode: false,
         workboxOpts: {
             swDest: 'static/service-worker.js',
             runtimeCaching: [{
