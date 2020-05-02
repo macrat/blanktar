@@ -127,7 +127,7 @@ ctx.fillText('hello world', 10, 10);  // (10, 10)の位置に"hello world"を書
 日本語（というかASCII文字以外）を書き込みたい場合は、まず始めにフォントの読み込みをする必要があります。
 これには、[registerFont](https://github.com/Automattic/node-canvas/blob/master/Readme.md#registerfont)という関数を使います。
 
-ちなみに、**registerFontの呼び出しはCanvasを呼び出す前に**やらないとダメみたいです。
+ちなみに、**registerFontの呼び出しはcreateCanvasを呼び出す前に**やらないとダメみたいです。
 
 ``` javascript
 import { registerFont } from 'canvas';
