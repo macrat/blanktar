@@ -5,6 +5,7 @@ import mozjpeg from 'imagemin-mozjpeg';
 import zopflipng from 'imagemin-zopfli';
 import webp from 'imagemin-webp';
 import {Potrace} from 'potrace';
+import penv from 'penv.macro';
 
 
 const writeTask = async (path: string, task: () => Promise<Buffer>) => {
@@ -108,7 +109,13 @@ export default class Image {
     }
 
     private async webpCompress(img: Buffer): Promise<Buffer> {
-        return await webp({lossless: this.mimetype === 'image/png'})(img);
+        return await webp({
+            lossless: this.mimetype === 'image/png',
+            preset: this.mimetype === 'image/jpeg' ? 'photo' : 'default',
+            method: penv({
+                production: 6,
+            }, 0),
+        })(img);
     }
 
     async optimize(path: string, width: number): Promise<OptimizedImage> {
