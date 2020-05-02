@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Footer: FC = () => (
     <footer>
-        <small>
+        <small role="contentinfo">
             <Link href="/privacy-policy"><a>プライバシーポリシー</a></Link>
             <span>&copy; 2012- MacRat All rights reserved.</span>
         </small>

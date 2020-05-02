@@ -25,6 +25,8 @@ const Pagination: FC<Props> = ({current, total, href}) => {
             {[...new Array(to - from)].map((_, i) => (
                 <li
                     key={i + from}
+                    aria-posinset={i}
+                    aria-setsize={total}
                     className={(current == i + from ? "current " : "") + (Math.abs(current - (i + from)) <= 2 ? "keep" : "")}>
 
                     <PageLink current={current === i + from} page={i + from} href={href} />

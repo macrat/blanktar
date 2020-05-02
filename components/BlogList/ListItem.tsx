@@ -5,10 +5,10 @@ const ListItem: FC = ({children}) => (
     <li>
         {children}
 
-        <svg width="100%" height="1px" className="horizontal top"><rect x="0" y="0" width="100%" height="100%" /></svg>
-        <svg width="100%" height="1px" className="horizontal bottom"><rect x="0" y="0" width="100%" height="100%" /></svg>
-        <svg width="1px" height="100%" className="vertical left"><rect x="0" y="0" width="100%" height="100%" /></svg>
-        <svg width="1px" height="100%" className="vertical right"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="100%" height="1px" className="horizontal top" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="100%" height="1px" className="horizontal bottom" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="1px" height="100%" className="vertical left" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="1px" height="100%" className="vertical right" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
 
         <style jsx>{`
             li {

@@ -14,9 +14,9 @@ const ShareButton: FC<Props> = ({href, alt, children}) => (
             version="1.1"
             width="512"
             height="512"
-            viewBox="0 0 512 512">
-
-            <title>{alt}</title>
+            viewBox="0 0 512 512"
+            role="img"
+            aria-label={alt}>
 
             {children}
         </svg>
