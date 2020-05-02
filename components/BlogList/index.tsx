@@ -20,7 +20,7 @@ export type Props = {
 
 
 const BlogList: FC<Props> = ({posts}) => (
-    <ol aria-label="記事の一覧" role="directory">
+    <ol aria-label="記事の一覧">
         {posts.map(({href, title, pubtime, tags, description}) => (
             <ListItem key={href}>
                 <Link href={href}><a>

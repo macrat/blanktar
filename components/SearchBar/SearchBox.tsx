@@ -43,7 +43,8 @@ const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus, children}) 
                     type="search"
                     name="q"
                     value={query}
-                    onChange={ev => setQuery(ev.target.value)} />
+                    onChange={ev => setQuery(ev.target.value)}
+                    aria-label="検索キーワード" />
             </label>
 
             {children}
