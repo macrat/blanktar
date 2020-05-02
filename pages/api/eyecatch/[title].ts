@@ -42,16 +42,13 @@ const baseImageURI = 'data:image/svg+xml;base64,' + Buffer.from(baseImageSVG).to
 const hash = createHash('md5').update(baseImageSVG).digest('hex');
 
 
-const baseImage = async () => await loadImage(baseImageURI);
-
-
 export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
     await loadFont(req.headers.host ?? 'localhost');
 
     const canvas = createCanvas(1200, 1200);
     const ctx = canvas.getContext('2d');
 
-    ctx.drawImage(await baseImage(), 0, 0, 1200, 1200);
+    ctx.drawImage(await loadImage(baseImageURI), 0, 0, 1200, 1200);
 
     ctx.font = 'Light 72px NotoSansJP';
     ctx.textAlign = 'center';
