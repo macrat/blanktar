@@ -42,7 +42,7 @@ howto:
 
 ![「Node.jsで画像に文字を書く」って記事タイトルを重ねた画像](/blog/2020/05/eyecatch-output-image.png "144x144")
 
-# 必要なパッケージのインストール
+# 1. 必要なパッケージのインストール
 
 今回は[node-canvas](https://www.npmjs.com/package/canvas)というライブラリを使用しました。
 その名の通り、[HTMLのCanvas API](https://developer.mozilla.org/ja/docs/Web/API/Canvas_API)をNode.js上で使えるようにしてくれるやつです。
@@ -54,7 +54,7 @@ $ npm install canvas
 環境によっては依存関係を手動でインストールする必要があるので、問題があれば[GitHub上のREADME](https://github.com/Automattic/node-canvas/blob/master/Readme.md)を確認してください。
 
 
-# Canvasを用意する
+# 2. Canvasを用意する
 
 まずは[createCanvas](https://github.com/Automattic/node-canvas/blob/master/Readme.md#createcanvas)という関数を使って、画像編集をするためのキャンバスの用意をします。
 このキャンバスに色々書き込んでいく流れになります。
@@ -70,7 +70,7 @@ const ctx = canvas.getContext('2d');  // ここからはブラウザと共通
 ```
 
 
-# 画像を読み込む
+# 3. 画像を読み込む
 
 次に、書き込み先となる画像を読み込みます。
 画像の読み込みには[Imageクラス](https://github.com/Automattic/node-canvas/blob/master/Readme.md#imagesrc)を使うか、そのヘルパ関数である[loadImage](https://github.com/Automattic/node-canvas/blob/master/Readme.md#loadimage)を使います。
@@ -106,7 +106,7 @@ image.onload = () => {
 ```
 
 
-# 文字を書き込む（英数字だけバージョン）
+# 4. 文字を書き込む（英数字だけバージョン）
 
 書き込み先の画像の準備が出来たら、いよいよ文字を書き込みます。
 まずはフォントを気にしなくて良い英数字だけの文字列から。
@@ -120,9 +120,9 @@ ctx.fillText('hello world', 10, 10);  // (10, 10)の位置に"hello world"を書
 このあたりの挙動はブラウザのCanvas APIと全く一緒なので、[MDNあたりのリファレンス](https://developer.mozilla.org/ja/docs/Web/API/CanvasRenderingContext2D/fillText)が参考になると思います。
 
 
-# 文字を書き込む（日本語バージョン）
+# 5. 文字を書き込む（日本語バージョン）
 
-## フォントの読み込み
+## 5-1. フォントの読み込み
 
 日本語（というかASCII文字以外）を書き込みたい場合は、まず始めにフォントの読み込みをする必要があります。
 これには、[registerFont](https://github.com/Automattic/node-canvas/blob/master/Readme.md#registerfont)という関数を使います。
@@ -141,7 +141,7 @@ registerFont('./path/to/font.ttf', { family: 'Hoge Fuga' });  // font.ttfを登�
 
 URLの指定は出来ないので、そこだけ注意。
 
-## 使うフォントを指定して文字を書き込む
+## 5-2. 使うフォントを指定して文字を書き込む
 
 フォントの登録が完了したら、以下のようにして使うフォントを指定して書き込みます。
 この辺はブラウザと一緒。
