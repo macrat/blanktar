@@ -15,23 +15,23 @@ const loadFont = async (origin: string) => {
         return;
     }
 
-    let fontPath = './assets/NotoSansCJKjp-Light.otf';
+    let fontPath = './assets/NotoSansJP-Regular.otf';
     try {
         await fs.access(fontPath);
     } catch {
-        fontPath = '/tmp/NotoSansCJKjp-Light.otf';
+        fontPath = '/tmp/NotoSansJP-Regular.otf';
 
         try {
             await fs.access(fontPath, constants.R_OK);
         } catch {
             await fs.writeFile(
                 fontPath,
-                Buffer.from(await (await fetch(`http://${origin}/assets/NotoSansCJKjp-Light.otf`)).arrayBuffer()),
+                Buffer.from(await (await fetch(`http://${origin}/assets/NotoSansJP-Regular.otf`)).arrayBuffer()),
             );
         }
     }
 
-    registerFont(fontPath, {family: 'NotoSansJP', weight: 'Light'});
+    registerFont(fontPath, {family: 'NotoSansJP', weight: 'Regular'});
 
     fontLoaded = true;
 };
@@ -50,7 +50,7 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
 
     ctx.drawImage(await loadImage(baseImageURI), 0, 0, 1200, 1200);
 
-    ctx.font = 'Light 72px NotoSansJP';
+    ctx.font = 'Regular 72px NotoSansJP';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#402020';
 
