@@ -112,6 +112,8 @@ export default class Image {
         return await webp({
             lossless: this.mimetype === 'image/png',
             preset: this.mimetype === 'image/jpeg' ? 'photo' : 'default',
+            quality: 60,
+            nearLossless: 90,
             method: penv({
                 production: 6,
             }, 0),
