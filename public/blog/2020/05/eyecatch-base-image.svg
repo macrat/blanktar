@@ -3,7 +3,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="1200" viewBox="0 0 1200 1200">
   <rect fill="#fcf8f5" height="1200" width="1200" />
 
-  <g fill="none" stroke="#dcc8c8" transform="matrix(40.923788,0,0,40.923788,276.22688,231.6859)">
+  <g fill="none" stroke="#ece0e0" transform="matrix(40.923788,0,0,40.923788,276.22688,231.6859)">
     <path d="M 1,1 L 7,7 L 0,14 M 0,4 L 7,11 L 1,17" />
     <path d="M 15,1 L 9,7 L 16,14 M 16,4 L 9,11 L 15,17" stroke-width="0.5" />
   </g>
