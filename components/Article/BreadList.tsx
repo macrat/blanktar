@@ -36,7 +36,7 @@ export type Props = {
 
 const BreadList: FC<Props> = ({pages}) => (
     <ol aria-label="この記事の場所">
-        <li className="top"><Link href="/"><a>top</a></Link></li>
+        <li className="top"><Link href="/"><a aria-label="トップページ">top</a></Link></li>
 
         {pages.slice(0, -1).map(p => (
             <li key={p.as ?? p.href}>

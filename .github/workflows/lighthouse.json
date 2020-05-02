@@ -18,6 +18,7 @@
         "dom-size": "warn",
         "link-text": "warn",
         "uses-http2": "off",
+        "uses-responsive-images": "warn",
         "uses-webp-images": "warn"
       }
     },
