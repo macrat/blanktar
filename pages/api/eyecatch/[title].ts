@@ -2,7 +2,7 @@ import {promises as fs, constants} from 'fs';
 import {createHash} from 'crypto';
 
 import {NextApiRequest, NextApiResponse} from 'next';
-import {createCanvas, registerFont, Image} from 'canvas';
+import {createCanvas, registerFont, loadImage} from 'canvas';
 import fetch from 'node-fetch';
 
 import withCache from '~/lib/api/cache';
@@ -42,16 +42,7 @@ const baseImageURI = 'data:image/svg+xml;base64,' + Buffer.from(baseImageSVG).to
 const hash = createHash('md5').update(baseImageSVG).digest('hex');
 
 
-const baseImage = () => {
-    return new Promise<Image>((resolve, reject) => {
-        const img = new Image();
-
-        img.onload = () => resolve(img);
-        img.onerror = err => reject(err);
-
-        img.src = baseImageURI;
-    });
-};
+const baseImage = async () => await loadImage(baseImageURI);
 
 
 export default withCache(async (req: NextApiRequest, res: NextApiResponse) => {
