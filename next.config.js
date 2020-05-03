@@ -80,13 +80,14 @@ const CSPHeader = [
     ...(isDebug ? [
         "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net",
         "style-src-attr 'self' 'unsafe-inline'",
-        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js",
+        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js https://platform.twitter.com/",
     ] : [
         "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net",
         "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
+    "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
     "object-src 'none'",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
