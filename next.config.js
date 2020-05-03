@@ -83,7 +83,7 @@ const CSPHeader = [
         "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js https://platform.twitter.com/",
     ] : [
         "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net",
-        "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
+        "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
