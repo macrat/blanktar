@@ -14,12 +14,14 @@ import Table from './Table';
 import Td from './Td';
 import Th from './Th';
 import Tr from './Tr';
+import Tweet from './Tweet';
 import {H1, H2, H3} from './headings';
 
 
 const components = {
     PS: PS,
     Script: Script,
+    Tweet: Tweet,
 
     blockquote: BlockQuote,
     code: Code,
