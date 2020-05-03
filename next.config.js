@@ -76,14 +76,13 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
+    "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
     ...(isDebug ? [
         "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net",
-        "style-src-attr 'self' 'unsafe-inline'",
-        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js https://platform.twitter.com/",
+        "script-src 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js https://platform.twitter.com/",
     ] : [
         "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net",
-        "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/",
+        "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
