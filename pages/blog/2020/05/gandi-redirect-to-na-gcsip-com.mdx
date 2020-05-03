@@ -9,7 +9,7 @@ image: /blog/2020/05/gandi-na-gcsip-com.png
 
 # TL;DR
 
-[gandi.net](https://gandi.net)にクレジットカードを登録するときに転送される「na.gcsip.com」ってサイトは、多分大丈夫なやつです。
+[gandi.net](https://gandi.net)にクレジットカードを登録するときに転送される「na.gcsip.com」ってサイトは、多分大丈夫なやつです。（証明書とかはちゃんと見てくださいね）
 
 
 # 経緯とか情報源とか
@@ -26,12 +26,15 @@ image: /blog/2020/05/gandi-na-gcsip-com.png
 
 ![Google Chromeで見た証明書の詳細情報。「Trustwave Holdings, Inc.」が「Global Collect Services B.V.」に対して証明書らしい。](/blog/2020/05/na-gcsip-com-certificate.png "512x631")
 
-発行先は「Global Collect Services B.V.」ってところ。これ、[ingenicoグループ](http://ingenico.co.jp/)って会社の傘下みたいですね。
+発行先は「Global Collect Services B.V.」ってところ。
+これ、[ingenico group](https://www.ingenico.com/)って会社の傘下みたいですね。
+決済関係のサービスを色々やってるフランスの会社らしいです。
 
-さらに調べてみたところ、公式ツイッターとユーザのやり取りを見つけました。
+さらに調べてみたところ、公式ツイッターが同じ質問に答えているのを見つけました。
 
 <Tweet id="944301531863617536">
     <p lang="en" dir="ltr">That&#39;s the correct domain for our banking partner: Global Collect Services: <a href="https://t.co/z70L1d9nsO">https://t.co/z70L1d9nsO</a> -- it&#39;s not a scam! As always, though, you can check the whois if you&#39;re unsure of the domain and of course the SSL cert details (and it doesn&#39;t hurt to ask on Twitter) -- Andrew</p>&mdash; gandi.net (@gandibar) <a href="https://twitter.com/gandibar/status/944301531863617536?ref_src=twsrc%5Etfw">December 22, 2017</a>
 </Tweet>
 
+gandi.netが使っているサービスで間違いないよとのこと。
 というわけで、大丈夫みたいですね。
