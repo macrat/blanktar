@@ -60,7 +60,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
 
         return (
             <>
-                <MetaData title={title} description={description ?? undefined} />
+                <MetaData title={title} description={description ?? undefined} image={image} />
 
                 <Header />
 
