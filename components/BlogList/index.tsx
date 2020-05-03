@@ -12,7 +12,7 @@ export type Props = {
     posts: {
         href: string;
         title: string;
-        pubtime: string;
+        pubtime: number;
         tags: string[];
         description: string | undefined;
     }[];
