@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useRef, useEffect} from 'react';
 import Head from 'next/head';
-import { useAmp } from 'next/amp';
+import {useAmp} from 'next/amp';
 
 
 type Props = {
@@ -25,11 +25,20 @@ const Tweet: FC<Props> = ({id, children}) => {
         );
     }
 
+    const ref = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const elm = ref.current;
+        if (elm) {
+            const script = document.createElement('script');
+            script.src = 'https://platform.twitter.com/widgets.js';
+            script.async = true;
+            elm.appendChild(script);
+        }
+    }, [ref.current]);
+
     return (
-        <>
-            <blockquote className="twitter-tweet">{children}</blockquote>
-            <script async src="https://platform.twitter.com/widgets.js" />
-        </>
+        <blockquote className="twitter-tweet" ref={ref}>{children}</blockquote>
     );
 };
 
