@@ -85,7 +85,7 @@ const CSPHeader = [
         "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
-    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com",
     "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
     "object-src 'none'",
     "frame-ancestors 'none'",
