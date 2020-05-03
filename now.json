@@ -13,7 +13,7 @@
       "destination": "/search"
     },
     {
-      "source": "/works/.*",
+      "source": "/works/(.*)",
       "destination": "/works"
     },
     {
