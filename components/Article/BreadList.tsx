@@ -5,20 +5,23 @@ import preval from 'preval.macro';
 import JsonLD from '../JsonLD';
 
 
-const BreadCrumbIcon = preval`
+const LightIcon = preval`
     module.exports = 'data:image/svg+xml;base64,' + Buffer.from(${'`'}
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 5 10">
-            <defs><style><![CDATA[
-                polyline{stroke:#402020}
+            <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5" stroke="#402020" />
+        </svg>
+    ${'`'}.replace(/\\n+ */, '')).toString('base64');
+`;
 
-                @media (prefers-color-scheme: dark) {
-                    polyline{stroke:#fcf8f5}
-                }
-            ]]></style></defs>
 
-            <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5"/>
+const DarkIcon = preval`
+    module.exports = 'data:image/svg+xml;base64,' + Buffer.from(${'`'}
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 5 10">
+            <polyline fill="none" points="0 0, 5 5, 0 10" stroke-width="0.5" stroke="#fcf8f5" />
         </svg>
     ${'`'}.replace(/\\n+ */, '')).toString('base64');
 `;
@@ -84,7 +87,7 @@ const BreadList: FC<Props> = ({pages}) => (
                 height: 0;
                 padding: .4em .25em;
                 overflow: hidden;
-                background-image: url(${BreadCrumbIcon});
+                background-image: url(${LightIcon});
                 background-size: contain;
                 background-repeat: no-repeat;
                 margin: .1em .3em -.05em;
@@ -92,6 +95,12 @@ const BreadList: FC<Props> = ({pages}) => (
             a {
                 color: inherit;
                 text-decoration: none;
+            }
+
+            @media screen and (prefers-color-scheme: dark) {
+                li::after {
+                    background-image: url(${DarkIcon});
+                }
             }
 
             @media print {
