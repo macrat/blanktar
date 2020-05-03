@@ -9,6 +9,10 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/cgi-bin/search.py",
+      "destination": "/search"
+    },
+    {
       "source": "/about.html",
       "destination": "/about"
     },
