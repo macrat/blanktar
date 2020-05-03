@@ -5,7 +5,7 @@ import {useAmp} from 'next/amp';
 
 type Props = {
     id: string;
-}
+};
 
 
 const Tweet: FC<Props> = ({id, children}) => {

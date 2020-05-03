@@ -20,7 +20,7 @@ declare namespace JSX {
         width: number;
         height: number;
         children?: ReactNode;
-    };
+    }
     interface IntrinsicElements {
         'amp-img': AmpImg;
         'amp-twitter': AmpTwitter;
