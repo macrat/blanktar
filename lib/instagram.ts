@@ -30,7 +30,7 @@ const fetchInstagram = async (): Promise<Photo[]> => {
     const {data}: RawInstagramResponse = await resp.json();
 
     return await Promise.all(data.map(async post => {
-        const img = await Image.read(post.media_url);
+        const img = new Image(post.media_url);
 
         return {
             ...(await img.optimize('photos', 480)),
