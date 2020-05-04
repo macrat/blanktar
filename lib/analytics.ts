@@ -21,7 +21,9 @@ export default () => {
     const router = useRouter();
 
     useEffect(() => {
-        ReactGA.pageview(router.pathname);
+        setTimeout(() => {
+            ReactGA.pageview(router.pathname);
+        }, 0);
     }, [router.pathname]);
 
     useEffect(() => {
