@@ -1,4 +1,5 @@
 import {promises as fs} from 'fs';
+import Benchmark from 'asyncmark';
 
 import Image from '../image';
 
@@ -123,4 +124,18 @@ describe('trace', () => {
         expect(viewBox).toBe('0 0 240 162');
         expect(path).toMatch(/^<path d=".*" stroke="none" fill="var\(--colors-img-trace\)" fill-rule="evenodd"\/>$/);
     });
+});
+
+test('benchmark', async () => {
+    jest.setTimeout(60 * 1000);
+
+    const result = await new Benchmark({
+        name: 'optimize jpeg image',
+        fun: async () => {
+            const img = new Image('public/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
+            await img.optimize('__test__', 320);
+        },
+    }).run()
+
+    result.assert('<100ms');
 });
