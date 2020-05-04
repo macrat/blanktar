@@ -1,6 +1,7 @@
 ---
 title: GitHub ActionsでLighthouseを実行する（treosh/lighthouse-ci-actions@v2使用）
 pubtime: 2020-05-04T00:32+0900
+uptime: 2020-05-04T14:19+0900
 amp: hybrid
 tags: [GitHub, "GitHub Actions", CI, テスト, Lighthouse, Web]
 description: GitHub Actionsを使ってプッシュの度にLighthouseを実行して、WebサイトのSEO対策の状況を自動的にテストしてもらう方法です。テスト結果はActionsのログから見れる他、Artifactとしても保存されます。
@@ -64,14 +65,14 @@ CI関連をまとめたかったのでworkflowsの中に置いてみたけれど
       "startServerCommand": "npm start",
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/blog",
+        "http://localhost:3000/blog"
       ]
     },
     "assert": {
       "preset": "lighthouse:no-pwa",
       "assertions": {
         "canonical": "off",
-        "uses-http2": "off",
+        "uses-http2": "off"
       }
     }
   }
