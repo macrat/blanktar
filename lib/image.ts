@@ -1,5 +1,6 @@
 import {createHash} from 'crypto';
-import {promises as fs} from 'fs';
+import {createWriteStream, promises as fs} from 'fs';
+import {Readable, Transform} from 'stream';
 
 import fetch from 'node-fetch';
 import sharp, {Sharp} from 'sharp';
@@ -34,32 +35,57 @@ export type TracedImage = {
 };
 
 
-async function compressJpeg(image: Buffer): Promise<Buffer> {
-    return await mozjpeg({quality: 80})(image);
-}
+class Compressor extends Transform {
+    private readonly compressor: (img: Buffer) => Promise<Buffer>;
 
+    private readonly bufs: Buffer[];
 
-async function compressPng(image: Buffer, transparent: boolean): Promise<Buffer> {
-    return await zopflipng({transparent})(image);
-}
+    constructor(compressor: ((img: Buffer) => Promise<Buffer>)) {
+        super();
 
-
-async function compress(image: Buffer, {format, hasAlpha}: {format?: string, hasAlpha?: boolean}): Promise<Buffer> {
-    if (format === 'png' || format === 'gif' || format == 'bmp') {
-        return await compressPng(image, hasAlpha ?? false);
+        this.compressor = compressor;
+        this.bufs = [];
     }
-    return await compressJpeg(image);
+
+    _transform(chunk: Buffer, encoding: string, callback: () => void): void {
+        this.bufs.push(chunk);
+        callback();
+    }
+
+    _finish(callback: (err?: Error) => void): void {
+        this.compressor(Buffer.concat(this.bufs))
+            .then(output => {
+                this.push(output);
+                callback();
+            })
+            .catch(err => callback(err));
+    }
 }
 
 
-async function compressWebp(image: Buffer, {format}: {format?: string}): Promise<Buffer> {
-    return await webp({
+function jpegCompressor(): Compressor {
+    return new Compressor(mozjpeg({quality: 80}));
+}
+
+
+function pngCompressor(transparent: boolean): Compressor {
+    return new Compressor(zopflipng({transparent}));
+}
+
+
+function commonCompressor(hasAlpha?: boolean): Compressor {
+    return pngCompressor(hasAlpha ?? false).pipe(jpegCompressor())
+}
+
+
+function webpCompressor(format?: string): Compressor {
+    return new Compressor(webp({
         lossless: format === 'png',
         quality: 60,
         method: penv({
             production: 6,
         }, 0),
-    })(image);
+    }));
 }
 
 
@@ -71,11 +97,11 @@ function getExtension(format: string): string {
 }
 
 
-async function writeTask(path: string, task: () => Promise<Buffer>): Promise<void> {
+async function writeTask(path: string, task: () => Readable): Promise<void> {
     try {
         await fs.access(path);
     } catch {
-        await fs.writeFile(path, await task());
+        task().pipe(createWriteStream(path));
     }
 }
 
@@ -99,10 +125,10 @@ async function tracePath(image: Buffer): Promise<string> {
 
 
 export default class Image {
-    private readonly img: Sharp;
+    private readonly raw: string | Buffer;
 
-    constructor(img: Sharp | string) {
-        this.img = typeof img === 'string' ? sharp(img) : img;
+    constructor(raw: string | Buffer) {
+        this.raw = raw;
     }
 
     static async download(url: string): Promise<Image> {
@@ -112,11 +138,11 @@ export default class Image {
             throw new Error(`failed to download image: ${resp.status} ${resp.statusText}`);
         }
 
-        return new Image(sharp(await resp.buffer()));
+        return new Image(await resp.buffer());
     }
 
     async size(): Promise<ImageSize> {
-        const {width, height} = await this.img.metadata();
+        const {width, height} = await sharp(this.raw).metadata();
         if (!width || !height) {
             throw new Error('failed to get image size');
         }
@@ -124,13 +150,14 @@ export default class Image {
     }
 
     async hash(): Promise<string> {
-        return createHash('md5').update(await this.img.clone().raw().toBuffer()).digest('hex');
+        return createHash('md5').update(await sharp(this.raw).raw().toBuffer()).digest('hex');
     }
 
     async optimize(path: string, width: number): Promise<OptimizedImage> {
         await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => null);
 
-        const metadata = await this.img.metadata();
+        const img = sharp(this.raw);
+        const metadata = await img.metadata();
         const extension = metadata.format === undefined ? 'jpg' : getExtension(metadata.format);
         const hash = await this.hash();
 
@@ -138,26 +165,29 @@ export default class Image {
             throw new Error('failed to get image size');
         }
 
-        const x2 = this.img.clone().resize(width * 2);
-        const x1 = this.img.clone().resize(width);
+        const stream = sharp();
+        const x2 = img.clone().resize(width * 2);
+        const x1 = img.clone().resize(width);
 
         await writeTask(
             `./.next/static/${path}/${hash}@2x.${extension}`,
-            async () => await compress(await x2.clone().toBuffer(), metadata),
+            () => x2.clone().pipe(commonCompressor(metadata.hasAlpha)),
         );
         await writeTask(
             `./.next/static/${path}/${hash}.${extension}`,
-            async () => await compress(await x1.clone().toBuffer(), metadata),
+            () => x1.clone().pipe(commonCompressor(metadata.hasAlpha)),
         );
 
         await writeTask(
             `./.next/static/${path}/${hash}@2x.webp`,
-            async () => await compressWebp(await x2.clone().toBuffer(), metadata),
+            () => x2.clone().pipe(webpCompressor(metadata.format)),
         );
         await writeTask(
             `./.next/static/${path}/${hash}.webp`,
-            async () => await compressWebp(await x1.clone().toBuffer(), metadata),
+            () => x1.clone().pipe(webpCompressor(metadata.format)),
         );
+
+        img.pipe(stream);
 
         const hdpi = `/_next/static/${path}/${hash}@2x.`;
         const mdpi = `/_next/static/${path}/${hash}.`;
@@ -182,7 +212,7 @@ export default class Image {
 
         return {
             viewBox: `0 0 240 ${Math.round(240 * height / width)}`,
-            path: await tracePath(await this.img.clone().resize({width: 240}).toBuffer())
+            path: await tracePath(await sharp(this.raw).resize({width: 240}).toBuffer())
         };
     }
 }
