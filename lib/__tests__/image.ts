@@ -58,13 +58,15 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(240);
 
-        const mdpiSize = await (new Image(optimized.images[1].mdpi.replace(/^\/_next/, './.next'))).size();
-        expect(mdpiSize.width).toBe(320);
-        expect(mdpiSize.height).toBe(240);
+        for (let {mdpi, hdpi} of optimized.images) {
+            const mdpiSize = await (new Image(mdpi.replace(/^\/_next/, './.next'))).size();
+            expect(mdpiSize.width).toBe(320);
+            expect(mdpiSize.height).toBe(240);
 
-        const hdpiSize = await (new Image(optimized.images[1].hdpi.replace(/^\/_next/, './.next'))).size();
-        expect(hdpiSize.width).toBe(640);
-        expect(hdpiSize.height).toBe(480);
+            const hdpiSize = await (new Image(hdpi.replace(/^\/_next/, './.next'))).size();
+            expect(hdpiSize.width).toBe(640);
+            expect(hdpiSize.height).toBe(480);
+        }
     });
 
     test('png', async () => {
@@ -76,13 +78,15 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(216);
 
-        const mdpiSize = await (new Image(optimized.images[1].mdpi.replace(/^\/_next/, './.next'))).size();
-        expect(mdpiSize.width).toBe(320);
-        expect(mdpiSize.height).toBe(216);
+        for (let {mdpi, hdpi} of optimized.images) {
+            const mdpiSize = await (new Image(mdpi.replace(/^\/_next/, './.next'))).size();
+            expect(mdpiSize.width).toBe(320);
+            expect(mdpiSize.height).toBe(216);
 
-        const hdpiSize = await (new Image(optimized.images[1].hdpi.replace(/^\/_next/, './.next'))).size();
-        expect(hdpiSize.width).toBe(640);
-        expect(hdpiSize.height).toBe(433);
+            const hdpiSize = await (new Image(hdpi.replace(/^\/_next/, './.next'))).size();
+            expect(hdpiSize.width).toBe(640);
+            expect(hdpiSize.height).toBe(433);
+        }
     });
 
     test('cache', async () => {
@@ -137,5 +141,5 @@ test('benchmark', async () => {
         },
     }).run()
 
-    result.assert('<100ms');
+    result.assert('<20ms');
 });
