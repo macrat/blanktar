@@ -44,7 +44,7 @@ async function compressPng(image: Buffer, transparent: boolean): Promise<Buffer>
 }
 
 
-async function compress(image: Buffer, {format, hasAlpha}: {format?: string, hasAlpha?: boolean}): Promise<Buffer> {
+async function compress(image: Buffer, {format, hasAlpha}: {format?: string; hasAlpha?: boolean}): Promise<Buffer> {
     if (format === 'png' || format === 'gif' || format == 'bmp') {
         return await compressPng(image, hasAlpha ?? false);
     }

@@ -58,7 +58,7 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(240);
 
-        for (let {mdpi, hdpi} of optimized.images) {
+        for (const {mdpi, hdpi} of optimized.images) {
             const mdpiSize = await (new Image(mdpi.replace(/^\/_next/, './.next'))).size();
             expect(mdpiSize.width).toBe(320);
             expect(mdpiSize.height).toBe(240);
@@ -78,7 +78,7 @@ describe('optimize', () => {
         expect(optimized.width).toBe(320);
         expect(optimized.height).toBe(216);
 
-        for (let {mdpi, hdpi} of optimized.images) {
+        for (const {mdpi, hdpi} of optimized.images) {
             const mdpiSize = await (new Image(mdpi.replace(/^\/_next/, './.next'))).size();
             expect(mdpiSize.width).toBe(320);
             expect(mdpiSize.height).toBe(216);
@@ -139,7 +139,7 @@ test('benchmark', async () => {
             const img = new Image('public/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
             await img.optimize('__test__', 320);
         },
-    }).run()
+    }).run();
 
     result.assert('<20ms');
 });
