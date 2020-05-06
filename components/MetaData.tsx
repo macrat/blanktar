@@ -13,6 +13,13 @@ export type Props = {
 const MetaData: FC<Props> = ({title, description, image}) => {
     const router = useRouter();
 
+    const query = new URLSearchParams(
+        Object.entries(router.query)
+            .filter(([k, v]) => k !== 'amp' && v)
+            .map(([k, v]) => [k, String(v)])
+    );
+    const canonical = new URL(`https://blanktar.jp${router.pathname}${query}`);
+
     return (
         <Head>
             <title>{title ? `${title} - Blanktar` : 'Blanktar'}</title>
@@ -28,7 +35,7 @@ const MetaData: FC<Props> = ({title, description, image}) => {
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} key="twitter--card" />
             <meta name="twitter:creator" content="@macrat_jp" key="twitter-creator" />
 
-            <link rel="canonical" type="text/html" href={`https://blanktar.jp${router.asPath}`} />
+            <link rel="canonical" type="text/html" href={`https://blanktar.jp${canonical}`} />
         </Head>
     );
 };
