@@ -22,6 +22,7 @@ export const Author: Thing = {
 export const Publisher: Thing = {
     '@type': 'Organization',
     name: 'Blanktar',
+    member: Author,
     logo: [{
         '@type': 'ImageObject',
         url: 'https://blanktar.jp/img/blanktar-banner.png',
@@ -46,6 +47,7 @@ export const Website: Thing = {
     name: 'Blanktar',
     url: 'https://blanktar.jp',
     author: Author,
+    publisher: Publisher,
     potentialAction: {
         '@type': 'SearchAction',
         target: 'https://blanktar.jp/search?q={search_term_string}',
