@@ -10,7 +10,7 @@ beforeEach(async () => {
 
 describe('detect image size', () => {
     test('1024x1024.png', async () => {
-        const {width, height} = (await Image.read('public/img/blanktar-logo.png')).size;
+        const {width, height} = (await Image.read('public/img/blanktar-logo@1024.png')).size;
 
         expect(width).toBe(1024);
         expect(height).toBe(1024);
@@ -33,10 +33,10 @@ describe('detect image size', () => {
 
 
 describe('get image hash', () => {
-    test('blanktar-logo.png', async () => {
-        const hash = (await Image.read('public/img/blanktar-logo.png')).hash();
+    test('blanktar-logo@512.png', async () => {
+        const hash = (await Image.read('public/img/blanktar-logo@512.png')).hash();
 
-        expect(hash).toBe('9334a62bde117ba065bb70135ae51fbe');
+        expect(hash).toBe('d78f5d61395cc7c172ee118dfe64e356');
     });
 
     test('macrat.png', async () => {
@@ -87,7 +87,7 @@ describe('optimize', () => {
     test('cache', async () => {
         jest.setTimeout(60 * 1000);
 
-        const img = await Image.read('public/img/blanktar-logo.png');
+        const img = await Image.read('public/img/blanktar-logo@512.png');
 
         const start = new Date();
         const first = await img.optimize('__test__', 320);
