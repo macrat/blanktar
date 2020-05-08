@@ -29,9 +29,14 @@ export const Publisher: Thing = {
         height: 60,
     },  {
         '@type': 'ImageObject',
-        url: 'https://blanktar.jp/img/blanktar-logo.png',
+        url: 'https://blanktar.jp/img/blanktar-logo@512.png',
         width: 512,
         height: 512,
+    },  {
+        '@type': 'ImageObject',
+        url: 'https://blanktar.jp/img/blanktar-logo@1024.png',
+        width: 1024,
+        height: 1024,
     }],
 };
 
