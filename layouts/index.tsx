@@ -120,11 +120,11 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                             supply: howto.supply?.map(x => ({
                                 '@type': 'HowToSupply',
                                 name: x,
-                            })),
+                            })) ?? [],
                             tool: howto.tool?.map(x => ({
                                 '@type': 'HowToTool',
                                 name: x,
-                            })),
+                            })) ?? [],
                             step: howto.step.map(x => ({
                                 '@type': 'HowToStep',
                                 name: x.name,
