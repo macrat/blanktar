@@ -16,6 +16,7 @@ type HowTo = {
     step: {
         name: string;
         text: string;
+        url?: string;
         image?: string;
     }[];
     totalTime?: string;
@@ -106,7 +107,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                         author: Author,
                         image: image ? `https://blanktar.jp${image}` : `https://blanktar.jp/img/eyecatch/${encodeURIComponent(title)}.png`,
                         datePublished: pubtime,
-                        dateModified: modtime,
+                        dateModified: modtime ?? pubtime,
                         publisher: Publisher,
                         description: description ?? undefined,
                         mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
@@ -120,15 +121,16 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                             supply: howto.supply?.map(x => ({
                                 '@type': 'HowToSupply',
                                 name: x,
-                            })),
+                            })) ?? [],
                             tool: howto.tool?.map(x => ({
                                 '@type': 'HowToTool',
                                 name: x,
-                            })),
-                            step: howto.step.map(x => ({
+                            })) ?? [],
+                            step: howto.step.map(({name, text, url}) => ({
                                 '@type': 'HowToStep',
-                                name: x.name,
-                                text: x.text,
+                                name: name,
+                                text: text,
+                                url: url?.startsWith('/') ? `https://blanktar.jp${url}` : url?.startsWith('#') ? `https://blanktar.jp${router.asPath}${url}` : url,
                                 image: image ? 'https://blanktar.jp' + image : undefined,
                             })),
                             url: 'https://blanktar.jp' + router.asPath,

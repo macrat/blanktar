@@ -8,22 +8,29 @@ howto:
   totalTime: PT10M
   step:
     - name: node-canvasをインストールする
+      url: "#1. 必要なパッケージのインストール"
       text: "`npm install canvas`でnode-canvasというライブラリをインストールします。"
     - name: フォントを読み込む
+      url: "#5-1. フォントの読み込み"
       text: |
         `registerFont(fontPath, { family: fontName })`を使って、使いたいフォントを読み込みます。
         otfもttfも行けるので、わりと何でも読めるはず。
     - name: キャンバスの準備をする
+      url: "#2. Canvasを用意する"
       text: "`createCanvas(width, height)`を使って、空のキャンバスを作ります。"
     - name: コンテキストを作る
       text: "`canvas.getContext('2d')`でキャンバスの操作をするためのコンテキストを作ります。"
     - name: 画像を読み込む
+      url: "#3. 画像を読み込む"
       text: "`await loadImage(imagePath)`で書き込み先となる画像を読み込みます"
     - name: 画像をキャンバスに書き込む
+      url: "#3. 画像を読み込む"
       text: "`context.drawImage(image, left, top)`で読み込んだ画像をキャンバスに書き込みます。"
     - name: 使うフォントの名前を指定する
+      url: "#5-2. 使うフォントを指定して文字を書き込む"
       text: "`context.font = fontName`でさきほど読み込んだ（familyで指定した）フォントの名前を指定します。"
     - name: 文字を書き込む
+      url: "#5-2. 使うフォントを指定して文字を書き込む"
       text: "`context.fillText(text, left, top)`で文字を書き込みます。"
 ---
 
