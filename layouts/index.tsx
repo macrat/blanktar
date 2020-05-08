@@ -107,7 +107,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                         author: Author,
                         image: image ? `https://blanktar.jp${image}` : `https://blanktar.jp/img/eyecatch/${encodeURIComponent(title)}.png`,
                         datePublished: pubtime,
-                        dateModified: modtime,
+                        dateModified: modtime ?? pubtime,
                         publisher: Publisher,
                         description: description ?? undefined,
                         mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
