@@ -7,7 +7,7 @@ export type Post = {
     modtime?: number;
     tags: string[];
     lowerTags: string[];
-    image?: string;
+    image?: string | string[];
     description?: string;
     href: string;
     content: string;
