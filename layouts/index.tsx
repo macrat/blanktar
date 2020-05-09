@@ -127,7 +127,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
                         dateModified: modtime ?? pubtime,
                         publisher: Publisher,
                         description: description ?? undefined,
-                        mainEntityOfPage: 'https://blanktar.jp' + router.asPath,
+                        mainEntityOfPage: 'https://blanktar.jp' + router.pathname,
                     }} />
                     {howto ? (
                         <JsonLD data={{
