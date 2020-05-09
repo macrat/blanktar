@@ -32,3 +32,19 @@ describe('multi query', () => {
         expect(result.posts.length).toBe(0);
     });
 });
+
+describe('empty query', () => {
+    test('0 length query', () => {
+        const result = search('', 0, 10);
+
+        expect(result.totalCount).toBe(0);
+        expect(result.posts.length).toBe(0);
+    });
+
+    test('whitespace queries', () => {
+        const result = search(' \t \t', 0, 10);
+
+        expect(result.totalCount).toBe(0);
+        expect(result.posts.length).toBe(0);
+    });
+});
