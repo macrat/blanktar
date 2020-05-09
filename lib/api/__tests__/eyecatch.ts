@@ -24,8 +24,10 @@ const execute = async (title: string, func: NextApiHandler) => {
 
 describe("don't crash", () => {
     [
+        /* eslint-disable @typescript-eslint/no-var-requires */
         {name: '1x1',  func: eyecatch(require('~/assets/eyecatch-base-1x1.svg'), 1200, 1200)},
         {name: '16x9', func: eyecatch(require('~/assets/eyecatch-base-16x9.svg'), 1200, 675)},
+        /* eslint-enable @typescript-eslint/no-var-requires */
     ].forEach(({name, func}) => {
         describe(name, () => {
             [
@@ -47,6 +49,7 @@ describe("don't crash", () => {
 
 
 test('benchmark', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const func = eyecatch(require('~/assets/eyecatch-base-1x1.svg'), 1200, 1200);
 
     const result = await new Benchmark({
