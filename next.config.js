@@ -131,11 +131,14 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
             ],
         }],
         rewrites: () => [
-            {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
+            {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
             {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
             {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+        ],
+        redirects: () => [
+            {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
         ],
     },
 })));
