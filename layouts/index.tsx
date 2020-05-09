@@ -35,7 +35,7 @@ export type Props = {
     modtime?: string;
     amp: boolean | 'hybrid';
     tags?: string[];
-    image?: string;
+    image?: string | string[];
     description: string | null;
     howto?: HowTo;
     faq?: FAQ;
@@ -68,7 +68,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
 
         return (
             <>
-                <MetaData title={title} description={description ?? undefined} image={image} />
+                <MetaData title={title} description={description ?? undefined} image={typeof image === 'string' ? image : image?.[0]} />
 
                 <Header />
 
@@ -112,7 +112,17 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
                         '@type': 'BlogPosting',
                         headline: title,
                         author: Author,
-                        image: image ? `https://blanktar.jp${image}` : `https://blanktar.jp/img/eyecatch/${encodeURIComponent(title)}.png`,
+                        image: (
+                            (typeof image === 'string') ? (
+                                `https://blanktar.jp${image}`
+                            ) : image ? (
+                                image.map(x => `https://blanktar.jp${x}`)
+                            ) : [
+                                `https://blanktar.jp/img/eyecatch/1x1/${encodeURIComponent(title)}.png`,
+                                `https://blanktar.jp/img/eyecatch/4x3/${encodeURIComponent(title)}.png`,
+                                `https://blanktar.jp/img/eyecatch/16x9/${encodeURIComponent(title)}.png`,
+                            ]
+                        ),
                         datePublished: pubtime,
                         dateModified: modtime ?? pubtime,
                         publisher: Publisher,
