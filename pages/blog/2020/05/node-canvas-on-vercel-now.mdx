@@ -4,6 +4,11 @@ pubtime: 2020-05-03T15:46+0900
 amp: hybrid
 tags: [Vercel, Node.js, node-canvas, サーバ, yum]
 description: Vercel NowにデプロイしたNode.jsのプロジェクトでnode-canvasを使う方法です。node-canvasはpure-jsではないので、依存関係を手動で解決してあげる必要があります。
+faq:
+  - question: Vercel Nowでnode-canvasを動かすには？
+    answer: ビルド時にlibuuid-develとlibmount-develをインストールすれば動くようになります。
+  - question: Vercel Nowでnpm run buildする前に好きなコマンドを実行するには？
+    answer: package.jsonのscriptsにnow-buildというコマンドを用意しておくと、npm run buildの代わりにnpm run now-buildを使ってくれます。
 ---
 
 このサイトでは、記事のサムネイルなんかを作るために[node-canvas](https://github.com/Automattic/node-canvas)を使用しています。

@@ -23,6 +23,12 @@ type HowTo = {
 };
 
 
+type FAQ = {
+    question: string;
+    answer: string;
+}[];
+
+
 export type Props = {
     title: string;
     pubtime: string;
@@ -32,10 +38,11 @@ export type Props = {
     image?: string;
     description: string | null;
     howto?: HowTo;
+    faq?: FAQ;
 };
 
 
-export default ({title, pubtime, modtime, amp, tags, image, description, howto}: Props) => {
+export default ({title, pubtime, modtime, amp, tags, image, description, howto, faq}: Props) => {
     if (!title) {
         throw new Error(`${pubtime}: title is not provided`);
     }
@@ -135,6 +142,19 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto}:
                             })),
                             url: 'https://blanktar.jp' + router.asPath,
                             image: image ? 'https://blanktar.jp' + image : undefined,
+                        }} />
+                    ) : null}
+                    {faq ? (
+                        <JsonLD data={{
+                            '@type': 'FAQPage',
+                            mainEntity: faq.map(x => ({
+                                '@type': 'Question',
+                                name: x.question,
+                                acceptedAnswer: {
+                                    '@type': 'Answer',
+                                    text: x.answer,
+                                },
+                            })),
                         }} />
                     ) : null}
                 </Article>
