@@ -25,8 +25,11 @@ ReactGA.initialize(
 const Analytics: FC = () => {
     if (useAmp()) {
         return (
-            <Head>
-                <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" key="amp-analytics" />
+            <>
+                <Head>
+                    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" key="amp-analytics" />
+                </Head>
+
                 <amp-analytics type="gtag" data-credentials="include" key="amp-analytics--settings">
                     <script type="application/json" dangerouslySetInnerHTML={{__html: JSON.stringify({
                         vars: {
@@ -39,7 +42,7 @@ const Analytics: FC = () => {
                         },
                     })}} />
                 </amp-analytics>
-            </Head>
+            </>
         );
     }
 
