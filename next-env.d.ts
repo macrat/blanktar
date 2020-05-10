@@ -21,9 +21,16 @@ declare namespace JSX {
         height: number;
         children?: ReactNode;
     }
+    interface AmpAnalytics {
+        type: string;
+        'data-credentials': string;
+        key?: string;
+        children: ReactNode;
+    }
     interface IntrinsicElements {
         'amp-img': AmpImg;
         'amp-twitter': AmpTwitter;
+        'amp-analytics': AmpAnalytics;
     }
 }
 

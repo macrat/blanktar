@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import {AppProps} from 'next/app';
 
 import {ContextProvider, useContext} from '~/lib/context';
-import useAnalytics from '~/lib/analytics';
 
+import Analytics from '~/components/Analytics';
 import CommonResources from '~/components/CommonResources';
 import Footer from '~/components/Footer';
 
@@ -50,10 +50,10 @@ const BlanktarContentWrapper: FC = ({children}) => {
 
 
 const BlanktarApp = ({Component, pageProps}: AppProps) => {
-    useAnalytics();
-
     return (
         <ContextProvider>
+            <Analytics />
+
             <CommonResources />
 
             <BlanktarContentWrapper>
