@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useRouter} from 'next/router';
 import {useAmp} from 'next/amp';
 import Head from 'next/head';
@@ -30,7 +30,7 @@ const Analytics: FC = () => {
                 <amp-analytics type="gtag" data-credentials="include" key="amp-analytics--settings">
                     <script type="application/json" dangerouslySetInnerHTML={{__html: JSON.stringify({
                         vars: {
-                            gtag_id: GOOGLE_ANALYTICS,
+                            gtag_id: GOOGLE_ANALYTICS,  // eslint-disable-line @typescript-eslint/camelcase
                             config: {
                                 [GOOGLE_ANALYTICS]: {
                                     groups: 'default',
