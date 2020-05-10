@@ -10,6 +10,8 @@ description: Linuxの主要なディストリビューションに入ってい�
 
 まあでもそんなことはどうでも良いんだきちんと動きさえすれば、という方のためのパッケージマネージャの使い方早見表。
 
+<div style={{'overflow-x': 'auto'}}>
+
 |名称        |使われている場所|アップデート                                  |検索                           |インストール                     |アンインストール               |
 |------------|----------------|----------------------------------------------|-------------------------------|---------------------------------|-------------------------------|
 |**APT**     |Debian系        |`apt-get update`<br />`apt-get upgrade`       |`apt-cache search [検索ワード]`|`apt-get install [パッケージ名]` |`apt-get purge [パッケージ名]` |
@@ -19,6 +21,8 @@ description: Linuxの主要なディストリビューションに入ってい�
 |**pacman**  |Arch Linux      |`pacman -Syu`                                 |`pacman -Ss [検索ワード]`      |`pacman -S [パッケージ名]`       |`pacman -Rs [パッケージ名]`    |
 |**portage** |Gentoo Linux    |`emerge --sync`<br />`emerge -uD world`       |`emerge -s [検索ワード]`       |`emerge [パッケージ名]`          |`emerge -C [パッケージ名]`     |
 |**Yum**     |RedHad系        |`yum update`                                  |`yum search [検索ワード]`      |`yum install [パッケージ名]`     |`yum remove [パッケージ名]`    |
+
+</div>
 
 とりあえずメジャー・・・ってか、自分が使う(or使いそう)なものだけ。
 
