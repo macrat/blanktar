@@ -3,13 +3,12 @@ import React, {FC} from 'react';
 
 const ListItem: FC = ({children}) => (
     <li>
-        <svg width="100%" height="1px" className="line top"><rect x="0" y="0" width="100%" height="100%" /></svg>
-        <svg width="1px" height="100%" className="line left"><rect x="0" y="0" width="100%" height="100%" /></svg>
-
         {children}
 
-        <svg width="100%" height="1px" className="line bottom"><rect x="0" y="0" width="100%" height="100%" /></svg>
-        <svg width="1px" height="100%" className="line right"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="100%" height="1px" className="horizontal top" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="100%" height="1px" className="horizontal bottom" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="1px" height="100%" className="vertical left" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
+        <svg width="1px" height="100%" className="vertical right" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" /></svg>
 
         <style jsx>{`
             li {
@@ -17,44 +16,46 @@ const ListItem: FC = ({children}) => (
                 position: relative;
                 margin: 5mm 0;
             }
-            .line {
-                display: none;
+            svg {
                 position: absolute;
-            }
-            rect {
                 fill: var(--colors-fg);
+                transition: transform .3s;
+            }
+            .top {
+                top: 0;
             }
             .bottom {
                 bottom: 0;
             }
+            .left {
+                left: 0;
+            }
             .right {
-                top: 0;
                 right: 0;
             }
-            li:hover .line, li:focus-within .line {
-                display: block;
+            .horizontal {
+                left: -3mm;
+                width: calc(100% + 6mm);
+                transform: scaleX(0);
             }
-            li:hover .top, li:focus-within .top { animation: line-horizontal .3s ease both; }
-            li:hover .left, li:focus-within .left { animation: line-vertical .3s ease both; }
-            li:hover .bottom, li:focus-within .bottom { animation: line-horizontal .3s ease both; }
-            li:hover .right, li:focus-within .right { animation: line-vertical .3s ease both; }
-
-            @keyframes line-horizontal {
-                from { transform: scaleX(0); }
-                  to { transform: scaleX(1); }
+            .vertical {
+                top: -3mm;
+                height: calc(100% + 6mm);
+                transform: scaleY(0);
             }
-            @keyframes line-vertical {
-                from { transform: scaleY(0); }
-                  to { transform: scaleY(1); }
+            li:hover .horizontal, li:focus-within .horizontal {
+                transform: scaleX(1);
+            }
+            li:hover .vertical, li:focus-within .vertical {
+                transform: scaleY(1);
             }
 
             @media screen and (prefers-reduced-motion: reduce) {
-                .line {
-                    display: block;
+                svg {
                     opacity: 0;
                     transition: opacity .2s ease;
                 }
-                li:hover .line, li:focus-within .line {
+                li:hover svg, li:focus-within svg {
                     opacity: 1;
                     animation: none;
                 }

@@ -63,6 +63,7 @@
     "imagemin-zopfli": "^6.0.0",
     "jest": "^25.5.4",
     "jest-raw-loader": "^1.0.1",
+    "mime": "^2.4.5",
     "mock-http": "^1.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "next-offline": "^5.0.2",

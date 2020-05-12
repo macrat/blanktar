@@ -15,8 +15,22 @@ declare namespace JSX {
         };
         children?: Element;
     }
+    interface AmpTwitter {
+        'data-tweetid': string;
+        width: number;
+        height: number;
+        children?: ReactNode;
+    }
+    interface AmpAnalytics {
+        type: string;
+        'data-credentials': string;
+        key?: string;
+        children: ReactNode;
+    }
     interface IntrinsicElements {
         'amp-img': AmpImg;
+        'amp-twitter': AmpTwitter;
+        'amp-analytics': AmpAnalytics;
     }
 }
 

@@ -14,10 +14,13 @@ howto:
     - kibanaのイメージ
   step:
     - name: イメージの用意
+      url: "#fluentdのイメージを用意する"
       text: Docker Hubの"fluent/fluentd"イメージをベースに、fluent-plugin-elasticsearchプラグインを入れたイメージを作ります。
     - name: fluentdの設定
+      url: "#fluendtの設定ファイルを書く"
       text: fluentdからelasticsearchにデータを流すための設定ファイルを作ります。
     - name: docker-composeの設定
+      url: "#ひと通り立ち上げてみる"
       text: docker-composeに"driver"という設定を追加して、ログをfluentdに流すように設定します。
 ---
 
