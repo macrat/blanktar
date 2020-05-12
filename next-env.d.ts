@@ -21,9 +21,16 @@ declare namespace JSX {
         height: number;
         children?: ReactNode;
     }
+    interface AmpAnalytics {
+        type: string;
+        'data-credentials': string;
+        key?: string;
+        children: ReactNode;
+    }
     interface IntrinsicElements {
         'amp-img': AmpImg;
         'amp-twitter': AmpTwitter;
+        'amp-analytics': AmpAnalytics;
     }
 }
 
@@ -79,9 +86,7 @@ declare module 'prism-react-renderer/prism' {
 }
 
 declare module 'styled-jsx/macro' {
-    import {resolve} from 'styled-jsx/css';
-
-    export const resolve = resolve;
+    export {resolve} from 'styled-jsx/css';
 }
 
 declare module 'potrace' {

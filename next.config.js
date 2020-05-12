@@ -85,7 +85,7 @@ const CSPHeader = [
         "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
-    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com https://www.googletagmanager.com https://cdn.ampproject.org",
     "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
     "object-src 'none'",
     "frame-ancestors 'none'",
@@ -97,7 +97,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
-        config.resolve.alias['~'] = __dirname;
         config.module.rules.push({
             test: /\.svg$/i,
             use: [{
@@ -131,11 +130,14 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
             ],
         }],
         rewrites: () => [
-            {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
+            {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
             {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
             {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+        ],
+        redirects: () => [
+            {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
         ],
     },
 })));

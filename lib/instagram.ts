@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 import Image, {OptimizedImage, TracedImage} from '~/lib/image';
 
 
