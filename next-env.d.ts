@@ -86,9 +86,7 @@ declare module 'prism-react-renderer/prism' {
 }
 
 declare module 'styled-jsx/macro' {
-    import {resolve} from 'styled-jsx/css';
-
-    export const resolve = resolve;
+    export {resolve} from 'styled-jsx/css';
 }
 
 declare module 'potrace' {
