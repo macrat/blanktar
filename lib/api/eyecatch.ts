@@ -3,7 +3,6 @@ import {createHash} from 'crypto';
 
 import {NextApiRequest, NextApiResponse} from 'next';
 import {createCanvas, registerFont, loadImage} from 'canvas';
-import fetch from 'node-fetch';
 
 import withCache from './cache';
 import createETag from './etag';
