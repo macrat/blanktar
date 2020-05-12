@@ -97,7 +97,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     webpack(config, options) {
-        config.resolve.alias['~'] = __dirname;
         config.module.rules.push({
             test: /\.svg$/i,
             use: [{
