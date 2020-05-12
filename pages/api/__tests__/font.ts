@@ -1,4 +1,5 @@
 import {Request, Response} from '~/lib/api/testutil';
+import fetch from 'node-fetch';
 
 import font from '../font';
 
