@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {useRouter} from 'next/router';
 
+import {getImageURL} from '~/lib/eyecatch';
+
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
 import SearchBar from '~/components/SearchBar';
@@ -101,7 +103,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
                     </ComponentsProvider>
 
                     <aside>
-                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} image={image} />
+                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} image={getImageURL(title, image)} />
 
                         <style jsx>{`
                             margin-top: 1cm;
