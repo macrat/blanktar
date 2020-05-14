@@ -7,7 +7,7 @@ import {getImageURL} from '~/lib/eyecatch';
 export type Props = {
     title: string;
     href: string;
-    image?: string;
+    image?: string | string[];
 };
 
 
