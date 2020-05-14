@@ -1,4 +1,4 @@
-export function getImageURL(title: string, image?: string): string {
+export function getImageURL(title?: string, image?: string | string[]): string {
     if (typeof image === 'string') {
         return `https://blanktar.jp${image}`;
     } else if (image) {
