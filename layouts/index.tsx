@@ -101,7 +101,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
                     </ComponentsProvider>
 
                     <aside>
-                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} />
+                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} image={image} />
 
                         <style jsx>{`
                             margin-top: 1cm;

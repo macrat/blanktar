@@ -75,6 +75,11 @@ const ShareButton: FC<Props> = ({href, alt, label, children}) => (
                     width: 60px;
                 }
             }
+            @media screen and (max-width: 380px) {
+                a {
+                    width: 72px;
+                }
+            }
         `}</style>
     </a>
 );
