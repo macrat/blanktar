@@ -24,10 +24,10 @@ describe('detect image size', () => {
     });
 
     test('from online', async () => {
-        const {width, height} = (await Image.read('https://source.unsplash.com/128x64')).size;
+        const {width, height} = (await Image.read('https://via.placeholder.com/10x5')).size;
 
-        expect(width).toBe(128);
-        expect(height).toBe(64);
+        expect(width).toBe(10);
+        expect(height).toBe(5);
     });
 });
 
