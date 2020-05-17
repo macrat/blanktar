@@ -1,0 +1,64 @@
+---
+title: Next.jsでWeb VitalsをGoogle Analyticsに記録する
+pubtime: 2020-05-17T17:35+0900
+amp: hybrid
+tags: [Next.js, Web Vitals, Google Analytics, Web]
+description: Next.js 9.4から追加されたIntegrated Web Vitals Reportingという機能を使って、LCPやらFIDやらのWeb VitalsをGoogle Analyticsのカスタム速度に記録する方法です。Google Analyticsへの記録にはReact-GAを使っています。
+image: /blog/2020/05/nextjs-google-analytics-web-vitals.png
+---
+
+Next.js 9.4から、[パフォーマンスモニタリング用の機能が追加](https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting)されました。
+これを使うと、LCP（一番大きい要素が表示されるまでの時間）やFID（最初にインタラクティブになるまねお時間）などの情報を得ることが出来ます。便利。
+
+
+# データを取得する
+
+Web Vitalsのデータを取得するには、`pages/_app.jsx`に以下のようなコードを追加します。
+
+``` javascript
+export function reportWebVitals(metric) {
+    console.log(metric);
+}
+```
+
+これだけで、とりあえずコンソールにデータが表示されるようになります。
+
+
+# Google Analyticsに送信する
+
+Google Analyticsへの記録には、ここでは[React-GA](https://github.com/react-ga/react-ga)の[timing関数](https://github.com/react-ga/react-ga#reactgatimingargs)というものを使います。
+
+最小限でとりあえず記録しようとすると、以下のような感じになります。
+
+``` javascript
+export function reportWebVitals({ name, value }) {
+    ReactGA.timing({
+        category: 'Web Vitals',
+        variable: name,
+        value: name === 'CLS' ? value * 1000 : value,
+    });
+}
+```
+
+CLSの時だけ単位が秒になるようなので、そこだけ1000倍してミリ秒に揃えています
+
+
+# Typescriptの場合
+
+9.4の時点では`reportWebVitals`の型が用意されていないみたいなので、自前で用意します。
+おそらく以下のような感じで大丈夫そうです。
+
+``` typescript
+interface WebVitalsMetric {
+    id: string;
+    name: string;
+    startTime: number;
+    value: number;
+    label: 'web-vital' | 'custom';
+}
+```
+
+---
+
+参考:
+- [Advanced Features: Measuring performance | Next.js](https://nextjs.org/docs/advanced-features/measuring-performance)
