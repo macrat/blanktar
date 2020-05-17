@@ -3,7 +3,7 @@ import {AppProps} from 'next/app';
 
 import {ContextProvider, useContext} from '~/lib/context';
 
-import Analytics from '~/components/Analytics';
+import Analytics, {reportSpeed} from '~/components/Analytics';
 import CommonResources from '~/components/CommonResources';
 import Footer from '~/components/Footer';
 
@@ -139,6 +139,11 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
         </ContextProvider>
     );
 };
+
+
+export function reportWebVitals({name, value}: {name: string; value: number}) {
+    reportSpeed(name, name === 'CLS' ? value * 1000 : value);
+}
 
 
 export default BlanktarApp;
