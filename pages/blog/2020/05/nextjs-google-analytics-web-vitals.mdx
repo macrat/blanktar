@@ -10,7 +10,8 @@ image: /blog/2020/05/nextjs-google-analytics-web-vitals.png
 Next.js 9.4から、[パフォーマンスモニタリング用の機能が追加](https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting)されました。
 これを使うと、LCP（一番大きい要素が表示されるまでの時間）やFID（最初にインタラクティブになるまでの時間）などの情報を得ることが出来ます。便利。
 
-このサイトにも導入してみたので、簡単にやり方をメモしておきます。
+このサイトでも、この機能で取得したデータを[Google Analytics](https://analytics.google.com/analytics/web/)の[カスタム速度](https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings?hl=ja)に記録するようにしてみました。
+簡単にこれのやり方をメモしておきます。
 
 
 # データを取得する
@@ -42,7 +43,11 @@ export function reportWebVitals({ name, value }) {
 }
 ```
 
-CLSの時だけ単位が秒になるようなので、そこだけ1000倍してミリ秒に揃えています
+CLSの時だけ単位が秒になるようなので、そこだけ1000倍してミリ秒に揃えています。
+
+正常に機能すれば、Google Analyticsの[カスタム速度](https://analytics.google.com/analytics/web/#/report/content-site-speed-user-timings/)で記録を見ることが出来るはずです。
+[カスタム速度は100%全部が記録されるわけではない](https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings?hl=ja#sampling_considerations)ので、そこだけ注意が必要です。
+のんびり確認するくらいで居た方が良いかも。
 
 
 # Typescriptの場合
