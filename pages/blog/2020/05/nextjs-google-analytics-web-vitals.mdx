@@ -56,6 +56,10 @@ interface WebVitalsMetric {
     value: number;
     label: 'web-vital' | 'custom';
 }
+
+export function reportWebVitals({ name, value }: WebVitalsMetric): void {
+    console.log(name, value);
+}
 ```
 
 ---
