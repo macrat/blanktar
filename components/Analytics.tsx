@@ -22,6 +22,15 @@ ReactGA.initialize(
 );
 
 
+export function reportSpeed(variable: string, value: number) {
+    ReactGA.timing({
+        category: 'Web Vitals',
+        variable,
+        value,
+    });
+}
+
+
 const Analytics: FC = () => {
     if (useAmp()) {
         return (
