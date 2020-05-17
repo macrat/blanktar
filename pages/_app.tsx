@@ -141,7 +141,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
 };
 
 
-export function reportWebVitals({name, value}: {name: string, value: number}) {
+export function reportWebVitals({name, value}: {name: string; value: number}) {
     reportSpeed(name, name === 'CLS' ? value * 1000 : value);
 }
 
