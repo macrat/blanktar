@@ -23,13 +23,6 @@ describe('detect image size', () => {
         expect(width).toBe(312);
         expect(height).toBe(60);
     });
-
-    test('from online', async () => {
-        const {width, height} = await (await Image.download('https://source.unsplash.com/128x64')).size();
-
-        expect(width).toBe(128);
-        expect(height).toBe(64);
-    });
 });
 
 

@@ -1,7 +1,6 @@
 import {createHash} from 'crypto';
 import {promises as fs} from 'fs';
 
-import fetch from 'node-fetch';
 import sharp, {Sharp} from 'sharp';
 import mozjpeg from 'imagemin-mozjpeg';
 import zopflipng from 'imagemin-zopfli';
@@ -112,7 +111,7 @@ export default class Image {
             throw new Error(`failed to download image: ${resp.status} ${resp.statusText}`);
         }
 
-        return new Image(sharp(await resp.buffer()));
+        return new Image(sharp(Buffer.from(await resp.arrayBuffer())));
     }
 
     async size(): Promise<ImageSize> {
