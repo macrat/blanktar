@@ -38,8 +38,8 @@ describe('detect image size', () => {
     test('from online', async () => {
         const {width, height} = await (await Image.download('http://example.com/foo/bar.svg')).size();
 
-        expect(width).toBe(312);
-        expect(height).toBe(60);
+        expect(width).toBe(1200);
+        expect(height).toBe(900);
     });
 });
 
