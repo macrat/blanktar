@@ -14,7 +14,7 @@ describe('detect image size', () => {
     beforeEach(async () => {
         fetchMock.enableMocks();
 
-        fetchMock.mockResponse(await fs.readFile('./assets/eyecatch-base-4x3.svg'));
+        fetchMock.mockResponse(await fs.readFile('./assets/eyecatch-base-4x3.svg', 'utf8'));
     });
 
     afterEach(() => {
