@@ -17,13 +17,16 @@ howto:
   step:
     - name: 回路を組む
       text: ユニバーサル基板を使って、I2Cで接続します。
+      url: "#作ったもの（物理）"
       image: /blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg
     - name: データを取得する
+      url: "#HDC1000のデータをgolangで読む"
       text: |
         go-i2cライブラリを使ってデータを取得します。
         0x00に書き込むと、温度と湿度をまとめて取得することが出来ます。
         取得したデータはデータシートに従って計算すると、摂氏とパーセントにそれぞれ変換出来ます。
     - name: fluentdにデータを送る
+      url: "#golangからfluentdにデータを送る"
       text: |
         fluent公式のfluent-logger-golangライブラリを使って、fluentdにデータを送信します。
         PostWithTimeを使って送信することで、"@timestamp"が自動的に付与されます。

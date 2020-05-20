@@ -3,11 +3,11 @@ export type Post = {
     lowerTitle: string;
     year: number;
     month: number;
-    pubtime: string;
-    modtime?: string;
+    pubtime: number;
+    modtime?: number;
     tags: string[];
     lowerTags: string[];
-    image?: string;
+    image?: string | string[];
     description?: string;
     href: string;
     content: string;

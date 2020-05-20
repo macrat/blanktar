@@ -2,7 +2,14 @@ import posts from '../';
 
 
 export default (query: string, offset: number, limit: number) => {
-    const queries = query.toLowerCase().split(' ');
+    const queries = query.toLowerCase().split(' ').map(x => x.trim()).filter(x => x);
+
+    if (queries.length === 0) {
+        return {
+            posts: [],
+            totalCount: 0,
+        };
+    }
 
     let filtered = posts;
 

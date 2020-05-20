@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {NextPage, GetServerSideProps} from 'next';
-import {useAmp} from 'next/amp';
 import LazyLoad from 'react-lazyload';
 
 import fetchInstagram, {Photo} from '~/lib/instagram';
@@ -18,7 +17,7 @@ export type Props = {
 };
 
 
-const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
+const PhotoItem: FC<Photo> = ({url, images, trace, width, height, caption}) => (
     <figure>
         <svg
             width={width}
@@ -27,24 +26,20 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
             dangerouslySetInnerHTML={{__html: trace.path}}
             aria-hidden="true" />
 
-        {useAmp() ? (
-            <amp-img
-                srcset={image.srcSet}
-                src={image.mdpi}
-                width={String(width)}
-                height={String(height)}
-                alt=""
-                layout="intrinsic" />
-        ) : (
-            <LazyLoad offset={height/2}>
+        <LazyLoad offset={height/2}>
+            <picture>
+                {images.reverse().map(({srcSet, mdpi}) => (
+                    <source key={mdpi} srcSet={srcSet} />
+                ))}
+
                 <img
-                    srcSet={image.srcSet}
-                    src={image.mdpi}
+                    srcSet={images[images.length - 1].srcSet}
+                    src={images[images.length - 1].mdpi}
                     width={width}
                     height={height}
                     alt="" />
-            </LazyLoad>
-        )}
+            </picture>
+        </LazyLoad>
         <figcaption><a href={url}>{caption}</a></figcaption>
 
         <style jsx>{`
@@ -59,7 +54,7 @@ const PhotoItem: FC<Photo> = ({url, image, trace, width, height, caption}) => (
                 display: block;
                 transition: transform .2s;
             }
-            img, amp-img {
+            img {
                 display: block;
                 position: absolute;
                 top: 0;

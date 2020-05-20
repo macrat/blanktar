@@ -1,22 +1,34 @@
 import React, {FC} from 'react';
+import {event} from 'react-ga';
 
 
 export type Props = {
     href: string;
     alt: string;
+    label: string;
 };
 
 
-const ShareButton: FC<Props> = ({href, alt, children}) => (
-    <a href={href} rel="noopener noreferrer nofollow" target="_blank" title={alt}>
+const ShareButton: FC<Props> = ({href, alt, label, children}) => (
+    <a
+        href={href}
+        rel="noopener noreferrer nofollow"
+        target="_blank"
+        title={alt}
+        onClick={() => event({
+            category: 'Social',
+            action: 'Share',
+            label: label,
+        })}>
+
         <svg
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             width="512"
             height="512"
-            viewBox="0 0 512 512">
-
-            <title>{alt}</title>
+            viewBox="0 0 512 512"
+            role="img"
+            aria-label={alt}>
 
             {children}
         </svg>
@@ -61,6 +73,11 @@ const ShareButton: FC<Props> = ({href, alt, children}) => (
             @media screen and (max-width: 480px) {
                 a {
                     width: 60px;
+                }
+            }
+            @media screen and (max-width: 380px) {
+                a {
+                    width: 72px;
                 }
             }
         `}</style>

@@ -41,7 +41,6 @@ const TagList: FC<Props> = ({tags, children}) => (
                 display: inline-block;
                 border: 1px solid var(--colors-fg);
                 background-color: var(--colors-fg);
-                border-radius: .5mm;
                 margin: 2px 4px;
                 position: relative;
                 overflow: hidden;

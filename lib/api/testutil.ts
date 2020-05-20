@@ -32,12 +32,12 @@ export class Request extends RequestMock {
 
 
 export class Response<T> extends ResponseMock {
-    send<T>(data: T) {
-        this.write(JSON.stringify(data));
+    send(data: string | Buffer) {
+        this.write(data);
     }
 
     json<T>(data: T) {
-        this.send(data);
+        this.send(JSON.stringify(data));
     }
 
     status(statusCode: number): Response<T> {
@@ -52,5 +52,9 @@ export class Response<T> extends ResponseMock {
 
     clearPreviewData(): Response<T> {
         return this;
+    }
+
+    getBody(): string {
+        return this._internal.buffer.toString();
     }
 }

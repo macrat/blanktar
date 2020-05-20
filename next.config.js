@@ -6,6 +6,68 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 
+const withOffline = config => {
+    return require('next-offline')({
+        ...config,
+        generateInDevMode: false,
+        workboxOpts: {
+            swDest: 'static/service-worker.js',
+            runtimeCaching: [{
+                urlPattern: /\.(webp|png|jpg|gif|bmp|svg|mp4)$/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'media',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /(\/_next\/static\/|\/font\.css)/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'static',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/blog\/[0-9]{4}\/[0-9]{2}\//,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'article',
+                    expiration: {
+                        maxEntries: 500,
+                        maxAgeSeconds: 7 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\/(blog|about|works|photos)/,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'content',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 1 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /^https:\/\/fonts.gstatic.com/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'webfont',
+                    expiration: {
+                        maxEntries: 200,
+                        maxAgeSeconds: 30 * 24 * 60 * 60,
+                    },
+                },
+            }],
+        },
+    });
+};
+
+
 const withMdxEnhanced = require('next-mdx-enhanced')({
     defaultLayout: true,
     exportFrontmatterAs: 'config',
@@ -17,27 +79,28 @@ const withOptimizedImages = require('next-optimized-images');
 
 const CSPHeader = [
     "default-src 'self'",
-    "style-src-elem 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css",
+    "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css https://*.twitter.com/",
     ...(isDebug ? [
-        "img-src 'self' data: www.google-analytics.com",
-        "style-src-attr 'self' 'unsafe-inline'",
-        "script-src-elem 'self' 'unsafe-inline' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics_debug.js",
+        "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net *.twitter.com *.twimg.com",
+        "script-src 'self' 'unsafe-inline' https://cdn.ampproject.org/ www.google-analytics.com platform.twitter.com cdn.syndication.twimg.com",
     ] : [
-        "img-src 'self' data: https://www.google-analytics.com",
-        "script-src-elem 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js",
+        "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
+        "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
     ]),
     "font-src https://fonts.gstatic.com/s/notosansjp/",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com https://www.googletagmanager.com https://cdn.ampproject.org",
+    "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
+    "object-src 'none'",
     "frame-ancestors 'none'",
     "report-uri /api/csp-report",
 ].join('; ');
 
 
-module.exports = withBundleAnalyzer(withMdxEnhanced(withOptimizedImages({
+module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced(withOptimizedImages({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     handleImages: ['jpeg', 'png', 'webp'],
     webpack(config, options) {
-        config.resolve.alias['~'] = __dirname;
         config.module.rules.push({
             test: /\.svg$/i,
             use: [{
@@ -71,10 +134,14 @@ module.exports = withBundleAnalyzer(withMdxEnhanced(withOptimizedImages({
             ],
         }],
         rewrites: () => [
-            {source: '/img/eyecatch/:title.png', destination: '/api/eyecatch/:title'},
+            {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
             {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
+            {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+        ],
+        redirects: () => [
+            {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
         ],
     },
-})));
+}))));

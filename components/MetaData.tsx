@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
 
+import {getImageURL} from '~/lib/eyecatch';
+
 
 export type Props = {
     title?: string;
@@ -13,22 +15,29 @@ export type Props = {
 const MetaData: FC<Props> = ({title, description, image}) => {
     const router = useRouter();
 
+    const query = new URLSearchParams(
+        Object.entries(router.query)
+            .filter(([k, v]) => k !== 'amp' && v)
+            .map(([k, v]) => [k, String(v)])
+    );
+    const canonical = new URL(`https://blanktar.jp${router.pathname}${query}`);
+
     return (
         <Head>
             <title>{title ? `${title} - Blanktar` : 'Blanktar'}</title>
             {description ? <meta name="description" content={description} /> : null}
 
             <meta property="og:title" content={title ?? 'Blanktar'} key="ogp--title" />
-            <meta property="og:type" content={router.asPath.startsWith('/blog') ? 'blog' : (router.asPath === '/' ? 'website' : 'article')} key="ogp--type" />
+            <meta property="og:type" content={router.asPath === '/' ? 'website' : 'article'} key="ogp--type" />
             <meta property="og:url" content={`https://blanktar.jp${router.asPath}`} key="ogp--url" />
-            <meta property="og:image" content={image ? `https://blanktar.jp${image}` : (title ? `https://blanktar.jp/img/eyecatch/${encodeURIComponent(title)}.png` : "https://blanktar.jp/img/social-preview.png")} key="ogp--image" />
+            <meta property="og:image" content={getImageURL(title, image)} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
             <meta property="fb:app_id" content="3557706767604040" key="facebook--app_id" />
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} key="twitter--card" />
             <meta name="twitter:creator" content="@macrat_jp" key="twitter-creator" />
 
-            <link rel="canonical" type="text/html" href={`https://blanktar.jp${router.asPath}`} />
+            <link rel="canonical" type="text/html" href={`${canonical}`} />
         </Head>
     );
 };

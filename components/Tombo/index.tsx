@@ -6,30 +6,30 @@ import animation from './animation';
 
 const Tombo: FC = ({children}) => (
     <div>
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top left ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top left ${animation.className}`} aria-hidden="true">
             <polyline points="15 0, 15 10, 5 10" fill="none" strokeWidth="0.2" className={animation.className} />
             <polyline points="10 5, 10 15, 0 15" fill="none" strokeWidth="0.2" className={animation.className} />
         </svg>
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top center ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top center ${animation.className}`} aria-hidden="true">
             <line x1="0" x2="15" y1="10" y2="10" strokeWidth="0.2" className={`horizontal ${animation.className}`} />
             <line x1="7.5" x2="7.5" y1="5" y2="11" strokeWidth="0.2" className={`vertical ${animation.className}`} />
         </svg>
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top right ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo top right ${animation.className}`} aria-hidden="true">
             <polyline points="0 0, 0 10, 10 10" fill="none" strokeWidth="0.2" className={animation.className} />
             <polyline points="5 5, 5 15, 15 15" fill="none" strokeWidth="0.2" className={animation.className} />
         </svg>
 
         {children}
 
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom left ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom left ${animation.className}`} aria-hidden="true">
             <polyline points="15 15, 15 5, 5 5" fill="none" strokeWidth="0.2" className={animation.className} />
             <polyline points="10 10, 10 0, 0 0" fill="none" strokeWidth="0.2" className={animation.className} />
         </svg>
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom center ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom center ${animation.className}`} aria-hidden="true">
             <line x1="0" x2="15" y1="5" y2="5" strokeWidth="0.2" className={`horizontal ${animation.className}`} />
             <line x1="7.5" x2="7.5" y1="4" y2="10" strokeWidth="0.2" className={`vertical ${animation.className}`} />
         </svg>
-        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom right ${animation.className}`}>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" className={`tombo bottom right ${animation.className}`} aria-hidden="true">
             <polyline points="0 15, 0 5, 10 5" fill="none" strokeWidth="0.2" className={animation.className} />
             <polyline points="5 10, 5 0, 15 0" fill="none" strokeWidth="0.2" className={animation.className} />
         </svg>

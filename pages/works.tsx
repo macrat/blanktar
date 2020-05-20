@@ -54,11 +54,23 @@ const LanguageList: FC<{languages: Language[]}> = ({languages}) => (
 );
 
 
-const GithubRepository: FC<Repository> = ({name, image, url, createdAt, updatedAt, languages, description}) => (
+const GithubRepository: FC<Repository> = ({name, images, url, createdAt, updatedAt, languages, description}) => (
     <li>
-        {image ? (
+        {images ? (
             <LazyLoad>
-                <img width={640} height={480} srcSet={image.srcSet} src={image.mdpi} alt="" aria-hidden="true" />
+                <picture>
+                    {images.reverse().map(img => (
+                        <source key={img.mdpi} srcSet={img.srcSet} />
+                    ))}
+
+                    <img
+                        width={640}
+                        height={480}
+                        srcSet={images[images.length - 1].srcSet}
+                        src={images[images.length - 1].mdpi}
+                        alt=""
+                        aria-hidden="true" />
+                </picture>
             </LazyLoad>
         ) : null}
 
