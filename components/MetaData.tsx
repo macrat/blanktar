@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
 
+import {getImageURL} from '~/lib/eyecatch';
+
 
 export type Props = {
     title?: string;
@@ -28,7 +30,7 @@ const MetaData: FC<Props> = ({title, description, image}) => {
             <meta property="og:title" content={title ?? 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath === '/' ? 'website' : 'article'} key="ogp--type" />
             <meta property="og:url" content={`https://blanktar.jp${router.asPath}`} key="ogp--url" />
-            <meta property="og:image" content={image ? `https://blanktar.jp${image}` : (title ? `https://blanktar.jp/img/eyecatch/1x1/${encodeURIComponent(title)}.png` : "https://blanktar.jp/img/social-preview.png")} key="ogp--image" />
+            <meta property="og:image" content={getImageURL(title, image)} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
             <meta property="fb:app_id" content="3557706767604040" key="facebook--app_id" />
