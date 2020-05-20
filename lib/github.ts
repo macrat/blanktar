@@ -93,7 +93,7 @@ const fetchGitHub = async (): Promise<Repository[]> => {
         name: repo.parent?.nameWithOwner ?? repo.name,
         description: repo.description ?? '',
         url: repo.homepageUrl || repo.url,
-        images: repo.usesCustomOpenGraphImage ? (await (await Image.read(repo.openGraphImageUrl)).optimize('works', 640)).images : null,
+        images: repo.usesCustomOpenGraphImage ? (await (await Image.download(repo.openGraphImageUrl)).optimize('works', 640)).images : null,
         languages: repo.languages.nodes.map(lang => ({
             name: lang.name,
             color: lang.color,
