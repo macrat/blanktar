@@ -42,27 +42,6 @@ const Index: NextPage = () => (
                 align-items: center;
                 overflow: hidden;
             }
-            .container::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: var(--colors-fg);
-                animation: shutter 1s both;
-            }
-            @keyframes shutter {
-                from { transform: translate(-100%, 0); }
-                  to { transform: translate(100%, 0); }
-            }
-            .content {
-                animation: visible-in .1s both .3s;
-            }
-            @keyframes visible-in {
-                from { visibility: hidden; }
-                  to { visibility: visible; }
-            }
             svg {
                 width: auto;
                 height: 2cm;
@@ -80,12 +59,44 @@ const Index: NextPage = () => (
                 font-weight: 300;
                 margin: 0;
                 transition: font-size .2s;
+                position: relative;
+            }
+            h1::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background-color: var(--colors-bg);
+                animation: shutter-right .8s both;
+            }
+            @keyframes shutter-right {
+                from { transform: translate(0, 0); }
+                  to { transform: translate(100%, 0); }
             }
             ul {
                 display: flex;
                 justify-content: space-between;
                 margin: 2mm 0 0;
                 padding: 0;
+                position: relative;
+            }
+            ul::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background-color: var(--colors-bg);
+                animation: shutter-left .5s both .8s;
+            }
+            @keyframes shutter-left {
+                from { transform: translate(0, 0); }
+                  to { transform: translate(0, 115%); }
             }
             li {
                 display: block;

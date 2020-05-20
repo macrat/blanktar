@@ -58,12 +58,18 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 
     useEffect(doSearch, [searchQuery]);
 
+    const makeURL = () => {
+        if (!query) {
+            return '/search';
+        }
+        return `/search?q=${encodeURIComponent(query)}`;
+    };
     const replaceState = (from: string) => {
-        const url = `/search?q=${encodeURIComponent(query)}`;
+        const url = makeURL();
         history.replaceState({...history.state, url: url, as: url, from: from}, '', url);
     };
     const pushState = (from: string) => {
-        const url = `/search?q=${encodeURIComponent(query)}`;
+        const url = makeURL();
         history.pushState({...history.state, url: url, as: url, from: from}, '', url);
     };
 
@@ -87,7 +93,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
 
     useEffect(() => {
-        setQuery(String(router.query.q));
+        setQuery(String(router.query.q ?? ''));
         doSearch();
     }, [router.query]);
 

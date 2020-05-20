@@ -18,7 +18,7 @@ const PageLink: FC<Props> = ({current, page, href}) => (
         <Link href={href(page)}>
             <a className={current ? "current" : ""} aria-label={current ? `${page}ページ。これは現在のページです` : `${page}ページ`}>
                 {page}
-                <svg width="2.5em" height="1.5em" viewBox="0 0 50 30">
+                <svg width="2.5em" height="1.5em" viewBox="0 0 50 30" aria-hidden="true">
                     <polyline points="50 0, 50 30, 0 30, 0 0, 50, 0" fill="none" strokeWidth=".5mm" />
                 </svg>
             </a>

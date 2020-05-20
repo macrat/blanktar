@@ -1,21 +1,85 @@
 import {createHash} from 'crypto';
 import {promises as fs} from 'fs';
-import Jimp from 'jimp';
+
+import sharp, {Sharp} from 'sharp';
 import mozjpeg from 'imagemin-mozjpeg';
 import zopflipng from 'imagemin-zopfli';
+import webp from 'imagemin-webp';
 import {Potrace} from 'potrace';
+import penv from 'penv.macro';
 
 
-const writeTask = async (path: string, task: () => Promise<Buffer>) => {
+export type ImageSize = {
+    width: number;
+    height: number;
+};
+
+
+export type ImageSet = {
+    mdpi: string;
+    hdpi: string;
+    srcSet: string;
+}[];
+
+
+export type OptimizedImage = ImageSize & {
+    images: ImageSet;
+};
+
+
+export type TracedImage = {
+    viewBox: string;
+    path: string;
+};
+
+
+async function compressJpeg(image: Buffer): Promise<Buffer> {
+    return await mozjpeg({quality: 80})(image);
+}
+
+
+async function compressPng(image: Buffer, transparent: boolean): Promise<Buffer> {
+    return await zopflipng({transparent})(image);
+}
+
+
+async function compress(image: Buffer, {format, hasAlpha}: {format?: string; hasAlpha?: boolean}): Promise<Buffer> {
+    if (format === 'png' || format === 'gif' || format == 'bmp') {
+        return await compressPng(image, hasAlpha ?? false);
+    }
+    return await compressJpeg(image);
+}
+
+
+async function compressWebp(image: Buffer, {format}: {format?: string}): Promise<Buffer> {
+    return await webp({
+        lossless: format === 'png',
+        quality: 60,
+        method: penv({
+            production: 6,
+        }, 0),
+    })(image);
+}
+
+
+function getExtension(format: string): string {
+    if (format === 'jpeg') {
+        return 'jpg';
+    }
+    return format;
+}
+
+
+async function writeTask(path: string, task: () => Promise<Buffer>): Promise<void> {
     try {
         await fs.access(path);
     } catch {
         await fs.writeFile(path, await task());
     }
-};
+}
 
 
-const tracePath = (image: Buffer) => {
+async function tracePath(image: Buffer): Promise<string> {
     return new Promise<string>((resolve, reject) => {
         const trace = new Potrace();
         trace.setParameters({
@@ -30,94 +94,94 @@ const tracePath = (image: Buffer) => {
             }
         });
     });
-};
-
-
-type ImageSize = {
-    width: number;
-    height: number;
-};
+}
 
 
 export default class Image {
-    private readonly img: Jimp;
+    private readonly img: Sharp;
 
-    private constructor(img: Jimp) {
-        this.img = img;
+    constructor(img: Sharp | string) {
+        this.img = typeof img === 'string' ? sharp(img) : img;
     }
 
-    public static async read(src: string): Promise<Image> {
-        return new Image(await Jimp.read(src));
-    }
+    static async download(url: string): Promise<Image> {
+        const resp = await fetch(url);
 
-    get size(): ImageSize {
-        return {
-            width: this.img.bitmap.width,
-            height: this.img.bitmap.height,
-        };
-    }
-
-    get mimetype(): string {
-        return this.img.getMIME();
-    }
-
-    get extension(): string {
-        const ext = this.img.getExtension();
-        if (ext === 'jpeg') {
-            return 'jpg';
+        if (!resp.ok) {
+            throw new Error(`failed to download image: ${resp.status} ${resp.statusText}`);
         }
-        return ext;
+
+        return new Image(sharp(Buffer.from(await resp.arrayBuffer())));
     }
 
-    hash(): string {
-        return createHash('md5').update(this.img.bitmap.data).digest('hex');
-    }
-
-    private async resize(width: number): Promise<Buffer> {
-        return await this.img.clone().resize(width, Jimp.AUTO).getBufferAsync(this.mimetype);
-    }
-
-    private async compress(img: Buffer): Promise<Buffer> {
-        switch (this.mimetype) {
-        case 'image/jpeg':
-            return await mozjpeg({quality: 80})(img);
-        case 'image/png':
-            return await zopflipng({transparent: this.img.hasAlpha()})(img);
-        default:
-            return img;
+    async size(): Promise<ImageSize> {
+        const {width, height} = await this.img.metadata();
+        if (!width || !height) {
+            throw new Error('failed to get image size');
         }
+        return {width, height};
     }
 
-    async optimize(path: string, width: number) {
+    async hash(): Promise<string> {
+        return createHash('md5').update(await this.img.clone().raw().toBuffer()).digest('hex');
+    }
+
+    async optimize(path: string, width: number): Promise<OptimizedImage> {
         await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => null);
 
-        const hash = this.hash();
+        const metadata = await this.img.metadata();
+        const extension = metadata.format === undefined ? 'jpg' : getExtension(metadata.format);
+        const hash = await this.hash();
+
+        if (!metadata.width || !metadata.height) {
+            throw new Error('failed to get image size');
+        }
+
+        const x2 = this.img.clone().resize(width * 2);
+        const x1 = this.img.clone().resize(width);
 
         await writeTask(
-            `./.next/static/${path}/${hash}@2x.${this.extension}`,
-            async () => await this.compress(await this.resize(width*2)),
+            `./.next/static/${path}/${hash}@2x.${extension}`,
+            async () => await compress(await x2.clone().toBuffer(), metadata),
         );
         await writeTask(
-            `./.next/static/${path}/${hash}.${this.extension}`,
-            async () => await this.compress(await this.resize(width)),
+            `./.next/static/${path}/${hash}.${extension}`,
+            async () => await compress(await x1.clone().toBuffer(), metadata),
         );
 
-        const hdpi = `/_next/static/${path}/${hash}@2x.${this.extension}`;
-        const mdpi = `/_next/static/${path}/${hash}.${this.extension}`;
+        await writeTask(
+            `./.next/static/${path}/${hash}@2x.webp`,
+            async () => await compressWebp(await x2.clone().toBuffer(), metadata),
+        );
+        await writeTask(
+            `./.next/static/${path}/${hash}.webp`,
+            async () => await compressWebp(await x1.clone().toBuffer(), metadata),
+        );
+
+        const hdpi = `/_next/static/${path}/${hash}@2x.`;
+        const mdpi = `/_next/static/${path}/${hash}.`;
 
         return {
-            mdpi: mdpi,
-            hdpi: hdpi,
-            srcSet: `${hdpi} 2x, ${mdpi} 1x`,
+            images: [{
+                mdpi: mdpi + 'webp',
+                hdpi: hdpi + 'webp',
+                srcSet: `${hdpi}webp 2x, ${mdpi}webp 1x`,
+            }, {
+                mdpi: mdpi + extension,
+                hdpi: hdpi + extension,
+                srcSet: `${hdpi}${extension} 2x, ${mdpi}${extension} 1x`,
+            }],
             width: width,
-            height: Math.round(width * this.size.height / this.size.width),
+            height: Math.round(width * metadata.height / metadata.width),
         };
     }
 
-    async trace() {
+    async trace(): Promise<TracedImage> {
+        const {width, height} = await this.size();
+
         return {
-            viewBox: `0 0 240 ${Math.round(240 * this.size.height / this.size.width)}`,
-            path: await tracePath(await this.resize(240))
+            viewBox: `0 0 240 ${Math.round(240 * height / width)}`,
+            path: await tracePath(await this.img.clone().resize({width: 240}).toBuffer())
         };
     }
 }

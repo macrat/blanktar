@@ -46,7 +46,7 @@ const CommonResources: FC = () => {
 
             <meta name="theme-color" content="#402020" />
             <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
-            <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo.png" key="favicon--png-512x512" />
+            <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo@512.png" key="favicon--png-512x512" />
             <link rel="mask-icon" type="image/svg+xml" href="/mask-icon.svg" color="#402020" key="favicon--mask" />
 
             <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />

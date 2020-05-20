@@ -10,7 +10,7 @@ export type SuccessResponse = {
     posts: {
         title: string;
         href: string;
-        pubtime: string;
+        pubtime: number;
         summary: string;
     }[];
     totalCount: number;
