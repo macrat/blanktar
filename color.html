@@ -1,0 +1,100 @@
+<div class="light" style="background-color: var(--colors-bg); color: var(--colors-fg)">
+    <span>
+        <h1>Blanktar</h1>
+
+        <div>
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-block-bg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-dark-fg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-fg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+    </span>
+</div>
+
+<div class="dark" style="background-color: var(--colors-bg); color: var(--colors-fg)">
+    <span>
+        <h1>Blanktar</h1>
+
+        <div>
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-block-bg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-dark-fg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+
+        <div style="background-color: var(--colors-fg)">
+            <p>hello world</p>
+            <p>hello world</p>
+        </div>
+    </span>
+</div>
+
+<style>
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+body > div {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    font-weight: 100;
+}
+span > div {
+    display: inline-block;
+    padding: 8px;
+    height: 120px;
+    width: 120px;
+}
+p {
+    margin: 0;
+}
+p ~ p {
+    color: var(--colors-bg);
+}
+
+.light {
+    --colors-fg: #402020;
+    --colors-dark-fg: #c0b3b3;
+    --colors-bg: #fcf8f5;
+    --colors-block-bg: #f7f0ec;
+    --colors-img-trace: #d0c3c3;
+    --colors-link: #6941e1;
+    --colors-accent: #e2005a;
+}
+.dark {
+    --colors-fg: #fcf8f5;
+    --colors-dark-fg: #9f9393;
+    --colors-bg: #4d4444;
+    --colors-block-bg: #554a4a;
+    --colors-img-trace: #2d1b1b;
+    --colors-link: #b1afef;
+    --colors-accent: #ff96b0;
+}
+</style>
