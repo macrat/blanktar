@@ -1,7 +1,7 @@
 import css from 'styled-jsx/macro';
 
 
-export const {className, styles} = css.resolve`
+export const { className, styles } = css.resolve`
     & {
         color: var(--colors-bg);
         background-color: transparent;

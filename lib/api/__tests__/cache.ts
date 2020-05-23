@@ -1,11 +1,11 @@
-import {Request, Response} from '../testutil';
+import { Request, Response } from '../testutil';
 
 import withCache from '../cache';
 
 
 test('hit', async () => {
     const req = new Request({
-        headers: {'if-none-match': '"test"'},
+        headers: { 'if-none-match': '"test"' },
     });
 
     const res = new Response({
@@ -32,7 +32,7 @@ test('miss', async () => {
     let called = false;
 
     const req = new Request({
-        headers: {'if-none-match': '"test2"'},
+        headers: { 'if-none-match': '"test2"' },
     });
 
     const res = new Response({

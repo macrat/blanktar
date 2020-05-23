@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
-const InlineCode: FC = ({children}) => (
+const InlineCode: FC = ({ children }) => (
     <code>
         {children}
 

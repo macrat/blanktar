@@ -1,4 +1,4 @@
-import React, {FC, useEffect, createRef} from 'react';
+import React, { FC, useEffect, createRef } from 'react';
 import Router from 'next/router';
 
 
@@ -10,7 +10,7 @@ export type Props = {
 };
 
 
-const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus, children}) => {
+const SearchBox: FC<Props> = ({ query, setQuery, onSearch, autoFocus, children }) => {
     const input = createRef<HTMLInputElement>();
     if (autoFocus) {
         useEffect(() => {
@@ -29,7 +29,7 @@ const SearchBox: FC<Props> = ({query, setQuery, onSearch, autoFocus, children}) 
                 if (onSearch) {
                     return onSearch(query);
                 }
-                Router.push({pathname: '/search', query: {q: query}});
+                Router.push({ pathname: '/search', query: { q: query } });
             }}>
 
             <label>

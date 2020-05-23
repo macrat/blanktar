@@ -1,7 +1,7 @@
-import React, {FC, ReactNode} from 'react';
+import React, { FC, ReactNode } from 'react';
 import Link from 'next/link';
 
-import {className, styles} from './style';
+import { className, styles } from './style';
 
 
 type ChildrenProps = {
@@ -19,12 +19,12 @@ export type Props = {
 };
 
 
-const TagList: FC<Props> = ({tags, children}) => (
+const TagList: FC<Props> = ({ tags, children }) => (
     <ul aria-label="この記事に付けられたタグ">
         {tags.map(tag => (
             <li key={tag}>
-                <Link href={{pathname: '/search', query: {q: tag}}} prefetch={false}>{
-                    children({tag, props: {className, "aria-label": `タグ「${tag}」`}})
+                <Link href={{ pathname: '/search', query: { q: tag } }} prefetch={false}>{
+                    children({ tag, props: { className, "aria-label": `タグ「${tag}」` } })
                 }</Link>
             </li>
         ))}

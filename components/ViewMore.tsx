@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 export type Props = {
@@ -6,7 +6,7 @@ export type Props = {
 };
 
 
-const ViewMore: FC<Props> = ({href}) => (
+const ViewMore: FC<Props> = ({ href }) => (
     <a href={href}>
         もっと見る
 

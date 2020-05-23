@@ -1,4 +1,4 @@
-import Image, {OptimizedImage, TracedImage} from '~/lib/image';
+import Image, { OptimizedImage, TracedImage } from '~/lib/image';
 
 
 export type Photo = OptimizedImage & {
@@ -25,7 +25,7 @@ const fetchInstagram = async (): Promise<Photo[]> => {
         throw new Error(`failed to fetch Instagram data: ${resp.status} ${resp.statusText}`);
     }
 
-    const {data}: RawInstagramResponse = await resp.json();
+    const { data }: RawInstagramResponse = await resp.json();
 
     return await Promise.all(data.map(async post => {
         const img = await Image.download(post.media_url);

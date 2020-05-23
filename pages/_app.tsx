@@ -1,15 +1,15 @@
-import React, {FC} from 'react';
-import {AppProps} from 'next/app';
+import React, { FC } from 'react';
+import { AppProps } from 'next/app';
 
-import {ContextProvider, useContext} from '~/lib/context';
+import { ContextProvider, useContext } from '~/lib/context';
 
-import Analytics, {reportSpeed} from '~/components/Analytics';
+import Analytics, { reportSpeed } from '~/components/Analytics';
 import CommonResources from '~/components/CommonResources';
 import Footer from '~/components/Footer';
 
 
-const BlanktarContentWrapper: FC = ({children}) => {
-    const {loading} = useContext();
+const BlanktarContentWrapper: FC = ({ children }) => {
+    const { loading } = useContext();
 
     return (
         <main className={loading ? "loading" : ""}>
@@ -49,7 +49,7 @@ const BlanktarContentWrapper: FC = ({children}) => {
 };
 
 
-const BlanktarApp = ({Component, pageProps}: AppProps) => {
+const BlanktarApp = ({ Component, pageProps }: AppProps) => {
     return (
         <ContextProvider>
             <Analytics />
@@ -141,7 +141,7 @@ const BlanktarApp = ({Component, pageProps}: AppProps) => {
 };
 
 
-export function reportWebVitals({name, value}: {name: string; value: number}) {
+export function reportWebVitals({ name, value }: {name: string; value: number}) {
     reportSpeed(name, name === 'CLS' ? value * 1000 : value);
 }
 

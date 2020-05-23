@@ -1,7 +1,7 @@
 import preval from 'preval.macro';
 import penv from 'penv.macro';
 
-import {Post as P} from './types';
+import { Post as P } from './types';
 
 
 export type Post = P;
