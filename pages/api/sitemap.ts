@@ -1,6 +1,6 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import sitemap, {hash} from '~/lib/sitemap';
+import sitemap, { hash } from '~/lib/sitemap';
 import withCache from '~/lib/api/cache';
 
 

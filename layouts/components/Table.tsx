@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
-const Table: FC = ({children}) => (
+const Table: FC = ({ children }) => (
     <table>
         {children}
 

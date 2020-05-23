@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
-import {NextPage, GetServerSideProps} from 'next';
+import React, { FC } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import LazyLoad from 'react-lazyload';
 
-import fetchGitHub, {Repository, Language} from '~/lib/github';
+import fetchGitHub, { Repository, Language } from '~/lib/github';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -18,7 +18,7 @@ export type Props = {
 };
 
 
-const LanguageListItem: FC<Language> = ({name, color}) => (
+const LanguageListItem: FC<Language> = ({ name, color }) => (
     <li>
         <span>{name}</span>
 
@@ -39,7 +39,7 @@ const LanguageListItem: FC<Language> = ({name, color}) => (
 );
 
 
-const LanguageList: FC<{languages: Language[]}> = ({languages}) => (
+const LanguageList: FC<{languages: Language[]}> = ({ languages }) => (
     <ul aria-label="使用言語">
         {languages.map(lang => (
             <LanguageListItem key={lang.name} {...lang} />
@@ -54,7 +54,7 @@ const LanguageList: FC<{languages: Language[]}> = ({languages}) => (
 );
 
 
-const GithubRepository: FC<Repository> = ({name, images, url, createdAt, updatedAt, languages, description}) => (
+const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, updatedAt, languages, description }) => (
     <li>
         {images ? (
             <LazyLoad>
@@ -177,7 +177,7 @@ const GithubRepository: FC<Repository> = ({name, images, url, createdAt, updated
 );
 
 
-const Works: NextPage<Props> = ({repositories}) => (
+const Works: NextPage<Props> = ({ repositories }) => (
     <>
         <MetaData
             title="works"
@@ -190,7 +190,7 @@ const Works: NextPage<Props> = ({repositories}) => (
         <Article
             title="works"
             breadlist={[
-                {title: 'works', href: '/works'},
+                { title: 'works', href: '/works' },
             ]}>
 
             <ServiceBanner

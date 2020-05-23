@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
-import {OutboundLink} from 'react-ga';
+import { OutboundLink } from 'react-ga';
 
 
 export type Props = {
@@ -8,7 +8,7 @@ export type Props = {
 };
 
 
-const AutoLink: FC<Props> = ({href, children}) => (
+const AutoLink: FC<Props> = ({ href, children }) => (
     href.startsWith('/') ? (
         <Link href={href}><a>{children}</a></Link>
     ) : href.startsWith('#') ? (

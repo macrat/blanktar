@@ -1,8 +1,8 @@
-import React, {FC, useState, useEffect, memo} from 'react';
-import {useAmp} from 'next/amp';
+import React, { FC, useState, useEffect, memo } from 'react';
+import { useAmp } from 'next/amp';
 import Head from 'next/head';
 
-import JsonLD, {Website} from '~/components/JsonLD';
+import JsonLD, { Website } from '~/components/JsonLD';
 
 
 const CommonResources: FC = () => {
@@ -12,7 +12,7 @@ const CommonResources: FC = () => {
     useEffect(() => {
         fetch('/font.css')
             .then(resp => resp.text())
-            .then(css => setFontCSS(URL.createObjectURL(new Blob([css], {type: 'text/css'}))));
+            .then(css => setFontCSS(URL.createObjectURL(new Blob([css], { type: 'text/css' }))));
     }, []);
 
     return (

@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {MDXProvider} from '@mdx-js/react';
+import React, { FC } from 'react';
+import { MDXProvider } from '@mdx-js/react';
 
 import BlockQuote from './BlockQuote';
 import Code from './Code';
@@ -15,7 +15,7 @@ import Td from './Td';
 import Th from './Th';
 import Tr from './Tr';
 import Tweet from './Tweet';
-import {H1, H2, H3} from './headings';
+import { H1, H2, H3 } from './headings';
 
 
 const components = {
@@ -40,7 +40,7 @@ const components = {
 };
 
 
-const MDXComponentsProvider: FC = ({children}) => (
+const MDXComponentsProvider: FC = ({ children }) => (
     <MDXProvider components={components}>
         {children}
     </MDXProvider>

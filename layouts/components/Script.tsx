@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 
 
 export type Props = {
@@ -6,7 +6,7 @@ export type Props = {
 };
 
 
-const Script: FC<Props> = ({children}) => {
+const Script: FC<Props> = ({ children }) => {
     useEffect(() => children(), []);
 
     return (<></>);

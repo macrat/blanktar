@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 type Thing = {
@@ -61,11 +61,11 @@ export type Props = {
 };
 
 
-const JsonLD: FC<Props> = ({data}) => (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+const JsonLD: FC<Props> = ({ data }) => (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         ...data,
         '@context': 'http://schema.org',
-    })}} />
+    }) }} />
 );
 
 

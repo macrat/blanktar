@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage, GetStaticProps, GetStaticPaths} from 'next';
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
 import posts from '~/lib/posts';
 
@@ -7,7 +7,7 @@ import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
 import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
-import BlogList, {Props as BlogListProps} from '~/components/BlogList';
+import BlogList, { Props as BlogListProps } from '~/components/BlogList';
 
 
 export type Props = BlogListProps & {
@@ -15,7 +15,7 @@ export type Props = BlogListProps & {
 };
 
 
-const YearIndex: NextPage<Props> = ({year, posts}) => {
+const YearIndex: NextPage<Props> = ({ year, posts }) => {
     return (<>
         <MetaData
             title={`${year}年の記事`}
@@ -40,7 +40,7 @@ const YearIndex: NextPage<Props> = ({year, posts}) => {
 };
 
 
-export const getStaticProps: GetStaticProps<Props, {year: string}> = async ({params}) => {
+export const getStaticProps: GetStaticProps<Props, {year: string}> = async ({ params }) => {
     if (params?.year === undefined) {
         throw new Error('year is must be some number');
     }
@@ -69,7 +69,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         fallback: false,
-        paths: years.map(y => ({params: {year: String(y)}})),
+        paths: years.map(y => ({ params: { year: String(y) } })),
     };
 };
 

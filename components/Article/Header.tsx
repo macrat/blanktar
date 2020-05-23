@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 import TagList from '../TagList';
-import BreadList, {Props as BreadListProps} from './BreadList';
-import {date2str, date2readable} from '../DateTime';
+import BreadList, { Props as BreadListProps } from './BreadList';
+import { date2str, date2readable } from '../DateTime';
 
 
 export type Props = {
@@ -13,13 +13,13 @@ export type Props = {
 };
 
 
-const ArticleHeader: FC<Props> = ({pubtime, title, tags, breadlist}) => (
+const ArticleHeader: FC<Props> = ({ pubtime, title, tags, breadlist }) => (
     <header>
         {pubtime ? <time dateTime={pubtime.toISOString()} aria-label={date2readable(pubtime)}>{date2str(pubtime)}</time> : null}
         {breadlist ? <BreadList pages={breadlist} /> : null}
         {title ? <h1 id="article-title">{title}</h1> : null}
         {tags ? (
-            <TagList tags={tags}>{({tag, props}) => <a {...props}>{tag}</a>}</TagList>
+            <TagList tags={tags}>{({ tag, props }) => <a {...props}>{tag}</a>}</TagList>
         ) : null}
 
         <style jsx>{`

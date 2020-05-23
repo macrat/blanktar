@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
-import {useRouter} from 'next/router';
+import React, { FC } from 'react';
+import { useRouter } from 'next/router';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
 import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
-import JsonLD, {Author, Publisher} from '~/components/JsonLD';
+import JsonLD, { Author, Publisher } from '~/components/JsonLD';
 import ComponentsProvider from './components';
 import SocialShare from '~/components/SocialShare';
 
@@ -42,7 +42,7 @@ export type Props = {
 };
 
 
-export default ({title, pubtime, modtime, amp, tags, image, description, howto, faq}: Props) => {
+export default ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
     if (!title) {
         throw new Error(`${pubtime}: title is not provided`);
     }
@@ -62,7 +62,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
         throw new Error(`${title} ${pubtime}: description is not provided`);
     }
 
-    const BlogArticle: FC = ({children}) => {
+    const BlogArticle: FC = ({ children }) => {
         const router = useRouter();
         const ptime = new Date(pubtime.replace('+0900', '+09:00'));
 
@@ -143,7 +143,7 @@ export default ({title, pubtime, modtime, amp, tags, image, description, howto, 
                                 '@type': 'HowToTool',
                                 name: x,
                             })) ?? [],
-                            step: howto.step.map(({name, text, url}) => ({
+                            step: howto.step.map(({ name, text, url }) => ({
                                 '@type': 'HowToStep',
                                 name: name,
                                 text: text,

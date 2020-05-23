@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect, createContext, useContext as useReactContext} from 'react';
+import React, { FC, useState, useEffect, createContext, useContext as useReactContext } from 'react';
 import Router from 'next/router';
 
 
@@ -17,7 +17,7 @@ const BlanktarContext = createContext<BlanktarContextValue>({
 export const useContext = () => useReactContext(BlanktarContext);
 
 
-export const ContextProvider: FC = ({children}) => {
+export const ContextProvider: FC = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const ContextProvider: FC = ({children}) => {
     }, []);
 
     return (
-        <BlanktarContext.Provider value={{loading: loading, setLoading: setLoading}}>
+        <BlanktarContext.Provider value={{ loading: loading, setLoading: setLoading }}>
             {children}
         </BlanktarContext.Provider>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage} from 'next';
+import { NextPage } from 'next';
 
 import ErrorPage from '~/components/ErrorPage';
 
@@ -31,7 +31,7 @@ const messages: MessageSet = {
 };
 
 
-const Error: NextPage<Props> = ({statusCode}) => (
+const Error: NextPage<Props> = ({ statusCode }) => (
     <ErrorPage
         statusCode={statusCode}
         title={titles[statusCode] ?? titles.default}
@@ -39,7 +39,7 @@ const Error: NextPage<Props> = ({statusCode}) => (
 );
 
 
-Error.getInitialProps = ({res, err}) => ({
+Error.getInitialProps = ({ res, err }) => ({
     statusCode: res?.statusCode ?? err?.statusCode ?? 404,
 });
 

@@ -1,4 +1,4 @@
-import {date2str, date2readable} from '../DateTime';
+import { date2str, date2readable } from '../DateTime';
 
 
 test('date2str', () => {
