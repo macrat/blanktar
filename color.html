@@ -1,53 +1,77 @@
 <div class="light" style="background-color: var(--colors-bg); color: var(--colors-fg)">
-    <span>
-        <h1>Blanktar</h1>
+    <h1>Blanktar</h1>
 
-        <div>
+    <div>
+        <span>
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-block-bg)">
+        <span style="background-color: var(--colors-block-bg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-dark-fg)">
+        <span style="background-color: var(--colors-dark-fg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-fg)">
+        <span style="background-color: var(--colors-fg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
-    </span>
+        </span>
+    </div>
+
+    <article>
+        Lorem <a>ipsum</a> dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna <strong>aliqua</strong>. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </article>
+
+    <article>
+        <pre>
+<span style="color: var(--colors-comment)">// source code highlighting</span>
+<span style="color: var(--colors-keyword)">function</span> <span style="color: var(--colors-function)">blanktar</span>() {
+    <span style="color: var(--colors-namespace)">hello</span>.<span style="color: var(--colors-function)">world</span>(<span style="color: var(--colors-string)">'blanktar'</span>, <span style="color: var(--colors-value)">42</span>);
+}</pre>
+    </article>
 </div>
 
 <div class="dark" style="background-color: var(--colors-bg); color: var(--colors-fg)">
-    <span>
-        <h1>Blanktar</h1>
+    <h1>Blanktar</h1>
 
-        <div>
+    <div>
+        <span>
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-block-bg)">
+        <span style="background-color: var(--colors-block-bg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-dark-fg)">
+        <span style="background-color: var(--colors-dark-fg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
+        </span>
 
-        <div style="background-color: var(--colors-fg)">
+        <span style="background-color: var(--colors-fg)">
             <p>hello world</p>
             <p>hello world</p>
-        </div>
-    </span>
+        </span>
+    </div>
+
+    <article>
+        Lorem <a>ipsum</a> dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna <strong>aliqua</strong>. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </article>
+
+    <article>
+        <pre>
+<span style="color: var(--colors-comment)">// source code highlighting</span>
+<span style="color: var(--colors-keyword)">function</span> <span style="color: var(--colors-function)">blanktar</span>() {
+    <span style="color: var(--colors-namespace)">hello</span>.<span style="color: var(--colors-function)">world</span>(<span style="color: var(--colors-string)">'blanktar'</span>, <span style="color: var(--colors-value)">42</span>);
+}</pre>
+    </article>
 </div>
 
 <style>
@@ -60,23 +84,44 @@ body {
 body > div {
     flex: 1 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 h1 {
     font-weight: 100;
 }
-span > div {
-    display: inline-block;
+div > div {
+    display: flex;
+}
+div > span {
     padding: 8px;
-    height: 120px;
-    width: 120px;
+    height: 128px;
+    width: 128px;
+    box-sizing: border-box;
 }
 p {
     margin: 0;
 }
 p ~ p {
     color: var(--colors-bg);
+}
+article {
+    width: 512px;
+    margin: 4px 0;
+}
+a {
+    color: var(--colors-link);
+    text-decoration: dotted underline;
+}
+strong {
+    color: var(--colors-accent);
+    font-weight: inherit;
+}
+pre {
+    background-color: var(--colors-block-bg);
+    padding: 8px 16px;
+    margin: 0;
 }
 
 .light {
@@ -87,6 +132,13 @@ p ~ p {
     --colors-img-trace: #d0c3c3;
     --colors-link: #6941e1;
     --colors-accent: #e2005a;
+
+    --colors-comment: #706c6c;
+    --colors-namespace: #786b6b;
+    --colors-string: #d70c64;
+    --colors-value: #007c60;
+    --colors-keyword: #3838aa;
+    --colors-function: #8d0f1b;
 }
 .dark {
     --colors-fg: #fcf8f5;
@@ -96,5 +148,12 @@ p ~ p {
     --colors-img-trace: #2d1b1b;
     --colors-link: #b1afef;
     --colors-accent: #ff96b0;
+
+    --colors-comment: #cbc1c1;
+    --colors-namespace: #d3cfcd;
+    --colors-string: #ffa1ca;
+    --colors-value: #74cad3;
+    --colors-keyword: #b7b7ff;
+    --colors-function: #ecc2c6;
 }
 </style>
