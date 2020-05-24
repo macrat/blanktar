@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 
 const TitleText: FC = () => (
@@ -38,7 +38,7 @@ const ColorBlock: FC<{ background: string }> = ({ background }) => (
 const ColorBlockSet: FC = () => (
     <div>
         {['bg', 'block-bg', 'dark-fg', 'fg'].map(bg => (
-            <ColorBlock id={bg} background={bg} />
+            <ColorBlock key={bg} background={bg} />
         ))}
     </div>
 );
