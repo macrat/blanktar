@@ -48,7 +48,7 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
 
 
 export const getStaticProps: GetStaticProps<Props, {year: string; month: string}> = async ({params}) => {
-    if (params === undefined || params.year === undefined || params.month === undefined) {
+    if (params === undefined) {
         throw new Error('year and month is must be some number');
     }
 
