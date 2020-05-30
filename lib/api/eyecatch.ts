@@ -1,8 +1,8 @@
-import {promises as fs, constants} from 'fs';
-import {createHash} from 'crypto';
+import { promises as fs, constants } from 'fs';
+import { createHash } from 'crypto';
 
-import {NextApiRequest, NextApiResponse} from 'next';
-import {createCanvas, registerFont, loadImage} from 'canvas';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { createCanvas, registerFont, loadImage } from 'canvas';
 
 import withCache from './cache';
 import createETag from './etag';
@@ -30,7 +30,7 @@ const loadFont = async (origin: string) => {
         }
     }
 
-    registerFont(fontPath, {family: 'NotoSansJP', weight: 'Regular'});
+    registerFont(fontPath, { family: 'NotoSansJP', weight: 'Regular' });
 
     fontLoaded = true;
 };

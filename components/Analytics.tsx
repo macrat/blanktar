@@ -1,6 +1,6 @@
-import React, {FC, useEffect} from 'react';
-import {useRouter} from 'next/router';
-import {useAmp} from 'next/amp';
+import React, { FC, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useAmp } from 'next/amp';
 import Head from 'next/head';
 import ReactGA from 'react-ga';
 import env from 'penv.macro';
@@ -40,7 +40,7 @@ const Analytics: FC = () => {
                 </Head>
 
                 <amp-analytics type="gtag" data-credentials="include" key="amp-analytics--settings">
-                    <script type="application/json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+                    <script type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
                         vars: {
                             gtag_id: GOOGLE_ANALYTICS,
                             config: {
@@ -49,7 +49,7 @@ const Analytics: FC = () => {
                                 },
                             },
                         },
-                    })}} />
+                    }) }} />
                 </amp-analytics>
             </>
         );

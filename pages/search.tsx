@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {NextPage, GetServerSideProps} from 'next';
+import React, { useState, useEffect } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {useDebounce} from 'use-debounce';
-import {pageview} from 'react-ga';
+import { useRouter } from 'next/router';
+import { useDebounce } from 'use-debounce';
+import { pageview } from 'react-ga';
 
 import search from '~/lib/posts/search';
-import {SuccessResponse} from './api/search';
-import {useContext} from '~/lib/context';
+import { SuccessResponse } from './api/search';
+import { useContext } from '~/lib/context';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -25,16 +25,16 @@ export type Props = {
 };
 
 
-const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, page}) => {
+const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page }) => {
     const [query, setQuery] = useState<string>(initialQuery);
     const [result, setResult] = useState<SuccessResponse>(initialResult);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
-    const {setLoading} = useContext();
+    const { setLoading } = useContext();
 
     const doSearch = () => {
         if (!query) {
-            setResult({posts: [], totalCount: 0});
+            setResult({ posts: [], totalCount: 0 });
             return;
         }
 
@@ -66,11 +66,11 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
     const replaceState = (from: string) => {
         const url = makeURL();
-        history.replaceState({...history.state, url: url, as: url, from: from}, '', url);
+        history.replaceState({ ...history.state, url: url, as: url, from: from }, '', url);
     };
     const pushState = (from: string) => {
         const url = makeURL();
-        history.pushState({...history.state, url: url, as: url, from: from}, '', url);
+        history.pushState({ ...history.state, url: url, as: url, from: from }, '', url);
     };
 
     useEffect(() => {
@@ -130,8 +130,8 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
                         <ListItem key={x.href}>
                             <Link href={x.href}><a>
                                 <DateTime dateTime={new Date(x.pubtime)} />
-                                <h2 dangerouslySetInnerHTML={{__html: x.title}} />
-                                <p dangerouslySetInnerHTML={{__html: x.summary}} />
+                                <h2 dangerouslySetInnerHTML={{ __html: x.title }} />
+                                <p dangerouslySetInnerHTML={{ __html: x.summary }} />
                             </a></Link>
                         </ListItem>
                     ))}
@@ -179,7 +179,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 };
 
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const q = String(query.q ? query.q : '');
     const page = Number(String(query.page ? query.page : 1));
 

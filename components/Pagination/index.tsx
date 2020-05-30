@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 
-import PageLink, {HrefFunc} from './PageLink';
+import PageLink, { HrefFunc } from './PageLink';
 
 
 export type Props = {
@@ -11,7 +11,7 @@ export type Props = {
 };
 
 
-const Pagination: FC<Props> = ({current, total, href}) => {
+const Pagination: FC<Props> = ({ current, total, href }) => {
     const size = 3;
     const from = Math.max(1, current - size - Math.max(0, current + size - total));
     const to = Math.min(total + 1, current + size + 1 + Math.max(0, size + 1 - current));

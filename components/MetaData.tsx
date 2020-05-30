@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
-import {getImageURL} from '~/lib/eyecatch';
+import { getImageURL } from '~/lib/eyecatch';
 
 
 export type Props = {
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 
-const MetaData: FC<Props> = ({title, description, image}) => {
+const MetaData: FC<Props> = ({ title, description, image }) => {
     const router = useRouter();
 
     const query = new URLSearchParams(

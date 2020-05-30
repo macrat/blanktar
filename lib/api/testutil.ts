@@ -1,4 +1,4 @@
-import {Request as RequestMock, Response as ResponseMock, MockRequestOptions} from 'mock-http';
+import { Request as RequestMock, Response as ResponseMock, MockRequestOptions } from 'mock-http';
 
 
 interface RequestOptions extends MockRequestOptions {

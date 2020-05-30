@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {event} from 'react-ga';
+import React, { FC } from 'react';
+import { event } from 'react-ga';
 
 
 export type Props = {
@@ -9,7 +9,7 @@ export type Props = {
 };
 
 
-const ShareButton: FC<Props> = ({href, alt, label, children}) => (
+const ShareButton: FC<Props> = ({ href, alt, label, children }) => (
     <a
         href={href}
         rel="noopener noreferrer nofollow"

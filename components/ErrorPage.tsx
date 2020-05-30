@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 
 import MetaData from './MetaData';
 import Header from './Header';
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 
-const ErrorPage: FC<Props> = ({statusCode, title, message}) => {
+const ErrorPage: FC<Props> = ({ statusCode, title, message }) => {
     const [query, setQuery] = useState<string>('');
 
     return (<>

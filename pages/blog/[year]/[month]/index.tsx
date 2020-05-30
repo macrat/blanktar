@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage, GetStaticProps, GetStaticPaths} from 'next';
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
 import posts from '~/lib/posts';
 
@@ -7,7 +7,7 @@ import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
 import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
-import BlogList, {Props as BlogListProps} from '~/components/BlogList';
+import BlogList, { Props as BlogListProps } from '~/components/BlogList';
 
 
 export type Props = BlogListProps & {
@@ -16,7 +16,7 @@ export type Props = BlogListProps & {
 };
 
 
-const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
+const MonthIndex: NextPage<Props> = ({ year, month, posts }) => {
     return (<>
         <MetaData
             title={`${year}年${month}月の記事`}
@@ -47,7 +47,7 @@ const MonthIndex: NextPage<Props> = ({year, month, posts}) => {
 };
 
 
-export const getStaticProps: GetStaticProps<Props, {year: string; month: string}> = async ({params}) => {
+export const getStaticProps: GetStaticProps<Props, {year: string; month: string}> = async ({ params }) => {
     if (params === undefined) {
         throw new Error('year and month is must be some number');
     }

@@ -1,4 +1,4 @@
-import {Request, Response} from '~/lib/api/testutil';
+import { Request, Response } from '~/lib/api/testutil';
 import fetchMock from 'jest-fetch-mock';
 
 import font from '../font';

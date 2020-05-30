@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 export type Props = {
@@ -13,7 +13,7 @@ const date2printable = (date: string) => {
 };
 
 
-const PS: FC<Props> = ({date, children}) => (
+const PS: FC<Props> = ({ date, children }) => (
     <ins dateTime={date}>
         <section>
             <h5><time dateTime={date}>{date2printable(date)}</time> 追記</h5>

@@ -78,7 +78,7 @@ declare module '@mdx-js/react' {
 }
 
 declare module 'prism-react-renderer/prism' {
-    import {PrismLib} from 'prism-react-renderer';
+    import { PrismLib } from 'prism-react-renderer';
 
     const Prism: PrismLib;
 
@@ -86,7 +86,7 @@ declare module 'prism-react-renderer/prism' {
 }
 
 declare module 'styled-jsx/macro' {
-    export {resolve} from 'styled-jsx/css';
+    export { resolve } from 'styled-jsx/css';
 }
 
 declare module 'potrace' {

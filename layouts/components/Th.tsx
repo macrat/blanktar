@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 export type Props = {
@@ -6,7 +6,7 @@ export type Props = {
 };
 
 
-const Th: FC<Props> = ({align, children}) => (
+const Th: FC<Props> = ({ align, children }) => (
     <th align={align}>
         {children}
 

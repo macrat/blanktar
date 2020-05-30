@@ -1,6 +1,6 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import feed, {hash} from '~/lib/feed';
+import feed, { hash } from '~/lib/feed';
 import withCache from '~/lib/api/cache';
 
 

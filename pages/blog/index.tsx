@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage, GetServerSideProps} from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 
 import posts from '~/lib/posts';
 
@@ -8,7 +8,7 @@ import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
 import SearchBar from '~/components/SearchBar';
 import Article from '~/components/Article';
-import BlogList, {Props as BlogListProps} from '~/components/BlogList';
+import BlogList, { Props as BlogListProps } from '~/components/BlogList';
 import Pagination from '~/components/Pagination';
 
 
@@ -23,7 +23,7 @@ export type Props = BlogListProps & {
 };
 
 
-const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
+const BlogIndex: NextPage<Props> = ({ posts, page, totalPages }) => (
     posts.length === 0 ? (
         <NotFound />
     ) : (<>
@@ -47,14 +47,14 @@ const BlogIndex: NextPage<Props> = ({posts, page, totalPages}) => (
                 total={totalPages}
                 href={p => ({
                     pathname: '/blog',
-                    query: p > 1 ? {offset: (p-1) * 10} : undefined,
+                    query: p > 1 ? { offset: (p-1) * 10 } : undefined,
                 })} />
         </Article>
     </>)
 );
 
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({res, query}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ res, query }) => {
     const offset = Number(String(query.offset ? query.offset : 0));
 
     const ps = posts.slice(Math.max(0, offset), Math.max(0, offset + 10)).map(p => ({
