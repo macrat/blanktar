@@ -42,7 +42,7 @@ const Analytics: FC = () => {
                 <amp-analytics type="gtag" data-credentials="include" key="amp-analytics--settings">
                     <script type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
                         vars: {
-                            gtag_id: GOOGLE_ANALYTICS,  // eslint-disable-line @typescript-eslint/camelcase
+                            gtag_id: GOOGLE_ANALYTICS,
                             config: {
                                 [GOOGLE_ANALYTICS]: {
                                     groups: 'default',

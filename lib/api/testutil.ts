@@ -45,7 +45,7 @@ export class Response<T> extends ResponseMock {
         return this;
     }
 
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types */
     setPreviewData(data: string | object, options?: {maxAge?: number | undefined} | undefined): Response<T> {
         return this;
     }
