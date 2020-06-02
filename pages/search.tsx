@@ -28,9 +28,10 @@ export type Props = {
 };
 
 
-const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page }) => {
+const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page: initialPage }) => {
     const [query, setQuery] = useState<string>(initialQuery);
     const [result, setResult] = useState<SuccessResponse>(initialResult);
+    const [page, setPage] = useState<number>(initialPage);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
     const { setLoading } = useContext();
@@ -60,6 +61,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
     };
 
     useEffect(doSearch, [searchQuery]);
+    useEffect(doSearch, [page]);
 
     const makeURL = () => {
         if (!query) {
@@ -97,7 +99,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
 
     useEffect(() => {
         setQuery(String(router.query.q ?? ''));
-        doSearch();
+        setPage(Number(router.query.page ?? '1'));
     }, [router.query]);
 
     return (<>
@@ -110,7 +112,12 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
         <Article>
             <SearchBox
                 query={query}
-                setQuery={q => setQuery(q)}
+                setQuery={q => {
+                    if (q !== query) {
+                        setPage(1);
+                    }
+                    setQuery(q);
+                }}
                 onSearch={() => forceSearch()}
                 autoFocus />
 
