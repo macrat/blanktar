@@ -65,6 +65,18 @@ describe('ignore case', () => {
         },
     ];
 
+    const result = {
+        totalCount: 1,
+        posts: [
+            {
+                title: 'Hello World',
+                pubtime: posts[0].pubtime,
+                summary: '',
+                href: '/path/to/content',
+            },
+        ],
+    };
+
     const tests = [
         ['foo'],
         ['FOO'],
@@ -76,9 +88,6 @@ describe('ignore case', () => {
     ];
 
     test.each(tests)('%s', (query) => {
-        const result = search(query, 0, 10, posts);
-
-        expect(result.totalCount).toBe(1);
-        expect(result.posts).toStrictEqual(posts);
+        expect(search(query, 0, 10, posts)).toStrictEqual(result);
     });
 });
