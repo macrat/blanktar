@@ -59,6 +59,7 @@ describe('ignore case', () => {
             pubtime: new Date().getTime(),
             tags: [],
             lowerTags: [],
+            href: '/path/to/content',
             content: 'FOO bar Baz',
             lowerContent: 'foo bar baz',
         },
