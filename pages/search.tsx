@@ -18,6 +18,9 @@ import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
 
 
+const RESULTS_IN_PAGE = 10;
+
+
 export type Props = {
     query: string;
     page: number;
@@ -41,8 +44,8 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
         setLoading(true);
         fetch(`/api/search?${new URLSearchParams({
             q: query,
-            offset: String(10 * (page - 1)),
-            limit: '10',
+            offset: String(RESULTS_IN_PAGE * (page - 1)),
+            limit: String(RESULTS_IN_PAGE),
         })}`).then(resp => {
             setLoading(false);
             if (!resp.ok) {
@@ -140,7 +143,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
 
             <Pagination
                 current={page}
-                total={Math.ceil(result.totalCount / 20)}
+                total={Math.ceil(result.totalCount / RESULTS_IN_PAGE)}
                 href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
@@ -187,7 +190,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         props: {
             query: q,
             page: page,
-            result: search(q, 10 * (page - 1), 10),
+            result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
         },
     };
 };
