@@ -48,3 +48,36 @@ describe('empty query', () => {
         expect(result.posts.length).toBe(0);
     });
 });
+
+describe('ignore case', () => {
+    const posts = [
+        {
+            title: 'Hello World',
+            lowerTitle: 'hello world',
+            year: 2001,
+            month: 2,
+            pubtime: new Date().getTime(),
+            tags: [],
+            lowerTags: [],
+            content: 'FOO bar Baz',
+            lowerContent: 'foo bar baz',
+        },
+    ];
+
+    const tests = [
+        ['foo'],
+        ['FOO'],
+        ['bar'],
+        ['BAR'],
+        ['baz'],
+        ['BAZ'],
+        ['Baz'],
+    ];
+
+    test.each(tests)('%s', (query) => {
+        const result = search(query, 0, 10, posts);
+
+        expect(result.totalCount).toBe(1);
+        expect(result.posts).toStrictEqual(posts);
+    });
+});
