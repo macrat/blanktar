@@ -1,7 +1,7 @@
-import posts from '../';
+import { default as defaultPosts, Post } from '../';
 
 
-export default (query: string, offset: number, limit: number) => {
+export default (query: string, offset: number, limit: number, posts: Post[] = defaultPosts) => {
     const queries = query.toLowerCase().split(' ').map(x => x.trim()).filter(x => x);
 
     if (queries.length === 0) {

@@ -26,8 +26,8 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
     res.setHeader('Cache-Control', 'public, max-age=604800');
 
     const query = String(req.query.q);
-    const offset = Number(req.query.offset);
-    const limit = Number(req.query.limit) === 0 ? 10 : Number(req.query.limit);
+    const offset = Number.isNaN(Number(req.query.offset)) ? 0 : Number(req.query.offset);
+    const limit = Number.isNaN(Number(req.query.limit)) ? 10 : Number(req.query.limit);
 
     if (req.method !== 'GET') {
         res.status(405).json({ error: 'method not allowed' });

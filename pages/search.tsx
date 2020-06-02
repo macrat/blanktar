@@ -18,6 +18,9 @@ import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
 
 
+const RESULTS_IN_PAGE = 10;
+
+
 export type Props = {
     query: string;
     page: number;
@@ -25,9 +28,10 @@ export type Props = {
 };
 
 
-const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page }) => {
+const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page: initialPage }) => {
     const [query, setQuery] = useState<string>(initialQuery);
     const [result, setResult] = useState<SuccessResponse>(initialResult);
+    const [page, setPage] = useState<number>(initialPage);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
     const { setLoading } = useContext();
@@ -41,8 +45,8 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
         setLoading(true);
         fetch(`/api/search?${new URLSearchParams({
             q: query,
-            offset: String(10 * (page - 1)),
-            limit: '10',
+            offset: String(RESULTS_IN_PAGE * (page - 1)),
+            limit: String(RESULTS_IN_PAGE),
         })}`).then(resp => {
             setLoading(false);
             if (!resp.ok) {
@@ -57,6 +61,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
     };
 
     useEffect(doSearch, [searchQuery]);
+    useEffect(doSearch, [page]);
 
     const makeURL = () => {
         if (!query) {
@@ -94,7 +99,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
 
     useEffect(() => {
         setQuery(String(router.query.q ?? ''));
-        doSearch();
+        setPage(Number(router.query.page ?? '1'));
     }, [router.query]);
 
     return (<>
@@ -107,7 +112,12 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
         <Article>
             <SearchBox
                 query={query}
-                setQuery={q => setQuery(q)}
+                setQuery={q => {
+                    if (q !== query) {
+                        setPage(1);
+                    }
+                    setQuery(q);
+                }}
                 onSearch={() => forceSearch()}
                 autoFocus />
 
@@ -140,7 +150,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
 
             <Pagination
                 current={page}
-                total={Math.ceil(result.totalCount / 20)}
+                total={Math.ceil(result.totalCount / RESULTS_IN_PAGE)}
                 href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
@@ -187,7 +197,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         props: {
             query: q,
             page: page,
-            result: search(q, 10 * (page - 1), 10),
+            result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
         },
     };
 };
