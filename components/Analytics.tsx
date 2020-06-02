@@ -13,7 +13,7 @@ ReactGA.initialize(
     GOOGLE_ANALYTICS,
     env({
         development: {
-            debug: true,
+            debug: false,
             gaOptions: {
                 siteSpeedSampleRate: 100,
             },
