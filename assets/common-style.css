@@ -62,3 +62,7 @@ mark {
     background-color: var(--colors-block-bg);
     color: var(--colors-accent);
 }
+strong {
+    font-weight: normal;
+    color: var(--colors-accent);
+}
