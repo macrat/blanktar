@@ -16,6 +16,7 @@ import SearchBox from '~/components/SearchBar/SearchBox';
 import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
+import RichSnippet from '~/components/RichSnippet';
 
 
 const RESULTS_IN_PAGE = 10;
@@ -134,7 +135,11 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                         }
                     `}</style>
                 </p>
-            ) : (
+            ) : (<>
+                {result.snippet ? (
+                    <RichSnippet snippet={result.snippet} />
+                ) : null}
+
                 <ul aria-label={`"${searchQuery}"の検索結果`}>
                     {result.posts.map(x => (
                         <ListItem key={x.href}>
@@ -146,7 +151,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                         </ListItem>
                     ))}
                 </ul>
-            )}
+            </>)}
 
             <Pagination
                 current={page}

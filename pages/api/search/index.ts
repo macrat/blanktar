@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { hash } from '~/lib/posts';
 import search from '~/lib/posts/search';
+import getSnippet from '~/lib/rich-snippet';
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
 
@@ -14,6 +15,7 @@ export type SuccessResponse = {
         summary: string;
     }[];
     totalCount: number;
+    snippet?: string;
 };
 
 
@@ -36,7 +38,10 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
         res.status(400).json({ error: '`q` is required' });
     }
 
-    res.json(search(query, offset, limit));
+    res.json({
+        ...search(query, offset, limit),
+        snippet: getSnippet(query),
+    });
 }, {
     etag: (req: NextApiRequest) => (
         createETag(hash + String(req.query.q).toLowerCase())
