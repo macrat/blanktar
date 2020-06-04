@@ -27,12 +27,12 @@ export default (query: string, offset: number, limit: number, posts: Post[] = de
 
             const title = queries.reduce((s, q) => {
                 const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
-                return s.replace(re, `<mark>${q}</mark>`);
+                return s.replace(re, '<mark>$&</mark>');
             }, sanitize(p.title));
 
             const summary = queries.reduce((s, q) => {
                 const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
-                return s.replace(re, `<mark>${q}</mark>`);
+                return s.replace(re, '<mark>$&</mark>');
             }, sanitize(p.description ?? ''));
 
             return {
