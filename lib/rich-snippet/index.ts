@@ -7,12 +7,12 @@ type Snippets = {
 };
 
 
-const snippets = penv(
+const snippets: Snippets = penv(
     {
-        development: require('./loader') as Snippets[],
-        test: require('./loader') as Snippets[],
+        development: require('./loader') as Snippets,
+        test: require('./loader') as Snippets,
     },
-    preval`module.exports = require('./loader')` as Snippets[],
+    preval`module.exports = require('./loader')` as Snippets,
 );
 
 
