@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { hash } from '~/lib/posts';
 import search from '~/lib/posts/search';
-import getSnippet from '~/lib/rich-snippet';
+import getSnippet, { Snippet } from '~/lib/rich-snippet';
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
 
@@ -15,10 +15,7 @@ export type SuccessResponse = {
         summary: string;
     }[];
     totalCount: number;
-    snippet?: {
-        html: string;
-        summary: string;
-    };
+    snippet?: Snippet;
 };
 
 
