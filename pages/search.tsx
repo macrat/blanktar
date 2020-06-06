@@ -6,6 +6,7 @@ import { useDebounce } from 'use-debounce';
 import { pageview } from 'react-ga';
 
 import search from '~/lib/posts/search';
+import getSnippet from '~/lib/rich-snippet';
 import { SuccessResponse } from './api/search';
 import { useContext } from '~/lib/context';
 
@@ -202,7 +203,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         props: {
             query: q,
             page: page,
-            result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
+            result: {
+                ...search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
+                snippet: getSnippet(q),
+            },
         },
     };
 };
