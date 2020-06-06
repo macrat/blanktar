@@ -139,7 +139,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                 </p>
             ) : (<>
                 {result.snippet ? (<>
-                    <RichSnippet snippet={result.snippet.markdown} />
+                    <RichSnippet snippet={result.snippet.html} />
 
                     <JsonLD data={{
                         '@type': 'FAQPage',

@@ -4,7 +4,7 @@ import preval from 'preval.macro';
 
 type Snippets = {
     [keyword: string]: {
-        markdown: string;
+        html: string;
         sumamry: string;
     };
 };
