@@ -34,6 +34,7 @@
     "react-ga": "^3.0.0",
     "react-lazyload": "^2.6.7",
     "react-markdown": "^4.3.1",
+    "remove-markdown": "^0.3.0",
     "use-debounce": "^3.4.2"
   },
   "devDependencies": {

@@ -15,7 +15,10 @@ export type SuccessResponse = {
         summary: string;
     }[];
     totalCount: number;
-    snippet?: string;
+    snippet?: {
+        markdown: string;
+        summary: string;
+    };
 };
 
 

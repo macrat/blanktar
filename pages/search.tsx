@@ -18,6 +18,7 @@ import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
 import RichSnippet from '~/components/RichSnippet';
+import JsonLD from '~/components/JsonLD';
 
 
 const RESULTS_IN_PAGE = 10;
@@ -137,9 +138,21 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                     `}</style>
                 </p>
             ) : (<>
-                {result.snippet ? (
-                    <RichSnippet snippet={result.snippet} />
-                ) : null}
+                {result.snippet ? (<>
+                    <RichSnippet snippet={result.snippet.markdown} />
+
+                    <JsonLD data={{
+                        '@type': 'FAQPage',
+                        mainEntity: [{
+                            '@type': 'Question',
+                            name: `${searchQuery}とは？`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: result.snippet.summary,
+                            },
+                        }],
+                    }} />
+                </>) : null}
 
                 <ul aria-label={`"${searchQuery}"の検索結果`}>
                     {result.posts.map(x => (

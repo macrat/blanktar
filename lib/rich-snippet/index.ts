@@ -3,7 +3,10 @@ import preval from 'preval.macro';
 
 
 type Snippets = {
-    [keyword: string]: string;
+    [keyword: string]: {
+        markdown: string;
+        sumamry: string;
+    };
 };
 
 
