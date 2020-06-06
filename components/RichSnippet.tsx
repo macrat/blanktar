@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 
 export type Props = {
@@ -8,8 +7,8 @@ export type Props = {
 
 
 const RichSnippet: FC<Props> = ({ snippet }) => (
-    <article>
-        <ReactMarkdown source={snippet} />
+    <>
+        <article dangerouslySetInnerHTML={{ __html: snippet }} />
 
         <style jsx>{`
             margin: 3mm 5mm 0;
@@ -20,7 +19,7 @@ const RichSnippet: FC<Props> = ({ snippet }) => (
                 margin: 3mm 2mm 0;
             }
         `}</style>
-    </article>
+    </>
 );
 
 

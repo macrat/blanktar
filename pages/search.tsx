@@ -6,6 +6,7 @@ import { useDebounce } from 'use-debounce';
 import { pageview } from 'react-ga';
 
 import search from '~/lib/posts/search';
+import getSnippet from '~/lib/rich-snippet';
 import { SuccessResponse } from './api/search';
 import { useContext } from '~/lib/context';
 
@@ -17,6 +18,7 @@ import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
 import RichSnippet from '~/components/RichSnippet';
+import JsonLD from '~/components/JsonLD';
 
 
 const RESULTS_IN_PAGE = 10;
@@ -136,9 +138,21 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                     `}</style>
                 </p>
             ) : (<>
-                {result.snippet ? (
-                    <RichSnippet snippet={result.snippet} />
-                ) : null}
+                {result.snippet ? (<>
+                    <RichSnippet snippet={result.snippet.html} />
+
+                    <JsonLD data={{
+                        '@type': 'FAQPage',
+                        mainEntity: [{
+                            '@type': 'Question',
+                            name: `${searchQuery}とは？`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: result.snippet.summary,
+                            },
+                        }],
+                    }} />
+                </>) : null}
 
                 <ul aria-label={`"${searchQuery}"の検索結果`}>
                     {result.posts.map(x => (
@@ -202,7 +216,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         props: {
             query: q,
             page: page,
-            result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
+            result: {
+                ...search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
+                snippet: getSnippet(q),
+            },
         },
     };
 };
