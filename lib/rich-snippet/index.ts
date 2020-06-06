@@ -22,5 +22,5 @@ const snippets: Snippets = penv(
 
 
 export default (query: string): string | undefined => {
-    return snippets[query.toLowerCase()];
+    return snippets[query.trim().toLowerCase()];
 };
