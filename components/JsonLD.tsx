@@ -43,7 +43,7 @@ export const Publisher: Thing = {
 
 
 export const Website: Thing = {
-    '@type': 'Website',
+    '@type': 'WebSite',
     name: 'Blanktar',
     url: 'https://blanktar.jp',
     author: Author,
