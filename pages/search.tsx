@@ -208,11 +208,11 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
 };
 
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
     const q = String(query.q ? query.q : '');
     const page = Number(String(query.page ? query.page : 1));
 
-    const result: SuccessResponse = {
+    const props: Props = {
         query: q,
         page: page,
         result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
@@ -220,10 +220,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     const snippet = getSnippet(q);
     if (snippet !== undefined) {
-        result.snippet = snippet;
+        props.result.snippet = snippet;
     }
 
-    return { props: result };
+    return { props };
 };
 
 
