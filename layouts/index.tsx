@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
+import marked from 'marked';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -61,6 +62,15 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
     if (!description && description !== null) {
         throw new Error(`${title} ${pubtime}: description is not provided`);
     }
+
+    const faqJson = !faq ? undefined : faq.map(x => ({
+        '@type': 'Question',
+        name: x.question,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: marked(x.answer),
+        },
+    }));
 
     const BlogArticle: FC = ({ children }) => {
         const router = useRouter();
@@ -154,17 +164,10 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
                             image: image ? 'https://blanktar.jp' + image : undefined,
                         }} />
                     ) : null}
-                    {faq ? (
+                    {faqJson ? (
                         <JsonLD data={{
                             '@type': 'FAQPage',
-                            mainEntity: faq.map(x => ({
-                                '@type': 'Question',
-                                name: x.question,
-                                acceptedAnswer: {
-                                    '@type': 'Answer',
-                                    text: x.answer,
-                                },
-                            })),
+                            mainEntity: faqJson,
                         }} />
                     ) : null}
                 </Article>
