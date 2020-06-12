@@ -73,7 +73,7 @@
     "preval.macro": "5.0.0",
     "raw-loader": "4.0.1",
     "remove-markdown": "0.3.0",
-    "sharp": "0.25.3",
+    "sharp": "0.25.4",
     "ts-jest": "26.1.0",
     "typescript": "3.9.5",
     "xmlbuilder": "15.1.1"
