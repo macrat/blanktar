@@ -10,16 +10,16 @@ howto:
   step:
     - name: 新しいHDDを繋ぐ
       text: まずは新しいHDDを繋ぎます。まだ読めるデータをコピーするのに使うので、古いHDDは繋いだままにします。
-      url: #新しいHDDを接続する
+      url: "#新しいHDDを接続する"
     - name: 古いHDDから新しいHDDにデータをコピーする
       text: "`btrfs replace`コマンドを使って、古いHDDにあるまだ読めるデータを新しいHDDにコピーします。結構時間が掛かります。"
-      url: #古いHDDから新しいHDDにデータをコピーする
+      url: "#古いHDDから新しいHDDにデータをコピーする"
     - name: エラーカウントをリセットする
       text: "`btrfs device stats`にエラーの回数が記録されたままになっているので、これを`device stats --reset`でリセットします。"
-      url: #エラーカウントをリセットしておく
+      url: "#エラーカウントをリセットしておく"
     - name: （必要な場合のみ）HDDの容量が増えたことをbtrfsに伝える
       text: "古いHDDよりも新しいHDDの方が容量が多い場合でも、btrfsは増えた分を勝手に使ってくれたりはしません。なので、`btrfs filesystem resize`で増えた分を使うようにbtrfsに伝えてあげます。"
-      url: #容量の大きいHDDに交換した場合
+      url: "#容量の大きいHDDに交換した場合"
 ---
 
 btrfsで作ったディスクアレイのHDDを交換したので、やり方のメモです。
