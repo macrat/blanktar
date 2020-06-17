@@ -29,7 +29,7 @@ const MetaData: FC<Props> = ({ title, description, image }) => {
 
             <meta property="og:title" content={title ?? 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath === '/' ? 'website' : 'article'} key="ogp--type" />
-            <meta property="og:url" content={canonical} key="ogp--url" />
+            <meta property="og:url" content={`${canonical}`} key="ogp--url" />
             <meta property="og:image" content={getImageURL(title, image)} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
