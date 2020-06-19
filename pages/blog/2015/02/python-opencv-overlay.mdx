@@ -1,6 +1,7 @@
 ---
 title: python/OpenCVで透過pngをオーバレイする
 pubtime: 2015-02-09T22:46+0900
+modtime: 2020-06-19T18:31+0900
 amp: hybrid
 tags: [python, OpenCV, オーバレイ, 透過png]
 image: /blog/2015/02/python-opencv-overlay.png
@@ -47,8 +48,8 @@ dst = cv2.imread('lena.jpg')
 width, height = src.shape[:2]
 
 mask = src[:,:,3]  # アルファチャンネルだけ抜き出す。
-mask = cv2.cvtColor(mask, cv2.cv.CV_GRAY2BGR)  # 3色分に増やす。
-mask = mask / 255.0  # 0-255だと使い勝手が悪いので、0.0-1.0に変更。
+mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)  # 3色分に増やす。
+mask = mask / 255  # 0-255だと使い勝手が悪いので、0.0-1.0に変更。
 
 src = src[:,:,:3]  # アルファチャンネルは取り出しちゃったのでもういらない。
 
@@ -62,3 +63,9 @@ cv2.imwrite('out.jpg', dst)
 結果はこんな。
 
 ![透過を考慮して乗っけた画像](/blog/2015/02/trans_overlay.jpg "520x520")
+
+<PS date="2020-06-19">
+
+最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
+
+</PS>
