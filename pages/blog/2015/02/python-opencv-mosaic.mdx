@@ -1,6 +1,7 @@
 ---
 title: pythonのOpenCVでモザイクをかける
 pubtime: 2015-02-09T23:37+0900
+modtime: 2020-06-19T18:40+0900
 amp: hybrid
 tags: [python, OpenCV, モザイク]
 image: /blog/2015/02/python-opencv-mosaic.jpg
@@ -13,15 +14,15 @@ description: python/OpenCVを使って、簡単に画像にモザイクを掛け
 ``` python
 import cv2
 
-img = cv2.imread('input.jpg')
+img = cv2.imread('laughingman.png')
 
 # オリジナルのサイズを保存しておく。
 #  shapeで取得できるサイズとresizeの引数に渡すサイズでは横縦の順番が違うらしい。ので[::-1]として反転。
 origsize = img.shape[:2][::-1]
 
-img = cv2.resize(img, (origsize[0]/20, origsize[1]/20))  # 画像を20分の1のサイズに縮小。
+img = cv2.resize(img, (origsize[0]//20, origsize[1]//20))  # 画像を20分の1のサイズに縮小。
 
-img = cv2.resize(img, origsize, interpolation=cv2.cv.CV_INTER_NN)  # 画像を元のサイズに拡大。interpolationを省略するとうまいこと補完されてしまって綺麗なモザイクにならない。
+img = cv2.resize(img, origsize, interpolation=False)  # 画像を元のサイズに拡大。interpolationを省略するとうまいこと補完されてしまって綺麗なモザイクにならない。
 
 cv2.imwrite('output.jpg', img)
 ```
@@ -32,3 +33,9 @@ cv2.imwrite('output.jpg', img)
 
 ![モザイクかける前のレナさん](/blog/2015/02/lena.jpg "520x520")
 ![モザイクかけた後のレナさん](/blog/2015/02/fullmosaic_lena.jpg "520x520")
+
+<PS date="2020-06-19">
+
+最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
+
+</PS>
