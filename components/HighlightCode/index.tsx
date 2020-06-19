@@ -64,6 +64,7 @@ const HighlightCode: FC<Props> = ({ children, lang }) => (
                                     <span key={key} className={classNameMap[className.split('token ')[1]]}>{children}</span>
                                 );
                             })}
+                            {'\n'}
                         </div>
                     ))}
                 </code>
