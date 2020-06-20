@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextPage} from 'next';
+import { NextPage } from 'next';
 import Link from 'next/link';
 
 import MetaData from '~/components/MetaData';

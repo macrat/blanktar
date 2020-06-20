@@ -1,8 +1,8 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import Link from 'next/link';
-import {useDebounce} from 'use-debounce';
+import { useDebounce } from 'use-debounce';
 
-import {SuccessResponse} from '~/pages/api/search/title';
+import { SuccessResponse } from '~/pages/api/search/title';
 
 
 export type Props = {
@@ -10,13 +10,13 @@ export type Props = {
 };
 
 
-const Suggestion: FC<Props> = ({query}) => {
-    const [suggest, setSuggest] = useState<SuccessResponse>({posts: []});
+const Suggestion: FC<Props> = ({ query }) => {
+    const [suggest, setSuggest] = useState<SuccessResponse>({ posts: [] });
     const [delayedQuery] = useDebounce(query, 50);
 
     useEffect(() => {
         if (!query) {
-            setSuggest({posts: []});
+            setSuggest({ posts: [] });
             return;
         }
 

@@ -1,4 +1,4 @@
-import Image, {ImageSet} from '~/lib/image';
+import Image, { ImageSet } from '~/lib/image';
 
 
 export type Language = {
@@ -87,7 +87,7 @@ const fetchGitHub = async (): Promise<Repository[]> => {
         throw new Error(`failed to fetch GitHub data: ${resp.status} ${resp.statusText}`);
     }
 
-    const {data}: RawGitHubResponse = await resp.json();
+    const { data }: RawGitHubResponse = await resp.json();
 
     return await Promise.all(data.user.repositories.nodes.map(async repo => ({
         name: repo.parent?.nameWithOwner ?? repo.name,

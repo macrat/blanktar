@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 export type Props = {
@@ -9,7 +9,7 @@ export type Props = {
 };
 
 
-const ServiceBanner: FC<Props> = ({name, href, viewBox, path}) => (
+const ServiceBanner: FC<Props> = ({ name, href, viewBox, path }) => (
     <div>
         <a href={href} target="_blank" rel="noopener noreferrer">
             <h2>

@@ -1,7 +1,7 @@
-import posts from '../';
+import { default as defaultPosts, Post } from '../';
 
 
-export default (query: string, offset: number, limit: number) => {
+export default (query: string, offset: number, limit: number, posts: Post[] = defaultPosts) => {
     const queries = query.toLowerCase().split(' ').map(x => x.trim()).filter(x => x);
 
     if (queries.length === 0) {
@@ -27,12 +27,12 @@ export default (query: string, offset: number, limit: number) => {
 
             const title = queries.reduce((s, q) => {
                 const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
-                return s.replace(re, `<mark>${q}</mark>`);
+                return s.replace(re, '<mark>$&</mark>');
             }, sanitize(p.title));
 
             const summary = queries.reduce((s, q) => {
                 const re = new RegExp(sanitize(q).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'ig');
-                return s.replace(re, `<mark>${q}</mark>`);
+                return s.replace(re, '<mark>$&</mark>');
             }, sanitize(p.description ?? ''));
 
             return {

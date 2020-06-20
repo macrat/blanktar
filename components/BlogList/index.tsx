@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
-import {useAmp} from 'next/amp';
+import { useAmp } from 'next/amp';
 
 import ListItem from './ListItem';
 import DateTime from '../DateTime';
@@ -19,15 +19,15 @@ export type Props = {
 };
 
 
-const BlogList: FC<Props> = ({posts}) => (
+const BlogList: FC<Props> = ({ posts }) => (
     <ol aria-label="記事の一覧">
-        {posts.map(({href, title, pubtime, tags, description}) => (
+        {posts.map(({ href, title, pubtime, tags, description }) => (
             <ListItem key={href}>
                 <Link href={href}><a>
                     <DateTime dateTime={new Date(pubtime)} />
                     <h2>{title}</h2>
                     <TagList tags={tags}>{
-                        ({tag, props}) => <button {...props}>{tag}</button>
+                        ({ tag, props }) => <button {...props}>{tag}</button>
                     }</TagList>
                     {description ? <p>{description}</p> : null}
                     {useAmp() ? <a href={href} className="list-link" /> : ""}
@@ -37,7 +37,7 @@ const BlogList: FC<Props> = ({posts}) => (
 
         <JsonLD data={{
             '@type': 'ItemList',
-            itemListElement: posts.map(({href}, i) => ({
+            itemListElement: posts.map(({ href }, i) => ({
                 '@type': 'ListItem',
                 position: i + 1,
                 url: 'https://blanktar.jp' + href,

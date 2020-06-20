@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
-import {getImageURL} from '~/lib/eyecatch';
+import { getImageURL } from '~/lib/eyecatch';
 
 
 export type Props = {
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 
-const MetaData: FC<Props> = ({title, description, image}) => {
+const MetaData: FC<Props> = ({ title, description, image }) => {
     const router = useRouter();
 
     const query = new URLSearchParams(
@@ -20,7 +20,7 @@ const MetaData: FC<Props> = ({title, description, image}) => {
             .filter(([k, v]) => k !== 'amp' && v)
             .map(([k, v]) => [k, String(v)])
     );
-    const canonical = new URL(`https://blanktar.jp${router.pathname}${query}`);
+    const canonical = new URL(`https://blanktar.jp${router.pathname}${String(query) ? "?" + query : ""}`);
 
     return (
         <Head>
@@ -29,7 +29,7 @@ const MetaData: FC<Props> = ({title, description, image}) => {
 
             <meta property="og:title" content={title ?? 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath === '/' ? 'website' : 'article'} key="ogp--type" />
-            <meta property="og:url" content={`https://blanktar.jp${router.asPath}`} key="ogp--url" />
+            <meta property="og:url" content={`${canonical}`} key="ogp--url" />
             <meta property="og:image" content={getImageURL(title, image)} key="ogp--image" />
             {description ? <meta property="og:description" content={description} key="ogp-description" /> : null}
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />

@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {useAmp} from 'next/amp';
+import React, { FC } from 'react';
+import { useAmp } from 'next/amp';
 
 
 export type Props = {
@@ -14,7 +14,7 @@ export type Props = {
 };
 
 
-const Image: FC<Props> = ({src, alt, width, height, center=false, style={}}) => {
+const Image: FC<Props> = ({ src, alt, width, height, center=false, style={} }) => {
     const optimized = require(`../public${src}?url`);
     const webp = require(`../public${src}?url?webp`);
     const {trace} = require(`../public${src}?trace`);

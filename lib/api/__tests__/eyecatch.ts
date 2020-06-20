@@ -1,7 +1,7 @@
 import Benchmark from 'asyncmark';
-import {NextApiHandler} from 'next';
+import { NextApiHandler } from 'next';
 
-import {Request, Response} from '~/lib/api/testutil';
+import { Request, Response } from '~/lib/api/testutil';
 
 import eyecatch from '../eyecatch';
 
@@ -25,10 +25,10 @@ const execute = async (title: string, func: NextApiHandler) => {
 describe("don't crash", () => {
     [
         /* eslint-disable @typescript-eslint/no-var-requires */
-        {name: '1x1',  func: eyecatch(require('~/assets/eyecatch-base-1x1.svg'), 1200, 1200)},
-        {name: '16x9', func: eyecatch(require('~/assets/eyecatch-base-16x9.svg'), 1200, 675)},
+        { name: '1x1',  func: eyecatch(require('~/assets/eyecatch-base-1x1.svg'), 1200, 1200) },
+        { name: '16x9', func: eyecatch(require('~/assets/eyecatch-base-16x9.svg'), 1200, 675) },
         /* eslint-enable @typescript-eslint/no-var-requires */
-    ].forEach(({name, func}) => {
+    ].forEach(({ name, func }) => {
         describe(name, () => {
             [
                 ['short ascii', 'hello'],

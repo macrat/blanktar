@@ -1,4 +1,4 @@
-import {NextApiRequest, NextApiResponse, NextApiHandler} from 'next';
+import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
 
 type ETagFunc = (req: NextApiRequest) => string;
@@ -9,7 +9,7 @@ type Opts = {
 };
 
 
-export default (handler: NextApiHandler, {etag, control}: Opts) => {
+export default (handler: NextApiHandler, { etag, control }: Opts) => {
     const getEtag = typeof etag === 'string' ? (
         () => etag
     ) : (

@@ -1,6 +1,7 @@
 ---
 title: python/OpenCVでレシートみたいな四角いものを見つけてトリミングする
 pubtime: 2015-07-04T14:23+0900
+modtime: 2020-06-19T18:16+0900
 amp: hybrid
 tags: [python, OpenCV, トリミング]
 image: /blog/2015/07/python-opencv-crop-box.png
@@ -12,8 +13,7 @@ pythonでOpenCV使ってレシートとかメモとかその他諸々の四角�
 
 とりあえずソースコード。大雑把な解説は下に。
 ``` python
-#!/usr/bin/python2
-#coding: utf-8
+#!/usr/bin/python3
 
 import cv2
 import numpy
@@ -50,7 +50,7 @@ if __name__ == '__main__':
         lines = orig.copy()
 
         # 輪郭を抽出する
-        canny = cv2.cvtColor(orig, cv2.cv.CV_BGR2GRAY)
+        canny = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         canny = cv2.GaussianBlur(canny, (5, 5), 0)
         canny = cv2.Canny(canny, 50, 100)
         cv2.imshow('canny', canny)
@@ -66,7 +66,7 @@ if __name__ == '__main__':
             level = 1 - float(i)/len(cnts)  # 面積順に色を付けたかったのでこんなことをしている。
             if len(approx) == 4:
                 cv2.drawContours(lines, [approx], -1, (0, 0, 255*level), 2)
-                if warp == None:
+                if warp is None:
                     warp = approx.copy()  # 一番面積の大きな四角形をwarpに保存。
             else:
                 cv2.drawContours(lines, [approx], -1, (0, 255*level, 0), 2)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
         cv2.imshow('edge', lines)
 
-        if warp != None:
+        if warp is not None:
             warped = transform_by4(orig, warp[:,0,:])  # warpが存在した場合、そこだけくり抜いたものを作る。
             cv2.imshow('warp', warped)
 
@@ -104,3 +104,10 @@ if __name__ == '__main__':
 
 あんまり精度は高くないですが、割と楽しい、かも。
 改良の余地はかなりありそうな気がします。
+
+
+<PS date="2020-06-19">
+
+最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
+
+</PS>
