@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
-const ListItem: FC = ({children}) => (
+const ListItem: FC = ({ children }) => (
     <li>
         {children}
 

@@ -1,7 +1,8 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import {hash} from '~/lib/posts';
+import { hash } from '~/lib/posts';
 import search from '~/lib/posts/search';
+import getSnippet, { Snippet } from '~/lib/rich-snippet';
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
 
@@ -14,6 +15,7 @@ export type SuccessResponse = {
         summary: string;
     }[];
     totalCount: number;
+    snippet?: Snippet;
 };
 
 
@@ -26,17 +28,20 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
     res.setHeader('Cache-Control', 'public, max-age=604800');
 
     const query = String(req.query.q);
-    const offset = Number(req.query.offset);
-    const limit = Number(req.query.limit) === 0 ? 10 : Number(req.query.limit);
+    const offset = Number.isNaN(Number(req.query.offset)) ? 0 : Number(req.query.offset);
+    const limit = Number.isNaN(Number(req.query.limit)) ? 10 : Number(req.query.limit);
 
     if (req.method !== 'GET') {
-        res.status(405).json({error: 'method not allowed'});
+        res.status(405).json({ error: 'method not allowed' });
     }
     if (!query) {
-        res.status(400).json({error: '`q` is required'});
+        res.status(400).json({ error: '`q` is required' });
     }
 
-    res.json(search(query, offset, limit));
+    res.json({
+        ...search(query, offset, limit),
+        snippet: getSnippet(query),
+    });
 }, {
     etag: (req: NextApiRequest) => (
         createETag(hash + String(req.query.q).toLowerCase())

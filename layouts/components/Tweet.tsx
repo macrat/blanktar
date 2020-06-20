@@ -1,6 +1,6 @@
-import React, {FC, useRef, useEffect} from 'react';
+import React, { FC, useRef, useEffect } from 'react';
 import Head from 'next/head';
-import {useAmp} from 'next/amp';
+import { useAmp } from 'next/amp';
 
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 
-const Tweet: FC<Props> = ({id, children}) => {
+const Tweet: FC<Props> = ({ id, children }) => {
     if (useAmp()) {
         return (
             <>

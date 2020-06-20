@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
-import {NextPage, GetServerSideProps} from 'next';
+import React, { FC } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import LazyLoad from 'react-lazyload';
 
-import fetchInstagram, {Photo} from '~/lib/instagram';
+import fetchInstagram, { Photo } from '~/lib/instagram';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -17,18 +17,18 @@ export type Props = {
 };
 
 
-const PhotoItem: FC<Photo> = ({url, images, trace, width, height, caption}) => (
+const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) => (
     <figure>
         <svg
             width={width}
             height={height}
             viewBox={trace.viewBox}
-            dangerouslySetInnerHTML={{__html: trace.path}}
+            dangerouslySetInnerHTML={{ __html: trace.path }}
             aria-hidden="true" />
 
         <LazyLoad offset={height/2}>
             <picture>
-                {images.reverse().map(({srcSet, mdpi}) => (
+                {images.reverse().map(({ srcSet, mdpi }) => (
                     <source key={mdpi} srcSet={srcSet} />
                 ))}
 
@@ -131,7 +131,7 @@ const PhotoItem: FC<Photo> = ({url, images, trace, width, height, caption}) => (
 );
 
 
-const Photos: NextPage<Props> = ({photos}) => (
+const Photos: NextPage<Props> = ({ photos }) => (
     <>
         <MetaData
             title="photos"
@@ -144,7 +144,7 @@ const Photos: NextPage<Props> = ({photos}) => (
         <Article
             title="photos"
             breadlist={[
-                {title: 'works', href: '/works'},
+                { title: 'works', href: '/works' },
             ]}>
 
             <ServiceBanner

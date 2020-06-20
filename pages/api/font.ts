@@ -1,4 +1,4 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import createETag from '~/lib/api/etag';
 

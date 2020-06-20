@@ -10,28 +10,37 @@ howto:
     - name: node-canvasをインストールする
       url: "#1. 必要なパッケージのインストール"
       text: "`npm install canvas`でnode-canvasというライブラリをインストールします。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step1.png
     - name: フォントを読み込む
       url: "#5-1. フォントの読み込み"
       text: |
         `registerFont(fontPath, { family: fontName })`を使って、使いたいフォントを読み込みます。
         otfもttfも行けるので、わりと何でも読めるはず。
+      image: /blog/2020/05/nodejs-write-text-on-image-step2.png
     - name: キャンバスの準備をする
       url: "#2. Canvasを用意する"
       text: "`createCanvas(width, height)`を使って、空のキャンバスを作ります。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step3.png
     - name: コンテキストを作る
+      url: "#2. Canvasを用意する"
       text: "`canvas.getContext('2d')`でキャンバスの操作をするためのコンテキストを作ります。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step4.png
     - name: 画像を読み込む
       url: "#3. 画像を読み込む"
       text: "`await loadImage(imagePath)`で書き込み先となる画像を読み込みます"
+      image: /blog/2020/05/nodejs-write-text-on-image-step5.png
     - name: 画像をキャンバスに書き込む
       url: "#3. 画像を読み込む"
       text: "`context.drawImage(image, left, top)`で読み込んだ画像をキャンバスに書き込みます。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step6.png
     - name: 使うフォントの名前を指定する
       url: "#5-2. 使うフォントを指定して文字を書き込む"
       text: "`context.font = fontName`でさきほど読み込んだ（familyで指定した）フォントの名前を指定します。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step7.png
     - name: 文字を書き込む
       url: "#5-2. 使うフォントを指定して文字を書き込む"
       text: "`context.fillText(text, left, top)`で文字を書き込みます。"
+      image: /blog/2020/05/nodejs-write-text-on-image-step7.png
 ---
 
 地味に進めていたこのサイトのリニューアルもほぼ完了しました。

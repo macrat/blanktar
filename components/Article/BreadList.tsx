@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import preval from 'preval.macro';
 
@@ -37,7 +37,7 @@ export type Props = {
 };
 
 
-const BreadList: FC<Props> = ({pages}) => (
+const BreadList: FC<Props> = ({ pages }) => (
     <ol aria-label="この記事の場所">
         <li className="top"><Link href="/"><a aria-label="トップページ">top</a></Link></li>
 

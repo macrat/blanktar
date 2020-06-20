@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {NextPage, GetServerSideProps} from 'next';
+import React, { useState, useEffect } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {useDebounce} from 'use-debounce';
-import {pageview} from 'react-ga';
+import { useRouter } from 'next/router';
+import { useDebounce } from 'use-debounce';
+import { pageview } from 'react-ga';
 
 import search from '~/lib/posts/search';
-import {SuccessResponse} from './api/search';
-import {useContext} from '~/lib/context';
+import getSnippet from '~/lib/rich-snippet';
+import { SuccessResponse } from './api/search';
+import { useContext } from '~/lib/context';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -16,6 +17,11 @@ import SearchBox from '~/components/SearchBar/SearchBox';
 import ListItem from '~/components/BlogList/ListItem';
 import DateTime from '~/components/DateTime';
 import Pagination from '~/components/Pagination';
+import RichSnippet from '~/components/RichSnippet';
+import JsonLD from '~/components/JsonLD';
+
+
+const RESULTS_IN_PAGE = 10;
 
 
 export type Props = {
@@ -25,24 +31,25 @@ export type Props = {
 };
 
 
-const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, page}) => {
+const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, page: initialPage }) => {
     const [query, setQuery] = useState<string>(initialQuery);
     const [result, setResult] = useState<SuccessResponse>(initialResult);
+    const [page, setPage] = useState<number>(initialPage);
     const [searchQuery, cancelDebounce] = useDebounce(query, 300);
     const router = useRouter();
-    const {setLoading} = useContext();
+    const { setLoading } = useContext();
 
     const doSearch = () => {
         if (!query) {
-            setResult({posts: [], totalCount: 0});
+            setResult({ posts: [], totalCount: 0 });
             return;
         }
 
         setLoading(true);
         fetch(`/api/search?${new URLSearchParams({
             q: query,
-            offset: String(10 * (page - 1)),
-            limit: '10',
+            offset: String(RESULTS_IN_PAGE * (page - 1)),
+            limit: String(RESULTS_IN_PAGE),
         })}`).then(resp => {
             setLoading(false);
             if (!resp.ok) {
@@ -57,6 +64,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
 
     useEffect(doSearch, [searchQuery]);
+    useEffect(doSearch, [page]);
 
     const makeURL = () => {
         if (!query) {
@@ -66,11 +74,11 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
     };
     const replaceState = (from: string) => {
         const url = makeURL();
-        history.replaceState({...history.state, url: url, as: url, from: from}, '', url);
+        history.replaceState({ ...history.state, url: url, as: url, from: from }, '', url);
     };
     const pushState = (from: string) => {
         const url = makeURL();
-        history.pushState({...history.state, url: url, as: url, from: from}, '', url);
+        history.pushState({ ...history.state, url: url, as: url, from: from }, '', url);
     };
 
     useEffect(() => {
@@ -94,7 +102,7 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 
     useEffect(() => {
         setQuery(String(router.query.q ?? ''));
-        doSearch();
+        setPage(Number(router.query.page ?? '1'));
     }, [router.query]);
 
     return (<>
@@ -107,7 +115,12 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
         <Article>
             <SearchBox
                 query={query}
-                setQuery={q => setQuery(q)}
+                setQuery={q => {
+                    if (q !== query) {
+                        setPage(1);
+                    }
+                    setQuery(q);
+                }}
                 onSearch={() => forceSearch()}
                 autoFocus />
 
@@ -124,23 +137,39 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
                         }
                     `}</style>
                 </p>
-            ) : (
+            ) : (<>
+                {result.snippet ? (<>
+                    <RichSnippet snippet={result.snippet.html} />
+
+                    <JsonLD data={{
+                        '@type': 'FAQPage',
+                        mainEntity: [{
+                            '@type': 'Question',
+                            name: `${searchQuery}とは？`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: result.snippet.summary,
+                            },
+                        }],
+                    }} />
+                </>) : null}
+
                 <ul aria-label={`"${searchQuery}"の検索結果`}>
                     {result.posts.map(x => (
                         <ListItem key={x.href}>
                             <Link href={x.href}><a>
                                 <DateTime dateTime={new Date(x.pubtime)} />
-                                <h2 dangerouslySetInnerHTML={{__html: x.title}} />
-                                <p dangerouslySetInnerHTML={{__html: x.summary}} />
+                                <h2 dangerouslySetInnerHTML={{ __html: x.title }} />
+                                <p dangerouslySetInnerHTML={{ __html: x.summary }} />
                             </a></Link>
                         </ListItem>
                     ))}
                 </ul>
-            )}
+            </>)}
 
             <Pagination
                 current={page}
-                total={Math.ceil(result.totalCount / 20)}
+                total={Math.ceil(result.totalCount / RESULTS_IN_PAGE)}
                 href={p => p === 1 ? `/search?q=${query}` : `/search?q=${query}&page=${p}`} />
 
             <style jsx>{`
@@ -179,17 +208,22 @@ const Search: NextPage<Props> = ({query: initialQuery, result: initialResult, pa
 };
 
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
     const q = String(query.q ? query.q : '');
     const page = Number(String(query.page ? query.page : 1));
 
-    return {
-        props: {
-            query: q,
-            page: page,
-            result: search(q, 10 * (page - 1), 10),
-        },
+    const props: Props = {
+        query: q,
+        page: page,
+        result: search(q, RESULTS_IN_PAGE * (page - 1), RESULTS_IN_PAGE),
     };
+
+    const snippet = getSnippet(q);
+    if (snippet !== undefined) {
+        props.result.snippet = snippet;
+    }
+
+    return { props };
 };
 
 

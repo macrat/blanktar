@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
 export const date2str = (t: Date) => (
@@ -17,7 +17,7 @@ export type Props = {
 };
 
 
-const DateTime: FC<Props> = ({dateTime, readableSuffix='の記事'}) => (
+const DateTime: FC<Props> = ({ dateTime, readableSuffix='の記事' }) => (
     <time dateTime={dateTime.toISOString()} aria-label={date2readable(dateTime) + readableSuffix}>{date2str(dateTime)}</time>
 );
 

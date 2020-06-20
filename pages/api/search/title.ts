@@ -1,6 +1,6 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import {hash} from '~/lib/posts';
+import { hash } from '~/lib/posts';
 import search from '~/lib/posts/search/title';
 import withCache from '~/lib/api/cache';
 import createETag from '~/lib/api/etag';
@@ -23,10 +23,10 @@ export default withCache(async (req: NextApiRequest, res: NextApiResponse<Respon
     const query = String(req.query.q);
 
     if (req.method !== 'GET') {
-        res.status(405).json({error: 'method not allowed'});
+        res.status(405).json({ error: 'method not allowed' });
     }
     if (!query) {
-        res.status(400).json({error: '`q` is required'});
+        res.status(400).json({ error: '`q` is required' });
     }
 
     res.json(search(query));

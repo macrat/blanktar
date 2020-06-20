@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
-import {UrlObject} from 'url';
+import { UrlObject } from 'url';
 
 
 export type HrefFunc = (page: number) => string | UrlObject;
@@ -13,7 +13,7 @@ export type Props = {
 };
 
 
-const PageLink: FC<Props> = ({current, page, href}) => (
+const PageLink: FC<Props> = ({ current, page, href }) => (
     <>
         <Link href={href(page)}>
             <a className={current ? "current" : ""} aria-label={current ? `${page}ページ。これは現在のページです` : `${page}ページ`}>

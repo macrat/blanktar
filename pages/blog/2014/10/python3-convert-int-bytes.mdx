@@ -4,6 +4,11 @@ pubtime: 2014-10-05T00:10+0900
 amp: hybrid
 tags: [python, python3, int, bytes]
 description: python3.2を使って、バイナリデータとintを相互に変換変換する方法です。
+faq:
+  - question: Pythonのbytesをint型の整数として読み込むには？
+    answer: Python3.2で導入された`int.from_bytes`というメソッドを使うと便利です。
+  - question: Pythonのintをバイナリと見做してbytesに変換するには？
+    answer: Python3.2で導入された`.to_bytes`というintのメソッドを使うと便利です。
 ---
 
 バイト列を整数にする、あるいは整数をバイト列にする。

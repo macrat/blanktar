@@ -1,11 +1,11 @@
-import {createHash} from 'crypto';
-import {promises as fs} from 'fs';
+import { createHash } from 'crypto';
+import { promises as fs } from 'fs';
 
-import sharp, {Sharp} from 'sharp';
+import sharp, { Sharp } from 'sharp';
 import mozjpeg from 'imagemin-mozjpeg';
 import zopflipng from 'imagemin-zopfli';
 import webp from 'imagemin-webp';
-import {Potrace} from 'potrace';
+import { Potrace } from 'potrace';
 import penv from 'penv.macro';
 
 
@@ -34,16 +34,16 @@ export type TracedImage = {
 
 
 async function compressJpeg(image: Buffer): Promise<Buffer> {
-    return await mozjpeg({quality: 80})(image);
+    return await mozjpeg({ quality: 80 })(image);
 }
 
 
 async function compressPng(image: Buffer, transparent: boolean): Promise<Buffer> {
-    return await zopflipng({transparent})(image);
+    return await zopflipng({ transparent })(image);
 }
 
 
-async function compress(image: Buffer, {format, hasAlpha}: {format?: string; hasAlpha?: boolean}): Promise<Buffer> {
+async function compress(image: Buffer, { format, hasAlpha }: {format?: string; hasAlpha?: boolean}): Promise<Buffer> {
     if (format === 'png' || format === 'gif' || format == 'bmp') {
         return await compressPng(image, hasAlpha ?? false);
     }
@@ -51,7 +51,7 @@ async function compress(image: Buffer, {format, hasAlpha}: {format?: string; has
 }
 
 
-async function compressWebp(image: Buffer, {format}: {format?: string}): Promise<Buffer> {
+async function compressWebp(image: Buffer, { format }: {format?: string}): Promise<Buffer> {
     return await webp({
         lossless: format === 'png',
         quality: 60,
@@ -115,11 +115,11 @@ export default class Image {
     }
 
     async size(): Promise<ImageSize> {
-        const {width, height} = await this.img.metadata();
+        const { width, height } = await this.img.metadata();
         if (!width || !height) {
             throw new Error('failed to get image size');
         }
-        return {width, height};
+        return { width, height };
     }
 
     async hash(): Promise<string> {
@@ -127,7 +127,7 @@ export default class Image {
     }
 
     async optimize(path: string, width: number): Promise<OptimizedImage> {
-        await fs.mkdir(`./.next/static/${path}`, {recursive: true}).catch(() => null);
+        await fs.mkdir(`./.next/static/${path}`, { recursive: true }).catch(() => null);
 
         const metadata = await this.img.metadata();
         const extension = metadata.format === undefined ? 'jpg' : getExtension(metadata.format);
@@ -177,11 +177,11 @@ export default class Image {
     }
 
     async trace(): Promise<TracedImage> {
-        const {width, height} = await this.size();
+        const { width, height } = await this.size();
 
         return {
             viewBox: `0 0 240 ${Math.round(240 * height / width)}`,
-            path: await tracePath(await this.img.clone().resize({width: 240}).toBuffer())
+            path: await tracePath(await this.img.clone().resize({ width: 240 }).toBuffer())
         };
     }
 }

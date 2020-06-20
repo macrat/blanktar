@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 
-const BlockQuote: FC = ({children}) => (
+const BlockQuote: FC = ({ children }) => (
     <blockquote>
         {children}
 

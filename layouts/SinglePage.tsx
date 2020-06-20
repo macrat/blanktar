@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -19,7 +19,7 @@ export type Props = {
 };
 
 
-export default ({title, description, breadlist, amp}: Props) => {
+export default ({ title, description, breadlist, amp }: Props) => {
     if (!title) {
         throw new Error(`title is not provided: ${breadlist[breadlist.length - 1].title}`);
     }
@@ -30,7 +30,7 @@ export default ({title, description, breadlist, amp}: Props) => {
         throw new Error(`${title}: description is not provided`);
     }
 
-    const SinglePage: FC = ({children}) => (<>
+    const SinglePage: FC = ({ children }) => (<>
         <Header />
 
         <SearchBar />

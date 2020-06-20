@@ -1,4 +1,4 @@
-import {getImageURL} from '../eyecatch';
+import { getImageURL } from '../eyecatch';
 
 
 describe('getImageURL', () => {

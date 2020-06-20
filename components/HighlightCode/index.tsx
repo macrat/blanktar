@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Prism from 'prism-react-renderer/prism';
-import Highlight, {defaultProps, Language} from 'prism-react-renderer';
+import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 
 import './language-supports';
 
@@ -46,7 +46,7 @@ const classNameMap: {[key: string]: string} = {
 };
 
 
-const HighlightCode: FC<Props> = ({children, lang}) => (
+const HighlightCode: FC<Props> = ({ children, lang }) => (
     <>
         <Highlight
             {...defaultProps}
@@ -54,16 +54,17 @@ const HighlightCode: FC<Props> = ({children, lang}) => (
             code={children.slice(0, -1)}
             language={lang as Language}>
 
-            {({tokens, getTokenProps}) => (
+            {({ tokens, getTokenProps }) => (
                 <code>
                     {tokens.map((line, i) => (
                         <div key={i}>
                             {line.map((token, key) => {
-                                const {className, children} = getTokenProps({token, key});
+                                const { className, children } = getTokenProps({ token, key });
                                 return (
                                     <span key={key} className={classNameMap[className.split('token ')[1]]}>{children}</span>
                                 );
                             })}
+                            {'\n'}
                         </div>
                     ))}
                 </code>
