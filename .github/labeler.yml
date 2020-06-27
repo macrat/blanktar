@@ -1,3 +1,8 @@
 記事:
   - pages/blog/*/*/*.mdx
   - public/blog/**/*
+
+リポジトリ管理:
+  - .github/**/*
+  - renovate.json
+  - README.md
