@@ -1,5 +1,23 @@
 {
   "extends": [
     "config:base"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "^@types/",
+        "^@typescript-eslint/",
+        "^asyncmark$",
+        "^enzyme",
+        "^eslint",
+        "^jest",
+        "^ts-jest$",
+        "^typescript$"
+      ],
+      "automerge": "true",
+      "major": {
+        "automerge": false
+      }
+    }
   ]
 }
