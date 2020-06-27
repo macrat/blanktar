@@ -1,0 +1,3 @@
+記事:
+  - pages/blog/*/*/*.mdx
+  - public/blog/**/*
