@@ -3,6 +3,7 @@ export type Post = {
     lowerTitle: string;
     year: number;
     month: number;
+    file: string;
     pubtime: number;
     modtime?: number;
     tags: string[];
