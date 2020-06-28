@@ -2,6 +2,7 @@
   "extends": [
     "config:base"
   ],
+  "labels": ["依存関係"],
   "packageRules": [
     {
       "packagePatterns": [
