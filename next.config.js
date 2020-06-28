@@ -48,8 +48,16 @@ const withOffline = config => {
                 options: {
                     cacheName: 'content',
                     expiration: {
-                        maxEntries: 100,
                         maxAgeSeconds: 1 * 24 * 60 * 60,
+                    },
+                },
+            }, {
+                urlPattern: /\//,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'toppage',
+                    expiration: {
+                        maxAgeSeconds: 7 * 24 * 60 * 60,
                     },
                 },
             }, {
