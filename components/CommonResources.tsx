@@ -20,10 +20,19 @@ const CommonResources: FC = () => {
             <meta charSet="utf-8" />
 
             <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
+                rel="preload"
+                as="font"
+                href="https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2"
+                type="font/woff2"
                 crossOrigin="anonymous"
-                key="preconnect--gstatic" />
+                key="preload--font-a" />
+            <link
+                rel="preload"
+                as="font"
+                href="https://fonts.gstatic.com/s/notosansjp/v25/-F6pfjtqLzI2JPCgQBnw7HFQaioq1xVxjfp_dakBof6Bs-tb3ab2FNISVac.118.woff2"
+                type="font/woff2"
+                crossOrigin="anonymous"
+                key="preload--font-b" />
             {isAmp ? '' : (
                 <link
                     rel="prefetch"
@@ -33,16 +42,16 @@ const CommonResources: FC = () => {
                     key="prefetch--font" />
             )}
             <link
-                rel="preconnect"
-                href="https://www.google-analytics.com"
-                crossOrigin="anonymous"
-                key="preconnect--google-analytics" />
-            <link
                 rel="stylesheet"
                 type="text/css"
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
+            <link
+                rel="preconnect"
+                href="https://www.google-analytics.com"
+                crossOrigin="anonymous"
+                key="preconnect--google-analytics" />
 
             <meta name="theme-color" content="#402020" />
             <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
