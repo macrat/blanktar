@@ -19,6 +19,7 @@ const CommonResources: FC = () => {
         <Head>
             <meta charSet="utf-8" />
 
+            {/* ヘッダーで必ず使うフォントを事前読み込みさせる */}
             <link
                 rel="preload"
                 as="font"
@@ -33,6 +34,8 @@ const CommonResources: FC = () => {
                 type="font/woff2"
                 crossOrigin="anonymous"
                 key="preload--font-b" />
+
+            {/* フォント用のCSS */}
             {isAmp ? '' : (
                 <link
                     rel="prefetch"
@@ -47,6 +50,8 @@ const CommonResources: FC = () => {
                 href={isAmp ? 'https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400&display=swap&subset=japanese' : fontCSS}
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
+
+            {/* アナリティクスも一応事前に接続しておく */}
             <link
                 rel="preconnect"
                 href="https://www.google-analytics.com"
