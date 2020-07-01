@@ -1,0 +1,30 @@
+{
+  "lang": "ja",
+  "name": "Blanktar",
+  "short_name": "Blanktar",
+  "display": "minimal-ui",
+  "background_color": "#fcf8f5",
+  "theme_color": "#402020",
+  "icons": [{
+    "src": "/img/blanktar-logo@144.png",
+    "sizes": "144x144",
+    "purpose": "maskable any",
+    "type": "image/png"
+  }, {
+    "src": "/img/blanktar-logo@192.png",
+    "sizes": "192x192",
+    "purpose": "maskable any",
+    "type": "image/png"
+  }, {
+    "src": "/img/blanktar-logo@512.png",
+    "sizes": "512x512",
+    "purpose": "maskable any",
+    "type": "image/png"
+  }, {
+    "src": "/img/blanktar-logo@1024.png",
+    "sizes": "1024x1024",
+    "purpose": "maskable any",
+    "type": "image/png"
+  }],
+  "start_url": "https://blanktar.jp"
+}
