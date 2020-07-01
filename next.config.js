@@ -85,13 +85,8 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 const CSPHeader = [
     "default-src 'self'",
     "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css https://*.twitter.com/",
-    ...(isDebug ? [
-        "img-src 'self' data: www.google-analytics.com stats.g.doubleclick.net *.twitter.com *.twimg.com",
-        "script-src 'self' 'unsafe-inline' https://cdn.ampproject.org/ www.google-analytics.com platform.twitter.com cdn.syndication.twimg.com",
-    ] : [
-        "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
-        "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
-    ]),
+    "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
+    "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
     "font-src https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com https://www.googletagmanager.com https://cdn.ampproject.org",
     "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
@@ -127,14 +122,12 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
                 {key: 'X-Content-Type-Options', value: 'nosniff'},
                 {key: 'X-Frame-Options', value: 'deny'},
                 {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
-                {
-                    key: isDebug ? (
-                        'Content-Security-Policy-Report-Only'
-                    ) : (
-                        'Content-Security-Policy'
-                    ),
-                    value: CSPHeader,
-                },
+                ...(
+                    isDebug ? [
+                    ] : [
+                        {key: 'Content-Security-Policy', value: CSPHeader}
+                    ]
+                ),
             ],
         }],
         rewrites: () => [
