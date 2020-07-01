@@ -55,11 +55,14 @@ export default (baseImageSVG: string, width: number, height: number) => {
         const title = String(req.query.title);
         const size = ctx.measureText(title);
 
+        const x = width / 2;
+        const y = height / 2 + 28;
+
         if (size.width > 1200-120) {
-            ctx.fillText(title.slice(0, title.length/2), width/2, height/2 - size.emHeightAscent/2, width-120);
-            ctx.fillText(title.slice(title.length/2), width/2, height/2 + size.emHeightAscent/2, width-120);
+            ctx.fillText(title.slice(0, title.length/2), x, y - size.emHeightAscent/2, width-120);
+            ctx.fillText(title.slice(title.length/2), x, y + size.emHeightAscent/2, width-120);
         } else {
-            ctx.fillText(title, width/2, height/2, width-120);
+            ctx.fillText(title, x, y, width-120);
         }
 
         res.setHeader('Content-Type', 'image/png');
