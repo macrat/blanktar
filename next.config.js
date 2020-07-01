@@ -124,8 +124,9 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
                 {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
                 ...(
                     isDebug ? [
+                    ] : [
                         {key: 'Content-Security-Policy', value: CSPHeader}
-                    ] : []
+                    ]
                 ),
             ],
         }],
