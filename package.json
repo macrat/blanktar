@@ -75,7 +75,7 @@
     "remove-markdown": "0.3.0",
     "sharp": "0.25.4",
     "ts-jest": "26.1.1",
-    "typescript": "3.9.5",
+    "typescript": "3.9.6",
     "xmlbuilder": "15.1.1"
   },
   "browserslist": [">=1% in jp", "not dead", "not ie 11"]
