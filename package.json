@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "prebuild": "gulp",
+    "build": "npm run prebuild && next build",
     "start": "next start",
     "export": "next export",
     "analyze": "ANALYZE=true next build",
-    "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build",
+    "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run prebuild && npm run build",
     "test": "jest",
     "lint": "eslint --ext .ts,.tsx ."
   },
@@ -57,6 +58,8 @@
     "enzyme-adapter-react-16": "1.15.2",
     "eslint": "7.3.1",
     "eslint-plugin-react": "7.20.3",
+    "gulp": "^4.0.2",
+    "gulp-imagemin": "^7.1.0",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-webp": "6.0.0",
     "imagemin-zopfli": "7.0.0",
@@ -78,5 +81,9 @@
     "typescript": "3.9.6",
     "xmlbuilder": "15.1.1"
   },
-  "browserslist": [">=1% in jp", "not dead", "not ie 11"]
+  "browserslist": [
+    ">=1% in jp",
+    "not dead",
+    "not ie 11"
+  ]
 }
