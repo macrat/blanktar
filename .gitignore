@@ -2,8 +2,8 @@
 .next
 .now
 node_modules
+public/**/*.bmp
 public/**/*.jpg
 public/**/*.png
 public/**/*.svg
 public/**/*.webp
-public/**/*.bmp
