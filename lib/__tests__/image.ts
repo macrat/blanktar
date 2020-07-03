@@ -22,14 +22,14 @@ describe('detect image size', () => {
     });
 
     test('1024x1024.png', async () => {
-        const { width, height } = await (new Image('public/img/blanktar-logo@1024.png')).size();
+        const { width, height } = await (new Image('./images/img/blanktar-logo@1024.png')).size();
 
         expect(width).toBe(1024);
         expect(height).toBe(1024);
     });
 
     test('312x60.png', async () => {
-        const { width, height } = await (new Image('public/img/blanktar-banner.png')).size();
+        const { width, height } = await (new Image('./images/img/blanktar-banner.png')).size();
 
         expect(width).toBe(312);
         expect(height).toBe(60);
@@ -46,13 +46,13 @@ describe('detect image size', () => {
 
 describe('get image hash', () => {
     test('blanktar-logo@512.png', async () => {
-        const hash = await (new Image('public/img/blanktar-logo@512.png')).hash();
+        const hash = await (new Image('./images/img/blanktar-logo@512.png')).hash();
 
         expect(hash).toBe('d78f5d61395cc7c172ee118dfe64e356');
     });
 
     test('macrat.png', async () => {
-        const hash = await (new Image('public/img/macrat.png')).hash();
+        const hash = await (new Image('./images/img/macrat.png')).hash();
 
         expect(hash).toBe('959765eac56ecc1a325d8a8afc230e44');
     });
@@ -63,7 +63,7 @@ describe('optimize', () => {
     test('jpeg', async () => {
         jest.setTimeout(60 * 1000);
 
-        const img = new Image('public/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
+        const img = new Image('./images/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
         const optimized = await img.optimize('__test__', 320);
 
         expect(optimized.width).toBe(320);
@@ -83,7 +83,7 @@ describe('optimize', () => {
     test('png', async () => {
         jest.setTimeout(60 * 1000);
 
-        const img = new Image('public/blog/2020/01/new-year.png');
+        const img = new Image('./images/blog/2020/01/new-year.png');
         const optimized = await img.optimize('__test__', 320);
 
         expect(optimized.width).toBe(320);
@@ -103,7 +103,7 @@ describe('optimize', () => {
     test('cache', async () => {
         jest.setTimeout(60 * 1000);
 
-        const img = new Image('public/img/blanktar-logo@512.png');
+        const img = new Image('./images/img/blanktar-logo@512.png');
 
         const start = new Date();
         const first = await img.optimize('__test__', 320);
@@ -125,7 +125,7 @@ describe('optimize', () => {
 
 describe('trace', () => {
     test('jpeg', async () => {
-        const img = new Image('public/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
+        const img = new Image('./images/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
         const { viewBox, path } = await img.trace();
 
         expect(viewBox).toBe('0 0 240 180');
@@ -133,7 +133,7 @@ describe('trace', () => {
     });
 
     test('png', async () => {
-        const img = new Image('public/blog/2020/01/new-year.png');
+        const img = new Image('./images/blog/2020/01/new-year.png');
         const { viewBox, path } = await img.trace();
 
         expect(viewBox).toBe('0 0 240 162');
@@ -147,7 +147,7 @@ test('benchmark', async () => {
     const result = await new Benchmark({
         name: 'optimize jpeg image',
         fun: async () => {
-            const img = new Image('public/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
+            const img = new Image('./images/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg');
             await img.optimize('__test__', 320);
         },
     }).run();
