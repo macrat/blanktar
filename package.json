@@ -78,5 +78,9 @@
     "typescript": "3.9.6",
     "xmlbuilder": "15.1.1"
   },
-  "browserslist": [">=1% in jp", "not dead", "not ie 11"]
+  "browserslist": [
+    ">=1% in jp",
+    "not dead",
+    "not ie 11"
+  ]
 }
