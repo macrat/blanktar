@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import Benchmark from 'asyncmark';
+import { Benchmark } from 'asyncmark';
 import fetchMock from 'jest-fetch-mock';
 
 import Image from '../image';
