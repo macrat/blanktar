@@ -1,4 +1,4 @@
-import Benchmark from 'asyncmark';
+import { Benchmark } from 'asyncmark';
 import { NextApiHandler } from 'next';
 
 import { Request, Response } from '~/lib/api/testutil';
