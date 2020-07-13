@@ -7,7 +7,7 @@ import Pagination from '..';
 describe('Pagination', () => {
     test('first of many pages', () => {
         const pagination = shallow(
-            <Pagination current={1} total={10} href={(page: number) => '/'} />
+            <Pagination current={1} total={10} href={() => '/'} />
         ).render();
 
         expect(pagination.find('.prev').length).toBe(0);
@@ -19,7 +19,7 @@ describe('Pagination', () => {
 
     test('first of less pages', () => {
         const pagination = shallow(
-            <Pagination current={1} total={5} href={(page: number) => '/'} />
+            <Pagination current={1} total={5} href={() => '/'} />
         ).render();
 
         expect(pagination.find('.prev').length).toBe(0);
@@ -31,7 +31,7 @@ describe('Pagination', () => {
 
     test('last of many pages', () => {
         const pagination = shallow(
-            <Pagination current={10} total={10} href={(page: number) => '/'} />
+            <Pagination current={10} total={10} href={() => '/'} />
         ).render();
 
         expect(pagination.find('.prev').length).toBe(1);
@@ -43,7 +43,7 @@ describe('Pagination', () => {
 
     test('last of less pages', () => {
         const pagination = shallow(
-            <Pagination current={5} total={5} href={(page: number) => '/'} />
+            <Pagination current={5} total={5} href={() => '/'} />
         ).render();
 
         expect(pagination.find('.prev').length).toBe(1);
