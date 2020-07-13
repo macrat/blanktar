@@ -14,7 +14,7 @@ describe('Pagination', () => {
         expect(pagination.find('.next').length).toBe(1);
 
         expect(pagination.text()).toBe('1234567次へ');
-        expect(pagination.find('.current').text()).toBe('11');
+        expect(pagination.find('a.current').text()).toBe('1');
     });
 
     test('first of less pages', () => {
@@ -26,7 +26,7 @@ describe('Pagination', () => {
         expect(pagination.find('.next').length).toBe(1);
 
         expect(pagination.text()).toBe('12345次へ');
-        expect(pagination.find('.current').text()).toBe('11');
+        expect(pagination.find('a.current').text()).toBe('1');
     });
 
     test('last of many pages', () => {
@@ -38,7 +38,7 @@ describe('Pagination', () => {
         expect(pagination.find('.next').length).toBe(0);
 
         expect(pagination.text()).toBe('前へ45678910');
-        expect(pagination.find('.current').text()).toBe('1010');
+        expect(pagination.find('a.current').text()).toBe('10');
     });
 
     test('last of less pages', () => {
@@ -50,6 +50,6 @@ describe('Pagination', () => {
         expect(pagination.find('.next').length).toBe(0);
 
         expect(pagination.text()).toBe('前へ12345');
-        expect(pagination.find('.current').text()).toBe('55');
+        expect(pagination.find('a.current').text()).toBe('5');
     });
 });
