@@ -5,7 +5,7 @@ import Pagination from '..';
 
 
 describe('Pagination', () => {
-    const tests = [
+    test.each<[number, number, string]>([
         [1, 10, '1234567次へ'],
         [2, 10, '前へ1234567次へ'],
         [3, 10, '前へ1234567次へ'],
@@ -15,9 +15,7 @@ describe('Pagination', () => {
         [1, 5, '12345次へ'],
         [4, 5, '前へ12345次へ'],
         [5, 5, '前へ12345'],
-    ];
-
-    test.each(tests)('%i/%i => %s', (current, total, text) => {
+    ])('%i/%i => %s', (current, total, text) => {
         const pagination = shallow(
             <Pagination current={current} total={total} href={(page) => String(page)} />
         ).render();
