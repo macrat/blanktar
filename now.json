@@ -17,6 +17,10 @@
       "destination": "/works"
     },
     {
+      "source": "/photo/([0-9]{8}/?)",
+      "destination": "/photos"
+    },
+    {
       "source": "/about.html",
       "destination": "/about"
     },
