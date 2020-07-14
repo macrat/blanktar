@@ -14,6 +14,7 @@ const Header: FC = () => (
             header {
                 text-align: center;
                 margin: 1cm 0 1cm;
+                height: 2.25cm;
             }
             h1 {
                 font-size: 8mm;
@@ -30,6 +31,8 @@ const Header: FC = () => (
                 background-color: var(--colors-fg);
             }
             a {
+                display: block;
+                height: 1.2cm;
                 color: inherit;
                 text-decoration: none;
             }
