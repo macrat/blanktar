@@ -17,7 +17,7 @@
       "destination": "/works"
     },
     {
-      "source": "/photo/([0-9]{8}/?)",
+      "source": "/photo(/[0-9]{8})?/?",
       "destination": "/photos"
     },
     {
