@@ -2,6 +2,8 @@ import React, { FC, useState, useEffect, memo } from 'react';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';
 
+import { FONT_STYLE_SHEET } from '~/lib/font';
+
 import JsonLD, { Website } from '~/components/JsonLD';
 
 
@@ -10,7 +12,7 @@ const CommonResources: FC = () => {
     const isAmp = useAmp();
 
     useEffect(() => {
-        fetch('/font.css')
+        fetch(FONT_STYLE_SHEET)
             .then(resp => resp.text())
             .then(css => setFontCSS(URL.createObjectURL(new Blob([css], { type: 'text/css' }))));
     }, []);
