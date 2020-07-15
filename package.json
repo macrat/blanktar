@@ -74,6 +74,7 @@
     "raw-loader": "4.0.1",
     "remove-markdown": "0.3.0",
     "sharp": "0.25.4",
+    "sync-request": "^6.1.0",
     "ts-jest": "26.1.2",
     "typescript": "3.9.6",
     "xmlbuilder": "15.1.1"
