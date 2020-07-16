@@ -122,7 +122,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         }],
         rewrites: () => [
             {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
-            {source: '/font.css', destination: '/api/font'},
             {source: '/sitemap.xml', destination: '/api/sitemap'},
             {source: '/blog/feed.xml', destination: '/api/feed'},
             {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
