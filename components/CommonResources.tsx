@@ -2,8 +2,6 @@ import React, { FC, useState, useEffect, memo } from 'react';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';
 
-import { FONT_STYLE_SHEET } from '~/lib/font';
-
 import JsonLD, { Website } from '~/components/JsonLD';
 
 
@@ -12,7 +10,7 @@ const CommonResources: FC = () => {
     const isAmp = useAmp();
 
     useEffect(() => {
-        fetch(FONT_STYLE_SHEET)
+        fetch('/font/font.css')
             .then(resp => resp.text())
             .then(css => setFontCSS(URL.createObjectURL(new Blob([css], { type: 'text/css' }))));
     }, []);
@@ -21,13 +19,31 @@ const CommonResources: FC = () => {
         <Head>
             <meta charSet="utf-8" />
 
+            {/* ヘッダーで必ず使うフォントを事前読み込みさせる */}
+            {/*
+            <link
+                rel="preload"
+                as="font"
+                href="https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2"
+                type="font/woff2"
+                crossOrigin="anonymous"
+                key="preload--font-a" />
+            <link
+                rel="preload"
+                as="font"
+                href="https://fonts.gstatic.com/s/notosansjp/v25/-F6pfjtqLzI2JPCgQBnw7HFQaioq1xVxjfp_dakBof6Bs-tb3ab2FNISVac.118.woff2"
+                type="font/woff2"
+                crossOrigin="anonymous"
+                key="preload--font-b" />
+            */}
+
             {/* フォント用のCSS */}
             {isAmp ? '' : (
                 <link
                     rel="prefetch"
                     as="stylesheet"
                     type="text/css"
-                    href={FONT_STYLE_SHEET}
+                    href="/font/font.css"
                     key="prefetch--font" />
             )}
             <link
