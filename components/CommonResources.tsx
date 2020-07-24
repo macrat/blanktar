@@ -22,6 +22,11 @@ const CommonResources: FC = () => {
             {/* ヘッダーで必ず使うフォントを事前読み込みさせる */}
             {/*
             <link
+                rel="preconnect"
+                href="https://fonts.gstatic.com"
+                crossOrigin="anonymous"
+                key="preconnect--google-fonts" />
+            <link
                 rel="preload"
                 as="font"
                 href="https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2"
@@ -53,12 +58,9 @@ const CommonResources: FC = () => {
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
-            {/* アナリティクスも一応事前に接続しておく */}
-            <link
-                rel="preconnect"
-                href="https://www.google-analytics.com"
-                crossOrigin="anonymous"
-                key="preconnect--google-analytics" />
+            {isAmp ? '' : (
+                <script src="https://www.google-analytics.com/analytics.js" defer />
+            )}
 
             <meta name="theme-color" content="#402020" />
             <link rel="manifest" href="/manifest.json" key="webmanifest" />
