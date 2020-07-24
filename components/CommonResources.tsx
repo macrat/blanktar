@@ -21,6 +21,11 @@ const CommonResources: FC = () => {
 
             {/* ヘッダーで必ず使うフォントを事前読み込みさせる */}
             <link
+                rel="preconnect"
+                href="https://fonts.gstatic.com"
+                crossOrigin="anonymous"
+                key="preconnect--google-fonts" />
+            <link
                 rel="preload"
                 as="font"
                 href="https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2"
