@@ -80,7 +80,7 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css https://*.twitter.com/",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css https://*.twitter.com/",
     "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
     "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
     "font-src 'self' https://fonts.gstatic.com/s/notosansjp/",
