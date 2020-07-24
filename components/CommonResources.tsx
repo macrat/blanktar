@@ -60,6 +60,7 @@ const CommonResources: FC = () => {
             {isAmp ? '' : (
                 <link
                     rel="prefetch"
+                    as="application/javascript"
                     href="https://www.google-analytics.com/analytics.js"
                     crossOrigin="anonymous"
                     key="prefetch--google-analytics" />
