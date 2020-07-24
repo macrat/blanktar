@@ -56,12 +56,14 @@ const CommonResources: FC = () => {
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
-            {/* アナリティクスも一応事前に接続しておく */}
-            <link
-                rel="preconnect"
-                href="https://www.google-analytics.com"
-                crossOrigin="anonymous"
-                key="preconnect--google-analytics" />
+            {/* アナリティクスも一応事前に取得しておく */}
+            {isAmp ? '' : (
+                <link
+                    rel="prefetch"
+                    href="https://www.google-analytics.com/analytics.js"
+                    crossOrigin="anonymous"
+                    key="prefetch--google-analytics" />
+            )}
 
             <meta name="theme-color" content="#402020" />
             <link rel="manifest" href="/manifest.json" key="webmanifest" />
