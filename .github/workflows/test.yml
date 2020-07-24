@@ -55,7 +55,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: .next
-          key: ${{ runner.os }}-next-${{ hashFiles('**/*.{ts,tsx,js,jsx}') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('**/*.ts') }}${{ hashFiles('**/*.tsx') }}${{ hashFiles('**/*.js') }}${{ hashFiles('**/*.jsx') }}
           restore-keys: ${{ runner.os }}-next-
 
       - run: npm ci
