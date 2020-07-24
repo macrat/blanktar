@@ -11,6 +11,12 @@ const withOffline = config => {
         ...config,
         generateInDevMode: false,
         workboxOpts: {
+            exclude: [
+                'react-loadable-manifest.json',
+                'build-manifest.json',
+                /\.map$/,
+                /pages\/.*\.js$/,
+            ],
             swDest: 'static/service-worker.js',
             runtimeCaching: [{
                 urlPattern: /\.(webp|png|jpg|gif|bmp|svg|mp4)$/,
