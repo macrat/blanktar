@@ -67,7 +67,7 @@ const withOffline = config => {
                     },
                 },
             }, {
-                urlPattern: /^https:\/\/fonts.gstatic.com/,
+                urlPattern: /^https:\/\/fonts\.gstatic\.com/,
                 handler: 'CacheFirst',
                 options: {
                     cacheName: 'webfont',
