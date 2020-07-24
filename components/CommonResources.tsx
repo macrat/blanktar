@@ -56,14 +56,8 @@ const CommonResources: FC = () => {
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
-            {/* アナリティクスも一応事前に取得しておく */}
             {isAmp ? '' : (
-                <link
-                    rel="prefetch"
-                    as="application/javascript"
-                    href="https://www.google-analytics.com/analytics.js"
-                    crossOrigin="anonymous"
-                    key="prefetch--google-analytics" />
+                <script src="https://www.google-analytics.com/analytics.js" defer />
             )}
 
             <meta name="theme-color" content="#402020" />
