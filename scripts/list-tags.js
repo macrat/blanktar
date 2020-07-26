@@ -12,12 +12,12 @@ for (const p of posts) {
         if (!tags.has(t)) {
             tags.set(t, []);
         }
-        tags.set(t, [...tags.get(t), p.title]);
+        tags.set(t, [...tags.get(t), p]);
     }
 }
 
-for (const [tag, titles] of tags) {
-    for (const title of titles) {
-        console.log([titles.length, tag, title].join('\t'));
+for (const [tag, ps] of tags) {
+    for (const post of ps) {
+        console.log([ps.length, tag, new Date(post.pubtime).toLocaleString(), post.title].join('\t'));
     }
 }
