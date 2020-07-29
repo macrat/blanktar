@@ -57,4 +57,9 @@ export class Response<T> extends ResponseMock {
     getBody(): string {
         return this._internal.buffer.toString();
     }
+
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    redirect(statusOrUrl: string | number, url?: string): Response<T> {
+        return this;
+    }
 }
