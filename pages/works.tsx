@@ -74,7 +74,7 @@ const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, update
             </LazyLoad>
         ) : null}
 
-        <a href={url === '' ? url : undefined} target="_blank" rel="noopener noreferrer">
+        <a href={url !== '' ? url : undefined} target="_blank" rel="noopener noreferrer">
             <h3 className="card-inner">{name}</h3>
 
             <span className="card-inner"><DateTime dateTime={new Date(createdAt)} readableSuffix="公開" /> 〜 <DateTime dateTime={new Date(updatedAt)} readableSuffix="更新" /></span>
