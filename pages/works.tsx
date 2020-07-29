@@ -229,7 +229,6 @@ export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         repositories: await fetchGitHub(),
     },
-    revalidate: 60,
 });
 
 
