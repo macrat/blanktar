@@ -120,31 +120,29 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
         GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
-    experimental: {
-        headers: () => [{
-            source: '/(.*)',
-            headers: [
-                {key: 'X-XSS-Protection', value: '1; mode=block'},
-                {key: 'X-Content-Type-Options', value: 'nosniff'},
-                {key: 'X-Frame-Options', value: 'deny'},
-                {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
-                ...(
-                    isDebug ? [
-                    ] : [
-                        {key: 'Content-Security-Policy', value: CSPHeader}
-                    ]
-                ),
-            ],
-        }],
-        rewrites: () => [
-            {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
-            {source: '/font.css', destination: '/api/font'},
-            {source: '/sitemap.xml', destination: '/api/sitemap'},
-            {source: '/blog/feed.xml', destination: '/api/feed'},
-            {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+    headers: () => [{
+        source: '/(.*)',
+        headers: [
+            {key: 'X-XSS-Protection', value: '1; mode=block'},
+            {key: 'X-Content-Type-Options', value: 'nosniff'},
+            {key: 'X-Frame-Options', value: 'deny'},
+            {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
+            ...(
+                isDebug ? [
+                ] : [
+                    {key: 'Content-Security-Policy', value: CSPHeader}
+                ]
+            ),
         ],
-        redirects: () => [
-            {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
-        ],
-    },
+    }],
+    rewrites: () => [
+        {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
+        {source: '/font.css', destination: '/api/font'},
+        {source: '/sitemap.xml', destination: '/api/sitemap'},
+        {source: '/blog/feed.xml', destination: '/api/feed'},
+        {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+    ],
+    redirects: () => [
+        {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
+    ],
 })));
