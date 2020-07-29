@@ -240,7 +240,6 @@ export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         photos: await fetchInstagram(),
     },
-    revalidate: 60,
 });
 
 
