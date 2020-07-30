@@ -69,7 +69,7 @@
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
     "next-offline": "5.0.2",
     "penv.macro": "0.4.0",
-    "potrace": "2.1.6",
+    "potrace": "2.1.8",
     "preval.macro": "5.0.0",
     "raw-loader": "4.0.1",
     "remove-markdown": "0.3.0",
