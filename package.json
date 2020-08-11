@@ -74,7 +74,7 @@
     "raw-loader": "4.0.1",
     "remove-markdown": "0.3.0",
     "sharp": "0.25.4",
-    "ts-jest": "26.1.4",
+    "ts-jest": "26.2.0",
     "typescript": "3.9.7",
     "xmlbuilder": "15.1.1"
   },
