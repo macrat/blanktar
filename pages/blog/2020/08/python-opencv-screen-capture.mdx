@@ -1,6 +1,7 @@
 ---
 title: Python/OpenCVでLinuxの画面をキャプチャしてみる
 pubtime: 2020-08-13T15:48+0900
+modtime: 2020-08-13T21:31+0900
 amp: hybrid
 tags: [Python, OpenCV, GStreamer, 画像処理]
 description: Python/OpenCVのバックエンドをGStreamerに変えて、ximagesrcというプラグインを使ってLinuxの画面をキャプチャしてみました。（コンパイルさえやってしまえば）すごく簡単に出来て、かつ色々やれそうな感じがあります。たのしい。
@@ -147,6 +148,25 @@ while cv2.waitKey(1) != 27:
 
 ちなみに、フレームレートはウィンドウの更新に合わせて可変のようです。
 画面が更新されない限り、`read`メソッドでずっとブロックされ続けます。
+
+<PS date="2020-08-13">
+
+実験している中で、画像が変にズレるというか傾くというか、横幅を正しく検知出来ていないっぽい症状が出ることがありました。
+以下の画像のような感じになっちゃう。
+
+![画像が白黒になっていて、垂直なはずの線が左上から右下に伸びるように傾いているキャプチャ画像](/blog/2020/08/ximagesrc-broken-image.jpg "320x320")
+
+画像サイズが正しくないことが原因のようなので、`videoscale`を挟んでサイズを明示してやることで解決出来ます。
+
+``` python
+video = cv2.VideoCapture(f'ximagesrc xid={WINDOW_ID} ! videoconvert ! videoscale ! video/x-raw,width={WIDTH},height={HEIGHT} ! appsink')
+```
+
+これで、以下のように綺麗に表示されるようになるはずです。
+
+![ちゃんとカラーになって、歪みも無い状態になったキャプチャ画像](/blog/2020/08/ximagesrc-correct-image.jpg "320x320")
+
+</PS>
 
 
 # 加工したりして楽しむ
