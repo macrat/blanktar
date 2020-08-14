@@ -88,6 +88,13 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 });
 
 
+const LinkHeader = [
+    '<https://blanktar.jp/font.css>;rel="prefetch"',
+    '<https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2>;rel="preload"',
+    '<https://fonts.gstatic.com/s/notosansjp/v25/-F6pfjtqLzI2JPCgQBnw7HFQaioq1xVxjfp_dakBof6Bs-tb3ab2FNISVac.118.woff2>;rel="preload"',
+].join(',');
+
+
 const CSPHeader = [
     "default-src 'self'",
     "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css https://*.twitter.com/",
@@ -123,6 +130,7 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     headers: () => [{
         source: '/(.*)',
         headers: [
+            {key: 'Link', value: LinkHeader},
             {key: 'X-XSS-Protection', value: '1; mode=block'},
             {key: 'X-Content-Type-Options', value: 'nosniff'},
             {key: 'X-Frame-Options', value: 'deny'},
