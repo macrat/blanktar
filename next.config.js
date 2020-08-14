@@ -89,9 +89,9 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 
 const LinkHeader = [
-    '</font.css>;rel="prefetch"',
-    '<https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2>;rel="preload"',
-    '<https://fonts.gstatic.com/s/notosansjp/v25/-F6pfjtqLzI2JPCgQBnw7HFQaioq1xVxjfp_dakBof6Bs-tb3ab2FNISVac.118.woff2>;rel="preload"',
+    '</font.css>;rel="prefetch";as="style"',
+    '<https://fonts.gstatic.com/s/notosansjp/v25/-F62fjtqLzI2JPCgQBnw7HFow2oe2EcP5pp0erwTqsSWs9Jezazjcb4.118.woff2>;rel="preload";as="font"',
+    '<https://fonts.gstatic.com/s/notosansjp/v25/-F6pfjtqLzI2JPCgQBnw7HFQaioq1xVxjfp_dakBof6Bs-tb3ab2FNISVac.118.woff2>;rel="preload";as="font"',
 ].join(',');
 
 
