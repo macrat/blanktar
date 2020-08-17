@@ -44,7 +44,7 @@ export type Props = {
 };
 
 
-export default ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
+const BlogArticleLayout = ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
     if (!title) {
         throw new Error(`${pubtime}: title is not provided`);
     }
@@ -176,3 +176,6 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
 
     return BlogArticle;
 };
+
+
+export default BlogArticleLayout;
