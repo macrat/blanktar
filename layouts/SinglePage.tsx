@@ -19,7 +19,7 @@ export type Props = {
 };
 
 
-export default ({ title, description, breadlist, amp }: Props) => {
+const SinglePageLayout = ({ title, description, breadlist, amp }: Props) => {
     if (!title) {
         throw new Error(`title is not provided: ${breadlist[breadlist.length - 1].title}`);
     }
@@ -46,3 +46,6 @@ export default ({ title, description, breadlist, amp }: Props) => {
 
     return SinglePage;
 };
+
+
+export default SinglePageLayout;
