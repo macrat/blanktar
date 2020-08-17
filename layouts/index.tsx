@@ -11,6 +11,8 @@ import SocialShare from '~/components/SocialShare';
 
 
 type HowTo = {
+    name?: string;
+    description?: string;
     supply?: string[];
     tool?: string[];
     step: {
@@ -132,8 +134,8 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
                     {howto ? (
                         <JsonLD data={{
                             '@type': 'HowTo',
-                            name: title,
-                            description: description ?? undefined,
+                            name: howto.name ?? title,
+                            description: howto.description ?? description ?? undefined,
                             totalTime: howto.totalTime,
                             supply: howto.supply?.map(x => ({
                                 '@type': 'HowToSupply',
