@@ -24,16 +24,16 @@
   },
   "homepage": "https://github.com/macrat/next-blank#readme",
   "dependencies": {
-    "canvas": "^2.6.1",
-    "front-matter": "^4.0.2",
-    "next": "^9.5.1",
-    "prism-react-renderer": "^1.1.1",
-    "prismjs": "^1.20.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-ga": "^3.1.2",
-    "react-lazyload": "^3.0.0",
-    "use-debounce": "^3.4.3"
+    "canvas": "2.6.1",
+    "front-matter": "4.0.2",
+    "next": "9.5.1",
+    "prism-react-renderer": "1.1.1",
+    "prismjs": "1.20.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-ga": "3.1.2",
+    "react-lazyload": "3.0.0",
+    "use-debounce": "3.4.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "9.5.2",
