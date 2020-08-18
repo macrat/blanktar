@@ -1,7 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "timezone:(Asia/Tokyo)"
   ],
+  "schedule": ["every weekend"],
   "labels": ["依存関係"],
   "packageRules": [
     {
@@ -15,10 +17,12 @@
         "^ts-jest$",
         "^typescript$"
       ],
-      "automerge": "true",
-      "major": {
-        "automerge": false
-      }
+      "automerge": "true"
+    },
+    {
+      "updateTypes": ["major"],
+      "schedule": ["at any time"],
+      "automerge": false
     }
   ]
 }
