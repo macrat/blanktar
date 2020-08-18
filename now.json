@@ -1,4 +1,7 @@
 {
+  "github": {
+    "silent": true
+  },
   "build": {
     "env": {
       "GITHUB_TOKEN": "@blanktar--github-token",
