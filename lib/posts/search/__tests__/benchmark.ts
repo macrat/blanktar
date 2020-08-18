@@ -1,4 +1,4 @@
-import Benchmark from 'asyncmark';
+import { Benchmark } from 'asyncmark';
 
 import search from '../';
 import title from '../title';

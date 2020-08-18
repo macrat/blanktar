@@ -11,6 +11,8 @@ import SocialShare from '~/components/SocialShare';
 
 
 type HowTo = {
+    name?: string;
+    description?: string;
     supply?: string[];
     tool?: string[];
     step: {
@@ -42,7 +44,7 @@ export type Props = {
 };
 
 
-export default ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
+const BlogArticleLayout = ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
     if (!title) {
         throw new Error(`${pubtime}: title is not provided`);
     }
@@ -132,8 +134,8 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
                     {howto ? (
                         <JsonLD data={{
                             '@type': 'HowTo',
-                            name: title,
-                            description: description ?? undefined,
+                            name: howto.name ?? title,
+                            description: howto.description ?? description ?? undefined,
                             totalTime: howto.totalTime,
                             supply: howto.supply?.map(x => ({
                                 '@type': 'HowToSupply',
@@ -174,3 +176,6 @@ export default ({ title, pubtime, modtime, amp, tags, image, description, howto,
 
     return BlogArticle;
 };
+
+
+export default BlogArticleLayout;
