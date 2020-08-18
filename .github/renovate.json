@@ -1,7 +1,7 @@
 {
   "extends": [
     "config:base",
-    "timezone:(Asia/Tokyo)"
+    ":timezone(Asia/Tokyo)"
   ],
   "schedule": ["every weekend"],
   "labels": ["依存関係"],
