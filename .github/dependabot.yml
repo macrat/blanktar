@@ -4,6 +4,8 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: saturday
+      timezone: Asia/Tokyo
     labels:
       - 依存関係
