@@ -8,18 +8,20 @@ import ComponentsProvider from './components';
 
 
 export type Props = {
-    title: string;
-    description: string | null;
-    breadlist: {
+    frontMatter: {
         title: string;
-        href: string;
-        as?: string;
-    }[];
-    amp: boolean | 'hybrid';
+        description: string | null;
+        breadlist: {
+            title: string;
+            href: string;
+            as?: string;
+        }[];
+        amp: boolean | 'hybrid';
+    };
 };
 
 
-const SinglePageLayout = ({ title, description, breadlist, amp }: Props) => {
+const SinglePageLayout = ({ frontMatter: { title, description, breadlist, amp } }: Props) => {
     if (!title) {
         throw new Error(`title is not provided: ${breadlist[breadlist.length - 1].title}`);
     }

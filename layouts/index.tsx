@@ -32,19 +32,21 @@ type FAQ = {
 
 
 export type Props = {
-    title: string;
-    pubtime: string;
-    modtime?: string;
-    amp: boolean | 'hybrid';
-    tags?: string[];
-    image?: string | string[];
-    description: string | null;
-    howto?: HowTo;
-    faq?: FAQ;
+    frontMatter: {
+        title: string;
+        pubtime: string;
+        modtime?: string;
+        amp: boolean | 'hybrid';
+        tags?: string[];
+        image?: string | string[];
+        description: string | null;
+        howto?: HowTo;
+        faq?: FAQ;
+    };
 };
 
 
-const BlogArticleLayout = ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
+const BlogArticleLayout = ({ frontMatter: { title, pubtime, modtime, amp, tags, image, description, howto, faq } }: Props) => {
     if (!title) {
         throw new Error(`${pubtime}: title is not provided`);
     }
