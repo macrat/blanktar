@@ -21,7 +21,7 @@ export type Props = {
 };
 
 
-const SinglePageLayout = ({ frontMatter: { title, description, breadlist, amp } }: Props) => {
+const SinglePageLayout: FC<Props> = ({ children, frontMatter: { title, description, breadlist, amp } }) => {
     if (!title) {
         throw new Error(`title is not provided: ${breadlist[breadlist.length - 1].title}`);
     }
@@ -32,7 +32,7 @@ const SinglePageLayout = ({ frontMatter: { title, description, breadlist, amp } 
         throw new Error(`${title}: description is not provided`);
     }
 
-    const SinglePage: FC = ({ children }) => (<>
+    return (<>
         <Header />
 
         <SearchBar />
@@ -45,8 +45,6 @@ const SinglePageLayout = ({ frontMatter: { title, description, breadlist, amp } 
             </ComponentsProvider>
         </Article>
     </>);
-
-    return SinglePage;
 };
 
 
