@@ -22,16 +22,6 @@ export type Props = {
 
 
 const SinglePageLayout: FC<Props> = ({ children, frontMatter: { title, description, breadlist, amp } }) => {
-    if (!title) {
-        throw new Error(`title is not provided: ${breadlist[breadlist.length - 1].title}`);
-    }
-    if (![true, false, 'hybrid'].includes(amp)) {
-        throw new Error(`${title}: amp is not provided or invalid value: "${amp}"`);
-    }
-    if (!description && description !== null) {
-        throw new Error(`${title}: description is not provided`);
-    }
-
     return (<>
         <Header />
 
