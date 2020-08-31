@@ -46,7 +46,7 @@ export type Props = {
 };
 
 
-const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime, modtime, amp, tags, image, description, howto, faq } }) => {
+const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime, modtime, tags, image, description, howto, faq } }) => {
     const router = useRouter();
     const ptime = new Date(pubtime.replace('+0900', '+09:00'));
 

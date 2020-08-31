@@ -21,7 +21,7 @@ export type Props = {
 };
 
 
-const SinglePageLayout: FC<Props> = ({ children, frontMatter: { title, description, breadlist, amp } }) => {
+const SinglePageLayout: FC<Props> = ({ children, frontMatter: { title, description, breadlist } }) => {
     return (<>
         <Header />
 
