@@ -47,25 +47,6 @@ export type Props = {
 
 
 const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime, modtime, amp, tags, image, description, howto, faq } }) => {
-    if (!title) {
-        throw new Error(`${pubtime}: title is not provided`);
-    }
-    if (!pubtime || !pubtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw new Error(`${title}: pubtime is not provided or invalid format: "${pubtime}"`);
-    }
-    if (modtime && !modtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw new Error(`${title}: modtime is not provided or invalid format: "${modtime}"`);
-    }
-    if (![true, false, 'hybrid'].includes(amp)) {
-        throw new Error(`${title} ${pubtime}: amp is not provided or invalid value: "${amp}"`);
-    }
-    if (!tags || tags.length === 0) {
-        throw new Error(`${title} ${pubtime}: tags is not provided`);
-    }
-    if (!description && description !== null) {
-        throw new Error(`${title} ${pubtime}: description is not provided`);
-    }
-
     const router = useRouter();
     const ptime = new Date(pubtime.replace('+0900', '+09:00'));
 
