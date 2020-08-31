@@ -32,149 +32,128 @@ type FAQ = {
 
 
 export type Props = {
-    title: string;
-    pubtime: string;
-    modtime?: string;
-    amp: boolean | 'hybrid';
-    tags?: string[];
-    image?: string | string[];
-    description: string | null;
-    howto?: HowTo;
-    faq?: FAQ;
+    frontMatter: {
+        title: string;
+        pubtime: string;
+        modtime?: string;
+        amp: boolean | 'hybrid';
+        tags?: string[];
+        image?: string | string[];
+        description: string | null;
+        howto?: HowTo;
+        faq?: FAQ;
+    };
 };
 
 
-const BlogArticleLayout = ({ title, pubtime, modtime, amp, tags, image, description, howto, faq }: Props) => {
-    if (!title) {
-        throw new Error(`${pubtime}: title is not provided`);
-    }
-    if (!pubtime || !pubtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw new Error(`${title}: pubtime is not provided or invalid format: "${pubtime}"`);
-    }
-    if (modtime && !modtime.match(/^20[0-9]{2}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):[0-5][0-9]\+0900$/)) {
-        throw new Error(`${title}: modtime is not provided or invalid format: "${modtime}"`);
-    }
-    if (![true, false, 'hybrid'].includes(amp)) {
-        throw new Error(`${title} ${pubtime}: amp is not provided or invalid value: "${amp}"`);
-    }
-    if (!tags || tags.length === 0) {
-        throw new Error(`${title} ${pubtime}: tags is not provided`);
-    }
-    if (!description && description !== null) {
-        throw new Error(`${title} ${pubtime}: description is not provided`);
-    }
+const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime, modtime, tags, image, description, howto, faq } }) => {
+    const router = useRouter();
+    const ptime = new Date(pubtime.replace('+0900', '+09:00'));
 
-    const BlogArticle: FC = ({ children }) => {
-        const router = useRouter();
-        const ptime = new Date(pubtime.replace('+0900', '+09:00'));
+    return (
+        <>
+            <MetaData title={title} description={description ?? undefined} image={typeof image === 'string' ? image : image?.[0]} />
 
-        return (
-            <>
-                <MetaData title={title} description={description ?? undefined} image={typeof image === 'string' ? image : image?.[0]} />
+            <Header />
 
-                <Header />
+            <SearchBar />
 
-                <SearchBar />
+            <Article
+                title={title}
+                pubtime={ptime}
+                tags={tags}
+                breadlist={[{
+                    title: 'blog',
+                    href: '/blog',
+                }, {
+                    title: `${ptime.getFullYear()}`,
+                    href: '/blog/[year]',
+                    as: `/blog/${ptime.getFullYear()}`,
+                    description: `${ptime.getFullYear()}年の記事`,
+                }, {
+                    title: `${String(ptime.getMonth() + 1).padStart(2, '0')}`,
+                    href: '/blog/[year]/[month]',
+                    as: `/blog/${ptime.getFullYear()}/${String(ptime.getMonth() + 1).padStart(2, '0')}`,
+                    description: `${ptime.getMonth()+1}月の記事`,
+                }, {
+                    title: title,
+                    href: router.asPath,
+                }]}>
 
-                <Article
-                    title={title}
-                    pubtime={ptime}
-                    tags={tags}
-                    breadlist={[{
-                        title: 'blog',
-                        href: '/blog',
-                    }, {
-                        title: `${ptime.getFullYear()}`,
-                        href: '/blog/[year]',
-                        as: `/blog/${ptime.getFullYear()}`,
-                        description: `${ptime.getFullYear()}年の記事`,
-                    }, {
-                        title: `${String(ptime.getMonth() + 1).padStart(2, '0')}`,
-                        href: '/blog/[year]/[month]',
-                        as: `/blog/${ptime.getFullYear()}/${String(ptime.getMonth() + 1).padStart(2, '0')}`,
-                        description: `${ptime.getMonth()+1}月の記事`,
-                    }, {
-                        title: title,
-                        href: router.asPath,
-                    }]}>
+                <ComponentsProvider>
+                    {children}
+                </ComponentsProvider>
 
-                    <ComponentsProvider>
-                        {children}
-                    </ComponentsProvider>
+                <aside>
+                    <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} image={image} />
 
-                    <aside>
-                        <SocialShare title={title} href={`https://blanktar.jp${router.asPath}`} image={image} />
+                    <style jsx>{`
+                        margin-top: 1cm;
+                    `}</style>
+                </aside>
 
-                        <style jsx>{`
-                            margin-top: 1cm;
-                        `}</style>
-                    </aside>
-
+                <JsonLD data={{
+                    '@type': 'BlogPosting',
+                    headline: title,
+                    author: Author,
+                    image: (
+                        (typeof image === 'string') ? (
+                            `https://blanktar.jp${image}`
+                        ) : image ? (
+                            image.map(x => `https://blanktar.jp${x}`)
+                        ) : [
+                            `https://blanktar.jp/img/eyecatch/1x1/${encodeURIComponent(title)}.png`,
+                            `https://blanktar.jp/img/eyecatch/4x3/${encodeURIComponent(title)}.png`,
+                            `https://blanktar.jp/img/eyecatch/16x9/${encodeURIComponent(title)}.png`,
+                        ]
+                    ),
+                    datePublished: pubtime,
+                    dateModified: modtime ?? pubtime,
+                    publisher: Publisher,
+                    description: description ?? undefined,
+                    mainEntityOfPage: 'https://blanktar.jp' + router.pathname,
+                }} />
+                {howto ? (
                     <JsonLD data={{
-                        '@type': 'BlogPosting',
-                        headline: title,
-                        author: Author,
-                        image: (
-                            (typeof image === 'string') ? (
-                                `https://blanktar.jp${image}`
-                            ) : image ? (
-                                image.map(x => `https://blanktar.jp${x}`)
-                            ) : [
-                                `https://blanktar.jp/img/eyecatch/1x1/${encodeURIComponent(title)}.png`,
-                                `https://blanktar.jp/img/eyecatch/4x3/${encodeURIComponent(title)}.png`,
-                                `https://blanktar.jp/img/eyecatch/16x9/${encodeURIComponent(title)}.png`,
-                            ]
-                        ),
-                        datePublished: pubtime,
-                        dateModified: modtime ?? pubtime,
-                        publisher: Publisher,
-                        description: description ?? undefined,
-                        mainEntityOfPage: 'https://blanktar.jp' + router.pathname,
+                        '@type': 'HowTo',
+                        name: howto.name ?? title,
+                        description: howto.description ?? description ?? undefined,
+                        totalTime: howto.totalTime,
+                        supply: howto.supply?.map(x => ({
+                            '@type': 'HowToSupply',
+                            name: x,
+                        })) ?? [],
+                        tool: howto.tool?.map(x => ({
+                            '@type': 'HowToTool',
+                            name: x,
+                        })) ?? [],
+                        step: howto.step.map(({ name, text, url, image: stepImage }) => ({
+                            '@type': 'HowToStep',
+                            name: name,
+                            text: text,
+                            url: url?.startsWith('/') ? `https://blanktar.jp${url}` : url?.startsWith('#') ? `https://blanktar.jp${router.asPath}${url}` : url,
+                            image: stepImage ? 'https://blanktar.jp' + stepImage : undefined,
+                        })),
+                        url: 'https://blanktar.jp' + router.asPath,
+                        image: image ? 'https://blanktar.jp' + image : undefined,
                     }} />
-                    {howto ? (
-                        <JsonLD data={{
-                            '@type': 'HowTo',
-                            name: howto.name ?? title,
-                            description: howto.description ?? description ?? undefined,
-                            totalTime: howto.totalTime,
-                            supply: howto.supply?.map(x => ({
-                                '@type': 'HowToSupply',
-                                name: x,
-                            })) ?? [],
-                            tool: howto.tool?.map(x => ({
-                                '@type': 'HowToTool',
-                                name: x,
-                            })) ?? [],
-                            step: howto.step.map(({ name, text, url, image: stepImage }) => ({
-                                '@type': 'HowToStep',
-                                name: name,
-                                text: text,
-                                url: url?.startsWith('/') ? `https://blanktar.jp${url}` : url?.startsWith('#') ? `https://blanktar.jp${router.asPath}${url}` : url,
-                                image: stepImage ? 'https://blanktar.jp' + stepImage : undefined,
-                            })),
-                            url: 'https://blanktar.jp' + router.asPath,
-                            image: image ? 'https://blanktar.jp' + image : undefined,
-                        }} />
-                    ) : null}
-                    {faq ? (
-                        <JsonLD data={{
-                            '@type': 'FAQPage',
-                            mainEntity: faq.map(x => ({
-                                '@type': 'Question',
-                                name: x.question,
-                                acceptedAnswer: {
-                                    '@type': 'Answer',
-                                    text: x.answer,
-                                },
-                            })),
-                        }} />
-                    ) : null}
-                </Article>
-            </>
-        );
-    };
-
-    return BlogArticle;
+                ) : null}
+                {faq ? (
+                    <JsonLD data={{
+                        '@type': 'FAQPage',
+                        mainEntity: faq.map(x => ({
+                            '@type': 'Question',
+                            name: x.question,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: x.answer,
+                            },
+                        })),
+                    }} />
+                ) : null}
+            </Article>
+        </>
+    );
 };
 
 
