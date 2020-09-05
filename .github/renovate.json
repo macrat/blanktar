@@ -21,7 +21,10 @@
         "^ts-jest$",
         "^typescript$"
       ],
-      "automerge": "true"
+      "automerge": "true",
+      "minor": {
+        "groupName": "minor updates (test/type)"
+      }
     },
     {
       "updateTypes": ["major"],
