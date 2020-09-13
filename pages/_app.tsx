@@ -123,7 +123,7 @@ const BlanktarApp = ({ Component, pageProps }: AppProps) => {
                 a {
                     position: relative;
                     color: var(--colors-link);
-                    text-decoration: underline dotted;
+                    text-decoration: underline;
                     transition: color .2s ease;
                 }
                 a:hover, a:focus {
@@ -136,6 +136,7 @@ const BlanktarApp = ({ Component, pageProps }: AppProps) => {
                 strong {
                     font-weight: normal;
                     color: var(--colors-accent);
+                    text-decoration: underline dashed;
                 }
             `}</style>
         </ContextProvider>
