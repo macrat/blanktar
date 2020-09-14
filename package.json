@@ -80,7 +80,7 @@
     "xmlbuilder": "15.1.1"
   },
   "browserslist": [
-    ">=1% in jp",
+    ">=1%",
     "not dead",
     "not ie 11"
   ]
