@@ -25,16 +25,16 @@ Windowsでの動作の評判は微妙っぽい（途切れるとか？）です�
 
 # BLT-UAN05C2のスペック
 
-- **メーカ**: ELECOM
-- **メーカ型番**: LBT-UAN05C2
-- **Class**: Class 2
-- **チップセット**: [Cambridge Sillicon Radio, Ltd **CSR8510 A10**](https://www.qualcomm.com/products/csr8510)
+- メーカ: ELECOM
+- メーカ型番: LBT-UAN05C2
+- Class: Class 2
+- チップセット: [Cambridge Sillicon Radio, Ltd **CSR8510 A10**](https://www.qualcomm.com/products/csr8510)
 
 
 # 動作を確認した環境
 
-- **OS**: Gentoo Linux (Linux 5.4.38)
-- **Bluez**: 5.54
+- OS: Gentoo Linux (Linux 5.4.38)
+- Bluez: バージョン 5.54
 
 ## カーネルオプション
 
@@ -53,6 +53,14 @@ Windowsでの動作の評判は微妙っぽい（途切れるとか？）です�
           <*> HCI USB driver
           [*]   Broadcom protocol support
           <*> HCI UART driver
+```
+
+## BluezのUSEフラグ
+
+特別なところは何も無い気がしますが、一応メモ程度に。
+
+```
+mesh obex readline systemd udev -btpclient -cups -debug -deprecated -doc -experimental -extra-tools -midi (-selinux) -test -test-programs -user-session
 ```
 
 
