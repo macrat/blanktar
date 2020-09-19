@@ -35,7 +35,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
     const [query, setQuery] = useState<string>(initialQuery);
     const [result, setResult] = useState<SuccessResponse>(initialResult);
     const [page, setPage] = useState<number>(initialPage);
-    const [searchQuery, cancelDebounce] = useDebounce(query, 300);
+    const [searchQuery, debounce] = useDebounce(query, 300);
     const router = useRouter();
     const { setLoading } = useContext();
 
@@ -58,7 +58,7 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
             return resp.json();
         }).then(setResult);
 
-        cancelDebounce();
+        debounce.cancel();
 
         pageview( `/search?q=${encodeURIComponent(query)}`);
     };
