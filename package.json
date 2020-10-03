@@ -47,7 +47,7 @@
     "@types/preval.macro": "3.0.0",
     "@types/prismjs": "1.16.1",
     "@types/react": "16.9.50",
-    "@types/react-lazyload": "2.6.0",
+    "@types/react-lazyload": "3.0.0",
     "@types/sharp": "0.26.0",
     "@types/styled-jsx": "2.2.8",
     "@typescript-eslint/eslint-plugin": "4.3.0",
