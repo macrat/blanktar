@@ -37,7 +37,7 @@
     "use-debounce": "5.0.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "9.5.3",
+    "@next/bundle-analyzer": "9.5.4",
     "@types/enzyme": "3.10.7",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/imagemin-mozjpeg": "8.0.0",
