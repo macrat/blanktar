@@ -37,6 +37,8 @@ const MetaData: FC<Props> = ({ title, description, image }) => {
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} key="twitter--card" />
             <meta name="twitter:creator" content="@macrat_jp" key="twitter-creator" />
 
+            {image ? <meta name="robots" content="max-image-preview:large" key="robots--max-image-preview" />}
+
             <link rel="canonical" type="text/html" href={`${canonical}`} />
         </Head>
     );
