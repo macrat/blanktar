@@ -72,7 +72,7 @@
     "penv.macro": "0.4.0",
     "potrace": "2.1.8",
     "preval.macro": "5.0.0",
-    "raw-loader": "4.0.1",
+    "raw-loader": "4.0.2",
     "remove-markdown": "0.3.0",
     "sharp": "0.26.1",
     "ts-jest": "26.4.1",
