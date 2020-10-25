@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
+import { BlogPosting, HowTo, FAQPage } from 'schema-dts';
 
 import MetaData from '~/components/MetaData';
 import Header from '~/components/Header';
@@ -92,7 +93,8 @@ const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime,
                     `}</style>
                 </aside>
 
-                <JsonLD data={{
+                <JsonLD<BlogPosting> data={{
+                    '@context': 'https://schema.org',
                     '@type': 'BlogPosting',
                     headline: title,
                     author: Author,
@@ -114,7 +116,7 @@ const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime,
                     mainEntityOfPage: 'https://blanktar.jp' + router.pathname,
                 }} />
                 {howto ? (
-                    <JsonLD data={{
+                    <JsonLD<HowTo> data={{
                         '@type': 'HowTo',
                         name: howto.name ?? title,
                         description: howto.description ?? description ?? undefined,
@@ -139,7 +141,7 @@ const BlogArticleLayout: FC<Props> = ({ children, frontMatter: { title, pubtime,
                     }} />
                 ) : null}
                 {faq ? (
-                    <JsonLD data={{
+                    <JsonLD<FAQPage> data={{
                         '@type': 'FAQPage',
                         mainEntity: faq.map(x => ({
                             '@type': 'Question',

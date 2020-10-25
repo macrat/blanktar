@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
 import { useAmp } from 'next/amp';
+import { ItemList } from 'schema-dts';
 
 import ListItem from './ListItem';
 import DateTime from '../DateTime';
@@ -35,7 +36,8 @@ const BlogList: FC<Props> = ({ posts }) => (
             </ListItem>
         ))}
 
-        <JsonLD data={{
+        <JsonLD<ItemList> data={{
+            '@context': 'https://schema.org',
             '@type': 'ItemList',
             itemListElement: posts.map(({ href }, i) => ({
                 '@type': 'ListItem',

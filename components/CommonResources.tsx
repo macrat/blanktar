@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect, memo } from 'react';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';
+import { WebSite } from 'schema-dts';
 
-import JsonLD, { Website } from '~/components/JsonLD';
+import JsonLD, { Author, Publisher } from '~/components/JsonLD';
 
 
 const CommonResources: FC = () => {
@@ -69,7 +70,19 @@ const CommonResources: FC = () => {
 
             <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
 
-            <JsonLD data={Website} />
+            <JsonLD<WebSite> data={{
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'Blanktar',
+                url: 'https://blanktar.jp',
+                author: Author,
+                publisher: Publisher,
+                potentialAction: {
+                    '@type': 'SearchAction',
+                    target: 'https://blanktar.jp/search?q={search_term_string}',
+                    'query-input': 'required name=search_term_string',
+                },
+            }} />
         </Head>
     );
 };

@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
-import { Thing, Person, Organization, WebSite } from 'schema-dts';
+import React, { ReactNode, ReactElement } from 'react';
+import { Thing, Person, Organization, WebSite, WithContext } from 'schema-dts';
 import { JsonLd } from 'react-schemaorg';
 
 
 export const Author: Person = {
-    '@context': 'http://schema.org',
     '@type': 'Person',
     name: 'MacRat',
     familyName: 'SHIDA',
@@ -16,11 +15,10 @@ export const Author: Person = {
         'https://www.instagram.com/macrat_jp/',
         'https://facebook.com/yuuma.shida',
     ],
-};
+} as Person;
 
 
 export const Publisher: Organization = {
-    '@context': 'http://schema.org',
     '@type': 'Organization',
     name: 'Blanktar',
     member: Author,
@@ -48,31 +46,17 @@ export const Publisher: Organization = {
         width: 1024,
         height: 1024,
     }],
+} as Organization;
+
+
+export type Props<T extends Thing> = {
+    data: WithContext<T>;
+    children?: ReactNode;
 };
 
 
-export const Website: WebSite = {
-    '@context': 'http://schema.org',
-    '@type': 'WebSite',
-    name: 'Blanktar',
-    url: 'https://blanktar.jp',
-    author: Author,
-    publisher: Publisher,
-    potentialAction: {
-        '@type': 'SearchAction',
-        target: 'https://blanktar.jp/search?q={search_term_string}',
-        'query-input': 'required name=search_term_string',
-    },
-};
-
-
-export type Props = {
-    data: Thing;
-};
-
-
-const JsonLD: FC<Props> = ({ data }) => (
-    <JsonLd<Thing> item={data} />
+const JsonLD = <T extends Thing>({ data }: Props<T>): ReactElement => (
+    <JsonLd<WithContext<T>> item={data} />
 );
 
 

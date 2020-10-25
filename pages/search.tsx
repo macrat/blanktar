@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDebounce } from 'use-debounce';
 import { pageview } from 'react-ga';
+import { FAQPage } from 'schema-dts';
 
 import search from '~/lib/posts/search';
 import getSnippet from '~/lib/rich-snippet';
@@ -141,7 +142,8 @@ const Search: NextPage<Props> = ({ query: initialQuery, result: initialResult, p
                 {result.snippet ? (<>
                     <RichSnippet snippet={result.snippet.html} />
 
-                    <JsonLD data={{
+                    <JsonLD<FAQPage> data={{
+                        '@context': 'https://schema.org',
                         '@type': 'FAQPage',
                         mainEntity: [{
                             '@type': 'Question',

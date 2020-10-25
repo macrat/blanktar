@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { BreadcrumbList, ListItem } from 'schema-dts';
 import Link from 'next/link';
 import preval from 'preval.macro';
 
@@ -47,7 +48,8 @@ const BreadList: FC<Props> = ({ pages }) => (
             </li>
         ))}
 
-        <JsonLD data={{
+        <JsonLD<BreadcrumbList> data={{
+            '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
                 {
@@ -62,7 +64,7 @@ const BreadList: FC<Props> = ({ pages }) => (
                     name: p.title,
                     item: 'https://blanktar.jp' + (p.as || p.href),
                 })),
-            ],
+            ] as ListItem[],
         }} />
 
         <style jsx>{`
