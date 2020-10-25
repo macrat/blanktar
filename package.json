@@ -33,7 +33,7 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-ga": "3.2.0",
-    "react-lazyload": "3.0.0",
+    "react-lazyload": "3.1.0",
     "use-debounce": "5.0.1"
   },
   "devDependencies": {
@@ -64,7 +64,7 @@
     "jest": "26.6.1",
     "jest-fetch-mock": "3.0.3",
     "jest-raw-loader": "1.0.1",
-    "marked": "1.2.0",
+    "marked": "1.2.2",
     "mime": "2.4.6",
     "mock-http": "1.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
