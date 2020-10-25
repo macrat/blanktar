@@ -1,5 +1,5 @@
 import React, { ReactNode, ReactElement } from 'react';
-import { Thing, Person, Organization, WebSite, WithContext } from 'schema-dts';
+import { Thing, Person, Organization, WithContext } from 'schema-dts';
 import { JsonLd } from 'react-schemaorg';
 
 
