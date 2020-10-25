@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
+import { Thing, Person, Organization, WebSite } from 'schema-dts';
+import { JsonLd } from 'react-schemaorg';
 
 
-type Thing = {
-    '@type': string;
-    [key: string]: string | string[] | number | Thing | Thing[] | undefined;
-};
-
-
-export const Author: Thing = {
+export const Author: Person = {
+    '@context': 'http://schema.org',
     '@type': 'Person',
     name: 'MacRat',
     familyName: 'SHIDA',
@@ -22,7 +19,8 @@ export const Author: Thing = {
 };
 
 
-export const Publisher: Thing = {
+export const Publisher: Organization = {
+    '@context': 'http://schema.org',
     '@type': 'Organization',
     name: 'Blanktar',
     member: Author,
@@ -53,7 +51,8 @@ export const Publisher: Thing = {
 };
 
 
-export const Website: Thing = {
+export const Website: WebSite = {
+    '@context': 'http://schema.org',
     '@type': 'WebSite',
     name: 'Blanktar',
     url: 'https://blanktar.jp',
@@ -73,10 +72,7 @@ export type Props = {
 
 
 const JsonLD: FC<Props> = ({ data }) => (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        ...data,
-        '@context': 'http://schema.org',
-    }) }} />
+    <JsonLd<Thing> item={data} />
 );
 
 

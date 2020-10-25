@@ -34,6 +34,7 @@
     "react-dom": "16.14.0",
     "react-ga": "3.2.0",
     "react-lazyload": "3.1.0",
+    "react-schemaorg": "^1.2.0",
     "use-debounce": "5.0.1"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "preval.macro": "5.0.0",
     "raw-loader": "4.0.2",
     "remove-markdown": "0.3.0",
+    "schema-dts": "^0.7.1",
     "sharp": "0.26.2",
     "ts-jest": "26.4.2",
     "typescript": "4.0.3",
