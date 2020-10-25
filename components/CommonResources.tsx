@@ -65,7 +65,11 @@ const CommonResources: FC = () => {
 
             <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
 
-            <JsonLD data={Website} key="jsonld--website" />
+            {/*
+                XXX: avoid recursive elements because Head can't have nested children inside.
+                seealso: https://github.com/macrat/blanktar/issues/485
+            */}
+            {JsonLD({ data: Website })}
         </Head>
     );
 };
