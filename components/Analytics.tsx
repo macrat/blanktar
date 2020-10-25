@@ -79,7 +79,11 @@ const Analytics: FC = () => {
         };
     }, []);
 
-    return <></>;
+    return (
+        <Head>
+            <script src="https://www.google-analytics.com/analytics.js" defer key="script--analytics" />
+        </Head>
+    );
 };
 
 

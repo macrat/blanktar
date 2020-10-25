@@ -56,10 +56,6 @@ const CommonResources: FC = () => {
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
-            {isAmp ? '' : (
-                <script src="https://www.google-analytics.com/analytics.js" defer key="script--analytics" />
-            )}
-
             <meta name="theme-color" content="#402020" key="meta--theme-color" />
             <link rel="manifest" href="/manifest.json" key="webmanifest" />
             <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
