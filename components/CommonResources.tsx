@@ -17,7 +17,7 @@ const CommonResources: FC = () => {
 
     return (
         <Head>
-            <meta charSet="utf-8" />
+            <meta charSet="utf-8" key="meta--charset" />
 
             {/* ヘッダーで必ず使うフォントを事前読み込みさせる */}
             <link
@@ -56,11 +56,7 @@ const CommonResources: FC = () => {
                 crossOrigin={isAmp ? "anonymous" : undefined}
                 key="style--font" />
 
-            {isAmp ? '' : (
-                <script src="https://www.google-analytics.com/analytics.js" defer />
-            )}
-
-            <meta name="theme-color" content="#402020" />
+            <meta name="theme-color" content="#402020" key="meta--theme-color" />
             <link rel="manifest" href="/manifest.json" key="webmanifest" />
             <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" key="favicon--svg" />
             <link rel="icon" sizes="512x512" type="image/png" href="/img/blanktar-logo@512.png" key="favicon--png-512x512" />
@@ -69,7 +65,7 @@ const CommonResources: FC = () => {
 
             <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
 
-            <JsonLD data={Website} />
+            <JsonLD data={Website} key="jsonld--website" />
         </Head>
     );
 };
