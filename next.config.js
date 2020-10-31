@@ -121,7 +121,10 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
     images: {
-        domains: ['repository-images.githubusercontent.com'],
+        domains: [
+            'repository-images.githubusercontent.com',
+            'scontent-nrt1-1.cdninstagram.com',
+        ],
     },
     headers: () => [{
         source: '/(.*)',
