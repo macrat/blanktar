@@ -142,6 +142,11 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
                 ]
             ),
         ],
+    }, {
+        source: '/_next/image',
+        headers: [
+            {key: 'Cache-Control', value: 'public, immutable, max-age=2592000'},
+        ],
     }],
     rewrites: () => [
         {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
