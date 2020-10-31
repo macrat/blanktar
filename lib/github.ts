@@ -1,6 +1,3 @@
-import Image, { ImageSet } from '~/lib/image';
-
-
 export type Language = {
     name: string;
     color: string;
