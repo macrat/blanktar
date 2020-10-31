@@ -185,6 +185,7 @@
     {"source": "/blog/1403120057.html", "destination": "/blog/2014/03/python-getattr-getattribute"},
     {"source": "/blog/1403122341.html", "destination": "/blog/2014/03/python-setattr"},
     {"source": "/blog/1403131840.html", "destination": "/blog/2014/03/python-timeit"},
-    {"source": "/blog/1403170107.html", "destination": "/blog/2014/03/python3-lru_cache"}
+    {"source": "/blog/1403170107.html", "destination": "/blog/2014/03/python3-lru_cache"},
+    {"source": "/blog/2015/11/java-charactor-count", "destination": "/blog/2015/11/java-character-count"}
   ]
 }
