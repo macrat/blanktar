@@ -1,7 +1,10 @@
 import Image, { TracedImage } from '~/lib/image';
 
 
-export type Photo = OptimizedImage & {
+export type Photo = {
+    image: string;
+    width: number;
+    height: number;
     url: string;
     trace: TracedImage;
     caption: string;
@@ -31,7 +34,6 @@ const fetchInstagram = async (): Promise<Photo[]> => {
         const img = await Image.download(post.media_url);
 
         return {
-            ...img.size,
             ...(await img.size()),
             image: post.media_url,
             url: post.permalink,

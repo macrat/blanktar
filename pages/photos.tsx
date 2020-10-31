@@ -21,7 +21,7 @@ const LazyImage: FC<{ src: string; width: number; height: number }> = ({ src, wi
     const [loaded, setLoaded] = useState(false);
 
     return (
-        <div className={loaded ? 'loaded' : null}>
+        <div className={loaded ? 'loaded' : undefined}>
             <Image
                 src={src}
                 width={width}
