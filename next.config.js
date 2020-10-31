@@ -123,7 +123,9 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     images: {
         domains: [
             'repository-images.githubusercontent.com',
+            'scontent.cdninstagram.com',
             'scontent-nrt1-1.cdninstagram.com',
+            'scontent-sjc3-1.cdninstagram.com',
         ],
     },
     headers: () => [{
