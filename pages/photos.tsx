@@ -27,7 +27,8 @@ const LazyImage: FC<{ src: string; width: number; height: number }> = ({ src, wi
                 width={width}
                 height={height}
                 alt=""
-                quality={80}
+                quality={70}
+                priority={true}
                 onLoad={() => setLoaded(true)}
                 className="photos-image" />
 

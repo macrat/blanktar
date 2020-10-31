@@ -61,6 +61,7 @@ const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updated
                 width={800}
                 height={400}
                 src={image}
+                quality={70}
                 className="github-repository__image"
                 alt=""
                 aria-hidden="true" />
