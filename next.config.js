@@ -120,6 +120,9 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
         GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
+    images: {
+        domains: ['repository-images.githubusercontent.com'],
+    },
     headers: () => [{
         source: '/(.*)',
         headers: [
