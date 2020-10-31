@@ -112,6 +112,7 @@ const instagramServers = (
             `scontent-sjc${i}-${j}.cdninstagram.com`,
             `scontent-yyz${i}-${j}.cdninstagram.com`,
             `scontent-lax${i}-${j}.cdninstagram.com`,
+            `scontent-iad${i}-${j}.cdninstagram.com`,
         ]).reduce((x, xs) => [...x, ...xs])
     )).reduce((x, xs) => [...x, ...xs])
 );
