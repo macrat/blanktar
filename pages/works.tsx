@@ -99,7 +99,8 @@ const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updated
         <style jsx>{`
             li {
                 display: block;
-                width: calc(100% / 2 - 2mm * 2);
+                width: calc(100% / 2 - 2mm * 2 - 1px);
+                box-sizing: border-box;
                 height: 7cm;
                 margin: 2mm;
                 background-color: var(--colors-dark-fg);
@@ -218,6 +219,7 @@ const Works: NextPage<Props> = ({ repositories }) => (
                     padding: 0;
                     display: flex;
                     flex-wrap: wrap;
+                    justify-content: center;
                 }
                 div {
                     text-align: center;
