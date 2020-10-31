@@ -250,7 +250,7 @@ const Photos: NextPage<Props> = ({ photos }) => (
 );
 
 
-export const getStaticProps: GetServerSideProps<Props> = async () => ({
+export const getServerSideProps: GetServerSideProps<Props> = async () => ({
     props: {
         photos: await fetchInstagram(),
     },
