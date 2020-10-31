@@ -30,8 +30,8 @@
     "next": "10.0.0",
     "prism-react-renderer": "1.1.1",
     "prismjs": "1.22.0",
-    "react": "16.14.0",
-    "react-dom": "16.14.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-ga": "3.2.0",
     "react-lazyload": "3.1.0",
     "use-debounce": "5.0.1"
