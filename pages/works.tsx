@@ -227,10 +227,11 @@ const Works: NextPage<Props> = ({ repositories }) => (
 );
 
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => ({
+export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         repositories: await fetchGitHub(),
     },
+    revalidate: 60 * 60,
 });
 
 
