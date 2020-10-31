@@ -102,22 +102,6 @@ const CSPHeader = [
 ].join('; ');
 
 
-const instagramServers = (
-    [1, 2, 3].map((i) => (
-        [1, 2].map((j) => [
-            `scontent-alt${i}-${j}.cdninstagram.com`,
-            `scontent-lga${i}-${j}.cdninstagram.com`,
-            `scontent-nrt${i}-${j}.cdninstagram.com`,
-            `scontent-sea${i}-${j}.cdninstagram.com`,
-            `scontent-sjc${i}-${j}.cdninstagram.com`,
-            `scontent-yyz${i}-${j}.cdninstagram.com`,
-            `scontent-lax${i}-${j}.cdninstagram.com`,
-            `scontent-iad${i}-${j}.cdninstagram.com`,
-        ]).reduce((x, xs) => [...x, ...xs])
-    )).reduce((x, xs) => [...x, ...xs])
-);
-
-
 module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
@@ -140,7 +124,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         domains: [
             'repository-images.githubusercontent.com',
             'scontent.cdninstagram.com',
-            ...instagramServers,
         ],
     },
     headers: () => [{

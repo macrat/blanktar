@@ -31,11 +31,12 @@ const fetchInstagram = async (): Promise<Photo[]> => {
     const { data }: RawInstagramResponse = await resp.json();
 
     return await Promise.all(data.map(async post => {
-        const img = await Image.download(post.media_url);
+        const url = post.media_url.replace(/scontent-[a-z]{3}[0-9]-[0-9]\./, 'scontent.');
+        const img = await Image.download(url);
 
         return {
             ...(await img.size()),
-            image: post.media_url,
+            image: url,
             url: post.permalink,
             trace: await img.trace(),
             caption: post.caption,
