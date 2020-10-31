@@ -1,7 +1,10 @@
-import Image, { OptimizedImage, TracedImage } from '~/lib/image';
+import Image, { TracedImage } from '~/lib/image';
 
 
-export type Photo = OptimizedImage & {
+export type Photo = {
+    image: string;
+    width: number;
+    height: number;
     url: string;
     trace: TracedImage;
     caption: string;
@@ -28,11 +31,12 @@ const fetchInstagram = async (): Promise<Photo[]> => {
     const { data }: RawInstagramResponse = await resp.json();
 
     return await Promise.all(data.map(async post => {
-        const img = await Image.download(post.media_url);
+        const url = post.media_url.replace(/scontent-[a-z]{3}[0-9]-[0-9]\./, 'scontent.');
+        const img = await Image.download(url);
 
         return {
-            ...(await img.optimize('photos', 480)),
-            ...img.size,
+            ...(await img.size()),
+            image: url,
             url: post.permalink,
             trace: await img.trace(),
             caption: post.caption,

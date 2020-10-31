@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
-import LazyLoad from 'react-lazyload';
+import Image from 'next/image';
 
 import fetchInstagram, { Photo } from '~/lib/instagram';
 
@@ -17,7 +17,56 @@ export type Props = {
 };
 
 
-const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) => (
+const LazyImage: FC<{ src: string; width: number; height: number }> = ({ src, width, height }) => {
+    const [loaded, setLoaded] = useState(false);
+
+    return (
+        <div className={loaded ? 'loaded' : undefined}>
+            <Image
+                src={src}
+                width={width}
+                height={height}
+                alt=""
+                quality={70}
+                onLoad={() => setLoaded(true)}
+                className="photos-image" />
+
+            <style jsx>{`
+                div {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    transition: opacity .4s;
+                }
+                .loaded {
+                    opacity: 1;
+                }
+                :global(.photos-image) {
+                    transition: opacity .2s, transform .2s;
+                }
+                @keyframes show-image {
+                    from { opacity: 0; }
+                      to { opacity: 1; }
+                }
+                :global(figure:hover .photos-image) {
+                    opacity: .2;
+                    transform: scale(1.1);
+                }
+                @media screen and (prefers-reduced-motion: reduce) {
+                    :hover :global(.photos-image) {
+                        transform: scale(1);
+                    }
+                }
+            `}</style>
+        </div>
+    );
+};
+
+
+const PhotoItem: FC<Photo> = ({ url, image, trace, width, height, caption }) => (
     <figure>
         <svg
             width={width}
@@ -26,20 +75,8 @@ const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) =>
             dangerouslySetInnerHTML={{ __html: trace.path }}
             aria-hidden="true" />
 
-        <LazyLoad offset={height/2}>
-            <picture>
-                {images.reverse().map(({ srcSet, mdpi }) => (
-                    <source key={mdpi} srcSet={srcSet} />
-                ))}
+        <LazyImage src={image} width={width} height={height} />
 
-                <img
-                    srcSet={images[images.length - 1].srcSet}
-                    src={images[images.length - 1].mdpi}
-                    width={width}
-                    height={height}
-                    alt="" />
-            </picture>
-        </LazyLoad>
         <figcaption><a href={url}>{caption}</a></figcaption>
 
         <style jsx>{`
@@ -53,20 +90,6 @@ const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) =>
                 height: auto;
                 display: block;
                 transition: transform .2s;
-            }
-            img {
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: auto;
-                animation: show-image .4s;
-                transition: opacity .2s, filter .2s, transform .2s;
-            }
-            @keyframes show-image {
-                from { opacity: 0; }
-                  to { opacity: 1; }
             }
             figcaption {
                 position: absolute;
@@ -98,11 +121,6 @@ const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) =>
             a:hover, a:focus {
                 color: white;
             }
-            figure:hover img {
-                opacity: .1;
-                filter: contrast(4);
-                transform: scale(1.1);
-            }
             figure:hover svg {
                 transform: scale(1.1);
             }
@@ -115,10 +133,6 @@ const PhotoItem: FC<Photo> = ({ url, images, trace, width, height, caption }) =>
             }
 
             @media screen and (prefers-reduced-motion: reduce) {
-                figure:hover img {
-                    filter: contrast(4);
-                    transform: scale(1);
-                }
                 figure:hover svg {
                     transform: scale(1);
                 }
@@ -240,6 +254,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         photos: await fetchInstagram(),
     },
+    revalidate: 60 * 60,
 });
 
 

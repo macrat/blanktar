@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
-import LazyLoad from 'react-lazyload';
+import Image from 'next/image';
 
 import fetchGitHub, { Repository, Language } from '~/lib/github';
 
@@ -54,24 +54,17 @@ const LanguageList: FC<{languages: Language[]}> = ({ languages }) => (
 );
 
 
-const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, updatedAt, languages, description }) => (
-    <li>
-        {images ? (
-            <LazyLoad>
-                <picture>
-                    {images.reverse().map(img => (
-                        <source key={img.mdpi} srcSet={img.srcSet} />
-                    ))}
-
-                    <img
-                        width={640}
-                        height={480}
-                        srcSet={images[images.length - 1].srcSet}
-                        src={images[images.length - 1].mdpi}
-                        alt=""
-                        aria-hidden="true" />
-                </picture>
-            </LazyLoad>
+const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updatedAt, languages, description }) => (
+    <li className="github-repository">
+        {image ? (
+            <Image
+                width={800}
+                height={400}
+                src={image}
+                quality={70}
+                className="github-repository__image"
+                alt=""
+                aria-hidden="true" />
         ) : null}
 
         <a href={url === null ? undefined : url} target="_blank" rel="noopener noreferrer">
@@ -84,6 +77,25 @@ const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, update
             <p className="card-inner">{description}</p>
         </a>
 
+        <style global jsx>{`
+            .github-repository > div {
+                width: unset;
+                max-width: unset;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            .github-repository > div > div {
+                position: unset !important;
+                padding-bottom: unset !important;
+            }
+            .github-repository__image {
+                object-fit: cover;
+                object-position: center;
+            }
+        `}</style>
         <style jsx>{`
             li {
                 display: block;
@@ -100,15 +112,6 @@ const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, update
                     height: auto;
                     margin: 2mm 0;
                 }
-            }
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
             }
             a {
                 display: block;
@@ -231,6 +234,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         repositories: await fetchGitHub(),
     },
+    revalidate: 60 * 60,
 });
 
 

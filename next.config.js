@@ -120,6 +120,12 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
         GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
+    images: {
+        domains: [
+            'repository-images.githubusercontent.com',
+            'scontent.cdninstagram.com',
+        ],
+    },
     headers: () => [{
         source: '/(.*)',
         headers: [
@@ -133,6 +139,11 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
                     {key: 'Content-Security-Policy', value: CSPHeader}
                 ]
             ),
+        ],
+    }, {
+        source: '/_next/image',
+        headers: [
+            {key: 'Cache-Control', value: 'public, immutable, max-age=2592000'},
         ],
     }],
     rewrites: () => [
