@@ -123,6 +123,12 @@ const Tombo: FC = ({ children }) => (
             :global(main.loading) .vertical-late    { animation: vertical-erase   .3s ease-out both;     }
             :global(main.loading) .horizontal-early { animation: horizontal-erase .3s ease-in  both .3s; }
             :global(main.loading) .horizontal-late  { animation: horizontal-erase .3s ease-out both;     }
+
+            @media (prefers-reduced-motion: reduce) {
+                svg line {
+                    animation: none;
+                }
+            }
         `}</style>
     </div>
 );
