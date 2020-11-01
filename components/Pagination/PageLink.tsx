@@ -66,7 +66,7 @@ const PageLink: FC<Props> = ({ current, page, href }) => (
                 stroke-dashoffset: 0;
             }
 
-            @media screen and (prefers-reduced-motion: reduce) {
+            @media (prefers-reduced-motion: reduce) {
                 polyline {
                     stroke-dasharray: 0;
                     stroke-dashoffset: 0;

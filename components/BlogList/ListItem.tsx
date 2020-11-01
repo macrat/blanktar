@@ -50,7 +50,7 @@ const ListItem: FC = ({ children }) => (
                 transform: scaleY(1);
             }
 
-            @media screen and (prefers-reduced-motion: reduce) {
+            @media (prefers-reduced-motion: reduce) {
                 svg {
                     opacity: 0;
                     transition: opacity .2s ease;

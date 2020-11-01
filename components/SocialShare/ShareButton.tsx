@@ -70,12 +70,12 @@ const ShareButton: FC<Props> = ({ href, alt, label, children }) => (
             a:hover :global(rect), a:focus :global(rect) {
                 fill: var(--colors-fg);
             }
-            @media screen and (max-width: 480px) {
+            @media (max-width: 480px) {
                 a {
                     width: 60px;
                 }
             }
-            @media screen and (max-width: 380px) {
+            @media (max-width: 380px) {
                 a {
                     width: 72px;
                 }

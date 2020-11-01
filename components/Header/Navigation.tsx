@@ -71,7 +71,7 @@ const Navigation: FC = () => (
             .works::before { animation-delay: .2s; }
             .photos::before { animation-delay: .3s; }
 
-            @media screen and (prefers-reduced-motion: reduce) {
+            @media (prefers-reduced-motion: reduce) {
                 a {
                     animation: none;
                 }

@@ -34,7 +34,7 @@ const ServiceBanner: FC<Props> = ({ name, href, viewBox, path }) => (
                 margin: 0;
                 transition: font-size .2s ease;
             }
-            @media screen and (max-width: 40em) {
+            @media (max-width: 40em) {
                 h2 {
                     font-size: 14mm;
                     height: 21mm;
