@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useAmp } from 'next/amp';
 
 
 const Tombo: FC = ({ children }) => (
