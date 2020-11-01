@@ -17,10 +17,14 @@ const PageLink: FC<Props> = ({ current, page, href }) => (
     <>
         <Link href={href(page)}>
             <a className={current ? "current" : ""} aria-label={current ? `${page}ページ。これは現在のページです` : `${page}ページ`}>
-                {page}
-                <svg width="2.5em" height="1.5em" viewBox="0 0 50 30" aria-hidden="true">
-                    <polyline points="50 0, 50 30, 0 30, 0 0, 50, 0" fill="none" strokeWidth=".5mm" />
+                <svg width="3em" height="2em" viewBox="0 0 50 30" aria-hidden="true">
+                    <g transform="translate( 0,  5)"><line x2="50" transform-origin=" 0  0" className="horizontal" /></g>
+                    <g transform="translate( 5,  0)"><line y2="30" transform-origin=" 0 30" className="vertical"   /></g>
+                    <g transform="translate( 0, 25)"><line x2="50" transform-origin="50 30" className="horizontal" /></g>
+                    <g transform="translate(45,  0)"><line y2="30" tarnsform-origin="50  0" className="vertical"   /></g>
+                    <rect x="5" y="5" width="40" height="20" />
                 </svg>
+                {page}
             </a>
         </Link>
 
@@ -36,7 +40,12 @@ const PageLink: FC<Props> = ({ current, page, href }) => (
             }
             .current {
                 color: var(--colors-bg);
-                background-color: var(--colors-fg);
+            }
+            rect {
+                fill: none;
+            }
+            .current rect {
+                fill: var(--colors-fg);
             }
             a:hover, a:focus {
                 color: var(--colors-fg);
@@ -47,33 +56,36 @@ const PageLink: FC<Props> = ({ current, page, href }) => (
             }
             svg {
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                top: -.25em;
+                left: -.25em;
+                z-index: -1;
             }
-            polyline {
+            line {
                 stroke: var(--colors-fg);
-                stroke-dasharray: 160;
-                stroke-dashoffset: 160;
-                transition: stroke-dashoffset .4s ease;
+                stroke-width: .2mm;
+                transition: transform .2s;
             }
-            .current polyline {
+            .horizontal {
+                transform: scaleX(0);
+            }
+            .vertical {
+                transform: scaleY(0);
+            }
+            .current line {
                 stroke: var(--colors-accent);
-                stroke-width: .8mm;
+                stroke-width: .4mm;
             }
-            a:hover polyline, a:focus polyline {
-                stroke-dashoffset: 0;
+            a:hover line, a:focus line {
+                transform: scale(1, 1);
             }
 
             @media (prefers-reduced-motion: reduce) {
-                polyline {
-                    stroke-dasharray: 0;
-                    stroke-dashoffset: 0;
+                line {
+                    transform: scale(1, 1);
                     opacity: 0;
                     transition: opacity .2s ease;
                 }
-                a:hover polyline, a:focus polyline {
+                a:hover line, a:focus line {
                     opacity: 1;
                 }
             }
