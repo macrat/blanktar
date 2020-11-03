@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useDebounce } from 'use-debounce';
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 
 const AnchorLink: FC<{before: string}> = ({ before, children }) => (

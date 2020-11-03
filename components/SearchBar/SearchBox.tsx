@@ -1,4 +1,4 @@
-import React, { FC, useEffect, createRef } from 'react';
+import { FC, useEffect, createRef } from 'react';
 import Router from 'next/router';
 
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 

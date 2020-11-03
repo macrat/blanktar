@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 
 import posts from '~/lib/posts';
