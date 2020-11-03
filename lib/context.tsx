@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, createContext, useContext as useReactContext } from 'react';
+import { FC, useState, useEffect, createContext, useContext as useReactContext } from 'react';
 import Router from 'next/router';
 
 

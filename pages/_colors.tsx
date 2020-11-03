@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 
 const TitleText: FC = () => (

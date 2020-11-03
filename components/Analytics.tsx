@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';

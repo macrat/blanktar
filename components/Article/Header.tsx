@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import TagList from '../TagList';
 import BreadList, { Props as BreadListProps } from './BreadList';

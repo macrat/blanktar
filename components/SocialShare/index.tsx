@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import ShareButton from './ShareButton';
 import { getImageURL } from '~/lib/eyecatch';
