@@ -260,7 +260,7 @@ $table.Count
 ## HashSet::new
 
 本命の最速候補です。
-[Genericなコンストラクタを使う方法](/blog/2020/11/powershell-use-generic-class)を教えて頂いたので追加しました。
+HashSetの作成と同時に配列の中身を全部入れる方法です。
 
 ``` ps1
 [System.Collections.Generic.HashSet[int]]::new([int[]]$TargetArray).Count
