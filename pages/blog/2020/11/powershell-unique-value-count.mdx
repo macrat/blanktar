@@ -1,6 +1,7 @@
 ---
 title: PowerShellで配列内のユニークな値の数を数える
 pubtime: 2020-11-04T21:49+0900
+modtime: 2020-11-05T19:35+0900
 amp: hybrid
 tags: [PowerShell, 言語仕様, 配列]
 description: 値の重複がある配列があるとき、重複を省いた状態でのユニークな値の数をPowerShellで調べる方法です。いくつか方法があるので、それぞれ試してベンチマークしてみました。
@@ -9,9 +10,7 @@ faq:
   - question: 配列内のユニークな値の数を**簡単に**調べる方法は？
     answer: Select-Objectに-Uniqオプションを渡して重複排除してあげるのが楽そうです。ただしそこそこ遅いです。
   - question: 配列内のユニークな値を**なるべく速く**調べる方法は？
-    answer: 各要素をHashSetに登録して、最後に要素数を数えるのが速そうです。
-  - question: 配列内のユニークな値を**とにかく全力で速く**調べる方法は？
-    answer: HashSetを用意して、switch文を使って各要素をHashSetに登録してあげるのが最速のようです。ただし速さの代わりに可読性が最悪になります。
+    answer: 一旦HashSetに登録して、要素数を数えるのが一番速そうです。
 ---
 
 そこそこ大量のCSVデータを処理するスクリプトをPowerShellで書いていたのですが、データ量が増えるにつれて妙に遅くなってしまいました。
@@ -56,10 +55,12 @@ Write-Progressとか入れながら調べてみたところ、重複を省いた
 |[HashSet + foreach](#HashSet%20+%20foreach)              |  0.91|  0.88|  0.88|  0.89|
 |[HashSet + switch](#HashSet%20+%20switch)                |  0.46|  0.45|  0.44|  0.45|
 |[hashtable + switch](#hashtable%20+%20switch)            |  0.46|  0.43|  0.43|  0.44|
+|[HashSet::new](#HashSet::new)                            |  0.19|  0.18|  0.20|  0.19|
+|[HashSet.UnionWith](#HashSet.UnionWith)                  |  0.19|  0.19|  0.18|  0.19|
 
-![上記の表を棒グラフにしたもの。Sort-Object -Uniqがズバ抜けて遅い様子がよく分かる。次いでSelect-Object -UniqとSort-Object + Get-Uniqueが並び、あとの4つは半ば見えないくらい細い棒になっている。](/blog/2020/11/unique-value-count-benchmark-100-of-1M.png "1726x670")
+![上記の表を棒グラフにしたもの。Sort-Object -Uniqがズバ抜けて遅い様子がよく分かる。次いでSelect-Object -UniqとSort-Object + Get-Uniqueが並び、あとの6つは半ば見えないくらい細い棒になっている。](/blog/2020/11/unique-value-count-benchmark-100-of-1M.png "1726x670")
 
-一応グラフにしましたが、差が激しすぎて最速の[hashtable + switch](#hashtable%20+%20switch)などはほぼ見えません。
+一応グラフにしましたが、差が激しすぎて最速の[hashtable::new](#hashtable::new)や[hashtable.UnionWith](#hashtable.UnionWith)などは最早見えません。
 [Sort-Object -Uniq](#Sort-Object%20-Uniq)が遅すぎる…。
 
 ## 1万種類の数字を100万個
@@ -79,10 +80,12 @@ Write-Progressとか入れながら調べてみたところ、重複を省いた
 |[HashSet + foreach](#HashSet%20+%20foreach)              |   0.91|  0.91|  0.92|  0.91|
 |[hashtable + switch](#hashtable%20+%20switch)            |   0.53|  0.55|  0.75|  0.61|
 |[HashSet + switch](#HashSet%20+%20switch)                |   0.45|  0.45|  0.45|  0.45|
+|[HashSet::new](#HashSet::new)                            |   0.20|  0.19|  0.20|  0.20|
+|[HashSet.UnionWith](#HashSet.UnionWith)                  |   0.20|  0.19|  0.19|  0.19|
 
 ![上記の表を棒グラフにしたもの。Select-Object -Uniqが最も遅く、Sort-Object -Uniqがその3分の1くらい。あまりにも差が激しいので、HashSetやhashtableを使ったものはグラフ内に表示されていないように見える。](/blog/2020/11/unique-value-count-benchmark-10K-of-1M.png "1726x670")
 
-さらに差が激しくなっていて、最早グラフとして成立してない気がしないでもないです。
+さらに差が激しくなっていて、もうグラフとして成立してない気がしないでもないです。
 
 HashSet、hashtableのハッシュを使った系の速さと種類による影響の無さがよく分かりますね。
 
@@ -167,7 +170,7 @@ Alice
 
 ## HashSet + foreach
 
-やる前は間違いなく最速だろうと思っていた方法です。
+やる前はかなり速かろうと思っていた方法です。
 実際やってみたら、[HashSetの代わりにhashtableを使った方法](#hashtable%20+%20foreach)と大体同じくらいでした。
 値の種類の量によって若干差が出ていますが、ほぼ誤差な気がします。
 
@@ -183,15 +186,9 @@ foreach ($x in $TargetArray) {
 $hashset.Count
 ```
 
-[switchを使った方法](#HashSet%20+%20switch)はもっと速いのですが可読性が皆無なので、現実的にはこれが一番良い選択肢になるような気がしています。
+[switchを使った方法](#HashSet%20+%20switch)はもっと速いのですが可読性が皆無なので、わりと現実的な選択肢です。
 
-ちなみに、[.NETのHashSetに関するドキュメント](https://docs.microsoft.com/ja-jp/dotnet/api/system.collections.generic.hashset-1)を見る限りは以下のような書き方が出来そうなのですが、実際試してみると動きません。
-
-``` ps1
-[System.Collections.Generic.HashSet[int]]::new($TargetArray).Count
-```
-
-これが出来たら更に速くなると思うのですが…PowerShellからだと動かないようです。残念。
+最初から全部の値が手に入る場合は[HashSet::newを使った方法](#HashSet::new)で、そうでないならばこちらを使った方法、という使い分けになるでしょうか。
 
 ## hashtable + foreach
 
@@ -209,7 +206,7 @@ $table.Count
 ```
 
 コメントも入れましたが、若干コードの意味が分かりづらくなるように思います。
-可読性という点ではHashSetに軍配が上がるでしょうか。
+可読性という点では[HashSetを使った方法](#HashSet%20+%20foreach)に軍配が上がるでしょうか。
 System.Collections...を書かなくて良いのは嬉しいのですけれどね。
 
 ## HashSet + switch
@@ -259,6 +256,34 @@ $table.Count
 ```
 
 やはりswitchを使った方法はハックという感じが凄いですね…。
+
+## HashSet::new
+
+本命の最速候補です。
+[Genericなコンストラクタを使う方法](/blog/2020/11/powershell-use-generic-class)を教えて頂いたので追加しました。
+
+``` ps1
+[System.Collections.Generic.HashSet[int]]::new([int[]]$TargetArray).Count
+```
+
+型情報だらけになので若干不思議な見た目ですが、中身はHashSetを作って数えるだけなので非常にセマンティックな感じです。
+
+処理がほぼ全部.NET内で完結するだけあって、非常に速いです。
+
+## HashSet.UnionWith
+
+[本命](#HashSet::new)の亜種。
+初期化時には値を入れないで、後から`UnionWith`で追加してみたパターンです。
+
+``` ps1
+$hashset = [System.Collections.Generic.HashSet[int]]::new()
+
+$hashset.UnionWith([int[]]$TargetArray))
+
+$hashset.Count
+```
+
+[初期化時から値を投入した場合](#HashSet::new)ともほぼ速度が変わらないので、用途次第で使い分けられそうです。
 
 
 # 実行環境
@@ -331,7 +356,7 @@ Write-Host "hashtable + foreach:" (Measure-Command {
 Write-Host "HashSet + switch:" (Measure-Command {
     $hashset = [System.Collections.Generic.HashSet[int]]::new()
 
-    select ($ns) {
+    switch ($ns) {
         default {
             $hashset.Add($_)
         }
@@ -352,4 +377,23 @@ Write-Host "hashtable + switch:" (Measure-Command {
 
     $table.Count
 }).TotalSeconds
+
+
+Write-Host "HashSet::new:" (Measure-Command {
+    [System.Collections.Generic.HashSet[int]]::new([int[]]$ns).Count
+}).TotalSeconds
+
+
+Write-Host "HashSet.UnionWith:" (Measure-Command {
+    $hashset = [System.Collections.Generic.HashSet[int]]::new()
+    $hashset.UnionWith([int[]]$ns)
+    $hashset.Count
+}).TotalSeconds
 ```
+
+<PS date="2020-11-05">
+
+[Twitterで頂いた情報](/blog/2020/11/powershell-use-generic-class)を元に、[HashSet::newを使った方法](#HashSet::new)と[HashSet.UnionWithを使った方法](#HashSet.UnionWith)を追加して内容を更新しました。
+案の定最速だった上に見た目も見やすいので、積極的に使っていけそうです。
+
+</PS>
