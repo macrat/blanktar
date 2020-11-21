@@ -67,7 +67,7 @@
     "preval.macro": "5.0.0",
     "raw-loader": "4.0.2",
     "react-masonry-component": "6.2.1",
-    "sharp": "0.26.2",
+    "sharp": "0.26.3",
     "ts-jest": "26.4.4",
     "typescript": "4.1.2",
     "xmlbuilder": "15.1.1"
