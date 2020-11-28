@@ -46,17 +46,19 @@ please report this problem in the forums
 ```
 めっちゃ怒られました。依存関係を満していないようです。
 
-<PS date="2016-05-27">
+<PS date="2016-05-27" level={3}>
+
 もしかしたらルート権限がないとコンパイル出来ないかもしれません。
 
 以下のようなエラーが出たら多分そんな感じです。sudoを付けて試してみてください。
-<pre><code>
+```
 $ ./compileOF.sh
 HOST_OS=Linux
 makefileCommon/config.shared.mk:217: *** This package doesn't support your platform, probably you downloaded the wrong package?.  Stop.
 there has been a problem compiling Debug OF library
 please report this problem in the forums
-</code></pre>
+```
+
 </PS>
 
 ## 足りないものを調べる
