@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 
@@ -58,11 +58,10 @@ const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updated
     <li className="github-repository">
         {image ? (
             <Image
-                width={800}
-                height={400}
                 src={image}
                 quality={70}
-                className="github-repository__image"
+                layout="fill"
+                objectFit="cover"
                 alt=""
                 aria-hidden="true" />
         ) : null}
@@ -77,25 +76,6 @@ const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updated
             <p className="card-inner">{description}</p>
         </a>
 
-        <style global jsx>{`
-            .github-repository > div {
-                width: unset;
-                max-width: unset;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            .github-repository > div > div {
-                position: unset !important;
-                padding-bottom: unset !important;
-            }
-            .github-repository__image {
-                object-fit: cover;
-                object-position: center;
-            }
-        `}</style>
         <style jsx>{`
             li {
                 display: block;

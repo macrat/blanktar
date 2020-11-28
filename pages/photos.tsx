@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
+import Masonry from 'react-masonry-component';
 
 import fetchInstagram, { Photo } from '~/lib/instagram';
 
@@ -167,13 +168,17 @@ const Photos: NextPage<Props> = ({ photos }) => (
                 viewBox="0 0 36 36"
                 path="M18 0c-4.889 0-5.501.02-7.421.108C8.663.196 7.354.5 6.209.945a8.823 8.823 0 0 0-3.188 2.076A8.83 8.83 0 0 0 .945 6.209C.5 7.354.195 8.663.108 10.58.021 12.499 0 13.11 0 18s.02 5.501.108 7.421c.088 1.916.392 3.225.837 4.37a8.823 8.823 0 0 0 2.076 3.188c1 1 2.005 1.616 3.188 2.076 1.145.445 2.454.75 4.37.837 1.92.087 2.532.108 7.421.108s5.501-.02 7.421-.108c1.916-.088 3.225-.392 4.37-.837a8.824 8.824 0 0 0 3.188-2.076c1-1 1.616-2.005 2.076-3.188.445-1.145.75-2.454.837-4.37.087-1.92.108-2.532.108-7.421s-.02-5.501-.108-7.421c-.088-1.916-.392-3.225-.837-4.37a8.824 8.824 0 0 0-2.076-3.188A8.83 8.83 0 0 0 29.791.945C28.646.5 27.337.195 25.42.108 23.501.021 22.89 0 18 0zm0 3.243c4.806 0 5.376.019 7.274.105 1.755.08 2.708.373 3.342.62.84.326 1.44.717 2.07 1.346.63.63 1.02 1.23 1.346 2.07.247.634.54 1.587.62 3.342.086 1.898.105 2.468.105 7.274s-.019 5.376-.105 7.274c-.08 1.755-.373 2.708-.62 3.342a5.576 5.576 0 0 1-1.346 2.07c-.63.63-1.23 1.02-2.07 1.346-.634.247-1.587.54-3.342.62-1.898.086-2.467.105-7.274.105s-5.376-.019-7.274-.105c-1.755-.08-2.708-.373-3.342-.62a5.576 5.576 0 0 1-2.07-1.346 5.577 5.577 0 0 1-1.346-2.07c-.247-.634-.54-1.587-.62-3.342-.086-1.898-.105-2.468-.105-7.274s.019-5.376.105-7.274c.08-1.755.373-2.708.62-3.342.326-.84.717-1.44 1.346-2.07.63-.63 1.23-1.02 2.07-1.346.634-.247 1.587-.54 3.342-.62 1.898-.086 2.468-.105 7.274-.105z M18 24.006a6.006 6.006 0 1 1 0-12.012 6.006 6.006 0 0 1 0 12.012zm0-15.258a9.252 9.252 0 1 0 0 18.504 9.252 9.252 0 0 0 0-18.504zm11.944-.168a2.187 2.187 0 1 1-4.374 0 2.187 2.187 0 0 1 4.374 0" />
 
-            <ul>
+            <Masonry
+                elementType="ul"
+                className="photo-list"
+                options={{ itemSelector: '.photo-item' }}
+            >
                 {photos.map((photo) => (
-                    <li key={photo.url}>
+                    <li key={photo.url} className="photo-item">
                         <PhotoItem {...photo} />
                     </li>
                 ))}
-            </ul>
+            </Masonry>
 
             <div className="view-more">
                 <ViewMore href="https://instagram.com/macrat_jp/" />
@@ -209,40 +214,39 @@ const Photos: NextPage<Props> = ({ photos }) => (
                     fill: var(--colors-fg);
                 }
 
-                ul, li {
+                :global(.photo-list), li {
                     display: block;
                     margin: 0;
                     padding: 0;
                 }
-                ul {
-                    column-count: 3;
-                    column-gap: 0;
+                :global(.photo-list) {
                     position: relative;
-                    margin: 5mm 0 0;
-                }
-                @media screen and (max-width: 24cm) {
-                    ul {
-                        column-count: 2;
-                    }
-                }
-                @media screen and (max-width: 16cm) {
-                    ul {
-                        column-count: 1;
-                    }
+                    margin: 5mm 0 -100px;
                 }
                 li {
                     break-inside: avoid;
                     page-break-inside: avoid;
+                    width: calc(100% / 3);
                 }
-                ul::after {
+                @media screen and (max-width: 24cm) {
+                    li {
+                        width: calc(100% / 2);
+                    }
+                }
+                @media screen and (max-width: 16cm) {
+                    li {
+                        width: 100%;
+                    }
+                }
+                :global(.photo-list)::after {
                     content: '';
                     display: block;
                     position: absolute;
                     left: 0;
                     bottom: 0;
                     right: 0;
-                    height: 80px;
-                    background: linear-gradient(transparent, var(--colors-bg), var(--colors-bg));
+                    height: 200px;
+                    background: linear-gradient(transparent, var(--colors-bg) 30%, var(--colors-bg));
                 }
             `}</style>
         </Article>

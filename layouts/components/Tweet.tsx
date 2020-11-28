@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import { useAmp } from 'next/amp';
 

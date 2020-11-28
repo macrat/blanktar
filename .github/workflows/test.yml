@@ -67,7 +67,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WORKS_GITHUB_TOKEN }}
           INSTAGRAM_TOKEN: ${{ secrets.PHOTOS_INSTAGRAM_TOKEN }}
 
-      - uses: treosh/lighthouse-ci-action@v2
+      - uses: treosh/lighthouse-ci-action@v3
         with:
           configPath: '.github/lighthouse.json'
           uploadArtifacts: true
