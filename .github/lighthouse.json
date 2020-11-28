@@ -19,6 +19,7 @@
         "link-text": "warn",
         "non-composited-animations": "warn",
         "unsized-images": "warn",
+        "unused-javascript": "off",
         "uses-http2": "off",
         "uses-responsive-images": "warn",
         "uses-webp-images": "warn"
