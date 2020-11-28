@@ -16,19 +16,25 @@ const date2printable = (date: string) => {
 const PS: FC<Props> = ({ date, children }) => (
     <ins dateTime={date}>
         <section>
-            <h5><time dateTime={date}>{date2printable(date)}</time> 追記</h5>
+            <h1><time dateTime={date}>{date2printable(date)}</time> 追記</h1>
 
             {children}
         </section>
 
         <style jsx>{`
             section {
-                border-left: .2mm solid var(--colors-dark-fg);
-                padding-left: 5mm;
-                margin-left: 2mm;
+                border: .2mm solid var(--colors-dark-fg);
+                padding: 7mm 5mm 2mm;
+                margin: 2mm 0;
+                position: relative;
             }
-            h5 {
+            h1 {
                 margin: 0;
+                font-size: inherit;
+                font-weight: 300;
+                position: absolute;
+                top: 2mm;
+                left: 3mm;
             }
             ins {
                 display: block;
