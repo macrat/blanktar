@@ -6,8 +6,10 @@ tags: [Python, メタプログラミング, 言語仕様]
 description: pythonがクラスのメンバを取得する流れと、その仮定で使う`__getattr__`と`__getattribute__`の挙動について調べてみました。
 ---
 
-<PS date="2014-04-23">
+<PS date="2014-04-23" level={1}>
+
 <a href="/blog/2014/03/python-setattr">setattrについての記事</a>もどうぞ。
+
 </PS>
 
 pythonで`test.a`みたいなアクセスの仕方をする時、実は裏側では`__gettattr__(test, 'a')`なんてメソッドが呼ばれてるらしい。
