@@ -3,8 +3,10 @@ import { FC } from 'react';
 
 export type Props = {
     date: string;
-    level: number;
+    level: 1 | 2 | 3 | 4 | 5;
 };
+
+type HeadingTag = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 
 const date2printable = (date: string) => {
@@ -14,8 +16,8 @@ const date2printable = (date: string) => {
 };
 
 
-const PS: FC<Props> = ({ date, level=1, children }) => {
-    const Heading = `h${Math.min(6, level + 1)}`;
+const PS: FC<Props> = ({ date, level, children }) => {
+    const Heading = `h${Math.min(6, level + 1)}` as HeadingTag;
 
     return (
         <ins dateTime={date}>
