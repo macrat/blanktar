@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
-import LazyLoad from 'react-lazyload';
+import Image from 'next/image';
 
 import fetchGitHub, { Repository, Language } from '~/lib/github';
 
@@ -54,27 +54,19 @@ const LanguageList: FC<{languages: Language[]}> = ({ languages }) => (
 );
 
 
-const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, updatedAt, languages, description }) => (
-    <li>
-        {images ? (
-            <LazyLoad>
-                <picture>
-                    {images.reverse().map(img => (
-                        <source key={img.mdpi} srcSet={img.srcSet} />
-                    ))}
-
-                    <img
-                        width={640}
-                        height={480}
-                        srcSet={images[images.length - 1].srcSet}
-                        src={images[images.length - 1].mdpi}
-                        alt=""
-                        aria-hidden="true" />
-                </picture>
-            </LazyLoad>
+const GithubRepository: FC<Repository> = ({ name, image, url, createdAt, updatedAt, languages, description }) => (
+    <li className="github-repository">
+        {image ? (
+            <Image
+                src={image}
+                quality={70}
+                layout="fill"
+                objectFit="cover"
+                alt=""
+                aria-hidden="true" />
         ) : null}
 
-        <a href={url === '' ? url : undefined} target="_blank" rel="noopener noreferrer">
+        <a href={url === null ? undefined : url} target="_blank" rel="noopener noreferrer">
             <h3 className="card-inner">{name}</h3>
 
             <span className="card-inner"><DateTime dateTime={new Date(createdAt)} readableSuffix="公開" /> 〜 <DateTime dateTime={new Date(updatedAt)} readableSuffix="更新" /></span>
@@ -87,7 +79,8 @@ const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, update
         <style jsx>{`
             li {
                 display: block;
-                width: calc(100% / 2 - 2mm * 2);
+                width: calc(100% / 2 - 2mm * 2 - 1px);
+                box-sizing: border-box;
                 height: 7cm;
                 margin: 2mm;
                 background-color: var(--colors-dark-fg);
@@ -99,15 +92,6 @@ const GithubRepository: FC<Repository> = ({ name, images, url, createdAt, update
                     height: auto;
                     margin: 2mm 0;
                 }
-            }
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
             }
             a {
                 display: block;
@@ -215,6 +199,7 @@ const Works: NextPage<Props> = ({ repositories }) => (
                     padding: 0;
                     display: flex;
                     flex-wrap: wrap;
+                    justify-content: center;
                 }
                 div {
                     text-align: center;
@@ -229,6 +214,7 @@ export const getStaticProps: GetServerSideProps<Props> = async () => ({
     props: {
         repositories: await fetchGitHub(),
     },
+    revalidate: 60 * 60,
 });
 
 

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1200 675"
+   height="675"
+   width="1200"
+   version="1.1"
+   id="svg916"
+   sodipodi:docname="java-character-count.svg"
+   inkscape:export-filename="/mnt/tmpfs/linux-elecom-lbt-uan05c2.png"
+   inkscape:export-xdpi="204.8"
+   inkscape:export-ydpi="204.8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata922">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs920" />
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview918"
+     showgrid="false"
+     inkscape:zoom="1.0888889"
+     inkscape:cx="568.01264"
+     inkscape:cy="141.88741"
+     inkscape:current-layer="svg916" />
+  <rect
+     style="stroke-width:0.75"
+     y="0"
+     x="0"
+     id="rect240"
+     width="1200"
+     height="675"
+     fill="#fcf8f5" />
+  <g
+     id="g246"
+     transform="matrix(40.923788,0,0,40.923788,276.22688,-30.814092)"
+     stroke="#ece0e0"
+     fill="none">
+    <path
+       id="path242"
+       d="M 1,1 7,7 0,14 M 0,4 7,11 1,17" />
+    <path
+       id="path244"
+       stroke-width="0.5"
+       d="m 15,1 -6,6 7,7 m 0,-10 -7,7 6,6" />
+  </g>
+  <path
+     id="path248"
+     d="M 230,60 H 60 V 230 M 970,60 h 170 v 170 m 0,215 v 170 H 970 M 60,445 v 170 h 170"
+     stroke-width="6"
+     stroke="#402020"
+     fill="none" />
+  <path
+     id="path250"
+     d="m 373.91972,633.4715 h 25.39604 c 19.28218,0 31.9802,-8.4653 31.9802,-25.0433 0,-11.7574 -7.28961,-18.6943 -18.34158,-20.5755 v -0.5878 c 8.58291,-2.5867 13.16831,-9.8763 13.16831,-18.6944 0,-14.46159 -11.28713,-20.8106 -28.57054,-20.8106 h -23.63243 z m 7.05446,-48.323 v -31.62746 h 15.0495 c 15.16708,0 23.04455,4.23268 23.04455,15.87256 0,9.7586 -6.8193,15.7549 -23.74999,15.7549 z m 0,42.4443 v -36.8007 h 16.69554 c 17.04827,0 26.68936,5.6435 26.68936,17.6361 0,13.2859 -10.11139,19.1646 -26.68936,19.1646 z"
+     fill="#402020" />
+  <path
+     id="path252"
+     d="m 459.09186,635 c 2.23392,0 3.40965,-0.3527 4.5854,-0.7055 l -1.05817,-5.4084 c -1.29332,0.2351 -1.76361,0.2351 -2.23392,0.2351 -1.64603,0 -2.82178,-1.2933 -2.82178,-4.2326 V 540 h -6.8193 v 84.1832 c 0,7.2896 2.70421,10.8168 8.34777,10.8168 z"
+     fill="#402020" />
+  <path
+     id="path254"
+     d="m 498.05732,635 c 7.99505,0 15.5198,-4.3502 21.86882,-9.5235 h 0.23509 l 0.70546,7.995 h 5.76118 v -39.7401 c 0,-13.8737 -5.29084,-24.573 -20.22278,-24.573 -10.22896,0 -18.92945,4.9381 -23.74999,8.2302 l 3.05693,4.9381 c 4.35024,-3.292 11.52227,-7.172 19.75247,-7.172 11.875,0 14.57921,9.6411 14.34406,18.9295 -27.62995,3.1745 -39.97525,9.7586 -39.97525,23.6324 0,11.6398 8.11263,17.2834 18.22401,17.2834 z m 1.41089,-5.7611 c -6.93688,0 -12.81559,-3.2921 -12.81559,-11.875 0,-9.6411 8.46535,-15.4023 33.15594,-18.224 v 20.3403 c -7.40718,6.4666 -13.40347,9.7587 -20.34035,9.7587 z"
+     fill="#402020" />
+  <path
+     id="path256"
+     d="m 546.5028,633.4715 h 6.8193 v -46.9121 c 7.28961,-7.5247 12.46288,-11.2871 19.7525,-11.2871 9.64108,0 13.75617,5.9963 13.75617,19.047 v 39.1522 h 6.8193 v -40.0928 c 0,-16.1077 -5.99627,-24.2203 -19.04701,-24.2203 -8.58294,0 -15.04952,4.9381 -21.39853,11.1696 h -0.2356 l -0.82308,-9.5235 h -5.64359 z"
+     fill="#402020" />
+  <path
+     id="path258"
+     d="m 614.33337,633.4715 h 6.8193 v -16.9307 l 13.52103,-15.9901 20.22279,32.9208 h 7.52475 l -23.75002,-37.8589 20.45793,-24.8081 h -7.7599 l -29.98144,36.9183 h -0.2356 V 540 h -6.8193 z"
+     fill="#402020" />
+  <path
+     id="path260"
+     d="m 698.37263,635 c 2.82178,0 6.8193,-1.0582 10.46411,-2.3515 l -1.6459,-5.2908 c -2.2339,0.9406 -5.29085,1.7636 -7.64234,1.7636 -8.34776,0 -10.4641,-5.1733 -10.4641,-13.0508 v -39.5049 h 17.98886 v -5.7611 H 689.0844 v -18.10647 h -5.76113 l -0.82308,18.10647 -9.99382,0.5878 v 5.1733 h 9.75867 v 39.0347 c 0,11.6398 3.76238,19.3997 16.10767,19.3997 z"
+     fill="#402020" />
+  <path
+     id="path262"
+     d="m 742.87204,635 c 7.99508,0 15.51981,-4.3502 21.86882,-9.5235 h 0.2356 l 0.70554,7.995 h 5.76112 v -39.7401 c 0,-13.8737 -5.29084,-24.573 -20.22276,-24.573 -10.22896,0 -18.92947,4.9381 -23.74999,8.2302 l 3.05692,4.9381 c 4.35024,-3.292 11.52228,-7.172 19.75247,-7.172 11.875,0 14.57921,9.6411 14.34406,18.9295 -27.62994,3.1745 -39.97523,9.7586 -39.97523,23.6324 0,11.6398 8.11262,17.2834 18.22399,17.2834 z m 1.41082,-5.7611 c -6.9369,0 -12.8156,-3.2921 -12.8156,-11.875 0,-9.6411 8.46533,-15.4023 33.15593,-18.224 v 20.3403 c -7.40719,6.4666 -13.40346,9.7587 -20.34033,9.7587 z"
+     fill="#402020" />
+  <path
+     id="path264"
+     d="m 795.27588,633.4715 h 6.81933 V 591.38 c 4.58538,-11.6399 11.28711,-15.755 16.8131,-15.755 2.46898,0 3.64481,0.2351 5.76115,1.0582 l 1.41081,-6.1139 c -1.99879,-1.0582 -3.87995,-1.4109 -6.34901,-1.4109 -7.28961,0 -13.52103,5.4084 -17.75372,13.2859 h -0.2356 l -0.82308,-11.6398 h -5.64358 z"
+     fill="#402020" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:164.138px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:0.854885px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="379.26337"
+     y="179.03407"
+     id="text1487"><tspan
+       sodipodi:role="line"
+       id="tspan1485"
+       x="379.26337"
+       y="179.03407"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:164.138px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#402020;fill-opacity:1;stroke-width:0.854885px">Java</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="501.96399"
+     y="487.22412"
+     id="text1531"><tspan
+       sodipodi:role="line"
+       id="tspan1529"
+       x="501.96399"
+       y="487.22412" /></text>
+  <text
+     id="text1491-9"
+     y="337.7233"
+     x="749.79211"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:60.6576px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:0.812378px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:60.6576px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:0.812378px"
+       y="337.7233"
+       x="749.79211"
+       id="tspan1489-1"
+       sodipodi:role="line">の</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="1529.3223"
+     y="157.50331"
+     id="text1629"><tspan
+       sodipodi:role="line"
+       id="tspan1627"
+       x="1529.3223"
+       y="157.50331" /></text>
+  <text
+     id="text1491-8"
+     y="179.4082"
+     x="685.64807"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:58.21px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:0.779598px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:58.21px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:0.779598px"
+       y="179.4082"
+       x="685.64807"
+       id="tspan1489-5"
+       sodipodi:role="line">で</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:58.21px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:0.779598px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="809.32275"
+     y="440.68561"
+     id="text1491-8-4"><tspan
+       sodipodi:role="line"
+       id="tspan1489-5-9"
+       x="809.32275"
+       y="440.68561"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:58.21px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:0.779598px">を</tspan></text>
+  <text
+     id="text1491-8-4-2"
+     y="439.29141"
+     x="386.11475"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.468px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:1.4393px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.468px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:1.4393px"
+       y="439.29141"
+       x="386.11475"
+       id="tspan1489-5-9-7"
+       sodipodi:role="line">出現回数</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:159.174px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:2.13179px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="455.78372"
+     y="321.88919"
+     id="text1491-8-4-2-4"><tspan
+       sodipodi:role="line"
+       id="tspan1489-5-9-7-9"
+       x="455.78372"
+       y="321.88919"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:159.174px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:2.13179px">文字</tspan></text>
+  <text
+     id="text1491-8-4-0"
+     y="522.25659"
+     x="681.61304"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.5262px;line-height:125%;font-family:IPAexGothic;-inkscape-font-specification:IPAexGothic;letter-spacing:0px;word-spacing:0px;fill:#402020;fill-opacity:1;stroke:none;stroke-width:0.944547px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.5262px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP';fill:#402020;fill-opacity:1;stroke-width:0.944547px"
+       y="522.25659"
+       x="681.61304"
+       id="tspan1489-5-9-4"
+       sodipodi:role="line">数える</tspan></text>
+</svg>

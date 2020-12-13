@@ -1,6 +1,3 @@
-import Image, { ImageSet } from '~/lib/image';
-
-
 export type Language = {
     name: string;
     color: string;
@@ -11,7 +8,7 @@ export type Repository = {
     name: string;
     description: string;
     url: string | null;
-    images: null | ImageSet;
+    image: string | null;
     languages: Language[];
     updatedAt: string;
     createdAt: string;
@@ -93,7 +90,7 @@ const fetchGitHub = async (): Promise<Repository[]> => {
         name: repo.parent?.nameWithOwner ?? repo.name,
         description: repo.description ?? '',
         url: repo.homepageUrl || repo.url,
-        images: repo.usesCustomOpenGraphImage ? (await (await Image.download(repo.openGraphImageUrl)).optimize('works', 640)).images : null,
+        image: repo.usesCustomOpenGraphImage ? repo.openGraphImageUrl : null,
         languages: repo.languages.nodes.map(lang => ({
             name: lang.name,
             color: lang.color,

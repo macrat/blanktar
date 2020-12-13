@@ -1,9 +1,12 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 
 export type Props = {
     date: string;
+    level: 1 | 2 | 3 | 4 | 5;
 };
+
+type HeadingTag = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 
 const date2printable = (date: string) => {
@@ -13,31 +16,38 @@ const date2printable = (date: string) => {
 };
 
 
-const PS: FC<Props> = ({ date, children }) => (
-    <ins dateTime={date}>
-        <section>
-            <h5><time dateTime={date}>{date2printable(date)}</time> 追記</h5>
+const PS: FC<Props> = ({ date, level, children }) => {
+    const Heading = `h${Math.min(6, level + 1)}` as HeadingTag;
 
-            {children}
-        </section>
+    return (
+        <ins dateTime={date}>
+            <section>
+                <Heading><time dateTime={date}>{date2printable(date)}</time> 追記</Heading>
 
-        <style jsx>{`
-            section {
-                border-left: .2mm solid var(--colors-dark-fg);
-                padding-left: 5mm;
-                margin-left: 2mm;
-            }
-            h5 {
-                margin: 0;
-            }
-            ins {
-                display: block;
-                margin: 3mm 0;
-                text-decoration: none;
-            }
-        `}</style>
-    </ins>
-);
+                {children}
+            </section>
+
+            <style jsx>{`
+                section {
+                    border: .2mm solid var(--colors-dark-fg);
+                    padding: 3mm 4mm 0;
+                    margin: 2mm 0;
+                    position: relative;
+                }
+                h1, h2, h3, h4, h5, h6 {
+                    margin: 0 0 2mm;
+                    font-size: inherit;
+                    font-weight: 300;
+                }
+                ins {
+                    display: block;
+                    margin: 3mm 0;
+                    text-decoration: none;
+                }
+            `}</style>
+        </ins>
+    );
+};
 
 
 export default PS;

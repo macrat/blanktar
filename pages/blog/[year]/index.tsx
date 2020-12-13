@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
 import posts from '~/lib/posts';

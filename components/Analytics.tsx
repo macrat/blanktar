@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';
@@ -79,7 +79,11 @@ const Analytics: FC = () => {
         };
     }, []);
 
-    return <></>;
+    return (
+        <Head>
+            <script src="https://www.google-analytics.com/analytics.js" defer key="script--analytics" />
+        </Head>
+    );
 };
 
 

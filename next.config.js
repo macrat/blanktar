@@ -84,7 +84,7 @@ const CSPHeader = [
     "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
     "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
     "font-src 'self' https://fonts.gstatic.com/s/notosansjp/",
-    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.googletagmanager.com https://cdn.ampproject.org",
+    "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com https://www.googletagmanager.com https://cdn.ampproject.org",
     "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
     "object-src 'none'",
     "frame-ancestors 'none'",
@@ -110,30 +110,39 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
         GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     },
-    experimental: {
-        headers: () => [{
-            source: '/(.*)',
-            headers: [
-                {key: 'X-XSS-Protection', value: '1; mode=block'},
-                {key: 'X-Content-Type-Options', value: 'nosniff'},
-                {key: 'X-Frame-Options', value: 'deny'},
-                {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
-                ...(
-                    isDebug ? [
-                    ] : [
-                        {key: 'Content-Security-Policy', value: CSPHeader}
-                    ]
-                ),
-            ],
-        }],
-        rewrites: () => [
-            {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
-            {source: '/sitemap.xml', destination: '/api/sitemap'},
-            {source: '/blog/feed.xml', destination: '/api/feed'},
-            {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
-        ],
-        redirects: () => [
-            {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
+    images: {
+        domains: [
+            'repository-images.githubusercontent.com',
+            'scontent.cdninstagram.com',
         ],
     },
+    headers: () => [{
+        source: '/(.*)',
+        headers: [
+            {key: 'X-XSS-Protection', value: '1; mode=block'},
+            {key: 'X-Content-Type-Options', value: 'nosniff'},
+            {key: 'X-Frame-Options', value: 'deny'},
+            {key: 'Referrer-Policy', value: 'no-referrer-when-downgrade'},
+            ...(
+                isDebug ? [
+                ] : [
+                    {key: 'Content-Security-Policy', value: CSPHeader}
+                ]
+            ),
+        ],
+    }, {
+        source: '/_next/image',
+        headers: [
+            {key: 'Cache-Control', value: 'public, immutable, max-age=2592000'},
+        ],
+    }],
+    rewrites: () => [
+        {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
+        {source: '/sitemap.xml', destination: '/api/sitemap'},
+        {source: '/blog/feed.xml', destination: '/api/feed'},
+        {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
+    ],
+    redirects: () => [
+        {source: '/img/eyecatch/:title.png', destination: '/img/eyecatch/1x1/:title.png', permanent: true},
+    ],
 })));

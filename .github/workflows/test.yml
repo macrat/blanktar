@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+env:
+  cache-version: cache1
+
 jobs:
   test:
     name: Unit Test
@@ -13,11 +16,12 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - name: Cache npm directory
+        uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-npm-
 
       - run: npm ci
       - run: npm test
@@ -28,11 +32,12 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - name: Cache npm directory
+        uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-npm-
 
       - run: npm ci
       - run: npm run lint
@@ -43,11 +48,18 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - name: Cache npm directory
+        uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-npm-
+      - name: Cache build directory
+        uses: actions/cache@v2
+        with:
+          path: .next
+          key: ${{ env.cache-version }}-${{ runner.os }}-next-${{ hashFiles('**/*.ts') }}-${{ hashFiles('**/*.tsx') }}-${{ hashFiles('**/*.js') }}-${{ hashFiles('**/*.jsx') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-next-
 
       - run: npm ci
       - run: npm run build
@@ -55,7 +67,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WORKS_GITHUB_TOKEN }}
           INSTAGRAM_TOKEN: ${{ secrets.PHOTOS_INSTAGRAM_TOKEN }}
 
-      - uses: treosh/lighthouse-ci-action@v2
+      - uses: treosh/lighthouse-ci-action@v3
         with:
           configPath: '.github/lighthouse.json'
           uploadArtifacts: true

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -25,7 +25,7 @@ const MetaData: FC<Props> = ({ title, description, image }) => {
     return (
         <Head>
             <title>{title ? `${title} - Blanktar` : 'Blanktar'}</title>
-            {description ? <meta name="description" content={description} /> : null}
+            {description ? <meta name="description" content={description} key="meta--description" /> : null}
 
             <meta property="og:title" content={title ?? 'Blanktar'} key="ogp--title" />
             <meta property="og:type" content={router.asPath === '/' ? 'website' : 'article'} key="ogp--type" />
@@ -35,9 +35,11 @@ const MetaData: FC<Props> = ({ title, description, image }) => {
             <meta property="og:site_name" content="Blanktar" key="ogp--site_name" />
             <meta property="fb:app_id" content="3557706767604040" key="facebook--app_id" />
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} key="twitter--card" />
-            <meta name="twitter:creator" content="@macrat_jp" key="twitter-creator" />
+            <meta name="twitter:creator" content="@macrat_jp" key="twitter--creator" />
 
-            <link rel="canonical" type="text/html" href={`${canonical}`} />
+            {image ? <meta name="robots" content="max-image-preview:large" key="robots--max-image-preview" /> : null}
+
+            <link rel="canonical" type="text/html" href={`${canonical}`} key="link--canonical" />
         </Head>
     );
 };

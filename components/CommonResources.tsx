@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, memo } from 'react';
+import { FC, useState, useEffect, memo } from 'react';
 import { useAmp } from 'next/amp';
 import Head from 'next/head';
 
@@ -10,7 +10,7 @@ const CommonResources: FC = () => {
 
     return (
         <Head>
-            <meta charSet="utf-8" />
+            <meta charSet="utf-8" key="meta--charset" />
 
             <link
                 rel="stylesheet"
@@ -68,7 +68,11 @@ const CommonResources: FC = () => {
 
             <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" key="feed" />
 
-            <JsonLD data={Website} />
+            {/*
+                XXX: avoid recursive elements because Head can't have nested children inside.
+                seealso: https://github.com/macrat/blanktar/issues/485
+            */}
+            {JsonLD({ data: Website })}
         </Head>
     );
 };

@@ -1,7 +1,16 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { shallow } from 'enzyme';
+import { UrlObject } from 'url';
 
 import Pagination from '..';
+
+
+jest.mock('next/link', () => {
+    const DummyLink = ({ href, children }: { href: string | UrlObject; children: ReactElement }) => (
+        <a href={String(href)} {...children.props} />
+    );
+    return DummyLink;
+});
 
 
 describe('Pagination', () => {

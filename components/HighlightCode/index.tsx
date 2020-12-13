@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Prism from 'prism-react-renderer/prism';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 

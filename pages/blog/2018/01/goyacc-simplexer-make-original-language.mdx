@@ -3,7 +3,7 @@ title: go言語/goyaccでプログラミング言語を自作したい
 pubtime: 2018-01-08T00:44+0900
 modtime: 2018-01-10T00:00+0900
 amp: hybrid
-tags: [go, go言語, goyacc, simplexer, 計算機]
+tags: [go言語, goyacc, simplexer, 計算機]
 description: go言語/goyaccで自作の言語を作ってみました。この記事では、簡易的な計算機を作ります。
 ---
 
@@ -249,11 +249,13 @@ func (l *Lexer) Lex(lval *yySymType) int {
 先ほどの定義はyaccに使うトークンの種類を伝えると共に、int型の定数を定義する機能も持っています。
 simplexerはが返すトークンはintで識別子を持てるので、yaccが生成したIDをそのまんま渡してあります。
 
-<PS date="2018-01-10">
-<p><a href="https://github.com/macrat/simplexer/commit/9d4be71296ab3e683cea584a76bc0629c84472d2">本日の更新</a>で、<inlineCode>simplexer.NewTokenType</inlineCode>が<inlineCode>simplexer.NewRegexpTokenType</inlineCode>に、<inlineCode>Token.Type.ID</inlineCode>が<inlineCode>Token.Type.GetID()</inlineCode>に変更になりました。
-サンプルは全て修正後のものになってます。</p>
+<PS date="2018-01-10" level={2}>
 
-<p>正規表現使うやつだけじゃなくて、完全一致しかさせないやつとかも作ったのでちょっと効率が良くなったりする、はず。たぶん。</p>
+[本日の更新](https://github.com/macrat/simplexer/commit/9d4be71296ab3e683cea584a76bc0629c84472d2)で、`simplexer.NewTokenType`が`simplexer.NewRegexpTokenType`に、`Token.Type.ID`が`Token.Type.GetID()`に変更になりました。
+サンプルは全て修正後のものになってます。
+
+正規表現使うやつだけじゃなくて、完全一致しかさせないやつとかも作ったのでちょっと効率が良くなったりする、はず。たぶん。
+
 </PS>
 
 で、あともう一個。エラー処理の関数を作ります。

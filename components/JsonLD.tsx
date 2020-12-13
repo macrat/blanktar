@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 
 type Thing = {
@@ -10,11 +10,14 @@ type Thing = {
 export const Author: Thing = {
     '@type': 'Person',
     name: 'MacRat',
+    familyName: 'SHIDA',
+    givenName: 'yuuma',
     url: 'https://blanktar.jp',
+    image: 'https://blanktar.jp/img/macrat.png',
     sameAs: [
         'https://twitter.com/macrat_jp',
         'https://www.instagram.com/macrat_jp/',
-        'http://facebook.com/yuuma.shida',
+        'https://facebook.com/yuuma.shida',
     ],
 };
 
@@ -25,9 +28,17 @@ export const Publisher: Thing = {
     member: Author,
     logo: [{
         '@type': 'ImageObject',
+        url: 'https://blanktar.jp/img/blanktar-banner.svg',
+        width: 313,
+        height: 60,
+    }, {
+        '@type': 'ImageObject',
         url: 'https://blanktar.jp/img/blanktar-banner.png',
         width: 313,
         height: 60,
+    },  {
+        '@type': 'ImageObject',
+        url: 'https://blanktar.jp/img/blanktar-logo.svg',
     },  {
         '@type': 'ImageObject',
         url: 'https://blanktar.jp/img/blanktar-logo@512.png',
