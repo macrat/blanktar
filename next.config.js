@@ -29,13 +29,13 @@ const withOffline = config => {
                     },
                 },
             }, {
-                urlPattern: /(\/_next\/static\/|\/font\.css)/,
+                urlPattern: /(\/_next\/static\/|\/font\/)/,
                 handler: 'CacheFirst',
                 options: {
                     cacheName: 'static',
                     expiration: {
                         maxEntries: 500,
-                        maxAgeSeconds: 14 * 24 * 60 * 60,
+                        maxAgeSeconds: 30 * 24 * 60 * 60,
                     },
                 },
             }, {
@@ -66,16 +66,6 @@ const withOffline = config => {
                         maxAgeSeconds: 7 * 24 * 60 * 60,
                     },
                 },
-            }, {
-                urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-                handler: 'CacheFirst',
-                options: {
-                    cacheName: 'webfont',
-                    expiration: {
-                        maxEntries: 200,
-                        maxAgeSeconds: 30 * 24 * 60 * 60,
-                    },
-                },
             }],
         },
     });
@@ -90,10 +80,10 @@ const withMdxEnhanced = require('next-mdx-enhanced')({
 
 const CSPHeader = [
     "default-src 'self'",
-    "style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/css https://*.twitter.com/",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/css https://*.twitter.com/",
     "img-src 'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net https://*.twitter.com/ https://*.twimg.com/",
     "script-src 'self' https://cdn.ampproject.org/ https://www.google-analytics.com/analytics.js https://platform.twitter.com/ https://cdn.syndication.twimg.com/",
-    "font-src https://fonts.gstatic.com/s/notosansjp/",
+    "font-src 'self' https://fonts.gstatic.com/s/notosansjp/",
     "connect-src 'self' https://fonts.gstatic.com/s/notosansjp/ https://www.google-analytics.com https://www.googletagmanager.com https://cdn.ampproject.org",
     "frame-src https://platform.twitter.com/ https://syndication.twitter.com/",
     "object-src 'none'",
@@ -148,7 +138,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
     }],
     rewrites: () => [
         {source: '/img/eyecatch/:size/:title.png', destination: '/api/eyecatch/:size/:title'},
-        {source: '/font.css', destination: '/api/font'},
         {source: '/sitemap.xml', destination: '/api/sitemap'},
         {source: '/blog/feed.xml', destination: '/api/feed'},
         {source: '/service-worker.js', destination: '/_next/static/service-worker.js'},
