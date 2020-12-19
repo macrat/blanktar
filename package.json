@@ -57,7 +57,7 @@
     "jest": "26.6.3",
     "jest-fetch-mock": "3.0.3",
     "jest-raw-loader": "1.0.1",
-    "marked": "1.2.6",
+    "marked": "1.2.7",
     "mime": "2.4.6",
     "mock-http": "1.1.0",
     "next-mdx-enhanced": "github:macrat/next-mdx-enhanced#exportFrontmatterAs",
