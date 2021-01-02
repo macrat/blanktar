@@ -29,7 +29,7 @@
     "front-matter": "4.0.2",
     "next": "10.0.4",
     "prism-react-renderer": "1.1.1",
-    "prismjs": "1.22.0",
+    "prismjs": "1.23.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-ga": "3.3.0",
