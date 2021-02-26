@@ -46,8 +46,8 @@
     "@types/react": "17.0.2",
     "@types/sharp": "0.27.1",
     "@types/styled-jsx": "2.2.8",
-    "@typescript-eslint/eslint-plugin": "4.15.1",
-    "@typescript-eslint/parser": "4.15.1",
+    "@typescript-eslint/eslint-plugin": "4.15.2",
+    "@typescript-eslint/parser": "4.15.2",
     "asyncmark": "1.0.1",
     "babel-plugin-macros": "3.0.1",
     "enzyme": "3.11.0",
@@ -68,8 +68,8 @@
     "raw-loader": "4.0.2",
     "react-masonry-component": "6.2.1",
     "sharp": "0.27.1",
-    "ts-jest": "26.5.1",
-    "typescript": "4.1.5",
+    "ts-jest": "26.5.2",
+    "typescript": "4.2.2",
     "xmlbuilder": "15.1.1"
   },
   "browserslist": [
