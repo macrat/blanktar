@@ -10,7 +10,7 @@
       "updateTypes": ["minor", "patch"],
       "groupName": "minor updates",
       "excludePackagePatterns": [
-        "next"
+        "^next$"
       ]
     },
     {
