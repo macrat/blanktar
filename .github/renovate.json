@@ -8,7 +8,10 @@
   "packageRules": [
     {
       "updateTypes": ["minor", "patch"],
-      "groupName": "minor updates"
+      "groupName": "minor updates",
+      "excludePackagePatterns": [
+        "^next$"
+      ]
     },
     {
       "packagePatterns": [
