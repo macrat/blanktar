@@ -69,7 +69,7 @@
     "react-masonry-component": "6.2.1",
     "sharp": "0.27.2",
     "ts-jest": "26.5.2",
-    "typescript": "4.2.2",
+    "typescript": "4.2.3",
     "xmlbuilder": "15.1.1"
   },
   "browserslist": [
