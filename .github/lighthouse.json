@@ -19,7 +19,7 @@
         "dom-size": "warn",
         "link-text": "warn",
         "non-composited-animations": "warn",
-        "preload-lcp-resources": "off",
+        "preload-lcp-image": "off",
         "unsized-images": "warn",
         "unused-javascript": "off",
         "uses-http2": "off",
