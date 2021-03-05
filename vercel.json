@@ -1,13 +1,7 @@
 {
+  "version": 2,
   "github": {
     "silent": true
-  },
-  "build": {
-    "env": {
-      "GITHUB_TOKEN": "@blanktar--github-token",
-      "INSTAGRAM_TOKEN": "@blanktar--instagram-token",
-      "GOOGLE_ANALYTICS": "@blanktar--google-analytics"
-    }
   },
   "trailingSlash": false,
   "redirects": [
