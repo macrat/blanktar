@@ -44,7 +44,7 @@
     "@types/preval.macro": "3.0.0",
     "@types/prismjs": "1.16.4",
     "@types/react": "17.0.3",
-    "@types/sharp": "0.27.2",
+    "@types/sharp": "0.27.3",
     "@types/styled-jsx": "2.2.8",
     "@typescript-eslint/eslint-plugin": "4.20.0",
     "@typescript-eslint/parser": "4.20.0",
