@@ -64,8 +64,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKS_GITHUB_TOKEN }}
-          INSTAGRAM_TOKEN: ${{ secrets.PHOTOS_INSTAGRAM_TOKEN }}
+          WORKS_GITHUB_TOKEN: ${{ secrets.WORKS_GITHUB_TOKEN }}
+          PHOTOS_INSTAGRAM_TOKEN: ${{ secrets.PHOTOS_INSTAGRAM_TOKEN }}
 
       - uses: treosh/lighthouse-ci-action@v7
         with:

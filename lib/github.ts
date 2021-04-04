@@ -49,7 +49,7 @@ const fetchGitHub = async (): Promise<Repository[]> => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+            'Authorization': `token ${process.env.WORKS_GITHUB_TOKEN}`,
         },
         body: JSON.stringify({
             query: `{
