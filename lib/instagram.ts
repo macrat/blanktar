@@ -22,7 +22,7 @@ type RawInstagramResponse = {
 
 
 const fetchInstagram = async (): Promise<Photo[]> => {
-    const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${process.env.INSTAGRAM_TOKEN}`);
+    const resp = await fetch(`https://graph.facebook.com/v6.0/17841404490434454/media?fields=caption,media_url,permalink&limit=20&access_token=${process.env.PHOTOS_INSTAGRAM_TOKEN}`);
 
     if (!resp.ok) {
         throw new Error(`failed to fetch Instagram data: ${resp.status} ${resp.statusText}`);
