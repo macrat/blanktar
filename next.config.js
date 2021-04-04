@@ -115,11 +115,6 @@ module.exports = withBundleAnalyzer(withOffline(withMdxEnhanced({
         });
         return config;
     },
-    env: {
-        GITHUB_TOKEN: process.env.GITHUB_TOKEN,
-        INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
-        GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
-    },
     images: {
         domains: [
             'repository-images.githubusercontent.com',
