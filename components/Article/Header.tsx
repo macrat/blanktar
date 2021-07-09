@@ -32,7 +32,7 @@ const ArticleHeader: FC<Props> = ({ pubtime, title, tags, breadlist }) => (
                 margin: 0 0 .5rem;
                 ${breadlist ? "" : "padding: 2.5rem 0 0;"}
                 line-height: 1em;
-                transition: font-size .6s ease;
+                transition: font-size .2s ease;
             }
             time {
                 display: block;

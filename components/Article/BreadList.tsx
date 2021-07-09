@@ -97,7 +97,7 @@ const BreadList: FC<Props> = ({ pages }) => (
                 text-decoration: none;
             }
 
-            @media screen and (prefers-color-scheme: dark) {
+            @media (prefers-color-scheme: dark) {
                 li::after {
                     background-image: url(${DarkIcon});
                 }

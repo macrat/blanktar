@@ -47,7 +47,7 @@ const SocialShare: FC<Props> = ({ title, href, image }) => (
                 margin: 0 2mm;
             }
 
-            @media screen and (max-width: 380px) {
+            @media (max-width: 380px) {
                 ul {
                     flex-wrap: wrap;
                     margin: -2mm 0;

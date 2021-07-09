@@ -53,7 +53,7 @@ const BlogList: FC<Props> = ({ posts }) => (
                 display: block;
                 padding: 7mm 5mm;
                 cursor: pointer;
-                transition: padding .6s ease;
+                transition: padding .2s ease;
             }
             @media (max-width: 40em) {
                 a {

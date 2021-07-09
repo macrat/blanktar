@@ -39,7 +39,7 @@ const ViewMore: FC<Props> = ({ href }) => (
                 transform: scaleY(1);
                 z-index: -1;
             }
-            @media screen and (prefers-reduced-motion: reduce) {
+            @media (prefers-reduced-motion: reduce) {
                 ::before {
                     opacity: 0;
                     transform: scaleY(1);
