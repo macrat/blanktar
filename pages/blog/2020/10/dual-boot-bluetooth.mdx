@@ -1,6 +1,7 @@
 ---
 title: Linux/Windowsのデュアルブート環境でBluetoothやBLEのデバイスを共有する方法
 pubtime: 2020-10-07T19:49+0900
+modtime: 2021-07-09T21:32+0900
 amp: hybrid
 tags: [Linux, Windows, Bluetooth]
 description: デュアルブート環境で同じBluetoothやBLEのデバイスを使おうとすると、OSを変えて起動する度にペアリングしなおさないといけなくて面倒です。少し作業をすることでこれを回避出来るようだったので、試してみました。
@@ -61,7 +62,16 @@ Windows側で生成したキーにLinux側を合せる手順を取るので、Li
 
 # 3. Windowsのレジストリから情報を取り出す
 
-Windowsが作ったキーが欲しいので、レジストリの以下の場所にある情報をエクスポートします。
+<PS date="2021-07-09" level={2}>
+
+新しいデバイスを買ったので同じことをやろうとしたら、必要な情報を見つけられませんでした。
+どうやらWindowsのアップデートか何かで仕様が変わったようです。
+
+下記の方法で見つけられない場合、この記事の末尾にある[別の方法](#別の方法:%20regedit.exeで目的のキー情報を見付けられない場合)が使えるかもしれません。
+
+</PS>
+
+Windowsが作ったキーが欲しいので、regedit.exeを使ってレジストリの以下の場所にある情報をエクスポートします。
 
 ```
 HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BTHPORT\Parameters\Keys
@@ -213,6 +223,153 @@ $ sudo systemctl restart bluetooth
 やったね。
 
 
+# 別の方法: regedit.exeで目的のキー情報を見付けられない場合
+
+上記の方法ではregedit.exeでエクスポートしましたが、Linuxのchntpwコマンドを使う方法もあります。
+情報の抜き出し方が違うだけで、それ以外の手順は変わりません。
+
+## Linux側にchntpwをインストールする
+
+まずはLinuxに[chntpw](http://pogostick.net/~pnh/ntpasswd/)をインストールします。
+元々はWindowsのパスワードを変えるためのコマンドなので **CHange NT PassWord** という名前みたいです。
+レジストリの閲覧機能があるので、これを使って情報を取り出します。
+
+apt-get、yum、portageなど主要なパッケージマネージャで入るようです。
+
+## Windowsのストレージをマウントする
+
+レジストリを見るために、まずはWindowsがインストールされたパーティションをLinuxにインストールします。
+
+``` bash
+$ sudo mount /dev/sdb4 /mnt/win
+```
+
+デバイス名、マウント先はよしなに。
+もしかしたら、NTFSをマウントするためのfuseのインストールが必要かもしれません。
+
+## レジストリを開いて目的のデバイスを探す
+
+以下のコマンドでchntpwを起動します。
+
+```
+$ chntpw -e /mnt/win/Windows/System32/config/SYSTEM
+chntpw version 1.00 140201, (c) Petter N Hagen
+Hive </mnt/win/Windows/System32/config/SYSTEM> name (from header): <SYSTEM>
+ROOT KEY at offset: 0x001020 * Subkey indexing type is: 686c <lh>
+File size 20185088 [1340000] bytes, containing 4299 pages (+ 1 headerpage)
+Used for data: 302800/19733216 blocks/bytes, unused: 125/129984 blocks/bytes.
+
+Simple registry editor. ? for help.
+
+>
+```
+
+この時点で、regedit.exeで言う `HKEY_LOCAL_MACHINE\SYSTEM` に相当する位置がカレントディレクトリになっています。
+ここから `ls` と `cd` を使って `HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BTHPORT\Parameters\Keys\001bdcxxxxxx` に相当する場所まで潜っていきます。
+
+```
+> cd ControlSet001\Services\BTHPORT\Parameters\Keys
+
+(...)\Services\BTHPORT\Parameters\Keys> ls
+Node has 2 subkeys and 0 values
+  key name
+  <001bdxxxxxxx>
+
+(...)\BTHPORT\Parameters\Keys> cd 001bdxxxxxx
+```
+
+上記の `001bdxxxxxx` がPCについているレシーバのアドレスです。
+
+ここで `ls` を実行すると、以下のようにWindows側で接続されているデバイスの一覧が表示されます。
+
+```
+(...)\Parameters\Keys\001bdxxxxxxx> ls
+Node has 2 subkeys and 4 values
+  key name
+  <d3bc56xxxxxx>
+  <e834dbxxxxxx>
+  size     type              value name             [value if type DWORD]
+    16  3 REG_BINARY         <88d039xxxxxx>
+    16  3 REG_BINARY         <cc988bxxxxxx>
+    16  3 REG_BINARY         <MasterIRK>
+    16  3 REG_BINARY         <e09f2axxxxxx>
+```
+
+上に表示されている `d3bc56xxxxxx` と `e834dbxxxxxx` がBLEデバイスで、下に表示されている `88d039xxxxxx` や `cc988bxxxxxx` がBluetoothデバイスです。
+
+## 必要な情報を探してLinux側に反映する
+
+### Bluetoothデバイス
+
+Bluetoothの場合のやり方はかなり単純で、以下のように `hex` コマンドを使うと必要なLinkKeyを取り出せます。
+
+```
+Value <cc988bxxxxxx> of type REG_BINARY (3), data length 16 [0x10]
+:00000  84 10 10 XX XX XX XX XX XX XX XX XX XX 27 CE ED ................
+```
+
+この場合、 `841010XXXXXXXXXXXXXXXXXXXX27CEED` がLinkKeyになります。
+
+なので、Linux側の`info`ファイルの内容は以下のようになります。
+
+``` toml
+[LinkKey]
+Key=84EDXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Type=4
+PINLength=0
+```
+
+### BLEデバイス
+
+BLEの場合はディレクトリになっているので、まずはその中に入ります。
+
+```
+(...)\BTHPORT\Parameters\Keys\001bdcxxxxxx> cd e834dbxxxxxx
+
+(...)\Parameters\Keys\001bdcxxxxxx\e834dbxxxxxx> ls
+Node has 0 subkeys and 9 values
+  size     type              value name             [value if type DWORD]
+    16  3 REG_BINARY         <LTK>
+     4  4 REG_DWORD          <KeyLength>               16 [0x10]
+     8  b REG_QWORD          <ERand>
+     4  4 REG_DWORD          <EDIV>                  1234 [0x042d]
+    16  3 REG_BINARY         <IRK>
+     8  b REG_QWORD          <Address>
+     4  4 REG_DWORD          <AddressType>              1 [0x1]
+     4  4 REG_DWORD          <MasterIRKStatus>          1 [0x1]
+     4  4 REG_DWORD          <AuthReq>                 45 [0x2d]
+```
+
+ここで、 `LTK` `ERand` `EDIV` の3つを取り出します。
+
+`EDIV` については表示されている10進数の値(上記の例だと `1234`)がそのまま使えます。
+
+`LTK` と `ERand` は下記のように `hex` コマンドで取得します。
+
+```
+(...)\Parameters\Keys\001bdcxxxxxx\d3bc56xxxxxx> hex LTK
+Value <LTK> of type REG_BINARY (3), data length 16 [0x10]
+:00000  A8 EC B2 XX XX XX XX XX XX XX XX XX XX F4 AD 76 ................
+
+
+(...)\Parameters\Keys\001bdcxxxxxx\d3bc56xxxxxx> hex ERand
+Value <ERand> of type REG_QWORD (b), data length 8 [0x8]
+:00000  23 00 00 00 00 00 00 EB                         ........
+```
+
+`LTK` はスペースを消せばそのまま使えるのですが、 `ERand` は[もう一個の方法のregedit.exeを使った場合と同じ加工](#加工する)が必要になります。
+
+というわけで、この例だとLinux側の`info`ファイルは以下のようになります。
+
+``` toml
+[LongTermKey]
+Key=A8ECB2XXXXXXXXXXXXXXXXXXXXF4AD76
+Authenticated=0
+EncSize=16
+EDiv=1234
+Rand=16933534598913064995
+```
+
 ---
 
 参考:
@@ -220,3 +377,4 @@ $ sudo systemctl restart bluetooth
 - [Windows10とUbuntu18.04のデュアルブート環境で1つのBluetoothキーボードを両OSでペアリングして使う方法 - Qiita](https://qiita.com/yoko-yan/items/9b0235678fd804b4fe0d)
 - [デュアルブート環境で、Bluetooth Low Energy (LE) マウスを快適に使う - 社長、ティッシュどこですか？](https://thewayout.hatenablog.com/entry/2018/09/24/205134)
 - [Bluetooth mouse in dual boot of Windows 10 and Linux | DesktopI18N&#039;s Blog](https://desktopi18n.wordpress.com/2018/02/02/bluetooth-mouse-in-dual-boot-of-windows-10-and-linux/)
+- [NKT(長く苦しい戦い)であったデュアルブート環境でbluetoothマウスを動くようにすることに成功ス！ - yumetodoの旅とプログラミングとかの記録](https://yumetodo.hateblo.jp/entry/2021/01/15/200421)
