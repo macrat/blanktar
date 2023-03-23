@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v2
       - uses: actions/checkout@v2
       - name: Cache npm directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-node@v2
       - uses: actions/checkout@v2
       - name: Cache npm directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -49,13 +49,13 @@ jobs:
       - uses: actions/setup-node@v2
       - uses: actions/checkout@v2
       - name: Cache npm directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ env.cache-version }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ env.cache-version }}-${{ runner.os }}-npm-
       - name: Cache build directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .next
           key: ${{ env.cache-version }}-${{ runner.os }}-next-${{ hashFiles('**/*.ts') }}-${{ hashFiles('**/*.tsx') }}-${{ hashFiles('**/*.js') }}-${{ hashFiles('**/*.jsx') }}
