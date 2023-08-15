@@ -1,0 +1,72 @@
+---
+title: HTML5のcanvasの中身をコピー
+pubtime: 2015-04-18T16:37:00+09:00
+amp: false
+tags: [HTML5, Canvas, JavaScript]
+description: HTML5のcanvasを使ってお絵描きした内容を、そのまままるごとコピーする方法です。結構簡単に出来るみたいです。
+---
+
+[先ほどの記事](/blog/2015/04/html-canvas-paint)に引き続いてHTML5のcanvasです。
+お絵描きをしたcanvasの中身を別のcanvasにコピーしよう、と言う感じ。
+
+とりあえずサンプル。
+
+<canvas width="320" height="240" style={{border: "1px solid black", backgroundColor: "white"}} id="alpha" />
+<canvas width="320" height="240" style={{border: "1px solid black", backgroundColor: "white"}} id="beta" />
+
+<button>コピー</button>
+<Script>{() => {
+    const alpha = document.querySelector('#alpha');
+    const beta = document.querySelector('#beta');
+    const alphacontext = alpha.getContext('2d');
+    alpha.addEventListener('mousedown', ev => {
+        alphacontext.beginPath();
+        alphacontext.moveTo(ev.layerX, ev.layerY);
+    });
+    alpha.addEventListener('mousemove', ev => {
+        if (ev.which) {
+            alphacontext.lineTo(ev.layerX, ev.layerY);
+            alphacontext.stroke();
+        }
+    });
+    document.querySelector('button').addEventListener('click', ev => {
+        const image = alphacontext.getImageData(0, 0, alpha.width, alpha.height);
+        beta.getContext('2d').putImageData(image, 0, 0);
+    });
+}}</Script>
+
+左のカンバスは絵を描ける。コピーってボタンをクリックすると内容をコピーできる。
+
+``` html
+<html>
+    <canvas width=320 height=240 style="border: 1px solid black" id=alpha></canvas>
+    <canvas width=320 height=240 style="border: 1px solid black" id=beta></canvas>
+    <button>コピー</button>
+
+    <script>
+        var alpha = document.querySelector('#alpha');
+        var beta = document.querySelector('#beta');
+        var context = alpha.getContext('2d');
+
+        alpha.addEventListener('mousedown', function(ev){
+            context.beginPath();
+            context.moveTo(ev.layerX, ev.layerY);
+        });
+
+        alpha.addEventListener('mousemove', function(ev){
+            if(ev.which){
+                context.lineTo(ev.layerX, ev.layerY);
+                context.stroke();
+            }
+        });
+
+        document.querySelector('button').addEventListener('click', function(ev){
+            var image = context.getImageData(0, 0, alpha.width, alpha.height);
+            beta.getContext('2d').putImageData(image, 0, 0);
+        });
+    </script>
+</html>
+```
+ソースコードはこんな。
+contextの`getImageData`でカンバスの中身を画像化して、そいつを`putImageData`で貼り付ける。
+結構お手軽？

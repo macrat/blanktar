@@ -1,5 +1,1 @@
-.mdx-data
-.next
-.vercel
-node_modules
-out
+dist

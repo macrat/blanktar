@@ -1,0 +1,65 @@
+{{define "title"}}{{.Title}} - Blanktar{{end}}
+
+{{/* <style> */}}
+{{define "style"}}
+.metadata {
+    margin: 0 0 48px;
+    text-align: center;
+}
+.tags {
+    display: inline;
+    padding: 0;
+}
+.tags li {
+    display: inline-block;
+    margin: 0 0 0 8px;
+    padding: 0;
+}
+.tags a {
+    text-decoration: none;
+}
+.tags a::before {
+    content: '#';
+}
+.tags a:hover {
+    text-decoration: underline;
+}
+
+.chroma {
+    overflow-x: auto;
+    padding: 16px 12px;
+    border: 1px solid #433;
+}
+code {
+    padding: 2px 8px;
+    background-color: rgba(160,160,160,.2);
+}
+
+@media (prefers-color-scheme: dark) {
+    .chroma {
+        border: none;
+    }
+}
+{{end}}
+{{/* </style> */}}
+
+{{define "main"}}
+    <article>
+        <ol class="bread-crumbs">
+            <li><a href="/">top</a></li>
+            <li><a href="/blog">blog</a></li>
+            <li><a href="/blog/{{.Published.Format "2006"}}">{{.Published.Format "2006"}}</a></li>
+            <li><a href="/blog/{{.Published.Format "2006/01"}}">{{.Published.Format "01"}}</a></li>
+        </ol>
+        <h1>{{.Title}}</h1>
+        <div class="metadata">
+            <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02 15:04"}}</time>
+            <ul class="tags">
+                {{range .Tags}}
+                <li><a href="/search?q=%23{{.}}">{{.}}</a></li>
+                {{end}}
+            </ul>
+        </div>
+        {{.Content}}
+    </article>
+{{end}}
