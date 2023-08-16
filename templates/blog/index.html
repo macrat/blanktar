@@ -1,5 +1,7 @@
 {{define "title"}}blog - Blanktar{{end}}
 
+{{define "description"}}Blanktarに掲載されたブログ記事一覧の{{.TotalPages}}ページ中{{.Page}}ページ目。{{end}}
+
 {{/* <style> */}}
 {{define "style"}}
 .blog-articles {
@@ -119,7 +121,6 @@
 {{define "main"}}
     <ol class="bread-crumbs">
         <li><a href="/">top</a></li>
-        <li><a href="/blog">blog</a></li>
     </ol>
     <h1>blog</h1>
     <ol class="blog-articles">

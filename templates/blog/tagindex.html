@@ -1,5 +1,7 @@
 {{define "title"}}blog tags - Blanktar{{end}}
 
+{{define "description"}}Blanktarに掲載されたブログ記事に設定されたタグの一覧。{{end}}
+
 {{/* <style> */}}
 {{define "style"}}
 .tag-list {
@@ -35,9 +37,7 @@
     <h1>tags</h1>
     <ul class="tag-list">
         {{range .Tags}}
-            {{if gt (len .Posts) 1}}
-                <li><a href="/blog/tags/{{.Tag}}" style="font-size: {{tagsize (len .Posts)}}%">#{{.Tag}}</a> <span class="article-count">({{len .Posts}}件)</span></li>
-            {{end}}
+            <li><a href="/blog/tags/{{.Tag}}" style="font-size: {{tagsize (len .Posts)}}%">#{{.Tag}}</a> <span class="article-count">({{len .Posts}}件)</span></li>
         {{end}}
     </ul>
 {{end}}

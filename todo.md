@@ -4,13 +4,13 @@
 
 - [x] Blog index page
 
-- [ ] Replase custom components from old Blanktar
+- [ ] Replace custom components from old Blanktar
 
 - [ ] FAQ and HowTo markup
 
 ## Other pages
 
-- [ ] Top page
+- [x] Top page
 
 - [ ] Works page  
   Link to GitHub or something else?
@@ -18,7 +18,7 @@
 - [ ] Photos page  
   Make something new
 
-- [ ] Footer and privacy policy
+- [x] Footer and privacy policy
 
 ## SEO and social
 

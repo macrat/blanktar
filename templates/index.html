@@ -1,0 +1,36 @@
+{{define "title"}}Blanktar{{end}}
+
+{{/* <style> */}}    
+{{define "style"}}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 150%;
+}
+h1 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 300%;
+}
+ul {
+    border-top: 1px solid currentColor;
+    padding-top: .3em !important;
+}
+{{end}}
+{{/* </style> */}}    
+
+{{define "body"}}
+    <main>
+        <nav>
+            <h1>Blanktar</h1>
+            <ul>
+                <li><a href="/about">about</a></li>
+                <li><a href="/blog">blog</a></li>
+                <li><a href="https://github.com/macrat">works</a></li>
+                <li><a href="/photos">photos</a></li>
+            </ul>
+        </nav>
+    </main>
+{{end}}

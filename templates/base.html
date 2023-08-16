@@ -5,6 +5,7 @@
         <meta charset="utf-8">    
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{block "title" .}}Blanktar{{end}}</title>
+        <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
 <style>
 html {
     background-color: #f9f9f9;
@@ -13,9 +14,16 @@ html {
     color: #322;
 }
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
     margin: 0 auto;
-    padding: 0 8px 32px;
+    padding: 0 8px;
     max-width: 1200px;
+}
+body > div {
+    flex: 1;
 }
 a {
     color: #43e;
@@ -120,6 +128,16 @@ img {
     color: inherit;
     text-decoration: none;
 }
+footer {
+    text-align: center;
+    font-size: 80%;
+    margin: 32px 0 4px;
+    opacity: .8;
+}
+footer > a {
+    color: inherit;
+    margin-right: 4px;
+}
 
 @media (hover: hover) {
     nav a:hover, .bread-crumbs a:hover {
@@ -143,19 +161,27 @@ img {
     </head>
 
     <body>
-        <header>
-            <nav>
-                <a href="/" class="site-name">Blanktar</a>
-                <ul>
-                    <li><a href="/about">about</a></li>
-                    <li><a href="/blog">blog</a></li>
-                    <li><a href="https://github.com/macrat">works</a></li>
-                    <li><a href="/photos">photos</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            {{template "main" .}}
-        </main>
+        {{block "body" .}}
+            <div>
+                <header>
+                    <nav>
+                        <a href="/" class="site-name">Blanktar</a>
+                        <ul>
+                            <li><a href="/about">about</a></li>
+                            <li><a href="/blog">blog</a></li>
+                            <li><a href="https://github.com/macrat">works</a></li>
+                            <li><a href="/photos">photos</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    {{template "main" .}}
+                </main>
+            </div>
+        {{end}}
+
+        <footer>
+            <a href="/privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
+        </footer>
     </body>
 </html>

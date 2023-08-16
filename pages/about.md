@@ -1,5 +1,6 @@
 ---
 title: about
+description: Blanktarの作者であるMacRatのプロフィール。各SNSのアカウントや保有資格など。
 ---
 
 ![MacRatのアイコン。デフォルメされた口髭のキャラクターがこちらを見ている。](/img/macrat.png "128x128")
