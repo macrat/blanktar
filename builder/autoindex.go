@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -37,8 +36,6 @@ func (a ArticleList) ModTime() time.Time {
 }
 
 type IndexGenerator struct {
-	sync.Mutex
-
 	articles map[int]map[int]ArticleList
 	template *TemplateLoader
 	statics  ArticleList
@@ -52,9 +49,6 @@ func NewIndexGenerator(template *TemplateLoader) *IndexGenerator {
 }
 
 func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) {
-	g.Lock()
-	defer g.Unlock()
-
 	if !strings.HasPrefix(path, "blog/") {
 		g.statics = append(g.statics, article)
 		return
@@ -75,9 +69,6 @@ func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) 
 }
 
 func (g *IndexGenerator) Generate(conf ConvertConfig) error {
-	g.Lock()
-	defer g.Unlock()
-
 	if err := g.generateOrderedIndex(conf); err != nil {
 		return err
 	}
