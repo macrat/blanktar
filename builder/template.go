@@ -1,14 +1,14 @@
 package main
 
 import (
-	"path/filepath"
 	"html/template"
+	"path/filepath"
 )
 
 type TemplateLoader struct {
-	basePath string
+	basePath     string
 	baseTemplate *template.Template
-	cache	map[string]*template.Template
+	cache        map[string]*template.Template
 }
 
 func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
@@ -18,15 +18,15 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 	}
 
 	baseTemplate = baseTemplate.Funcs(template.FuncMap{
-        "add": func(x, y int) int {
-            return x + y
-        },
-    })
+		"add": func(x, y int) int {
+			return x + y
+		},
+	})
 
 	return &TemplateLoader{
-		basePath: basePath,
+		basePath:     basePath,
 		baseTemplate: baseTemplate,
-		cache: make(map[string]*template.Template),
+		cache:        make(map[string]*template.Template),
 	}, nil
 }
 

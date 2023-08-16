@@ -1,22 +1,22 @@
 package main
 
 import (
-	"io"
 	"bytes"
+	"fmt"
+	"io"
 	"net/url"
 	"regexp"
-	"fmt"
 	"strings"
 
-	"github.com/macrat/blanktar/builder/markdown"
-	"github.com/yuin/goldmark/ast"
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
+	"github.com/macrat/blanktar/builder/markdown"
+	"github.com/yuin/goldmark/ast"
 )
 
 type Markdown struct {
-	md *markdown.Converter
+	md   *markdown.Converter
 	code *CodeRenderer
 }
 
@@ -62,7 +62,7 @@ func (c *Markdown) Convert(w io.Writer, source []byte) error {
 // CodeRenderer is a renderer for fenced code blocks with highlighting.
 type CodeRenderer struct {
 	formatter *html.Formatter
-	Count   int
+	Count     int
 }
 
 func NewCodeRenderer() *CodeRenderer {
@@ -165,7 +165,7 @@ func (r HeadingRenderer) Kind() ast.NodeKind {
 
 func (r HeadingRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
 	if !entering {
-		_, err := fmt.Fprintf(w, "</a></h%d>", node.(*ast.Heading).Level + 1)
+		_, err := fmt.Fprintf(w, "</a></h%d>", node.(*ast.Heading).Level+1)
 		return ast.WalkContinue, err
 	}
 

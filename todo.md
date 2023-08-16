@@ -33,4 +33,4 @@
 
 ## Others
 
-- [ ] Build speed up
+- [x] Build speed up
