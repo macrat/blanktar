@@ -17,6 +17,10 @@ body {
     padding: 0 8px 32px;
     max-width: 1200px;
 }
+a {
+    color: #43e;
+}
+
 header {
     margin: 48px 0;
     padding: 0 8px;
@@ -46,28 +50,6 @@ nav a {
 nav li a {
     padding: 0 8px;
 }
-nav a:hover {
-    text-decoration: underline;
-}
-.search {
-    text-align: center;
-    margin: 8px 0 0;
-    padding: 0;
-}
-.search input {
-    width: 25em;
-    max-width: 100%;
-    border: none;
-    background: none;
-    border-bottom: 1px solid #322;
-    padding: 2px 8px;
-    margin-bottom: 1px;
-}
-.search input:focus {
-    outline: none;
-    border-bottom: 2px solid #100;
-    margin-bottom: 0;
-}
 
 main {
     padding: 0 8px;
@@ -87,7 +69,7 @@ h2 {
     font-weight: normal;
     margin: 1.5em 0 .5em;
 }
-h2::before {
+article h2::before {
     content: '# ';
     opacity: .3;
 }
@@ -96,19 +78,19 @@ h3 {
     font-weight: normal;
     margin: 1.5em 0 0;
 }
-h3::before {
+article h3::before {
     content: '## ';
     opacity: .3;
 }
-h4::before {
+article h4::before {
     content: '### ';
     opacity: .3;
 }
-h5::before {
+article h5::before {
     content: '#### ';
     opacity: .3;
 }
-h6::before {
+article h6::before {
     content: '##### ';
     opacity: .3;
 }
@@ -138,8 +120,11 @@ img {
     color: inherit;
     text-decoration: none;
 }
-.bread-crumbs a:hover {
-    text-decoration: underline;
+
+@media (hover: hover) {
+    nav a:hover, .bread-crumbs a:hover {
+        text-decoration: underline;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -147,13 +132,6 @@ img {
         background-color: #404040;
         background-image: linear-gradient(90deg, #0000 0, #0000 9.8mm, rgba(255,255,255,.05) 9.8mm, rgba(255,255,255,.05) 10mm), linear-gradient(0deg, #0000 0, #0000 9.8mm, rgba(255,255,255,.05) 9.8mm, rgba(255,255,255,.05) 10mm);
         color: #eee;
-    }
-    .search input {
-        color: inherit;
-        border-bottom: 1px solid #eee;
-    }
-    .search input:focus {
-        border-bottom: 2px solid #fff;
     }
     a {
         color: #aaf;
@@ -175,10 +153,6 @@ img {
                     <li><a href="/photos">photos</a></li>
                 </ul>
             </nav>
-            <form class="search">
-                <input type="search" name="q" placeholder="Search">
-                <button type="submit">Search</button>
-            </form>
         </header>
         <main>
             {{template "main" .}}

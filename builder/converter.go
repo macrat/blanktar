@@ -9,12 +9,12 @@ import (
 
 var (
 	ErrUnsupportedFormat = errors.New("unsupported format")
-	SkipToConvert        = ErrUnsupportedFormat
 )
 
 type ConvertConfig struct {
-	Destination string
-	Source      string
+	Destination  string
+	Source       string
+	PostsPerPage int
 }
 
 type Converter interface {
@@ -26,7 +26,7 @@ type ConverterSet []Converter
 func (c ConverterSet) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
 	for _, converter := range c {
 		err := converter.Convert(source, info, conf)
-		if !errors.Is(err, SkipToConvert) {
+		if !errors.Is(err, ErrUnsupportedFormat) {
 			return err
 		}
 	}

@@ -1,21 +1,21 @@
-{{define "title"}}{{.Year}}/{{.Month}} blog posts - Blanktar{{end}}
+{{define "title"}}blog #{{.Tag}} - Blanktar{{end}}
 
 {{/* <style> */}}
 {{define "style"}}
-.articles-of-month {
+.articles-of-tag {
     list-style: disc;
 }
-.articles-of-month a {
+.articles-of-tag a {
     color: inherit;
     text-decoration: none;
 }
-.articles-of-month time::after {
+.articles-of-tag time::after {
     content: '   ';
     white-space: pre;
 }
 
 @media (hover: hover) {
-    .articles-of-month a:hover {
+    .articles-of-tag a:hover {
         text-decoration: underline;
     }
 }
@@ -26,10 +26,10 @@
     <ol class="bread-crumbs">
         <li><a href="/">top</a></li>
         <li><a href="/blog">blog</a></li>
-        <li><a href="/blog/{{.Year}}">{{.Year}}</a></li>
+        <li><a href="/blog/tags">tags</a></li>
     </ol>
-    <h1>{{.Year}}年{{.Month}}月の記事</h1>
-    <ol class="articles-of-month">
+    <h1>#{{.Tag}} に関する記事の一覧</h1>
+    <ol class="articles-of-tag">
         {{range .Posts}}
             <li><a href="{{.Path}}">
                 <time>{{.Published.Format "2006-01-02"}}</time>

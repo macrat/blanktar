@@ -2,9 +2,11 @@
 
 ## Blog
 
-- [ ] Blog index page
+- [x] Blog index page
 
 - [ ] Replase custom components from old Blanktar
+
+- [ ] FAQ and HowTo markup
 
 ## Other pages
 
@@ -15,9 +17,6 @@
 
 - [ ] Photos page  
   Make something new
-
-- [ ] Search  
-  Server side or client side?
 
 - [ ] Footer and privacy policy
 

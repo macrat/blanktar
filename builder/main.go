@@ -72,8 +72,9 @@ func (q *TaskQueue) ErrorCount() int {
 
 func main() {
 	conf := ConvertConfig{
-		Destination: "../dist",
-		Source:      "../pages",
+		Destination:  "../dist",
+		Source:       "../pages",
+		PostsPerPage: 10,
 	}
 
 	template, err := NewTemplateLoader("../templates")
@@ -125,6 +126,8 @@ func main() {
 	if queue.ErrorCount() != 0 {
 		log.Fatal("Error occurred during build.")
 	}
+
+	queue.Close()
 
 	err = indexGenerator.Generate(conf)
 	if err != nil {

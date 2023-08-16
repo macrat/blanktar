@@ -75,7 +75,7 @@ func NewArticleConverter(template *TemplateLoader, hook ArticleHook) (*ArticleCo
 
 func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
 	if !strings.HasSuffix(source, ".md") {
-		return SkipToConvert
+		return ErrUnsupportedFormat
 	}
 
 	input, err := os.ReadFile(filepath.Join(conf.Source, source))

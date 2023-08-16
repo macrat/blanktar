@@ -15,12 +15,15 @@
     color: inherit;
     text-decoration: none;
 }
-.articles-of-month a:hover {
-    text-decoration: underline;
-}
 .articles-of-month time::after {
     content: '   ';
     white-space: pre;
+}
+
+@media (hover: hover) {
+    .articles-of-month a:hover {
+        text-decoration: underline;
+    }
 }
 {{end}}
 {{/* </style> */}}

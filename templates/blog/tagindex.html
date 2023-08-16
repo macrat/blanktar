@@ -1,0 +1,43 @@
+{{define "title"}}blog tags - Blanktar{{end}}
+
+{{/* <style> */}}
+{{define "style"}}
+.tag-list {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.tag-list li {
+    display: inline-block;
+    margin: .1em .5em;
+    padding: 0;
+}
+.tag-list a {
+    text-decoration: none;
+}
+.article-count {
+    opacity: .8;
+}
+
+@media (hover: hover) {
+    .tag-list a:hover {
+        text-decoration: underline;
+    }
+}
+{{end}}
+{{/* </style> */}}
+
+{{define "main"}}
+    <ol class="bread-crumbs">
+        <li><a href="/">top</a></li>
+        <li><a href="/blog">blog</a></li>
+    </ol>
+    <h1>tags</h1>
+    <ul class="tag-list">
+        {{range .Tags}}
+            {{if gt (len .Posts) 1}}
+                <li><a href="/blog/tags/{{.Tag}}" style="font-size: {{tagsize (len .Posts)}}%">#{{.Tag}}</a> <span class="article-count">({{len .Posts}}件)</span></li>
+            {{end}}
+        {{end}}
+    </ul>
+{{end}}

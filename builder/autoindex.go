@@ -87,10 +87,90 @@ func (g *IndexGenerator) Generate(conf ConvertConfig) error {
 	if err := g.generateMonthlyIndex(conf); err != nil {
 		return err
 	}
+	if err := g.generateTagsIndex(conf); err != nil {
+		return err
+	}
 	return nil
 }
 
+type IndexContext struct {
+	Page       int
+	TotalPages int
+	PagerFrom  int
+	PagerTo    int
+	Posts      ArticleList
+}
+
 func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
+	var articles ArticleList
+	for _, months := range g.articles {
+		for _, posts := range months {
+			articles = append(articles, posts...)
+		}
+	}
+	sort.Sort(sort.Reverse(articles))
+
+	totalPages := len(articles)/conf.PostsPerPage + 1
+
+	tmpl, err := g.template.Load("blog/index.html")
+	if err != nil {
+		return err
+	}
+
+	for page := 0; page < totalPages; page++ {
+		targetPath := fmt.Sprintf("blog/%d.html", page+1)
+		if page == 0 {
+			targetPath = "blog/index.html"
+		}
+
+		start := page * conf.PostsPerPage
+		end := page*conf.PostsPerPage + conf.PostsPerPage
+		if end > len(articles) {
+			end = len(articles)
+		}
+		posts := articles[start:end]
+
+		if !NeedToUpdate(targetPath, posts, conf) {
+			continue
+		}
+
+		output, err := CreateOutput(targetPath, conf)
+		if err != nil {
+			return err
+		}
+		defer output.Close()
+
+		writer := MinifyWriter(output)
+		defer writer.Close()
+
+		pagerSize := 3
+		pagerFrom := page - pagerSize + 1
+		if pagerFrom < 1 {
+			pagerFrom = 1
+		}
+		pagerTo := page + pagerSize + 1
+		if page-pagerFrom < pagerSize-1 {
+			pagerTo += pagerSize - 1 - (page - pagerFrom)
+		}
+		if pagerTo > totalPages {
+			pagerTo = totalPages
+		}
+		if pagerTo-page < pagerSize+1 {
+			pagerFrom -= pagerSize + 1 - (pagerTo - page)
+		}
+
+		err = tmpl.Execute(writer, IndexContext{
+			Page:       page + 1,
+			TotalPages: totalPages,
+			PagerFrom:  pagerFrom,
+			PagerTo:    pagerTo,
+			Posts:      posts,
+		})
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -188,4 +268,113 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 	}
 
 	return nil
+}
+
+type TagPageContext struct {
+	Tag   string
+	Posts ArticleList
+}
+
+type TagPageContextList []TagPageContext
+
+func (l TagPageContextList) Len() int {
+	return len(l)
+}
+
+func (l TagPageContextList) Less(i, j int) bool {
+	if len(l[i].Posts) == len(l[j].Posts) {
+		return l[i].Tag < l[j].Tag
+	}
+	return len(l[i].Posts) > len(l[j].Posts)
+}
+
+func (l TagPageContextList) Swap(i, j int) {
+	l[i], l[j] = l[j], l[i]
+}
+
+type TagIndexContext struct {
+	Tags TagPageContextList
+}
+
+func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
+	articles := make(map[string]ArticleList)
+	var latestUpdated ArticleList
+
+	for _, months := range g.articles {
+		for _, posts := range months {
+			if posts.ModTime().After(latestUpdated.ModTime()) {
+				latestUpdated = posts
+			}
+
+			for _, post := range posts {
+				for _, tag := range post.Tags {
+					if _, ok := articles[tag]; !ok {
+						articles[tag] = make(ArticleList, 0)
+					}
+					articles[tag] = append(articles[tag], post)
+				}
+			}
+		}
+	}
+
+	tagPageTemplate, err := g.template.Load("blog/tagpage.html")
+	if err != nil {
+		return err
+	}
+
+	var tagIndexContext TagIndexContext
+
+	for tag, posts := range articles {
+		targetPath := fmt.Sprintf("blog/tags/%s.html", tag)
+
+		tagPageContext := TagPageContext{
+			Tag:   tag,
+			Posts: posts,
+		}
+		tagIndexContext.Tags = append(tagIndexContext.Tags, tagPageContext)
+
+		if !NeedToUpdate(targetPath, posts, conf) {
+			continue
+		}
+
+		sort.Sort(sort.Reverse(posts))
+
+		output, err := CreateOutput(targetPath, conf)
+		if err != nil {
+			return err
+		}
+		defer output.Close()
+
+		writer := MinifyWriter(output)
+		defer writer.Close()
+
+		err = tagPageTemplate.Execute(writer, tagPageContext)
+		if err != nil {
+			return err
+		}
+	}
+
+	targetPath := "blog/tags/index.html"
+
+	if !NeedToUpdate(targetPath, latestUpdated, conf) {
+		return nil
+	}
+
+	output, err := CreateOutput(targetPath, conf)
+	if err != nil {
+		return err
+	}
+	defer output.Close()
+
+	writer := MinifyWriter(output)
+	defer writer.Close()
+
+	tagIndexTemplate, err := g.template.Load("blog/tagindex.html")
+	if err != nil {
+		return err
+	}
+
+	sort.Sort(tagIndexContext.Tags)
+
+	return tagIndexTemplate.Execute(writer, tagIndexContext)
 }

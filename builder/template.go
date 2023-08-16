@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"math"
 	"path/filepath"
 )
 
@@ -20,6 +21,25 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 	baseTemplate = baseTemplate.Funcs(template.FuncMap{
 		"add": func(x, y int) int {
 			return x + y
+		},
+		"sub": func(x, y int) int {
+			return x - y
+		},
+		"count": func(start, end int) []int {
+			var result []int
+			for i := start; i <= end; i++ {
+				result = append(result, i)
+			}
+			return result
+		},
+		"abs": func(x int) int {
+			if x < 0 {
+				return -x
+			}
+			return x
+		},
+		"tagsize": func(n int) int {
+			return int(math.Ceil(math.Sqrt(math.Sqrt(float64(n))) * 100))
 		},
 	})
 
