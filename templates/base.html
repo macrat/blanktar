@@ -156,6 +156,27 @@ footer > a {
     }
 }
 
+@media (prefers-color-scheme: light) and (prefers-contrast: more) {
+    html {
+        background-color: #fff;
+        background-image: none;
+        color: #000;
+    }
+    a {
+        color: #00a;
+    }
+}
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+    html {
+        background-color: #000;
+        background-image: none;
+        color: #fff;
+    }
+    a {
+        color: #aaf;
+    }
+}
+
 {{block "style" .}}{{end}}
 </style>
     </head>

@@ -11,6 +11,7 @@ import (
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
+	"github.com/alecthomas/chroma"
 	"github.com/macrat/blanktar/builder/markdown"
 	"github.com/yuin/goldmark/ast"
 	extraAst "github.com/yuin/goldmark/extension/ast"
@@ -131,17 +132,54 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 }
 
 func (r *CodeRenderer) WriteStyleSheet(w io.Writer) error {
-	err := r.formatter.WriteCSS(w, styles.GitHub)
+	_, err := fmt.Fprintf(w, "@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {")
 	if err != nil {
 		return err
 	}
 
-	_, err = fmt.Fprintf(w, "\n@media (prefers-color-scheme: dark) {")
+	err = r.formatter.WriteCSS(w, styles.GitHub)
+	if err != nil {
+		return err
+	}
+
+	_, err = fmt.Fprintf(w, "}\n@media (prefers-color-scheme: dark) and (not (prefers-contrast: more)) {")
 	if err != nil {
 		return err
 	}
 
 	err = r.formatter.WriteCSS(w, styles.Nord)
+	if err != nil {
+		return err
+	}
+
+	_, err = fmt.Fprintf(w, "}\n@media (prefers-contrast: more) {")
+	if err != nil {
+		return err
+	}
+
+	HighContrast := chroma.MustNewStyle("bw", chroma.StyleEntries{
+		chroma.Comment:               "italic",
+		chroma.CommentPreproc:        "noitalic",
+		chroma.Keyword:               "bold",
+		chroma.KeywordPseudo:         "nobold",
+		chroma.KeywordType:           "nobold",
+		chroma.OperatorWord:          "bold",
+		chroma.NameClass:             "bold",
+		chroma.NameNamespace:         "bold",
+		chroma.NameException:         "bold",
+		chroma.NameEntity:            "bold",
+		chroma.NameTag:               "bold",
+		chroma.LiteralString:         "italic",
+		chroma.LiteralStringInterpol: "bold",
+		chroma.LiteralStringEscape:   "bold",
+		chroma.GenericHeading:        "bold",
+		chroma.GenericSubheading:     "bold",
+		chroma.GenericEmph:           "italic",
+		chroma.GenericStrong:         "bold",
+		chroma.GenericPrompt:         "bold",
+		chroma.Error:                 "border:#FF0000",
+	})
+	err = r.formatter.WriteCSS(w, HighContrast)
 	if err != nil {
 		return err
 	}
