@@ -26,9 +26,7 @@
 
 - [ ] Json-LD
 
-- [ ] Sitemap and feed
-
-- [ ] AMP?
+- [x] Sitemap and feed
 
 ## Others
 

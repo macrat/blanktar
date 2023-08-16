@@ -47,7 +47,7 @@ func (c CopyConverter) Convert(source string, info os.FileInfo, conf ConvertConf
 	}
 	defer input.Close()
 
-	output, err := CreateOutput(source, conf)
+	output, err := CreateOutput(source, conf, "")
 	if err != nil {
 		return err
 	}

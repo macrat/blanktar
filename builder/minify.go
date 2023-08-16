@@ -12,7 +12,7 @@ import (
 	"github.com/tdewolff/minify/v2/xml"
 )
 
-func MinifyWriter(w io.Writer) io.WriteCloser {
+func MinifyWriter(mimetype string, w io.Writer) io.WriteCloser {
 	m := minify.New()
 	m.AddFunc("text/html", html.Minify)
 	m.AddFunc("text/css", css.Minify)
@@ -20,5 +20,6 @@ func MinifyWriter(w io.Writer) io.WriteCloser {
 	m.AddFunc("application/json", json.Minify)
 	m.AddFunc("image/svg+xml", svg.Minify)
 	m.AddFunc("text/xml", xml.Minify)
-	return m.Writer("text/html", w)
+	m.AddFunc("application/xml", xml.Minify)
+	return m.Writer(mimetype, w)
 }

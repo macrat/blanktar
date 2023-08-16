@@ -81,6 +81,12 @@ func (g *IndexGenerator) Generate(conf ConvertConfig) error {
 	if err := g.generateTagsIndex(conf); err != nil {
 		return err
 	}
+	if err := g.generateSitemap(conf); err != nil {
+		return err
+	}
+	if err := g.generateFeed(conf); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -125,15 +131,6 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 			continue
 		}
 
-		output, err := CreateOutput(targetPath, conf)
-		if err != nil {
-			return err
-		}
-		defer output.Close()
-
-		writer := MinifyWriter(output)
-		defer writer.Close()
-
 		pagerSize := 3
 		pagerFrom := page - pagerSize + 1
 		if pagerFrom < 1 {
@@ -150,13 +147,24 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 			pagerFrom -= pagerSize + 1 - (pagerTo - page)
 		}
 
-		err = tmpl.Execute(writer, IndexContext{
+		output, err := CreateOutput(targetPath, conf, "text/html")
+		if err != nil {
+			return err
+		}
+
+		err = tmpl.Execute(output, IndexContext{
 			Page:       page + 1,
 			TotalPages: totalPages,
 			PagerFrom:  pagerFrom,
 			PagerTo:    pagerTo,
 			Posts:      posts,
 		})
+		if err != nil {
+			output.Close()
+			return err
+		}
+
+		err = output.Close()
 		if err != nil {
 			return err
 		}
@@ -195,19 +203,21 @@ func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
 			return err
 		}
 
-		output, err := CreateOutput(targetPath, conf)
+		output, err := CreateOutput(targetPath, conf, "text/html")
 		if err != nil {
 			return err
 		}
-		defer output.Close()
 
-		writer := MinifyWriter(output)
-		defer writer.Close()
-
-		err = tmpl.Execute(writer, YearlyContext{
+		err = tmpl.Execute(output, YearlyContext{
 			Year:  year,
 			Posts: posts,
 		})
+		if err != nil {
+			output.Close()
+			return err
+		}
+
+		err = output.Close()
 		if err != nil {
 			return err
 		}
@@ -238,20 +248,22 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 				return err
 			}
 
-			output, err := CreateOutput(targetPath, conf)
+			output, err := CreateOutput(targetPath, conf, "text/html")
 			if err != nil {
 				return err
 			}
-			defer output.Close()
 
-			writer := MinifyWriter(output)
-			defer writer.Close()
-
-			err = tmpl.Execute(writer, MonthlyContext{
+			err = tmpl.Execute(output, MonthlyContext{
 				Year:  year,
 				Month: month,
 				Posts: posts,
 			})
+			if err != nil {
+				output.Close()
+				return err
+			}
+
+			err = output.Close()
 			if err != nil {
 				return err
 			}
@@ -330,16 +342,18 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 
 		sort.Sort(sort.Reverse(posts))
 
-		output, err := CreateOutput(targetPath, conf)
+		output, err := CreateOutput(targetPath, conf, "text/html")
 		if err != nil {
 			return err
 		}
-		defer output.Close()
 
-		writer := MinifyWriter(output)
-		defer writer.Close()
+		err = tagPageTemplate.Execute(output, tagPageContext)
+		if err != nil {
+			output.Close()
+			return err
+		}
 
-		err = tagPageTemplate.Execute(writer, tagPageContext)
+		err = output.Close()
 		if err != nil {
 			return err
 		}
@@ -351,15 +365,6 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 		return nil
 	}
 
-	output, err := CreateOutput(targetPath, conf)
-	if err != nil {
-		return err
-	}
-	defer output.Close()
-
-	writer := MinifyWriter(output)
-	defer writer.Close()
-
 	tagIndexTemplate, err := g.template.Load("blog/tagindex.html")
 	if err != nil {
 		return err
@@ -367,5 +372,102 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 
 	sort.Sort(tagIndexContext.Tags)
 
-	return tagIndexTemplate.Execute(writer, tagIndexContext)
+	output, err := CreateOutput(targetPath, conf, "text/html")
+	if err != nil {
+		return err
+	}
+
+	err = tagIndexTemplate.Execute(output, tagIndexContext)
+	if err != nil {
+		output.Close()
+		return err
+	}
+
+	return output.Close()
+}
+
+type SitemapContext struct {
+	Pages []Article
+}
+
+func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
+	pages := g.statics
+
+	for _, months := range g.articles {
+		for _, posts := range months {
+			pages = append(pages, posts...)
+		}
+	}
+
+	sort.Sort(sort.Reverse(pages))
+
+	targetPath := "sitemap.xml"
+
+	if !NeedToUpdate(targetPath, pages, conf) {
+		return nil
+	}
+
+	tmpl, err := g.template.Load("sitemap.xml")
+	if err != nil {
+		return err
+	}
+
+	output, err := CreateOutput(targetPath, conf, "application/xml")
+	if err != nil {
+		return err
+	}
+
+	err = tmpl.Execute(output, SitemapContext{
+		Pages: pages,
+	})
+	if err != nil {
+		output.Close()
+		return err
+	}
+
+	return output.Close()
+}
+
+type FeedContext struct {
+	Generated time.Time
+	Posts ArticleList
+}
+
+func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
+	var posts ArticleList
+
+	for _, months := range g.articles {
+		for _, ps := range months {
+			posts = append(posts, ps...)
+		}
+	}
+
+	sort.Sort(sort.Reverse(posts))
+
+	targetPath := "blog/feed.xml"
+
+	if !NeedToUpdate(targetPath, posts, conf) {
+		return nil
+	}
+
+	tmpl, err := g.template.Load("blog/feed.xml")
+	if err != nil {
+		return err
+	}
+
+	output, err := CreateOutput(targetPath, conf, "application/xml")
+	if err != nil {
+		return err
+	}
+
+	err = tmpl.Execute(output, FeedContext{
+		Generated: time.Now(),
+		Posts:     posts,
+	})
+	if err != nil {
+		output.Close()
+		return err
+	}
+
+	return output.Close()
 }

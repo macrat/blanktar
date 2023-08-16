@@ -41,6 +41,9 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 		"tagsize": func(n int) int {
 			return int(math.Ceil(math.Sqrt(math.Sqrt(float64(n))) * 100))
 		},
+		"xmldecralation": func() template.HTML {
+			return template.HTML(`<?xml version="1.0" encoding="UTF-8"?>`)
+		},
 	})
 
 	return &TemplateLoader{

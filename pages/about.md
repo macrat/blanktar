@@ -1,6 +1,8 @@
 ---
 title: about
 description: Blanktarの作者であるMacRatのプロフィール。各SNSのアカウントや保有資格など。
+pubtime: 2012-12-06T14:54:00+09:00
+modtime: 2023-08-16T20:14:00+09:00
 ---
 
 ![MacRatのアイコン。デフォルメされた口髭のキャラクターがこちらを見ている。](/img/macrat.png "128x128")

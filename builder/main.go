@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -12,10 +13,38 @@ type ModTimer interface {
 	ModTime() time.Time
 }
 
-func CreateOutput(path string, conf ConvertConfig) (*os.File, error) {
+type OutputWriter struct {
+	f *os.File
+	m io.WriteCloser
+}
+
+func (w OutputWriter) Write(p []byte) (n int, err error) {
+	return w.m.Write(p)
+}
+
+func (w OutputWriter) Close() error {
+	if err := w.m.Close(); err != nil {
+		w.f.Close()
+		return err
+	}
+	return w.f.Close()
+}
+
+func CreateOutput(path string, conf ConvertConfig, mimetype string) (io.WriteCloser, error) {
 	log.Println("Create", path)
+
 	os.MkdirAll(filepath.Join(conf.Destination, filepath.Dir(path)), 0755)
-	return os.Create(filepath.Join(conf.Destination, path))
+	f, err := os.Create(filepath.Join(conf.Destination, path))
+	if err != nil {
+		return nil, err
+	}
+
+	if mimetype == "" {
+		return f, nil
+	}
+
+	m := MinifyWriter(mimetype, f)
+	return &OutputWriter{f, m}, nil
 }
 
 func NeedToUpdate[T ModTimer](targetPath string, sourceInfo T, conf ConvertConfig) bool {

@@ -1,0 +1,31 @@
+{{define "base" -}}
+    {{xmldecralation}}
+
+    <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ja">
+        <id>http://blanktar.jp/blog/feed.xml</id>
+        <title>Blanktar - blog</title>
+        <link rel="alternate" type="text/html" href="https://blanktar.jp/blog/" />
+        <link rel="self" type="application/atom+xml" href="https://blanktar.jp/blog/feed.xml" />
+        <author>
+            <name>MacRat</name>
+            <email>m@crat.jp</email>
+            <uri>https://blanktar.jp</uri>
+        </author>
+        <icon>https://blanktar.jp/img/social-preview.png</icon>
+        <logo>https://blanktar.jp/img/blanktar-logo.png</logo>
+        <updated>{{.Generated.Format "2006-01-02T15:04:05Z07:00"}}</updated>
+        {{range .Posts}}
+            <entry>
+                <title>{{.Title}}</title>
+                <link rel="alternate" type="text/html" href="https://blanktar.jp{{.Path}}" hreflang="ja" />
+                {{range .Image}}
+                    <link rel="enclosure" type="image/png" href="https://blanktar.jp{{.}}" />
+                {{end}}
+                <id>https://blanktar.jp{{.Path}}</id>
+                <updated>{{if .Modified.IsZero}}{{.Published.Format "2006-01-02T15:04:05Z07:00"}}{{else}}{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}{{end}}</updated>
+                <published>{{.Published.Format "2006-01-02T15:04:05Z07:00"}}</published>
+                <summary>{{if .Description}}{{.Description}}{{else}}{{cdata .Title}}{{end}}</summary>
+            </entry>
+        {{end}}
+    </feed>
+{{- end}}

@@ -18,7 +18,7 @@ type Article struct {
 	Description string        `yaml:"description"`
 	Tags        []string      `yaml:"tags"`
 	Published   time.Time     `yaml:"pubtime"`
-	Updated     time.Time     `yaml:"modtime"`
+	Modified    time.Time     `yaml:"modtime"`
 	Layout      string        `yaml:"layout"`
 	Markdown    []byte        `yaml:"-"`
 	Content     template.HTML `yaml:"-"`
@@ -111,14 +111,16 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		return err
 	}
 
-	output, err := CreateOutput(destination, conf)
+	output, err := CreateOutput(destination, conf, "text/html")
 	if err != nil {
 		return err
 	}
-	defer output.Close()
 
-	writer := MinifyWriter(output)
-	defer writer.Close()
+	err = tmpl.Execute(output, article)
+	if err != nil {
+		output.Close()
+		return err
+	}
 
-	return tmpl.Execute(writer, article)
+	return output.Close()
 }

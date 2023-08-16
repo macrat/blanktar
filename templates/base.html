@@ -1,3 +1,4 @@
+{{block "base" .}}
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -6,6 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{block "title" .}}Blanktar{{end}}</title>
         <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
+        <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml">
+
 <style>
 html {
     background-color: #f9f9f9;
@@ -206,3 +209,4 @@ footer > a {
         </footer>
     </body>
 </html>
+{{end}}
