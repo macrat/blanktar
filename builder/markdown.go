@@ -13,6 +13,7 @@ import (
 	"github.com/alecthomas/chroma/styles"
 	"github.com/macrat/blanktar/builder/markdown"
 	"github.com/yuin/goldmark/ast"
+	extraAst "github.com/yuin/goldmark/extension/ast"
 )
 
 type Markdown struct {
@@ -27,6 +28,8 @@ func NewMarkdown() *Markdown {
 			codeRenderer,
 			HeadingRenderer{},
 			ImageRenderer{},
+			TableRenderer{},
+			LinkRenderer{},
 		)),
 		code: codeRenderer,
 	}
@@ -138,17 +141,13 @@ func (r *CodeRenderer) WriteStyleSheet(w io.Writer) error {
 		return err
 	}
 
-	err = r.formatter.WriteCSS(w, styles.XcodeDark)
+	err = r.formatter.WriteCSS(w, styles.Nord)
 	if err != nil {
 		return err
 	}
 
 	_, err = fmt.Fprintf(w, "}")
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // HeadingRenderer renders headings with back link.
@@ -199,10 +198,75 @@ func (r ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 
 	sizes := regexp.MustCompile(`^([0-9]+)x([0-9]+)$`).FindSubmatch(image.Title)
 	if len(sizes) == 3 {
-		fmt.Fprintf(w, `<img src="%s" alt="%s" width="%s" height="%s" loading="lazy" />`, image.Destination, image.Text(source), sizes[1], sizes[2])
+		_, err := fmt.Fprintf(
+			w,
+			`<img src="%s" alt="%s" width="%s" height="%s" loading="lazy" />`,
+			image.Destination,
+			image.Text(source),
+			sizes[1],
+			sizes[2],
+		)
+
+		return ast.WalkSkipChildren, err
 	} else {
 		return ast.WalkStop, fmt.Errorf("All images needs size as its title but got %q.", image.Title)
 	}
+}
 
-	return ast.WalkSkipChildren, nil
+// TableRenderer renders tables with scrollbar.
+type TableRenderer struct {
+}
+
+func (r TableRenderer) Priority() int {
+	return 500
+}
+
+func (r TableRenderer) Kind() ast.NodeKind {
+	return extraAst.KindTable
+}
+
+func (r TableRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
+	if !entering {
+		_, err := fmt.Fprintf(w, "</table></div>")
+		return ast.WalkContinue, err
+	}
+
+	_, err := fmt.Fprintf(w, `<div style="overflow-x: auto"><table>`)
+	return ast.WalkContinue, err
+}
+
+// LinkRenderer renders links with target="_blank" for external links.
+type LinkRenderer struct {
+}
+
+func (r LinkRenderer) Priority() int {
+	return 500
+}
+
+func (r LinkRenderer) Kind() ast.NodeKind {
+	return ast.KindLink
+}
+
+func (r LinkRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
+	if !entering {
+		_, err := fmt.Fprintf(w, "</a>")
+		return ast.WalkContinue, err
+	}
+
+	link := node.(*ast.Link)
+	if link.Destination == nil {
+		_, err := fmt.Fprintf(w, "<a>")
+		return ast.WalkContinue, err
+	}
+
+	var err error
+
+	dest := string(link.Destination)
+	if strings.HasPrefix(dest, "/") || strings.HasPrefix(dest, "#") {
+		_, err = fmt.Fprintf(w, `<a href="%s">`, dest)
+	} else {
+		_, err = fmt.Fprintf(w, `<a href="%s" target="_blank" rel="noreferrer noopener">`, dest)
+	}
+
+	return ast.WalkContinue, err
 }
