@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 var (
@@ -48,6 +49,34 @@ func (c CopyConverter) Convert(source string, info os.FileInfo, conf ConvertConf
 	defer input.Close()
 
 	output, err := CreateOutput(source, conf, "")
+	if err != nil {
+		return err
+	}
+	defer output.Close()
+
+	_, err = io.Copy(output, input)
+	return err
+}
+
+type SVGConverter struct {
+}
+
+func (c SVGConverter) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
+	if !strings.HasSuffix(source, ".svg") {
+		return ErrUnsupportedFormat
+	}
+
+	if !NeedToUpdate(source, info, conf) {
+		return nil
+	}
+
+	input, err := os.Open(filepath.Join(conf.Source, source))
+	if err != nil {
+		return err
+	}
+	defer input.Close()
+
+	output, err := CreateOutput(source, conf, "image/svg+xml")
 	if err != nil {
 		return err
 	}

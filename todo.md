@@ -6,7 +6,7 @@
 
 - [ ] Replace custom components from old Blanktar
 
-- [ ] FAQ and HowTo markup
+- [ ] Share button
 
 ## Other pages
 
@@ -24,10 +24,12 @@
 
 - [ ] Icon and SNS cards
 
-- [ ] Json-LD
+- [ ] Json-LD for pages, bread crumbs, FAQ, and How-To
 
 - [x] Sitemap and feed
 
 ## Others
 
 - [x] Build speed up
+
+- [ ] Watch and build

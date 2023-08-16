@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -74,6 +74,7 @@ func main() {
 
 	converter := ConverterSet{
 		mdConverter,
+		SVGConverter{},
 		CopyConverter{},
 	}
 

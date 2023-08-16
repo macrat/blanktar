@@ -8,10 +8,10 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
-	"github.com/alecthomas/chroma"
 	"github.com/macrat/blanktar/builder/markdown"
 	"github.com/yuin/goldmark/ast"
 	extraAst "github.com/yuin/goldmark/extension/ast"

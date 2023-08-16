@@ -430,7 +430,7 @@ func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
 
 type FeedContext struct {
 	Generated time.Time
-	Posts ArticleList
+	Posts     ArticleList
 }
 
 func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
