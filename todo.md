@@ -6,7 +6,7 @@
 
 - [ ] Replace custom components from old Blanktar
 
-- [ ] Share button
+- [x] Share button
 
 ## Other pages
 
@@ -22,9 +22,9 @@
 
 ## SEO and social
 
-- [ ] Icon and SNS cards
+- [ ] Icon, eyecatches, and /img/banner.jpg
 
-- [ ] Json-LD for pages, bread crumbs, FAQ, and How-To
+- [x] Json-LD for pages, bread crumbs, FAQ, and How-To
 
 - [x] Sitemap and feed
 

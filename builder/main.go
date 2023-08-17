@@ -95,7 +95,7 @@ func main() {
 
 		err = converter.Convert(path, info, conf)
 		if err != nil {
-			log.Printf("%s: %s", err, path)
+			log.Printf("Error  %s\n%s", path, err)
 			errorCount++
 		}
 

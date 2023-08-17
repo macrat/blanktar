@@ -6,8 +6,15 @@
         <meta charset="utf-8">    
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{block "title" .}}Blanktar{{end}}</title>
-        <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
         <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml">
+        <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
+        <meta name="robots" content="max-image-preview:large">
+        <meta property="og:site_name" content="Blanktar">
+        <meta property="og:title" content="{{template "title" .}}">
+        <meta property="og:url" content="{{.URL}}">
+        <meta property="og:type" content="article">
+
+        {{block "head" .}}{{end}}
 
 <style>
 html {

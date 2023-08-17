@@ -18,6 +18,7 @@ func MinifyWriter(mimetype string, w io.Writer) io.WriteCloser {
 	m.AddFunc("text/css", css.Minify)
 	m.AddFunc("text/javascript", js.Minify)
 	m.AddFunc("application/json", json.Minify)
+	m.AddFunc("application/ld+json", json.Minify)
 	m.AddFunc("image/svg+xml", svg.Minify)
 	m.AddFunc("text/xml", xml.Minify)
 	m.AddFunc("application/xml", xml.Minify)

@@ -91,6 +91,8 @@ func (g *IndexGenerator) Generate(conf ConvertConfig) error {
 }
 
 type IndexContext struct {
+	URL        string
+	Image      []string
 	Page       int
 	TotalPages int
 	PagerFrom  int
@@ -153,6 +155,7 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 		}
 
 		err = tmpl.Execute(output, IndexContext{
+			URL:        "https://blanktar.jp/blog",
 			Page:       page + 1,
 			TotalPages: totalPages,
 			PagerFrom:  pagerFrom,
@@ -174,6 +177,8 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 }
 
 type YearlyContext struct {
+	URL   string
+	Image []string
 	Year  int
 	Posts []ArticleList
 }
@@ -209,6 +214,7 @@ func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
 		}
 
 		err = tmpl.Execute(output, YearlyContext{
+			URL:   fmt.Sprintf("https://blanktar.jp/blog/%04d", year),
 			Year:  year,
 			Posts: posts,
 		})
@@ -227,6 +233,8 @@ func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
 }
 
 type MonthlyContext struct {
+	URL   string
+	Image []string
 	Year  int
 	Month int
 	Posts ArticleList
@@ -254,6 +262,7 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 			}
 
 			err = tmpl.Execute(output, MonthlyContext{
+				URL:   fmt.Sprintf("https://blanktar.jp/blog/%04d/%02d", year, month),
 				Year:  year,
 				Month: month,
 				Posts: posts,
@@ -274,6 +283,8 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 }
 
 type TagPageContext struct {
+	URL   string
+	Image []string
 	Tag   string
 	Posts ArticleList
 }
@@ -296,6 +307,7 @@ func (l TagPageContextList) Swap(i, j int) {
 }
 
 type TagIndexContext struct {
+	URL  string
 	Tags TagPageContextList
 }
 
@@ -325,12 +337,15 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 		return err
 	}
 
-	var tagIndexContext TagIndexContext
+	tagIndexContext := TagIndexContext{
+		URL: "https://blanktar.jp/blog/tags",
+	}
 
 	for tag, posts := range articles {
 		targetPath := fmt.Sprintf("blog/tags/%s.html", tag)
 
 		tagPageContext := TagPageContext{
+			URL:   fmt.Sprintf("https://blanktar.jp/blog/tags/%s", tag),
 			Tag:   tag,
 			Posts: posts,
 		}
@@ -387,6 +402,8 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 }
 
 type SitemapContext struct {
+	URL   string
+	Image []string
 	Pages []Article
 }
 
@@ -418,6 +435,7 @@ func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
 	}
 
 	err = tmpl.Execute(output, SitemapContext{
+		URL:   "https://blanktar.jp/sitemap.xml",
 		Pages: pages,
 	})
 	if err != nil {
@@ -429,6 +447,8 @@ func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
 }
 
 type FeedContext struct {
+	URL       string
+	Image     []string
 	Generated time.Time
 	Posts     ArticleList
 }
@@ -461,6 +481,7 @@ func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
 	}
 
 	err = tmpl.Execute(output, FeedContext{
+		URL:       "https://blanktar.jp/blog/feed.xml",
 		Generated: time.Now(),
 		Posts:     posts,
 	})

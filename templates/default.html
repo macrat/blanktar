@@ -1,9 +1,59 @@
 {{define "title"}}{{.Title}} - Blanktar{{end}}
 
+{{define "head"}}
+    <meta property="og:image" content="{{if .Image}}{{index .Image 0}}{{else}}https://blanktar.jp/img/banner.jpg{{end}}">
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{.Title}}",
+    "datePublished": "{{.Published.Format "2006-01-02T15:04:05Z07:00"}}",
+    "dateModified": "{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}",
+    {{if .Image}}
+        "image": [
+            {{range .Image}}
+                "{{.}}",
+            {{end}}
+        ],
+    {{end}}
+    "author": {
+        "@type": "Person",
+        "name": "MacRat",
+        "url": "https://blanktar.jp/about"
+    }
+}
+    </script>
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {{range $i, $item := .BreadCrumb}}
+            {
+                "@type": "ListItem",
+                "position": {{add $i 1}},
+                "name": "{{$item.Name}}",
+                "item": "https://blanktar.jp{{$item.Path}}"
+            },
+        {{end}}
+        {
+            "@type": "ListItem",
+            "position": {{add (len .BreadCrumb) 1}},
+            "name": "{{.Title}}",
+            "item": "https://blanktar.jp{{.Path}}"
+        }
+    ]
+}
+    </script>
+{{end}}
+
 {{define "main"}}
     <article>
         <ol class="bread-crumbs">
-            <li><a href="/">top</a></li>
+            {{range .BreadCrumb}}
+                <li><a href="{{.Path}}">{{if eq .Path "/"}}top{{else}}{{.Name}}{{end}}</a></li>
+            {{end}}
         </ol>
         <h1>{{.Title}}</h1>
         {{.Content}}

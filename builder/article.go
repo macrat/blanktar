@@ -12,17 +12,46 @@ import (
 )
 
 type Article struct {
-	Path        string        `yaml:"-"`
-	Title       string        `yaml:"title"`
-	Image       []string      `yaml:"image"`
-	Description string        `yaml:"description"`
-	Tags        []string      `yaml:"tags"`
-	Published   time.Time     `yaml:"pubtime"`
-	Modified    time.Time     `yaml:"modtime"`
-	Layout      string        `yaml:"layout"`
-	Markdown    []byte        `yaml:"-"`
-	Content     template.HTML `yaml:"-"`
-	SourceInfo  os.FileInfo   `yaml:"-"`
+	URL         string           `yaml:"-"`
+	Path        string           `yaml:"-"`
+	Title       string           `yaml:"title"`
+	Image       []string         `yaml:"image"`
+	Description string           `yaml:"description"`
+	Tags        []string         `yaml:"tags"`
+	Published   time.Time        `yaml:"pubtime"`
+	Modified    time.Time        `yaml:"modtime"`
+	FAQ         []FAQItem        `yaml:"faq"`
+	HowTo       *HowTo           `yaml:"howto"`
+	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
+	Layout      string           `yaml:"layout"`
+	Markdown    []byte           `yaml:"-"`
+	Content     template.HTML    `yaml:"-"`
+	SourceInfo  os.FileInfo      `yaml:"-"`
+}
+
+type FAQItem struct {
+	Question string `yaml:"question"`
+	Answer   string `yaml:"answer"`
+}
+
+type HowTo struct {
+	Name      string     `yaml:"name"`
+	Supply    []string   `yaml:"supply"`
+	Tool      []string   `yaml:"tool"`
+	TotalTime string     `yaml:"totalTime"`
+	Step      []StepItem `yaml:"step"`
+}
+
+type StepItem struct {
+	Name  string `yaml:"name"`
+	Text  string `yaml:"text"`
+	URL   string `yaml:"url"`
+	Image string `yaml:"image"`
+}
+
+type BreadCrumbItem struct {
+	Name string `yaml:"name"`
+	Path string `yaml:"path"`
 }
 
 type ArticleLoader struct {
@@ -39,6 +68,7 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 	separatorPos := bytes.Index(source[3:], []byte("\n---\n")) + 3
 
 	article := Article{
+		URL:        "https://blanktar.jp" + externalPath[:len(externalPath)-5],
 		Path:       externalPath,
 		Markdown:   source[separatorPos+5:],
 		SourceInfo: info,
@@ -46,6 +76,12 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 
 	if err := yaml.Unmarshal(source[:separatorPos], &article); err != nil {
 		return Article{}, err
+	}
+
+	if len(article.BreadCrumb) == 0 {
+		article.BreadCrumb = []BreadCrumbItem{
+			{Name: "blanktar.jp", Path: "/"},
+		}
 	}
 
 	var buf strings.Builder
