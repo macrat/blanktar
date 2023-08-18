@@ -1,8 +1,7 @@
 ---
 title: androidでSearchView使おうと思ったらgetActionViewがnullを返してくる。releaseビルドのときだけ。
 pubtime: 2015-10-03T13:44:00+09:00
-amp: hybrid
-tags: [Android, SearchView, MenuItemCompat, ProGuard]
+tags: [Java, Android]
 description: AndroidのSearchViewをcompatライブラリで使おうとすると、releaseビルドのときだけMenuItemCompat.getActionViewがnullを返してくる問題の修正方法です。
 ---
 

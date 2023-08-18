@@ -1,8 +1,7 @@
 ---
 title: gentooにfcitx-skkを入れてみた。
 pubtime: 2015-08-02T23:27:00+09:00
-amp: hybrid
-tags: [Gentoo, Fcitx, SKK, IME, 変換]
+tags: [Linux, Gentoo]
 description: 日本語の入力を少しでも速く行うべく、SKKとかいうIMEをgentooインストールして使ってみました。fcitxとの組み合わせで、自分でコンパイルして入れています。
 ---
 

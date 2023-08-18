@@ -353,10 +353,10 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 	}
 
 	for tag, posts := range articles {
-		targetPath := fmt.Sprintf("blog/tags/%s.html", tag)
+		targetPath := fmt.Sprintf("blog/tags/%s.html", EscapeTag(tag))
 
 		tagPageContext := TagPageContext{
-			URL:   fmt.Sprintf("https://blanktar.jp/blog/tags/%s", tag),
+			URL:   fmt.Sprintf("https://blanktar.jp/blog/tags/%s", EscapeTag(tag)),
 			Tag:   tag,
 			Posts: posts,
 		}

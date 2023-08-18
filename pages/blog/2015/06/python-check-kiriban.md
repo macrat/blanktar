@@ -1,8 +1,7 @@
 ---
 title: pythonでキリ番かどうか判定する
 pubtime: 2015-06-30T23:23:00+09:00
-amp: hybrid
-tags: [Python, キリ番, 判定, 正規表現]
+tags: [Python, 正規表現]
 description: Pythonを使って、ゾロ目や連番などのキリ番を検出するコードを書いてみた記録です。正規表現を使用する場合とpythonコードだけの2パターンあります。
 ---
 

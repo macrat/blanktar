@@ -1,8 +1,7 @@
 ---
 title: Sphinxで書いたドキュメントをGitHub ActionsでPDFやHTMLに自動ビルド
 pubtime: 2020-06-19T19:45:00+09:00
-amp: hybrid
-tags: [Sphinx, GitHub, GitHub Actions, CI/CD]
+tags: [GitHub, CI/CD, Sphinx]
 image:
   - /blog/2020/06/github-actions-automated-release_1200x1200.jpg
   - /blog/2020/06/github-actions-automated-release_1200x600.jpg

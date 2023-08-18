@@ -1,8 +1,7 @@
 ---
 title: 夏休みの自由研究が半分終わった。
 pubtime: 2015-08-16T19:29:00+09:00
-amp: hybrid
-tags: [夏休みの自由研究, カーネル, ソースコード]
+tags: []
 image: [/blog/2015/08/source-lines-kernel-size-16days.png]
 description: 8月なので夏休みの自由研究をしようと思い立ち、半月が経過しました。現状の中間報告です。
 ---

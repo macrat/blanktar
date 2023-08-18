@@ -1,8 +1,7 @@
 ---
 title: gnuplotで面グラフっぽいものを描きたい
 pubtime: 2015-11-13T13:59:00+09:00
-amp: hybrid
-tags: [gnuplot, 面グラフ, グラフ]
+tags: [gnuplot, グラフ]
 image: [/blog/2015/11/sin-cos-graph.png]
 description: gnuplotを使って、値の範囲を示すことが出来る面グラフを作成する方法です。
 ---

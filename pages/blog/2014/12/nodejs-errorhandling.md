@@ -1,8 +1,7 @@
 ---
 title: node.jsで404と500のエラー処理
 pubtime: 2014-12-10T10:40:00+09:00
-amp: hybrid
-tags: [Node.js, エラーページ, エラー処理, HTTP]
+tags: [Web, Node.js, JavaScript]
 description: node.js/expressで404や500などのHTTPエラーが発生した場合のレスポンスをカスタマイズする方法です。
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: pythonのisと==の違い
 pubtime: 2013-06-24T17:33:00+09:00
-amp: hybrid
 tags: [Python, 言語仕様]
 description: Pythonの`is`演算子と`==`演算子の挙動の違いについての解説記事です。
 ---

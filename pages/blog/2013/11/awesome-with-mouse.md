@@ -1,8 +1,7 @@
 ---
 title: マウスでawesomeを使いたい事だってあるじゃない。
 pubtime: 2013-11-14T20:32:00+09:00
-amp: hybrid
-tags: [ウィンドウマネージャー, awesome, マウス]
+tags: [Linux, 環境構築]
 description: タイル型wmのawesomeをマウスを使って操作するやめの設定と、使い方の説明です。
 ---
 

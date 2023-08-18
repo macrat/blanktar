@@ -2,8 +2,7 @@
 title: gitの「src refspec refs/heads/master matches more than one」ってエラーの直し方
 pubtime: 2020-06-17T21:11:00+09:00
 modtime: 2020-06-19T19:47:00+09:00
-amp: hybrid
-tags: [git, GitHub, エラー]
+tags: [git]
 description: "GitHub Actionsで色々試行錯誤していたところ、突然「src refspec refs/heads/master matches more than one」というエラーが出て`git push`出来なくなってしまいました。この原因と、対処方法についての記事です。"
 image: [/blog/2020/06/github-tags-refs-heads-master.jpg]
 ---

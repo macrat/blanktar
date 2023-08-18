@@ -1,8 +1,7 @@
 ---
 title: pipとhomebrewでmacにPyAudioを入れた。
 pubtime: 2016-01-15T14:35:00+09:00
-amp: hybrid
-tags: [pip, HomeBrew, Mac, PyAudio]
+tags: [Mac, Python, 音声処理]
 description: Pythonで音を操作するライブラリであるPyAudioを、pipとHomebrewを使ってMac OSにインストールしました。
 ---
 

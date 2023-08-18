@@ -1,8 +1,7 @@
 ---
 title: swift使ってEddystone-URLを受信するiOSアプリを作った
 pubtime: 2017-02-07T01:06:00+09:00
-amp: hybrid
-tags: [Swift, Eddystone-URL, iOS, BLE, アプリ]
+tags: [iOS, Swift, ハードウェア]
 description: swiftを使って、Eddystoneが発信するBluetoothペリフェラルを受信してEddystone-URLをパースするiOSアプリを作りました。Eddystone-URLのパースは自前で実装しています。
 ---
 

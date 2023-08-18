@@ -2,16 +2,17 @@
 title: Linuxのinotify-toolsでファイルやディレクトリの変更を監視する
 pubtime: 2015-06-29T00:25:00+09:00
 modtime: 2015-07-01T00:00:00+09:00
-amp: hybrid
-tags: [inotify, inotify-tools, Linux, 監視]
+tags: [Linux, コマンド]
 description: Linuxカーネルが持つファイルシステムの変更検知システムである"inotify"という機能をコマンドラインで扱うためのツール「inotify-tools」の使い方の紹介です。
 ---
 
-<PS date="2015-07-01" level={1}>
+<ins date="2015-07-01">
 
-随分前に書いた<a href="/blog/2013/03/python-inotify">pythonからinotifyを利用する記事</a>もあります。よろしければ。
+# 2015-07-01 追記
 
-</PS>
+随分前に書いた[pythonからinotifyを利用する記事](/blog/2013/03/python-inotify)もあります。よろしければ。
+
+</ins>
 
 ファイルが変更されるタイミングを知りたい時とか、アクセスするタイミングを知りたい時とか、ありますよね。・・・あんまり無いか。
 そんな時に活躍するのがLinuxカーネルに組み込まれてるinotifyって機能。
@@ -20,7 +21,7 @@ description: Linuxカーネルが持つファイルシステムの変更検知�
 `inotify-tools`ってパッケージがあります。適当にパッケージマネージャでインストール。
 んでもって、
 ``` shell
-	$ inotifywait -m file.txt
+$ inotifywait -m file.txt
 ```
 とかやると**file.txt**の変更を監視してくれます。
 ファイル名の代わりにディレクトリを指定すれば、そのディレクトリの中にあるものを監視してくれます。

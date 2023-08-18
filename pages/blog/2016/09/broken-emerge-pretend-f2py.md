@@ -1,8 +1,7 @@
 ---
 title: emergeしようとしたらf2pyが起動した
 pubtime: 2016-09-26T22:15:00+09:00
-amp: hybrid
-tags: [Portage, emerge, f2py]
+tags: [Gentoo]
 description: gentooのportageで色々試していたところ、突然emergeコマンドを起動してもf2pyのヘルプが表示されるようになってしまいました。この問題への対応方法です。
 ---
 

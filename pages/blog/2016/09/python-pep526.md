@@ -1,8 +1,7 @@
 ---
 title: python3.6のPEP526で導入される変数アノテーションの話
 pubtime: 2016-09-22T22:30:00+09:00
-amp: hybrid
-tags: [Python, Python3, PEP, PEP526, 型ヒント, 変数アノテション, Typing]
+tags: [Python, 言語仕様]
 description: Python3.6で新たに導入される変数アノテーションという機能について調べた記録です。構文や挙動、定義上の意味などについて記載しています。
 ---
 

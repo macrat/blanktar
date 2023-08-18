@@ -1,8 +1,7 @@
 ---
 title: ElixirのAgentモジュールを使って値の更新とかメモ化とか
 pubtime: 2016-06-21T17:26:00+09:00
-amp: hybrid
-tags: [Elixir, Agent, メモ化, フィボナッチ数列]
+tags: [Elixir, 標準ライブラリ]
 description: Elixirという言語では変数の変更が出来ないため、代わりに使う「Agent」というものを試してみました。ここでは、アクセスカウンターのようなものと変数のメモ化を試しています。
 ---
 

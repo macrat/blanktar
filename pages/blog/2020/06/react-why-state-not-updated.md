@@ -1,7 +1,6 @@
 ---
 title: Reactでステートの値が反映されない時に試すこととその理由
 pubtime: 2020-06-03T20:48:00+09:00
-amp: hybrid
 tags: [React, JavaScript, Web]
 description: ReactのコールバックやuseEffectで、更新したはずのステートの値をちゃんと取得出来ないことがあります。これを回避する方法と、そもそも何故そんなことになるのかという解説です。
 image: [/blog/2020/06/react-why-state-not-updated.png]

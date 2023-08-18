@@ -1,8 +1,7 @@
 ---
 title: Haskellでエラトステネスの篩
 pubtime: 2015-03-24T17:59:00+09:00
-amp: hybrid
-tags: [Haskell, エラトステネスの篩, 素数]
+tags: [Haskell]
 description: Haskellの勉強のために、エラトステネスの篩で素数のリストを生成するプログラムを書いてみました。安直な実装でも無限リストが作れるので、Haskellの威力を感じます。
 ---
 

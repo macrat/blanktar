@@ -1,8 +1,7 @@
 ---
 title: gentooのaudacityでピッチを変えたい
 pubtime: 2014-12-26T14:12:00+09:00
-amp: hybrid
-tags: [Audacity, Gentoo, ピッチ, sbsms]
+tags: [Gentoo, 音声処理]
 description: gentooにインストールしたaudacityにはデフォルトでは「時間軸のスライド/ピッチの変更」という項目が無いので、USEフラグを変更して使えるようにする方法です。
 ---
 

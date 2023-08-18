@@ -1,8 +1,7 @@
 ---
 title: googleの検索結果にサイト内検索の窓を表示しよう。
 pubtime: 2015-08-21T16:41:00+09:00
-amp: hybrid
-tags: [Google, リッチスニペット, JSON-LD, schema.org]
+tags: [Web]
 description: schema.orgのJSON-LDを使用したリッチスニペットをウェブサイトに仕込んで、Googleの検索結果にサイト内検索の窓が表示されるようにする方法です。
 ---
 

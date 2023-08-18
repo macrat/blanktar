@@ -1,8 +1,7 @@
 ---
 title: pythonで最大値、最小値を求める色々
 pubtime: 2014-03-03T21:18:00+09:00
-amp: hybrid
-tags: [Python, 最大値, 最小値]
+tags: [Python, 言語仕様, データ分析]
 description: pythonでリストやタプルなどなどの中の最大値や最小値を探す方法です。
 image: [/blog/2014/03/python-max-min.png]
 ---

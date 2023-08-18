@@ -2,19 +2,20 @@
 title: pythonのPILを使ってExifを見る
 pubtime: 2013-11-08T22:01:00+09:00
 modtime: 2014-02-05T00:00:00+09:00
-amp: hybrid
-tags: [Python, PIL, Exif, 画像, カメラ]
+tags: [Python, Exif, PIL]
 description: Python/PILを使って、jpeg画像のExifデータを読み出す方法です。
 ---
 
-<PS date="2014-02-05" level={1}>
+<ins date="2014-02-05">
+
+# 2014-02-05 追記
 
 pyexiv2というライブラリを使って読み書き方法も書きました。
 対応する要素の種類も多いっぽい。
 
 [pythonのpyexiv2でExifをごにょごにょする](/blog/2014/02/python-pyexiv2)
 
-</PS>
+</ins>
 
 大抵のデジタル画像にはExif情報ってのが付いてます。
 撮影地とか撮影した時間、使ったカメラのスペックとか設定が分かるやつね。

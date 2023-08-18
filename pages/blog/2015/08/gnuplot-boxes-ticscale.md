@@ -1,8 +1,7 @@
 ---
 title: gnuplotで書いた棒グラフのx軸に生える線を消したい
 pubtime: 2015-08-02T20:32:00+09:00
-amp: hybrid
-tags: [gnuplot, 棒グラフ, xtics, ticscale, x軸]
+tags: [gnuplot, データ分析]
 image: [/blog/2015/08/xtics-before.png]
 description: gnuplotで書いた棒グラフのx軸にちょこんと生える小さな線、「xtics」を消す方法です。
 ---

@@ -1,8 +1,7 @@
 ---
 title: systemd-networkdを導入したgentooでMTUの設定を永続化
 pubtime: 2017-03-22T01:50:00+09:00
-amp: hybrid
-tags: [Gentoo, systemd, networkd, MTU, ジャンボフレーム, eth0]
+tags: [Linux, Gentoo, ネットワーク, 環境構築]
 description: systemd-networkdを使って、MTUの設定（ジャンボフレームの設定）を永続化する方法です。
 ---
 

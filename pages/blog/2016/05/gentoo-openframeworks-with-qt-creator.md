@@ -2,8 +2,7 @@
 title: gentooにopenFrameworksを入れた戦いの記録
 pubtime: 2016-05-22T13:22:00+09:00
 modtime: 2016-05-27T00:00:00+09:00
-amp: hybrid
-tags: [openFrameworks, QtCreator, Gentoo, Portage, Linux]
+tags: [Linux, Gentoo, openFrameworks, 環境構築]
 description: gentooにopenFrameworksをインストールする方法です。かなり長い道程でしたが、きちんとプロジェクトをコンパイル出来るところまでは行けました。
 ---
 
@@ -46,7 +45,9 @@ please report this problem in the forums
 ```
 めっちゃ怒られました。依存関係を満していないようです。
 
-<PS date="2016-05-27" level={3}>
+<ins date="2016-05-27">
+
+### 2016-05-27 追記
 
 もしかしたらルート権限がないとコンパイル出来ないかもしれません。
 
@@ -59,7 +60,7 @@ there has been a problem compiling Debug OF library
 please report this problem in the forums
 ```
 
-</PS>
+</ins>
 
 ## 足りないものを調べる
 `checking pkg-config libraries: `以降をコピーして、何が足りないのか調べてみます。

@@ -2,8 +2,7 @@
 title: PowerShellで配列内のユニークな値の数を数える
 pubtime: 2020-11-04T21:49:00+09:00
 modtime: 2020-11-05T19:35:00+09:00
-amp: hybrid
-tags: [PowerShell, 言語仕様, 配列]
+tags: [PowerShell, 言語仕様, Windows]
 description: 値の重複がある配列があるとき、重複を省いた状態でのユニークな値の数をPowerShellで調べる方法です。いくつか方法があるので、それぞれ試してベンチマークしてみました。
 image: [/blog/2020/11/powershell-unique-value-count.png]
 faq:
@@ -391,9 +390,11 @@ Write-Host "HashSet.UnionWith:" (Measure-Command {
 }).TotalSeconds
 ```
 
-<PS date="2020-11-05" level={1}>
+<ins date="2020-11-05">
+
+# 2020-11-05 追記
 
 [Twitterで頂いた情報](/blog/2020/11/powershell-use-generic-class)を元に、[HashSet::newを使った方法](#HashSet::new)と[HashSet.UnionWithを使った方法](#HashSet.UnionWith)を追加して内容を更新しました。
 案の定最速だった上に見た目も見やすいので、積極的に使っていけそうです。
 
-</PS>
+</ins>

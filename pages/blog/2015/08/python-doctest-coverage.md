@@ -1,8 +1,7 @@
 ---
 title: pythonのdoctestのカバレッジを取る
 pubtime: 2015-08-27T16:27:00+09:00
-amp: hybrid
-tags: [Python, doctest, coverage, カバレッジ]
+tags: [Python, テスト, コマンド]
 description: pythonのcoverageというツールを使って、doctestを使ってコメントの中に書いたテストのカバレッジを取得する方法です。テキスト形式やHTML形式などの出力を試しました。
 ---
 

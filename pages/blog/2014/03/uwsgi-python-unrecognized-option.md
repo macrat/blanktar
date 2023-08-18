@@ -1,8 +1,7 @@
 ---
 title: uwsgiでpython動かそうとしたらunrecognized optionって言われた。
 pubtime: 2014-03-07T00:45:00+09:00
-amp: hybrid
-tags: [uWSGI, Python, plugin]
+tags: [Web, Python, uWSGI]
 description: nginxとuwsgiを組み合わせてpythonを動かそうとしたところ、「unrecognized option '--wsgi-file'」というエラーが出たので対処方法を調べました。どうやらプラグインが足りなかったようです。
 ---
 

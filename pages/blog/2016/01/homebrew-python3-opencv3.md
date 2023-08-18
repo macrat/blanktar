@@ -1,8 +1,7 @@
 ---
 title: homebrewでopencv3を入れてpython3からOpenCVを使えるようにした。
 pubtime: 2016-01-15T11:17:00+09:00
-amp: hybrid
-tags: [Homebrew, OpenCV, Python3]
+tags: [Mac, Python, OpenCV, 環境構築]
 description: Mac OSのPython3でOpenCVを使うべく、Homebrewを使ってOpenCV 3をインストールしました。若干いつもと違うコマンドを打つ必要があるようです。
 ---
 

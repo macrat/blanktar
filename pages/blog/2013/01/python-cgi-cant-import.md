@@ -1,7 +1,6 @@
 ---
 title: python cgiで外部ソースのインポートが出来ない
 pubtime: 2013-01-10T21:54:00+09:00
-amp: hybrid
 tags: [Python, CGI]
 description: pythonで作ったCGIで「No module named」と言われてしまい外部のモジュールをインポート出来ない場合の対処方法です。
 ---

@@ -1,8 +1,7 @@
 ---
 title: macのbashでもglobstarを使いたい
 pubtime: 2015-08-15T16:25:00+09:00
-amp: hybrid
-tags: [Mac, Bash, globstar]
+tags: [Mac, Bash, 環境構築]
 description: "`**/*`のようにして再帰的にファイルを指定することが出来るbashのオプション「gblostar」を、Mac OS上でも使用できるようにする方法です。インストールにはHomebrewを使っています。"
 ---
 

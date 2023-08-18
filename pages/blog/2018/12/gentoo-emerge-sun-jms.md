@@ -1,8 +1,7 @@
 ---
 title: dev-java/sun-jmsをemergeしようとしたらjms-1_1-fr-apidocs.zipが無いとか言われる
 pubtime: 2018-12-09T14:58:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, emerge, sun-jms]
+tags: [Gentoo]
 description: gentooのportageでdev-java/sun-jmsをインストールしようとすると聞かれるライセンス問題への対処方法です。
 howto:
   totalTime: PT5M

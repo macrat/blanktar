@@ -1,8 +1,7 @@
 ---
 title: openFrameworksで画像を回す。そしてちゃんと笑い男する。
 pubtime: 2016-05-28T19:51:00+09:00
-amp: hybrid
-tags: [C++, openFrameworks, ofxCv, OpenCV, 笑い男, 画像処理]
+tags: [C++, openFrameworks, OpenCV, 画像処理]
 image: [/blog/2016/05/laughing-man-eyecatch.jpg]
 description: openFrameworksを用いて画像（というか描画するもの全般）を回転させる方法です。ofxCvを使って作った笑い男プログラムの笑い男画像をきちんと回すようにしてみました。
 ---

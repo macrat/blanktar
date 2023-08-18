@@ -1,8 +1,7 @@
 ---
 title: linuxのC言語でforkしたりpipeでおしゃべりしたり
 pubtime: 2015-02-28T15:17:00+09:00
-amp: hybrid
-tags: [C言語, Linux, fork, パイプ, プロセス]
+tags: [Linux, C言語]
 description: linux/C言語でマルチプロセス処理をするためによく使われる"fork"について調べてみた記録です。
 ---
 

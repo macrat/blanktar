@@ -1,8 +1,7 @@
 ---
 title: pythonのmatplotlib（とちょこっとpandas）でローソク足のチャートを書く
 pubtime: 2015-12-19T16:57:00+09:00
-amp: hybrid
-tags: [Matplotlib, Pandas, ローソク足]
+tags: [Python, Matplotlib, Pandas, データ分析]
 image: [/blog/2015/12/matplotlib-candles.png]
 description: pythonのmatplotlibとpandasを使って、株やFXで使われるようなローソク足チャートを作成する方法のメモです。
 ---

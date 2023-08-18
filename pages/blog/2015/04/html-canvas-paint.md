@@ -1,7 +1,6 @@
 ---
 title: HTML5のcanvasでお絵描きしてみた。
 pubtime: 2015-04-18T16:05:00+09:00
-amp: false
 tags: [HTML5, Canvas, JavaScript]
 description: HTML5のcanvasを使用して、簡単なお絵描きツールのようなものを作ってみました。結構色々遊べそうです。
 ---
@@ -10,21 +9,23 @@ HTML5のcanvasは結構いい感じで、結構遊べるようです。Flashが�
 
 実際に動くサンプルがこんなん。
 
-<canvas id="canvaspaint" width="640" height="480" style={{border: "1px solid black", backgroundColor: "white"}} />
-<Script>{() => {
-    const canvas = document.querySelector('#canvaspaint');
+<canvas id="canvaspaint" width="640" height="480" style="border: 1px solid black; background-color: white"></canvas>
+<script type="text/javascript">
+(() => {
+    const canvas = document.getElementById('canvaspaint');
     const context = canvas.getContext('2d');
     canvas.addEventListener('mousedown', ev => {
         context.beginPath();
-        context.moveTo(ev.layerX, ev.layerY);
+        context.moveTo(ev.offsetX, ev.offsetY);
     });
     canvas.addEventListener('mousemove', ev => {
         if (ev.which) {
-            context.lineTo(ev.layerX,ev.layerY);
+            context.lineTo(ev.offsetX,ev.offsetY);
             context.stroke();
         }
     });
-}}</Script>
+})();
+</script>
 
 ぐりぐり書ける。結構いい感じ。今のところ消せないけど。
 
@@ -39,12 +40,12 @@ HTML5のcanvasは結構いい感じで、結構遊べるようです。Flashが�
 
         canvas.addEventListener('mousedown', function(ev){
             context.beginPath();
-            context.moveTo(ev.layerX, ev.layerY);
+            context.moveTo(ev.offsetX, ev.offsetY);
         });
 
         canvas.addEventListener('mousemove', function(ev){
             if(ev.which){
-                context.lineTo(ev.layerX, ev.layerY);
+                context.lineTo(ev.offsetX, ev.offsetY);
                 context.stroke();
             }
         });
@@ -88,3 +89,13 @@ document.querySelector('#thisisid');
 document.querySelector('.classname');
 ```
 とか出来る。便利。
+
+<ins datetime="2023-08-18T22:33">
+
+# 2023-08-18 追記
+
+2023年現在の環境で動くように若干コードを修正しました。
+
+修正前は `ev.layerX` / `ev.layerY` を使用していたものを、 `ev.offsetX` / `ev.offsetY` を使用するように変更してあります。
+
+</ins>

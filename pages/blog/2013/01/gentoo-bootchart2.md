@@ -1,8 +1,7 @@
 ---
 title: gentooでbootchart2を使ってみる
 pubtime: 2013-01-22T17:39:00+09:00
-amp: hybrid
-tags: [Gentoo, Linux, bootchart2, ベンチマーク]
+tags: [Linux, Gentoo, 環境構築]
 description: gentooにbootchart2を入れて、起動速度のベンチマークを取ってみました。プロセスごとの所要時間が分かるので、起動の最適化に使えます。
 ---
 

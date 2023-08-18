@@ -1,8 +1,7 @@
 ---
 title: Vercel Now（旧ZEIT Now）上でnode-canvasを動かす
 pubtime: 2020-05-03T15:46:00+09:00
-amp: hybrid
-tags: [Vercel, Node.js, node-canvas, サーバ, yum]
+tags: [Vercel, Node.js]
 description: Vercel NowにデプロイしたNode.jsのプロジェクトでnode-canvasを使う方法です。node-canvasはpure-jsではないので、依存関係を手動で解決してあげる必要があります。
 faq:
   - question: Vercel Nowでnode-canvasを動かすには？

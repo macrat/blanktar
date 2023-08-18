@@ -2,17 +2,18 @@
 title: Python/PySpark（Spark.ml）のRandomForestClassifierにnumpyのデータを使ってみる
 pubtime: 2017-09-14T15:40:00+09:00
 modtime: 2017-09-15T00:00:00+09:00
-amp: hybrid
-tags: [Python, 機械学習, PySpark, Spark, NumPy, RandomForest]
+tags: [Python, 機械学習, データ分析]
 image: [/blog/2017/09/python-pyspark-random-forest-classifier-with-numpy.png]
 description: 並列分散処理のためのライブラリであるSparkを、Python/PySparkから使う方法です。ここでは、RandomForestClassifierを使ってアヤメの分類をしています。
 ---
 
-<PS date="2017-09-15" level={1}>
+<ps date="2017-09-15">
 
-<a href="/blog/2017/09/python-scikit-learn-random-forest">scikit-learnを使って同じことをする記事</a>も書きました。比べてみると面白いかも？
+# 2017-09-15 追記
 
-</PS>
+[scikit-learnを使って同じことをする記事](/blog/2017/09/python-scikit-learn-random-forest)も書きました。比べてみると面白いかも？
+
+</ins>
 
 **PySpark**使えば簡単に分散環境で機械学習出来て楽しい的な話を聞いたのでやってみました。
 結論から言うと、そんなに簡単じゃなかった。…前処理が。

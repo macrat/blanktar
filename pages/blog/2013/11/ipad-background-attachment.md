@@ -1,8 +1,7 @@
 ---
 title: iPadではcssのbackground-attachmentを使えないらしい
 pubtime: 2013-11-06T22:32:00+09:00
-amp: hybrid
-tags: [iPad, CSS, HTML, background, SVG]
+tags: [Web, HTML, CSS, iOS]
 description: iPadではCSSの`background-attachment`が動かないようです。なので、別の方法で同じようなことを実現してみました。
 ---
 

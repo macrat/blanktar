@@ -1,8 +1,7 @@
 ---
 title: pythonは標準でtemplateが使えるらしい
 pubtime: 2013-05-17T14:31:00+09:00
-amp: hybrid
-tags: [Python, 標準ライブラリ, テンプレートエンジン]
+tags: [Python, 標準ライブラリ]
 description: Pythonの標準ライブラリとして搭載されている「template」というモジュールを使って、簡易的な文字列テンプレートを実現する方法です。
 ---
 

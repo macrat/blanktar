@@ -1,8 +1,7 @@
 ---
 title: apacheでmod_authz_svnを読み込もうとしたら失敗した
 pubtime: 2014-09-01T15:01:00+09:00
-amp: hybrid
-tags: [Apache, Subversion, svn, authz]
+tags: [Web, Apache, サーバ]
 description: "apacheでmod_authz_svgモジュールを読み込む際に発生した「undefined symbol: dav_svn_get_repos_path」という感じのエラーへの対処方法です。"
 ---
 

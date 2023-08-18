@@ -1,8 +1,7 @@
 ---
 title: python/Pillowで輪郭を見つけたり強調したり
 pubtime: 2015-09-03T16:38:00+09:00
-amp: hybrid
-tags: [Python, Pillow, PIL, 輪郭, 画像処理]
+tags: [Python, PIL, 画像処理]
 image: [/blog/2015/09/python-pillow-image-edges.png]
 description: Pythonの画像処理ライブラリPillow（PIL）で、輪郭の検出や強調などのタスクを試してみました。
 ---

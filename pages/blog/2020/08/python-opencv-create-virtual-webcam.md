@@ -1,8 +1,7 @@
 ---
 title: Python/OpenCVでGStreamerを使って仮想のWebカメラを作る
 pubtime: 2020-08-13T23:58:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, GStreamer, Webカメラ, 画像処理]
+tags: [Linux, Python, OpenCV, GStreamer, 画像処理]
 description: Python/OpenCVとGStreamerを使って、Pythonで作った映像を仮想のWebカメラ映像として出力してみました。これでOBSやFaceRigのようなソフトを作れるはずです、たぶん。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: uwsgiのemperorを他のバージョンのpythonで。
 pubtime: 2015-07-25T15:28:00+09:00
-amp: hybrid
-tags: [uWSGI, emperor, Python]
+tags: [Web, Python, uWSGI]
 description: uWSGIのemperorを使用してpythonのWebサービスを実行するときに、Pythonのバージョンを明示的に指定する方法です。
 ---
 

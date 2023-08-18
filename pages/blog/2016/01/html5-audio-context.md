@@ -1,8 +1,7 @@
 ---
 title: HTML5でマイクで拾った音を色々して何か作った。
 pubtime: 2016-01-10T22:13:00+09:00
-amp: false
-tags: [HTML5, JavaScript, 音, 波形, フーリエ変換, Canvas]
+tags: [HTML5, JavaScript, 音声処理, Canvas]
 description: HTML5のaudioタグとcanvasタグ、それからAnalyserNode APIを使って、録音やマイク入力をブラウザだけで解析・可視化してみました。色々と面白いことが出来そうです。
 ---
 
@@ -11,7 +10,7 @@ description: HTML5のaudioタグとcanvasタグ、それからAnalyserNode API�
 
 なんかこんな感じのやつが出来る。マイクの付いた新しめのブラウザでご覧下さい。
 
-<canvas style={{border: "1px solid black", backgroundColor: "white"}} width={640} height={480} id="mic_frequency_one" />
+<canvas style="border: 1px solid black; background-color: white" width="640" height="480" id="mic_frequency_one"></canvas>
 
 ソースコードはこんな感じです。
 ``` html
@@ -89,7 +88,7 @@ navigator.getUserMedia(
 
 普通にcanvasを使っているので、わりと何でも出来ます。楽しい。
 
-<canvas style={{border: "1px solid black"}} width={640} height={480} id="mic_frequency_two" />
+<canvas style="border: 1px solid black" width="640" height="480" id="mic_frequency_two"></canvas>
 
 余談ですが、google chromeでgetUserMediaを使おうとする場合はhttpsを使わないといけないようです。Firefoxとかは分からん。
 そんなわけでこのページもHTTPSになってるはず。

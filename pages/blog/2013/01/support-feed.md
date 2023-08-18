@@ -1,8 +1,7 @@
 ---
 title: feedに対応したよ！
 pubtime: 2013-01-11T04:10:00+09:00
-amp: hybrid
-tags: [feed, RSS]
+tags: [Blanktar.jp]
 description: Atom feedに対応してみました。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: vimでmarkdownのfrontmatterにちゃんと色を付ける
 pubtime: 2021-03-06T21:25:00+09:00
-amp: hybrid
-tags: [vim, markdown]
+tags: [Vim, 環境構築]
 image: [/blog/2021/03/vim-frontmatter-highlight.jpg]
 description: vimは標準でmarkdownをシンタックスハイライトしてくれるのですが、frontmatterに対応していません。私はfrontmatterを使う機会が多いので、良い感じに表示する方法を探してみました。
 ---

@@ -1,8 +1,7 @@
 ---
 title: R言語のrpartを使って決定木を作ってみる
 pubtime: 2017-01-05T19:45:00+09:00
-amp: hybrid
-tags: [R言語, 決定木, rpart, iris]
+tags: [R言語, ライブラリの紹介, データ分析]
 image: [/blog/2017/01/iris-party.png]
 description: R言語のrpartというライブラリを使って、お手軽にIrisデータセットの決定木分析を行なってみました。partykitを使って分析結果の可視化までを行ないました。
 ---

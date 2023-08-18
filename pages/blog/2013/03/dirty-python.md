@@ -1,8 +1,7 @@
 ---
 title: pythonを汚く書く
 pubtime: 2013-03-07T00:41:00+09:00
-amp: hybrid
-tags: [Python, 可読性, ネタ]
+tags: [Python, ネタ]
 description: Pythonを汚く書く10個のアンチパターンまとめです。
 ---
 

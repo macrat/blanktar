@@ -1,8 +1,7 @@
 ---
 title: ubuntuのpyexiv2を無理やりgentooに移植した話。
 pubtime: 2014-02-08T00:08:00+09:00
-amp: hybrid
-tags: [Gentoo, Python, Exif, pyexiv2, Ubuntu]
+tags: [Linux, Gentoo, Python, Exif]
 description: pythonのpyexiv2というライブラリをgentooで上手くコンパイル出来なかったので、ubuntuでコンパイルしたものを無理矢理加工して使えるようにしてみました。
 ---
 

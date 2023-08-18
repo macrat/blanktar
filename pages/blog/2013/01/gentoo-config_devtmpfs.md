@@ -1,8 +1,7 @@
 ---
 title: CONFIG_DEVTMPFSがどうのでgentooが起動しない
 pubtime: 2013-01-27T01:39:00+09:00
-amp: hybrid
-tags: [Gentoo, devtmpfs]
+tags: [Gentoo]
 description: OpenRCなgentooをカーネルアップデートしたあに「CONFIG_DEVTMPFS」とかいうエラーを出して起動しなくなった場合の対処方法です。
 ---
 

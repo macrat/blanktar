@@ -1,8 +1,7 @@
 ---
 title: pythonで冪剰余
 pubtime: 2013-10-16T21:57:00+09:00
-amp: hybrid
-tags: [Python, 冪剰余, 組み込み関数, 言語仕様]
+tags: [Python, 言語仕様]
 description: Pythonで冪乗余を計算する方法です。
 ---
 

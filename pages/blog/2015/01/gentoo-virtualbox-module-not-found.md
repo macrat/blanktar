@@ -1,8 +1,7 @@
 ---
 title: gentooのカーネル更新したらvboxdrvがどっか行った
 pubtime: 2015-01-23T21:14:00+09:00
-amp: hybrid
-tags: [Gentoo, VirtualBox, vboxdrv]
+tags: [Gentoo, VirtualBox]
 description: gentooのカーネルを更新したら、"vboxdrv"というカーネルモジュールを読み込めなくなってしまいました。この問題の解決方法です。
 ---
 

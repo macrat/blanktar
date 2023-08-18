@@ -1,10 +1,8 @@
 ---
 title: 明けまして
 pubtime: 2015-01-01T00:00:00+09:00
-amp: hybrid
 tags: [謹賀新年]
 image: [/blog/2015/01/new-year.png]
-description: null
 ---
 
 <img alt="明けましておめでとうございます" src="/blog/2015/01/new-year.png" width="2550" height="3300" center />

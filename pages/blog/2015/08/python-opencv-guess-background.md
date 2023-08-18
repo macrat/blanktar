@@ -1,8 +1,7 @@
 ---
 title: python/OpenCVで複数の画像から背景だけを取り出す
 pubtime: 2015-08-24T21:33:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, 背景, 動体検出]
+tags: [Python, OpenCV, 画像処理]
 image: [/blog/2015/08/python-opencv-guess-background.jpg]
 description: 同じ場所で撮られた複数の画像を処理して、その場所の背景画像を生成するプログラムをPython/OpenCVで実装してみました。動体検出の仕組みを応用して自分で実装しています。
 ---

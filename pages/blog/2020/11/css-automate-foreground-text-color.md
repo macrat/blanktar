@@ -1,8 +1,7 @@
 ---
 title: CSSのfilterを使って、背景色に合わせた文字色を自動的に設定する
 pubtime: 2020-11-01T01:29:00+09:00
-amp: hybrid
-tags: [CSS, HTML, Webサイト]
+tags: [Web, HTML, CSS]
 description: 背景色が動的に変わる状況で、文字色が見えなくならないように良い感じに設定したい時があります。JavaScriptで書いても良いのですが面倒なので、CSSのfilterを使って上手いことやってもらう方法をご紹介します。
 image:
   - /blog/2020/11/css-automate-foreground-text-color.png

@@ -2,8 +2,7 @@
 title: go言語/goyaccでプログラミング言語を自作したい
 pubtime: 2018-01-08T00:44:00+09:00
 modtime: 2018-01-10T00:00:00+09:00
-amp: hybrid
-tags: [go言語, goyacc, simplexer, 計算機]
+tags: [Go, ライブラリの紹介, 作品紹介]
 description: go言語/goyaccで自作の言語を作ってみました。この記事では、簡易的な計算機を作ります。
 ---
 
@@ -249,14 +248,16 @@ func (l *Lexer) Lex(lval *yySymType) int {
 先ほどの定義はyaccに使うトークンの種類を伝えると共に、int型の定数を定義する機能も持っています。
 simplexerはが返すトークンはintで識別子を持てるので、yaccが生成したIDをそのまんま渡してあります。
 
-<PS date="2018-01-10" level={2}>
+<ins date="2018-01-10">
+
+## 2018-01-10 追記
 
 [本日の更新](https://github.com/macrat/simplexer/commit/9d4be71296ab3e683cea584a76bc0629c84472d2)で、`simplexer.NewTokenType`が`simplexer.NewRegexpTokenType`に、`Token.Type.ID`が`Token.Type.GetID()`に変更になりました。
 サンプルは全て修正後のものになってます。
 
 正規表現使うやつだけじゃなくて、完全一致しかさせないやつとかも作ったのでちょっと効率が良くなったりする、はず。たぶん。
 
-</PS>
+</ins>
 
 で、あともう一個。エラー処理の関数を作ります。
 

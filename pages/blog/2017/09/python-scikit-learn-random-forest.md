@@ -1,8 +1,7 @@
 ---
 title: Python/scikit-learnのRandomForestでもirisの分類をしてみる
 pubtime: 2017-09-15T22:32:00+09:00
-amp: hybrid
-tags: [Python, 機械学習, scikit-learn, RandomForest, NumPy, Matplotlib]
+tags: [Python, 機械学習, データ分析]
 image: [/blog/2017/09/python-scikit-learn-random-forest.png]
 description: Python/scikit-learnのRandomForestを使ってアヤメの分類をする方法です。かなりシンプルに実装出来るようです。
 ---

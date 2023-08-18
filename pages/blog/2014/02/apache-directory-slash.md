@@ -1,8 +1,7 @@
 ---
 title: パス末尾のスラッシュを強制するapacheの設定
 pubtime: 2014-02-11T03:16:00+09:00
-amp: hybrid
-tags: [Apache, パス, mod_dir, スラッシュ, DirectorySlash]
+tags: [Web, Apache, サーバ]
 description: apacheでディレクトリの最後に必ずスラッシュを付けるように強制する設定の方法です。
 ---
 

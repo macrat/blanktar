@@ -1,7 +1,6 @@
 ---
 title: dockerで遊ぼうと思ったらなんかpull出来なかった。
 pubtime: 2016-02-21T20:55:00+09:00
-amp: hybrid
 tags: [Docker]
 description: docker pullしようとしたら「Driver devicemapper failed to create image rootfs」という感じのエラーが出たので、それに対応した時のメモです。
 ---

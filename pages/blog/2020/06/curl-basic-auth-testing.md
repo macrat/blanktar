@@ -1,8 +1,7 @@
 ---
 title: curlでBASIC認証の動作確認をする
 pubtime: 2020-06-27T12:24:00+09:00
-amp: hybrid
-tags: [curl, BASIC認証, コマンド, Web]
+tags: [curl, コマンド, セキュリティ, テスト, Web]
 description: HTTPのBASIC認証を使ったアカウントが10個くらいあるWebサイトを作ったのですが、一個一個動作確認するのは面倒臭くて…。それ、curlコマンドで自動化出来ます。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: ofxCvを使ってwebカメラの映像をぼかしたりグレーにしたり輪郭取ったり
 pubtime: 2016-05-28T17:52:00+09:00
-amp: hybrid
-tags: [C++, openFrameworks, ofxCv, Webカメラ, openCV, 画像処理]
+tags: [C++, openFrameworks, OpenCV, 画像処理]
 image: [/blog/2016/05/ofxcv-blur-grayscale-and-edge.jpg]
 description: openFrameworksでOpenCVを良い感じに扱うライブラリであるofxCvを使って、webカメラの映像を色々加工する実験をしてみました。
 ---

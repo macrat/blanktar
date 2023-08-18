@@ -1,8 +1,7 @@
 ---
 title: Python/Pipenvでインストールしようとした時に出るAssertionErrorやFileNotFoundErrorの直し方
 pubtime: 2020-06-19T13:55:00+09:00
-amp: hybrid
-tags: [Python, Pipenv, AssertionError]
+tags: [Python]
 description: Pipenvを使ってPythonのパッケージをインストールしようとしていたところ、やたら長いトレースバックと共にAssertionErrorが出るようになってしまいました。このエラーを解決する方法についてのメモです。
 faq:
   - question: "pip installしたらAssertionErrorやFileNotFoundErrorが出たときはどうしたら良い？"

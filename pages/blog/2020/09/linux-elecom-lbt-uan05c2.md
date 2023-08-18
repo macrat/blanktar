@@ -1,8 +1,7 @@
 ---
 title: ELECOM LBT-UAN05C2のGentoo Linuxでの動作報告
 pubtime: 2020-09-15T19:16:00+09:00
-amp: hybrid
-tags: [Gentoo, Linux, Bluetooth, 動作報告]
+tags: [Gentoo, Linux, ハードウェア]
 description: 新しいBluetoothドングルを書いました。ELECOMのLBT-UAN05C2ってやつ。Gentoo Linuxでもちゃんと動いたので、細かいスペックなどを含めた動作報告記事です。
 image: [/blog/2020/09/linux-elecom-lbt-uan05c2.png]
 faq:

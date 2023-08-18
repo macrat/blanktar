@@ -1,8 +1,7 @@
 ---
 title: bellumなんていうchrome extension作りました
 pubtime: 2014-09-22T22:39:00+09:00
-amp: hybrid
-tags: [bellum, Chrome, extension, JavaScript, jQuery]
+tags: [作品紹介]
 description: 仲間内で夏休みのハッカソンをやって、「bellum」という名前のchrome拡張を作りました。某動画投稿サイト風のチャットを、普通のWebページ上で実現するというものです。
 ---
 

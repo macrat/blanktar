@@ -1,8 +1,7 @@
 ---
 title: jinja2の関数が結構便利でびっくり。
 pubtime: 2014-02-11T18:11:00+09:00
-amp: hybrid
-tags: [Python, Jinja, テンプレート, マクロ]
+tags: [Python, ライブラリの紹介]
 description: pythonのflaskやdjangoで使われるテンプレートエンジンである「jinja2」のマクロの使い方です。関数のようなイメージで、わりと色々なことが出来ます。
 ---
 

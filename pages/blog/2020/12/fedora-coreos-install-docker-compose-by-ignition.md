@@ -1,7 +1,6 @@
 ---
 title: Fedora CoreOSのIgnitionでOSと一緒にdocker-composeのインストールもやる
 pubtime: 2020-12-07T23:22:00+09:00
-amp: hybrid
 tags: [Fedora CoreOS, Linux, Docker, docker-compose]
 description: ちょっとしたサービスを動かすにはdocker-composeが手軽で便利。コンテナを動かすだけのサーバを立てるにはFedora CoreOSが手軽で便利。でも、CoreOSはデフォルトではDockerが無効だしdocker-composeも入ってないし…という問題を解決するためのIgnitionファイルの書き方です。
 faq:

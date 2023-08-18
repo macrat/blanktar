@@ -1,8 +1,7 @@
 ---
 title: UNIXソケットとやらをC言語で試してみた。
 pubtime: 2014-04-22T13:41:00+09:00
-amp: hybrid
-tags: [UNIXソケット, C言語, socket, UNIX, Linux]
+tags: [Linux, C言語]
 description: macやlinuxなんかで使えるUNIXソケットを使った通信をC言語で試してみました。
 ---
 

@@ -2,16 +2,17 @@
 title: pythonのOpenCVでリアルタイムに笑い男
 pubtime: 2015-02-09T02:24:00+09:00
 modtime: 2020-06-19T18:24:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, NumPy, 画像処理]
+tags: [Python, OpenCV, 画像処理]
 description: python/Opencvを使って、webカメラの映像をリアルタイムで読み込んで顔を検出して、笑い男の画像を重ねるプログラムを作ってみました。
 ---
 
-<PS date="2016-01-11" level={1}>
+<ins date="2016-01-11">
 
-<a href="/blog/2016/01/html5-realtime-laughing-man">HTML5版</a>もあります。併せてどうぞ。
+# 2016-01-11 追記
 
-</PS>
+[HTML5版](/blog/2016/01/html5-realtime-laughing-man)もあります。併せてどうぞ。
+
+</ins>
 
 [先ほどの記事](/blog/2015/02/python-opencv-pillow-facemosaic)から何だか調子に乗ってしまってリアルタイムな笑い男を作ってみた。
 組み合わせればリアルタイムにモザイクももちろん出来るはず。眠いからやらないけれど。
@@ -76,11 +77,13 @@ cv2.destroyAllWindows()
 ```
 
 
-<PS date="2020-06-19" level={1}>
+<ins date="2020-06-19">
+
+# 2020-06-19 追記
 
 最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
 
-</PS>
+</ins>
 
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: Instagram graph API v6で投稿した画像を取得する
 pubtime: 2020-02-07T16:21:00+09:00
-amp: hybrid
-tags: [Instagram, Facebook, API, Web]
+tags: [Web, API]
 description: 仕事でInstagramの投稿をホームページに取り込みたいという案件があったので、Instagram graph APIというのを使ってFacebookのAPIを使ってみました。結構ややこしいです。
 ---
 

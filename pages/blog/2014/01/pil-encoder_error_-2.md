@@ -1,7 +1,6 @@
 ---
 title: PILで保存するときにencoder error -2とか言われた。
 pubtime: 2014-01-15T01:58:00+09:00
-amp: hybrid
 tags: [Python, PIL, 画像処理]
 description: Python/PILでプログレッシブJPEGを保存しようとした時に発生する「encoder error -2 when writing image file」というエラーへの対処方法です。
 ---

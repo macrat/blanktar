@@ -1,8 +1,7 @@
 ---
 title: メールを見たい？ curlで良いんじゃない？
 pubtime: 2016-01-05T17:04:00+09:00
-amp: hybrid
-tags: [メール, curl, IMAP]
+tags: [curl, メール, コマンド]
 description: curlコマンドはメールを受信するためのIMAPも扱うことが出来るようです。実際に受信や既読マークを付ける方法を試してみました。
 ---
 

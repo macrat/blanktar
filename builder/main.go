@@ -57,6 +57,24 @@ func NeedToUpdate[T ModTimer](targetPath string, sourceInfo T, conf ConvertConfi
 	return err != nil || target.ModTime().Compare(sourceInfo.ModTime()) <= 0
 }
 
+func EscapeTag(s string) string {
+	rules := []struct {
+		From string
+		To   string
+	}{
+		{"/", "-"},
+		{"?", "-"},
+		{"#", "-"},
+	}
+	for _, rule := range rules {
+		s = strings.ReplaceAll(s, rule.From, rule.To)
+	}
+	for s[0] == '.' {
+		s = s[1:]
+	}
+	return s
+}
+
 func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGenerator) error {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {

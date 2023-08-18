@@ -1,8 +1,7 @@
 ---
 title: python3.6で導入されるf文字列はformatメソッドとは違う
 pubtime: 2016-02-07T23:48:00+09:00
-amp: hybrid
-tags: [Python, f文字列, format, str]
+tags: [Python, 言語仕様]
 description: Python3.6で新たに導入されるf文字列というやつを調べてみると、どうやら今までのformatメソッドとは似て非なるもののようでした。その違いについて調べた記録です。
 ---
 

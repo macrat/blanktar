@@ -1,8 +1,7 @@
 ---
 title: python/tkinterのlabelに貼り付けた画像を消す方法。
 pubtime: 2014-01-10T23:58:00+09:00
-amp: hybrid
-tags: [Python, Tkinter, label, 画像]
+tags: [Python, 標準ライブラリ]
 description: Python/tkinterで、一度ラベルに表示させた画像をあとから削除する方法です。
 ---
 

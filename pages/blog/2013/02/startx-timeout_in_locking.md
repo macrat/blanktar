@@ -1,8 +1,7 @@
 ---
 title: startxした時にtimeout in lockingとか言われる
 pubtime: 2013-02-27T22:26:00+09:00
-amp: hybrid
-tags: [Linux, X11, XAuth, パーミッション]
+tags: [Linux, X11, 環境構築]
 description: "X11を起動するべくstartxしたときに、「xauth: timeout in locking authority file」と言われるエラーを修正する方法です。"
 ---
 

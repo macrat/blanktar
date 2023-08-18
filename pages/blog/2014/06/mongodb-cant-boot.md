@@ -1,8 +1,7 @@
 ---
 title: MongoDB起動しようとしたら_S_create_c_localeがどうので起動しない
 pubtime: 2014-06-08T21:10:00+09:00
-amp: hybrid
-tags: [MongoDB, locale, LANG]
+tags: [Linux, データベース]
 description: MongoDBを起動するときに発生する「_S_create_c_locale name not valid」というようなエラーへの対処方法です。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: google+の共有ボタンをaタグだけで作る
 pubtime: 2014-02-28T16:35:00+09:00
-amp: hybrid
-tags: [ソーシャル, google+, 共有ボタン, aタグ]
+tags: [Web, HTML]
 description: google+で共有するボタンを、javascriptを使わずにaタグだけでWebサイトに設置する方法です。
 ---
 

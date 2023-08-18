@@ -2,17 +2,18 @@
 title: pythonのmax / min関数は意外と便利
 pubtime: 2013-07-30T22:49:00+09:00
 modtime: 2014-03-03T00:00:00+09:00
-amp: hybrid
-tags: [Python, 組み込み関数]
+tags: [Python, 言語仕様]
 description: Pythonで最大値/最小値を求めるための関数`max`/`min`の詳しい使い方の説明です。
 ---
 
-<PS date="2014-03-03" level={1}>
+<ins date="2014-03-03">
+
+# 2014-03-03 追記
 
 もう少し詳しい記事を書きました。
 [pythonで最大値、最小値を求める色々](/blog/2014/03/python-max-min)
 
-</PS>
+</ins>
 
 pythonの組み込み関数で**max**とか**min**ってやつがあるじゃないですか。
 あれ、意外と便利なのよね。

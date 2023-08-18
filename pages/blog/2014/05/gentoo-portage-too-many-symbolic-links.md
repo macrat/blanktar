@@ -1,8 +1,7 @@
 ---
 title: gentooでtimezone-dataとやらをアップデートしようとしたらsymbolic linkがどうので失敗した
 pubtime: 2014-05-24T15:44:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, timezone-data]
+tags: [Gentoo]
 description: gentooの`sys-libs/timezone-data-2014a`を更新しているときに発生する、`Too many levels of symbolic links`というエラーへの対処方法です。
 ---
 

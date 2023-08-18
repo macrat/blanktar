@@ -1,8 +1,7 @@
 ---
 title: python3.4を使うならpathlibを使おう
 pubtime: 2015-07-16T15:05:00+09:00
-amp: hybrid
-tags: [Python, Python3, os.path, pathlib]
+tags: [Python, 標準ライブラリ]
 description: Python3.4以降から標準ライブラリに入った「pathlib」という便利なファイルパス操作用のライブラリの解説です。かなり便利です。
 ---
 

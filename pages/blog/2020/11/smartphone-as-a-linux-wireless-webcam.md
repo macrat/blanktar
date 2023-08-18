@@ -1,8 +1,7 @@
 ---
 title: RTMPとffmpegでスマホをLinuxの無線ウェブカメラにしてみる
 pubtime: 2020-11-22T20:31:00+09:00
-amp: hybrid
-tags: [Linux, RTMP, ffmpeg, v4l2, Webカメラ, スマートフォン]
+tags: [Linux, ffmpeg]
 description: RTMPで遊んでみたくなったので、スマホで撮った映像をRTMPでLinux PCに送信して無線ウェブカメラ的なものを作ってみました。アプリやDockerイメージが揃っているので、結構手軽に試せる感じです。
 faq:
   - question: Linuxで手軽にRTMPサーバを立てるには？

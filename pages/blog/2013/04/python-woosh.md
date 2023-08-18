@@ -1,8 +1,7 @@
 ---
 title: pythonのwhooshで全文検索してみる
 pubtime: 2013-04-03T23:11:00+09:00
-amp: hybrid
-tags: [Python, 全文検索, Whoosh]
+tags: [Python, 自然言語処理, ライブラリの紹介]
 description: Pythonの「woosh」というモジュールを使って日本語の全文検索を試してみました。若干構築が面倒ではありますが、かなり高速な検索が出来ます。
 ---
 

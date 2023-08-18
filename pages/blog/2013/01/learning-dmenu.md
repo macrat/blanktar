@@ -1,8 +1,7 @@
 ---
 title: dmenuに学習っぽいことをしてもらう
 pubtime: 2013-01-24T02:51:00+09:00
-amp: hybrid
-tags: [Linux, X11, dmenu, キーボードランチャー]
+tags: [Linux, 環境構築]
 description: Linux向けのキーボードランチャーである「dmenu」で、最近起動したコマンドを優先的に表示してもらうようにする方法です。
 ---
 

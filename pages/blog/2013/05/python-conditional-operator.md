@@ -1,8 +1,7 @@
 ---
 title: pythonの三項演算子
 pubtime: 2013-05-03T02:09:00+09:00
-amp: hybrid
-tags: [Python, 三項演算子, 言語仕様]
+tags: [Python, 言語仕様]
 description: "Pythonで「x == 1 ? \"a\" : \"b\"」みたいな三項演算子を書く方法です。"
 ---
 

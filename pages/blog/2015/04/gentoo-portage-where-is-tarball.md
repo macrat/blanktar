@@ -1,8 +1,7 @@
 ---
 title: gentooのportageが落とすtarballを綺麗にしよう
 pubtime: 2015-04-06T00:25:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, tarball]
+tags: [Gentoo]
 description: gentooのportageがダウンロードしてくるtarballが大量に溜ってしまっていたのですが、不要なものを見つけて綺麗にしてくれるツールがありました。
 ---
 

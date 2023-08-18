@@ -1,8 +1,7 @@
 ---
 title: pythonでhtmlの文字参照をなんとかする。
 pubtime: 2013-05-04T03:19:00+09:00
-amp: hybrid
-tags: [Python, HTML, 文字参照]
+tags: [Python, HTML]
 description: pythonの標準ライブラリ「htmllib」を使って「&amp;」とか「&gt;」なんかの文字参照を読める形に置換する方法です。
 ---
 

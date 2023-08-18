@@ -1,8 +1,7 @@
 ---
 title: scheme（gauche）でTCP通信してみる
 pubtime: 2013-04-25T17:33:00+09:00
-amp: hybrid
-tags: [Lisp, Scheme, Gauche]
+tags: [Lisp, Scheme]
 description: lisp方言の1つであるScheme（Gauche）を使って、TCP通信の実験をしてみました。
 ---
 

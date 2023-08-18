@@ -1,8 +1,7 @@
 ---
 title: xargsでもパイプとかif文とか使いたい
 pubtime: 2015-08-17T17:13:00+09:00
-amp: hybrid
-tags: [xargs, if, シェル]
+tags: [Linux, コマンド]
 description: Linuxのコマンドであるxargsに渡すコマンドの中でパイプやif文なんかのシェルの機能を使用するための方法です。
 ---
 

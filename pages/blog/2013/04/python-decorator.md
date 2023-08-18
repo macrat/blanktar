@@ -1,8 +1,7 @@
 ---
 title: pythonのデコレータを使ってお手軽ベンチマーク
 pubtime: 2013-04-16T14:26:00+09:00
-amp: hybrid
-tags: [Python, デコレータ, ベンチマーク, 言語仕様]
+tags: [Python, テスト, 言語仕様]
 description: Pythonでデコレータを使って、お手軽に関数単位のベンチマークを取る方法です。
 ---
 

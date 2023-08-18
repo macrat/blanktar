@@ -1,7 +1,6 @@
 ---
 title: "自作Webアプリをmailto:とかtel:のURLに紐付ける"
 pubtime: 2022-01-19T20:08:00+09:00
-amp: hybrid
 tags: [Web, JavaScript]
 description: "gmailなどの一部のWebアプリでは、mailto:やtel:から始まるURLを開くように設定することが出来ます。自分で作ったWebアプリでもこの設定をしたかったのでやってみました。制約はありますが、好きなカスタムスキームを登録出来ます。"
 ---

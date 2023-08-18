@@ -1,8 +1,7 @@
 ---
 title: gentooのnginxでHTTP2を試してみた。
 pubtime: 2016-04-18T21:09:00+09:00
-amp: hybrid
-tags: [Gentoo, Nginx, HTTP2, SSL, TLS, Portage]
+tags: [Linux, Gentoo, Web, サーバ, ベンチマーク]
 image: [/blog/2016/04/http-2.png]
 description: gentooにインストールしてあるNginxを使ってHTTP2を有効化して、実際にどのくらいのスピード向上が望めるのかをベンチマークしてみました。
 ---

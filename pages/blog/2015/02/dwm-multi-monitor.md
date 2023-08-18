@@ -1,8 +1,7 @@
 ---
 title: linuxのdwmをマルチモニタで使おう
 pubtime: 2015-02-13T11:41:00+09:00
-amp: hybrid
-tags: [dwm, マルチモニタ, Linux]
+tags: [Linux, 環境構築]
 description: dwmというlinux用のウィンドウマネージャをマルチモニタ環境で使うときのショートカットや設定などです。
 ---
 

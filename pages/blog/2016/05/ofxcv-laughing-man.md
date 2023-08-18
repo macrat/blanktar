@@ -1,8 +1,7 @@
 ---
 title: ofxCvで笑い男をやってみた
 pubtime: 2016-05-28T19:15:00+09:00
-amp: hybrid
-tags: [C++, openFrameworks, ofxCv, OpenCV, 笑い男, 画像処理]
+tags: [C++, openFrameworks, OpenCV, 画像処理]
 image: [/blog/2016/05/laughing-man-eyecatch.jpg]
 description: openFrameworksでOpenCVを使うためのライブラリであるofxCvを使って、Webカメラの映像から顔を見つけて笑い男の画像を重ねるプログラムを作ってみました。
 ---

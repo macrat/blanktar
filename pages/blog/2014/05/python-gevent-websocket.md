@@ -1,18 +1,17 @@
 ---
 title: pythonのgeventとやらでwebsocket
 pubtime: 2014-05-02T20:35:00+09:00
-amp: hybrid
-tags: [Python, Gevent, WebSocket, Web, HTML]
+tags: [Web, Python, gevent, ライブラリの紹介]
 description: pythonのgeventというライブラリを使って、websocketを使ったリアルタイム通信を実装してみました。
 ---
 
 webでチャットがしたい。出来ればリアルタイムにやりたい。面倒なのは嫌だ。
 調べてみたら結構楽だった。
 
-使ったのは**[gevent](https://pypi.python.org/pypi/gevent)**というライブラリ。
+使ったのは[**gevent**](https://pypi.python.org/pypi/gevent)というライブラリ。
 ネットワークプログラミングのためのライブラリらしいです。wsgi対応みたいなので、多分公開するのも簡単。試してないけど。
 
-で、こいつには**[gevent-websocket](https://pypi.python.org/pypi/gevent-websocket/)**というライブラリだかなんだかがあるようで、ただしくはそっちを使いました。
+で、こいつには[**gevent-websocket**](https://pypi.python.org/pypi/gevent-websocket/)というライブラリだかなんだかがあるようで、ただしくはそっちを使いました。
 まあどちらも入れなきゃいけないようなので、適当に。
 
 サーバーのソースがこんな感じ。

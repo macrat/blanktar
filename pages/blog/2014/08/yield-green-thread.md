@@ -1,8 +1,7 @@
 ---
 title: pythonのyieldでグリーンスレッド（笑）
 pubtime: 2014-08-03T00:24:00+09:00
-amp: hybrid
-tags: [Python, yield, ジェネレータ, グリーンスレッド, コルーチン, スレッド]
+tags: [Python]
 description: pythonのyieldを使って、ものすごく簡易的なグリーンスレッドっぽいものを実装してみました。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: pythonのlambda内で無理やり変数を定義する
 pubtime: 2013-06-02T22:26:00+09:00
-amp: hybrid
-tags: [Python, lambda式]
+tags: [Python, ネタ]
 description: Pythonのlambda式の中で無理やり変数を定義する小ネタです。関数の中で関数を定義することで擬似的に変数のようなものを実現します。
 ---
 

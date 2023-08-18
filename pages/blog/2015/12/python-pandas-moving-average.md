@@ -1,8 +1,7 @@
 ---
 title: pythonのpandasで移動平均を出したい
 pubtime: 2015-12-06T18:59:00+09:00
-amp: hybrid
-tags: [Python, Pandas, 移動平均, NumPy]
+tags: [Python, Pandas, データ分析]
 description: Pythonのpandasを使って、FXや株のチャートで使われている単純移動平均(SMA)や指数移動平均(EMA)を算出する方法です。
 ---
 

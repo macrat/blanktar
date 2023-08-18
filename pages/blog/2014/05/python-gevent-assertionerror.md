@@ -2,8 +2,7 @@
 title: pythonのgeventにAssertionErrorとか言われて詰みかけた話
 pubtime: 2014-05-10T23:12:00+09:00
 modtime: 2014-05-10T23:21:00+09:00
-amp: hybrid
-tags: [Python, Gevent, pywsgi]
+tags: [Python, gevent]
 description: "pythonのgeventで発生する「assert not self.headers_sent」や「TypeError: an integer or string of size 1 is required」とかいうエラーへの対処方法です。"
 ---
 
@@ -31,8 +30,10 @@ TypeError: an integer or string of size 1 is required
 そんなわけで、gevent使うときはエンコードに気をつけましょう。
 ~~ま、python3.x使えよって話かもしれない。~~
 
-<PS date="2014-05-10T23:21:00+09:00" level={1}>
+<ins date="2014-05-10T23:21:00+09:00">
+
+# 2014-05-10 追記
 
 適当に書いちゃったけど、geventはpython3.xに対応してないっぽい？
 
-</PS>
+</ins>

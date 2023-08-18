@@ -1,8 +1,7 @@
 ---
 title: macのautomatorでsshfsとかramfsを自動マウントする
 pubtime: 2015-08-19T17:27:00+09:00
-amp: hybrid
-tags: [Mac, automator, sshfs, ramfs]
+tags: [Mac, 環境構築]
 description: Mac OSに付属している自動化ツール「automator」を使って、sshfsやramfsなどの特殊なストレージを自動的にマウントする方法です。マウントに限らず、色々なスクリプトを実行出来るはずです。
 ---
 

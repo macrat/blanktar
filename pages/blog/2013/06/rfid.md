@@ -1,8 +1,7 @@
 ---
 title: RFIDで遊んでみたかった。
 pubtime: 2013-06-05T23:50:00+09:00
-amp: hybrid
-tags: [RFID, NFC, FeliCa, MIFARE]
+tags: [コンピュータサイエンス]
 description: SuicaやPASMOのようなRFIDの種類色々を調べてみた記録です。
 ---
 

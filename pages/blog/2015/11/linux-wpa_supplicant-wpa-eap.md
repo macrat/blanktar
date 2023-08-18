@@ -2,8 +2,7 @@
 title: wpa_supplicant使ってWPA2エンタープライズなWi-Fiに繋ぎたい
 pubtime: 2015-11-09T20:00:00+09:00
 modtime: 2015-11-11T00:00:00+09:00
-amp: hybrid
-tags: [Linux, Wi-Fi, wpa_supplicant, WPA-EAP]
+tags: [Linux, 環境構築]
 description: linuxのwpa_supplicantを使ってWPA2 エンタープライズなWi-Fiに接続するための設定ファイルの書き方です。
 ---
 
@@ -46,9 +45,11 @@ network={
 
 ではでは、無事に繋がることをお祈りしております。
 
-<PS date="2015-11-11" level={1}>
+<ins date="2015-11-11">
+
+# 2015-11-11 追記
 
 passwordを平文で書きたくない場合、ハッシュ値を書くことも出来るようです。
-詳細はarch linuxのフォーラムに<a href="https://bbs.archlinux.org/viewtopic.php?id=144471">やり方</a>が載っているのでご覧ください。
+詳細はarch linuxのフォーラムに[やり方](https://bbs.archlinux.org/viewtopic.php?id=144471)が載っているのでご覧ください。
 
-</PS>
+</ins>

@@ -1,8 +1,7 @@
 ---
 title: pythonでクラスメソッドを使ってみる
 pubtime: 2014-12-02T16:26:00+09:00
-amp: hybrid
-tags: [Python, クラスメソッド, 言語仕様]
+tags: [Python, 言語仕様]
 description: C++やJavaではわりとよく使われるクラスメソッドですが、Pythonでも使うことが出来ます。というわけで、Pythonのクラスメソッドの使い方の解説記事です。
 ---
 

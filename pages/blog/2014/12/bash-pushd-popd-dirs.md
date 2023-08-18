@@ -1,8 +1,7 @@
 ---
 title: bashのpushd, popdを使ってディレクトリを移動しまくってみる
 pubtime: 2014-12-28T17:09:00+09:00
-amp: hybrid
-tags: [bash, pushd, popd, コマンド]
+tags: [Linux, コマンド]
 description: bashの組み込みコマンドである"pushd"、"popd"、"dirs"の使い方を調べてみた記録です。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: gentooでハイバネートとかサスペンドとか
 pubtime: 2015-02-19T08:42:00+09:00
-amp: hybrid
-tags: [Gentoo, ハイバネート, サスペンド]
+tags: [Linux, Gentoo, 環境構築]
 description: ノートパソコン(AcerのAspire One D257)でハイバネートやサスペンドを使うべく、gentooのセットアップを行ないました。多分他の環境でも動くと思います。
 ---
 

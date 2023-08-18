@@ -2,8 +2,7 @@
 title: pythonでinotifyを使ってみる。
 pubtime: 2013-03-22T01:47:00+09:00
 modtime: 2013-09-07T00:00:00+09:00
-amp: hybrid
-tags: [Python, inotify, Linux]
+tags: [Linux, Python, ライブラリの紹介]
 description: linuxのinotifyを使って、ファイルシステムの変更を監視するプログラムをPythonで作ってみました。
 ---
 
@@ -11,18 +10,22 @@ inotifyっての、ご存知でしょうか。
 linux karnelの機能で、変更されたファイルを通知してくれるシステム。
 なんだかよく分からないけれど、なんだか楽しそうな気がしたので、触ってみました。
 
-<PS date="2013-09-07" level={1}>
+<ins date="2013-09-07">
+
+# 2013-09-07 追記
 
 wm.rm_watchとしなければならないところをwm.rem_watchとしてしまっていたのを修正。
 申し訳ない
 
-</PS>
-<PS date="2015-07-01" level={1}>
+</ins>
+<ins date="2015-07-01">
+
+# 2015-07-01 追記
 
 [シェルからinotifyを利用する方法](/blog/2015/06/watch-file-modify)も書きました。
 手軽に確認したいだけとかならシェルのがいいかも。
 
-</PS>
+</ins>
 
 # インストール
 [pyinotify](https://github.com/seb-m/pyinotify/wiki)ってライブラリを使ってみます。

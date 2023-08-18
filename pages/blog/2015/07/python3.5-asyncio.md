@@ -1,8 +1,7 @@
 ---
 title: python3.4/3.5のasyncioが何となく不満。
 pubtime: 2015-07-04T01:25:00+09:00
-amp: hybrid
-tags: [Python, asyncio, async, await]
+tags: [Python, 言語仕様]
 description: Python3.4/3.5から導入されるasyncioライブラリの使い方や挙動を調べてみました。現時点ではまだなんとも不満な感じです。
 ---
 

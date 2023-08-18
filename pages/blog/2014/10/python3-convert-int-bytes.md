@@ -1,8 +1,7 @@
 ---
 title: python3ならintとbytesの変換が楽勝になる
 pubtime: 2014-10-05T00:10:00+09:00
-amp: hybrid
-tags: [Python, Python3, int, bytes, 言語仕様]
+tags: [Python, 言語仕様]
 description: python3.2を使って、バイナリデータとintを相互に変換変換する方法です。
 image: [/blog/2014/10/python3-convert-int-bytes.png]
 faq:

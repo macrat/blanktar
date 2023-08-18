@@ -1,8 +1,7 @@
 ---
 title: pythonでmercurialのリポジトリを見てみる
 pubtime: 2014-12-14T21:57:00+09:00
-amp: hybrid
-tags: [Python, mercurial, リポジトリ]
+tags: [Python, mercurial, バージョン管理]
 description: mercurialはpythonで書かれているので、pythonプログラムからリポジトリを扱うことが非常に簡単に出来ます。というわけで、リポジトリの履歴を辿って変更の情報を表示するプログラムを書いてみました。
 ---
 

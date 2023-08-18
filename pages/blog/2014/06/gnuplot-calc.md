@@ -1,7 +1,6 @@
 ---
 title: gnuplotでグラフに出す前に計算する
 pubtime: 2014-06-20T16:26:00+09:00
-amp: hybrid
 tags: [gnuplot, グラフ]
 description: gnuplotの中で、csvから読み取ったデータを計算してからプロットする方法です。
 ---

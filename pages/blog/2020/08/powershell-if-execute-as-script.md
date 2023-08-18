@@ -1,8 +1,7 @@
 ---
 title: PowerShellでスクリプトとして呼ばれた時だけ何かする
 pubtime: 2020-08-25T19:01:00+09:00
-amp: hybrid
-tags: [PowerShell, スクリプト]
+tags: [PowerShell, 言語仕様, Windows]
 description: '普通に実行すると便利なスクリプト、ドットソース演算子で実行するとモジュール的に使える。というようなスクリプトをPowerShellで作る方法です。Pythonで言う`if __name__ == "__main__"`みたいな感じのやつ。'
 ---
 

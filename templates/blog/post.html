@@ -170,6 +170,18 @@ code {
     background-color: rgba(160,160,160,.2);
 }
 
+ins {
+    display: block;
+    border: 1px solid #655;
+    padding: 1em 1em .5em;
+    margin: .5em 0;
+    text-decoration: none;
+}
+ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
+    font-size: 120%;
+    margin: 0;
+}
+
 .share {
     margin: 32px 0 0;
     text-align: center;
@@ -216,6 +228,9 @@ code {
     .share path {
         fill: #444;
     }
+    ins {
+        border-color: #aaa;
+    }
 }
 @media (hover: hover) {
     .tags a:hover {
@@ -238,7 +253,7 @@ code {
             <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02 15:04"}}</time>
             <ul class="tags">
                 {{range .Tags}}
-                    <li><a href="/blog/tags/{{.}}">{{.}}</a></li>
+                    <li><a href="/blog/tags/{{. | escapetag}}">{{.}}</a></li>
                 {{end}}
             </ul>
         </div>

@@ -1,8 +1,7 @@
 ---
 title: apacheのaccess_logにjavaのソースコードみたいなアクセスが記録されていた。(Struts2の脆弱性S2-016への攻撃)
 pubtime: 2015-07-01T16:04:00+09:00
-amp: hybrid
-tags: [Apache, access_log, Java, Struts2]
+tags: [Web, Apache, Java, セキュリティ]
 description: 自宅サーバで動かしているApacheに対してStruts2の脆弱性「S2-016」を悪用しようとする攻撃が来ていたので、その内容を調べてみました。
 ---
 

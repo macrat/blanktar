@@ -1,8 +1,7 @@
 ---
 title: ASUS EeeBook X205TAにRemix OSを入れたらちょっと快適だった話
 pubtime: 2016-08-16T12:53:00+09:00
-amp: hybrid
-tags: [ASUS, X205TA, RemixOS, OS, Android, USBブート]
+tags: [Linux, Android, 環境構築]
 description: ASUSのEeeBook X205TAに、デスクトップ版AndroidのようなものであるRemix OSをインストールする方法です。ハードウェアの対応状況も調査しました。
 ---
 

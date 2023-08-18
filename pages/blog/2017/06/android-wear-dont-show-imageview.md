@@ -1,7 +1,6 @@
 ---
 title: Android WearでImageViewやImageButtonの画像が表示されない
 pubtime: 2017-06-27T18:54:00+09:00
-amp: hybrid
 tags: [Android Wear, Android]
 description: Android Wear向けのアプリをデザイナーを使って作成していると、上手く画像を表示出来無い問題への対処方法です。
 ---

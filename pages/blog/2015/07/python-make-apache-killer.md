@@ -1,8 +1,7 @@
 ---
 title: pythonでapache killerを書いてみる
 pubtime: 2015-07-01T15:25:00+09:00
-amp: hybrid
-tags: [Apache, apache_killer, 脆弱性, CVE-2011-3192, Range]
+tags: [Web, Apache, Python, セキュリティ]
 description: 友人のサーバの脆弱性を調べていたらapacheのバージョンが古かったので、試しにapache killerと言われる攻撃手法を試してみました。
 ---
 

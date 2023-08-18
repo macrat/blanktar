@@ -1,8 +1,7 @@
 ---
 title: gentooでntpを使ってみた話
 pubtime: 2013-03-27T01:14:00+09:00
-amp: hybrid
-tags: [Gentoo, NTP]
+tags: [Linux, Gentoo, サーバ, 環境構築]
 description: gentooでntpの設定をしてみました。ntpdのプロセスを用意するのは嫌だったので、cronから定期的にntpdateを呼び出す形式にしています。
 ---
 

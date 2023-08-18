@@ -1,8 +1,7 @@
 ---
 title: gzipの圧縮レベルと速度の関係を調べてみた
 pubtime: 2015-07-25T21:08:00+09:00
-amp: hybrid
-tags: [gzip, 圧縮, 速度, 圧縮レベル, 圧縮率]
+tags: [Python, ベンチマーク]
 description: gzipの圧縮レベルと速度や圧縮率の特性が気になったので、python付属のgzipライブラリで実験をしてみました。
 ---
 

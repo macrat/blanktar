@@ -1,8 +1,7 @@
 ---
 title: macのpandasだってHDF5を使いたい
 pubtime: 2015-12-21T16:58:00+09:00
-amp: hybrid
-tags: [Mac, Homebrew, Pandas, HDF5, pytables]
+tags: [Mac, Python, Pandas, データ分析]
 description: Pythonのpandasで使うためのHDFライブラリを、Mac OSにインストールするための方法です。
 ---
 

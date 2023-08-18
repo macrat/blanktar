@@ -1,8 +1,7 @@
 ---
 title: docker-composeでfluentdとelasticsearch/kibanaを動かす
 pubtime: 2018-09-19T20:45:00+09:00
-amp: hybrid
-tags: [Fluent, Elasticsearch, Kibana, docker-compose, Docker, ログ]
+tags: [Docker, docker-compose, Fluentd, サーバ, 環境構築]
 description: docker-composeが吐くログをfluentdに流して、kibanaで可視化する方法です。fluentdとkibanaも含めて、全てdocker上で動かしています。
 howto:
   totalTime: PT10M

@@ -1,8 +1,7 @@
 ---
 title: pythonのクラスでprivateっぽいことをしよう
 pubtime: 2014-12-02T17:28:00+09:00
-amp: hybrid
-tags: [Python, クラス, private, オブジェクト指向, 言語仕様]
+tags: [Python, 言語仕様]
 description: Pythonではプライベートなメンバを作れない…ということになっていますが、一応似たような事は可能です。この記事では、プライベートっぽいメンバの定義の仕方と、その挙動を解説しています。
 faq:
   - question: Pythonでプライベートメンバを定義するには？

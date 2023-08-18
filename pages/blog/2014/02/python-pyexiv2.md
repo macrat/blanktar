@@ -1,8 +1,7 @@
 ---
 title: pythonのpyexiv2でExifをごにょごにょする
 pubtime: 2014-02-05T01:56:00+09:00
-amp: hybrid
-tags: [Python, pyexiv2, Exif, 画像処理]
+tags: [Python, Exif, ライブラリの紹介]
 description: pythonのpyexiv2というモジュールを使ってjpegのExifデータを読み込んだり書き込んだりを試してみました。
 ---
 

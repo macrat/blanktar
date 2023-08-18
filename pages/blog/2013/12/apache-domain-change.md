@@ -1,8 +1,7 @@
 ---
 title: apacheのmod_rewriteでドメインの移行
 pubtime: 2013-12-25T22:57:00+09:00
-amp: hybrid
-tags: [Apache, ドメイン, 正規化, mod_rewrite, httpd.conf, .htaccess]
+tags: [Web, Apache, サーバ]
 description: ドメイン移行しました！ apacheのmod_rewriteを使って、新しいドメインに正規化する（転送する）方法の説明です。
 ---
 

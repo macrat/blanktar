@@ -1,8 +1,7 @@
 ---
 title: OpenSSLのBIGNUM関連の関数群に関するメモ
 pubtime: 2014-10-06T00:50:00+09:00
-amp: hybrid
-tags: [C言語, OpenSSL, BIGNUM, 暗号]
+tags: [C言語, OpenSSL, セキュリティ]
 description: C言語/OpenSSLのBIGNUM関連の日本語ドキュメントが極端に少なかったので、必要そうなところだけ和訳したものです。
 ---
 

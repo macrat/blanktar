@@ -1,8 +1,7 @@
 ---
 title: apacheで特定のディレクトリ、特定のUAだけ拒否する。
 pubtime: 2014-02-24T20:58:00+09:00
-amp: hybrid
-tags: [Apache, セキュリティ]
+tags: [Web, Apache, セキュリティ]
 description: apacheで実行しているWebサーバで、特定のディレクトリに対する特定のユーザーエージェントだけを拒否する方法の解説です。
 ---
 

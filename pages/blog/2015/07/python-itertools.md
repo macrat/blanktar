@@ -1,8 +1,7 @@
 ---
 title: pythonのitertoolsはかなり便利っぽい
 pubtime: 2015-07-13T16:39:00+09:00
-amp: hybrid
-tags: [Python, itertools, for, while]
+tags: [Python, 標準ライブラリ]
 description: Python3でイテレータを扱うときに便利な標準ライブラリ「itertools」の紹介です。
 ---
 

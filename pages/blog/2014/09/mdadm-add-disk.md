@@ -1,8 +1,7 @@
 ---
 title: mdadmのRAID5にディスクを追加した
 pubtime: 2014-09-19T23:42:00+09:00
-amp: hybrid
-tags: [mdadm, RAID5, ext4]
+tags: [Linux, mdadm, ストレージ]
 description: mdadmで作ったRAID5のディスクアレイに新しいHDDを追加する手順の解説です。
 ---
 

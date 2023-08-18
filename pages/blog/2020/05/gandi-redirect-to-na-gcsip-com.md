@@ -1,8 +1,7 @@
 ---
 title: Gandi.netにクレジットカードを登録しようとしたら「na.gcsip.com」に飛ばされた
 pubtime: 2020-05-03T13:21:00+09:00
-amp: hybrid
-tags: [Gandi.net, クレジットカード, セキュリティ, ドメイン]
+tags: [技術以外の色々]
 description: ドメインを管理してもらっているGandi.netにクレジットカードを登録しようとしたところ、「na.gcsip.com」というドメインに転送されました。運営者の表記が無くて怪しかったので、少し調べてみました。どうやら、大丈夫なサイトみたいです。
 image: [/blog/2020/05/gandi-na-gcsip-com.png]
 faq:
@@ -35,9 +34,7 @@ faq:
 
 さらに調べてみたところ、公式ツイッターが同じ質問に答えているのを見つけました。
 
-<Tweet id="944301531863617536">
-    <p lang="en" dir="ltr">That&#39;s the correct domain for our banking partner: Global Collect Services: <a href="https://t.co/z70L1d9nsO">https://t.co/z70L1d9nsO</a> -- it&#39;s not a scam! As always, though, you can check the whois if you&#39;re unsure of the domain and of course the SSL cert details (and it doesn&#39;t hurt to ask on Twitter) -- Andrew</p>&mdash; gandi.net (@gandibar) <a href="https://twitter.com/gandibar/status/944301531863617536?ref_src=twsrc%5Etfw">December 22, 2017</a>
-</Tweet>
+<blockquote class="twitter-tweet" data-theme="light"><p lang="en" dir="ltr">That&#39;s the correct domain for our banking partner: Global Collect Services: <a href="https://t.co/z70L1d9nsO">https://t.co/z70L1d9nsO</a> -- it&#39;s not a scam! As always, though, you can check the whois if you&#39;re unsure of the domain and of course the SSL cert details (and it doesn&#39;t hurt to ask on Twitter) -- Andrew</p>&mdash; gandi.net (@gandibar) <a href="https://twitter.com/gandibar/status/944301531863617536?ref_src=twsrc%5Etfw">December 22, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 gandi.netが使っているサービスで間違いないよとのこと。
 というわけで、大丈夫みたいですね。

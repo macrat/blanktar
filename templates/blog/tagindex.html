@@ -37,7 +37,7 @@
     <h1>tags</h1>
     <ul class="tag-list">
         {{range .Tags}}
-            <li><a href="/blog/tags/{{.Tag}}" style="font-size: {{tagsize (len .Posts)}}%">#{{.Tag}}</a> <span class="article-count">({{len .Posts}}件)</span></li>
+            <li><a href="/blog/tags/{{.Tag | escapetag}}" style="font-size: {{tagsize (len .Posts)}}%">#{{.Tag}}</a> <span class="article-count">({{len .Posts}}件)</span></li>
         {{end}}
     </ul>
 {{end}}

@@ -119,6 +119,10 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		return err
 	}
 
+	if len(input) < 8 || !bytes.Equal(input[:4], []byte("---\n")) {
+		return ErrUnsupportedFormat
+	}
+
 	destination := source[:len(source)-3] + ".html"
 
 	article, err := c.article.Load("/"+destination, input, info)

@@ -1,8 +1,7 @@
 ---
 title: linuxのコマンドだけでcsvを取り回してみる
 pubtime: 2015-04-25T02:54:00+09:00
-amp: hybrid
-tags: [Linux, コマンド, シェル, CSV, パイプ]
+tags: [Linux, コマンド]
 description: Linuxのシェルで使えるコマンドを組み合わせて、csvファイルを便利に扱う方法の解説です。殆んど不自由なく色々なことが出来ます。
 image: [/blog/2015/04/shell-handling-csv.png]
 ---

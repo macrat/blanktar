@@ -1,8 +1,7 @@
 ---
 title: pythonで与えられた変数が文字列かどうか調べる
 pubtime: 2013-10-07T16:18:00+09:00
-amp: hybrid
-tags: [Python, 文字列, 言語仕様]
+tags: [Python, 言語仕様]
 description: Pythonで、ある変数が文字列かどうかを調べるためのシンプルな方法です。
 ---
 

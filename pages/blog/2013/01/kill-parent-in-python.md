@@ -1,8 +1,7 @@
 ---
 title: 親は大切に
 pubtime: 2013-01-04T20:53:00+09:00
-amp: hybrid
-tags: [Python, Threading]
+tags: [Python, 標準ライブラリ]
 description: Pythonで親プロセスを強制停止する方法です。
 ---
 
@@ -18,7 +17,7 @@ Python で親殺しってできましたっけ？
 基本的に（変な裏技を使わない限り）、pythonでは人殺しできないようです。（確認したのはthreadingだけだけどね）
 いつか実装されるのかもしれないけどね。とりあえず、無理っぽい。
 
-いや、それでも俺は親に死んでもらいたいんだ、って場合。<br />
+いや、それでも俺は親に死んでもらいたいんだ、って場合。  
 その場合は、
 ``` python
 threading.currentThread()

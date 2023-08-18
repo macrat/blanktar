@@ -1,8 +1,7 @@
 ---
 title: うちのapacheにCONNECTとかいうリクエストが。
 pubtime: 2013-10-01T23:17:00+09:00
-amp: hybrid
-tags: [Apache, アクセスログ, セキュリティ]
+tags: [Web, Apache, セキュリティ]
 description: apacheのアクセスログにCONNECTメソッドを使った攻撃が来ていたので、何をしようとしていたのかを調べてみました。
 ---
 

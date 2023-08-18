@@ -1,8 +1,7 @@
 ---
 title: bashのifで正規表現マッチ
 pubtime: 2014-08-30T03:53:00+09:00
-amp: hybrid
-tags: [Bash, シェルスクリプト, if, 正規表現]
+tags: [Linux, Bash, コマンド]
 description: bashの組み込みオペレータを使うと、if文で正規表現マッチが出来るようです。実際に試してみました。
 ---
 

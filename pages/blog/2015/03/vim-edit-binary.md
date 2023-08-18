@@ -1,8 +1,7 @@
 ---
 title: vimでバイナリファイルをいじる
 pubtime: 2015-03-01T17:17:00+09:00
-amp: hybrid
-tags: [Vim, バイナリ, xxd]
+tags: [Vim, コマンド]
 description: vimとxxdコマンドを組み合わせて、バイナリファイルを読んだり編集したりする方法の解説です。
 ---
 

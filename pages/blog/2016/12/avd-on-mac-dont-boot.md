@@ -1,8 +1,7 @@
 ---
 title: Mac上のAndroid Virtual Deviceが起動しない
 pubtime: 2016-12-14T16:59:00+09:00
-amp: hybrid
-tags: [Android, AVD, Mac, VirtualBox, emulator, Docker]
+tags: [Mac, Android, 環境構築]
 description: Mac OSにインストールしたAndroid Virtual DeviceがDocker for macと競合してしまい起動しなくなってしまいました。
 ---
 

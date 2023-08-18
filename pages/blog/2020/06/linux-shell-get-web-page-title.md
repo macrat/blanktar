@@ -1,8 +1,7 @@
 ---
 title: linuxのシェルコマンドでWebページのタイトルを取得する
 pubtime: 2020-06-05T20:56:00+09:00
-amp: hybrid
-tags: [Linux, コマンド, シェル, grep, curl, 正規表現]
+tags: [Linux, コマンド, curl, 正規表現]
 description: 多くのLinuxに標準で入っているcurlコマンドとgrepコマンドを組み合わせて、Webサイトのタイトルを取得する方法です。
 image: [/blog/2020/06/linux-shell-get-web-page-title.png]
 faq:

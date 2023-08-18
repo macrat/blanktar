@@ -1,8 +1,7 @@
 ---
 title: mercurialが入ってない共有サーバにデプロイするのにmercurial使いたい。
 pubtime: 2015-04-06T01:07:00+09:00
-amp: hybrid
-tags: [mercurial, hg, サーバ, デプロイ, SSH, リポジトリ]
+tags: [Linux, mercurial, サーバ, バージョン管理]
 description: 古いサーバ、古いパッケージ管理システムであっても、mercurialであればホームディレクトリにインストールしてプッシュしたり出来るそうです。共有サーバにインストールして、リポジトリをプッシュする方法のメモです。
 ---
 

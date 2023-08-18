@@ -1,8 +1,7 @@
 ---
 title: nginxでURLの最後にindex.htmlを付けさせたくない。
 pubtime: 2015-07-27T23:07:00+09:00
-amp: hybrid
-tags: [Nginx, URL, index.html]
+tags: [Web, Nginx, サーバ]
 description: Nginxで配信しているWebサイトで、`/hoge/index.html`ではなくて`/hoge/`でアクセスさせるための設定の方法です。
 ---
 

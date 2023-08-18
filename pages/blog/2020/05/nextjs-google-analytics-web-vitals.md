@@ -2,8 +2,7 @@
 title: Next.jsでWeb VitalsをGoogle Analyticsに記録する
 pubtime: 2020-05-17T17:35:00+09:00
 modtime: 2020-06-02T21:26:00+09:00
-amp: hybrid
-tags: [Next.js, Web Vitals, Google Analytics, Web]
+tags: [Web, Next.js, Google Analytics]
 description: Next.js 9.4から追加されたIntegrated Web Vitals Reportingという機能を使って、LCPやらFIDやらのWeb VitalsをGoogle Analyticsのカスタム速度に記録する方法です。Google Analyticsへの記録にはReact-GAを使っています。
 image: [/blog/2020/05/nextjs-google-analytics-web-vitals.png]
 ---
@@ -46,7 +45,9 @@ export function reportWebVitals({ name, value }) {
 
 ~~CLSの時だけ単位が秒になるようなので、そこだけ1000倍してミリ秒に揃えています。~~
 
-<PS date="2020-06-02" level={2}>
+<ins date="2020-06-02">
+
+## 2020-06-02 追記
 
 訂正。
 CLSというのは画面がどのくらい変化したかも含めて計算される[Layout shift score](https://web.dev/cls/#layout-shift-score)というものの値のようで、単位は時間ではないみたいです。
@@ -56,7 +57,7 @@ CLSというのは画面がどのくらい変化したかも含めて計算さ�
 
 時間じゃないのが時間として記録されてしまうので、ちょっと微妙かもしれませんね…。
 
-</PS>
+</ins>
 
 正常に機能すれば、Google Analyticsの[カスタム速度](https://analytics.google.com/analytics/web/#/report/content-site-speed-user-timings/)で記録を見ることが出来るはずです。
 [カスタム速度は100%全部が記録されるわけではない](https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings?hl=ja#sampling_considerations)ので、そこだけ注意が必要です。

@@ -1,8 +1,7 @@
 ---
 title: gentoo linuxで起動時にhdparmの設定を適用する
 pubtime: 2016-04-26T20:47:00+09:00
-amp: hybrid
-tags: [Gentoo, Linux, hdparm, HDD]
+tags: [Linux, Gentoo, ストレージ]
 description: gentoo linuxでhdparmの設定を自動でするようにして、HDDを使っていないときは勝手にスタンバイに入るようにする方法です。同じコマンドで手動でスタンバイにしたり復帰させたりも出来ます。
 ---
 

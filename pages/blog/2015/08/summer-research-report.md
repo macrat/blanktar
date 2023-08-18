@@ -1,8 +1,7 @@
 ---
 title: 夏休みの自由研究をした。
 pubtime: 2015-08-31T20:55:00+09:00
-amp: hybrid
-tags: [Linux, カーネル, コンパイル時間]
+tags: []
 image: [/blog/2015/08/time_lines.png]
 description: 8月なのでと思い付きで始めた歴代Linuxカーネルのコンパイル時間についての夏休みの自由研究がついに終わりました。最終の結果報告です。
 ---

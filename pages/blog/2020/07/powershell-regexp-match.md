@@ -1,8 +1,7 @@
 ---
 title: PowerShellでgrep -oみたく正規表現にマッチしたところだけ抜き出す
 pubtime: 2020-07-10T19:59:00+09:00
-amp: hybrid
-tags: [PowerShell, 正規表現, コマンド, シェル, grep]
+tags: [PowerShell, 正規表現, コマンド, Windows]
 description: Linuxで使える「grep -o」コマンドを使うと、正規表現にマッチした部分だけ取り出せて非常に便利です。WindowsのPowerShellの場合はそんな感じのオプションは無いらしく…組み合わせで同じ挙動を実現する方法を調べてみました。
 ---
 

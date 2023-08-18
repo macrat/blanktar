@@ -1,8 +1,7 @@
 ---
 title: pacemっていうARアプリ的なものを作った
 pubtime: 2015-08-16T14:36:00+09:00
-amp: hybrid
-tags: [pacem, AR]
+tags: [作品紹介]
 description: 友人とハッカソンをして作った、AR空間上にビーコンを置くことが出来るWebアプリ「pacem」の紹介です。
 ---
 

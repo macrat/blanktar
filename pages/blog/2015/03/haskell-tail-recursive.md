@@ -1,8 +1,7 @@
 ---
 title: Haskellであまり末尾再帰を使わない理由
 pubtime: 2015-03-28T21:08:00+09:00
-amp: hybrid
-tags: [Haskell, 末尾再帰, 遅延評価, 言語仕様]
+tags: [Haskell, 言語仕様]
 description: Haskellを勉強するためにサンプルソースを見ていると、中々末尾再帰を使ったコードを見かけないことに気付きました。簡単な実験をして、何故Haskellでは末尾再帰にしないのかを調べてみました。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: pythonのcontextlibでwith文を活用したい
 pubtime: 2015-10-22T16:50:00+09:00
-amp: hybrid
-tags: [Python, contextlib, with, コンテキストマネージャ]
+tags: [Python, 標準ライブラリ]
 description: Pythonのwith文の実装を簡単にしてくれる標準ライブラリ「contextlib」の色々な使い方です。
 ---
 

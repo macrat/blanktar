@@ -1,8 +1,7 @@
 ---
 title: Gentooへのinkscapeのインストールがundefined referenceで失敗する
 pubtime: 2020-08-14T20:31:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, Inkscape, gcc]
+tags: [Gentoo]
 description: うちのGentoo、結構前からInkscapeのインストールに失敗していたのですが、重い腰を上げて原因の調査をしてみました。ずいぶん前のgccの更新が原因だったみたいで、依存関係の再コンパイルで無事にコンパイル出来るようになりました。
 ---
 

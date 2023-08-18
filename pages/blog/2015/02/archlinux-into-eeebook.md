@@ -2,16 +2,17 @@
 title: ASUS EeeBook x205TAにArch Linuxを入れてみた
 pubtime: 2015-02-23T20:06:00+09:00
 modtime: 2016-08-16T00:00:00+09:00
-amp: hybrid
-tags: [EeeBook, Arch, Linux]
+tags: [Linux, Arch, 環境構築]
 description: ASUSのネットブック EeeBook x205TAにArch Linuxを入れる手順です。ひとまずインストールが成功するまで書いてありますが、ドライバ回りはわりとトラブルが山積しています…。
 ---
 
-<PS date="2016-08-16" level={1}>
+<ins date="2016-08-16">
 
-<a href="/blog/2016/08/remixos-install-into-asus-x205ta">RemixOSを入れる記事</a>もどうぞ。こちらはわりとちゃんと動いています。
+# 2016-08-16 追記
 
-</PS>
+[RemixOSを入れる記事](/blog/2016/08/remixos-install-into-asus-x205ta)もどうぞ。こちらはわりとちゃんと動いています。
+
+</ins>
 
 [gentooを入れようとした](/blog/2015/02/gentoo-into-eeebook)あとにubuntuを入れてみて、余計なプロセスが多くて気持ち悪いので今度はarch linuxを入れてみました。
 とりあえず再現できる程度の情報を残しておきます。

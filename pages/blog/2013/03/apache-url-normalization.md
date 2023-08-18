@@ -2,18 +2,20 @@
 title: apache2のhttpd.confでURLの正規化をやってみたメモ。
 pubtime: 2013-03-27T21:02:00+09:00
 modtime: 2014-01-03T19:47:00+09:00
-amp: hybrid
-tags: [Apache2, httpd.conf, .htaccess, URL, 正規化, リダイレクト]
+tags: [Web, Apache, サーバ]
 description: 「/index.html」へのアクセスを「/」に転送するような、URLの正規化をApache2で行なう方法です。
 ---
 
-<PS date="2014-01-03T19:47:00+09:00" level={1}>
+<ins date="2014-01-03T19:47:00+09:00">
 
-[ドメインを移行する方法](/blog/2013/12/apache-domain-change)<br />
-[URLの最後のスラッシュを省略させない方法](/blog/2014/01/apache-path-last-slash)<br />
+# 2014-01-03 追記
+
+- [ドメインを移行する方法](/blog/2013/12/apache-domain-change)
+- [URLの最後のスラッシュを省略させない方法](/blog/2014/01/apache-path-last-slash)
+
 も書きました。そちらもどうぞ。
 
-</PS>
+</ins>
 
 `http://blanktar.dip.jp/`<br />
 `http://blanktar.dip.jp/index.html`

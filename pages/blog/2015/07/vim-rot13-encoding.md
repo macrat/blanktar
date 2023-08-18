@@ -1,8 +1,7 @@
 ---
 title: ROT13エンコーディングも出来る。そう、vimならね？
 pubtime: 2015-07-14T15:20:00+09:00
-amp: hybrid
-tags: [Vim, 暗号, ネタ]
+tags: [Vim, ネタ]
 description: vimを使っていれば、ROT13で暗号化した安全なファイルを作る事が出来ます。…安全？
 ---
 

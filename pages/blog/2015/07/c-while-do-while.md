@@ -1,8 +1,7 @@
 ---
 title: C言語のwhileとdo-whileに速度の違いはあるのか。
 pubtime: 2015-07-24T23:42:00+09:00
-amp: hybrid
-tags: [C言語, while, do-while, ベンチマーク, GCC]
+tags: [C言語, 言語仕様, ベンチマーク]
 description: C言語におけるwhile文とdo-while文で速度に違いが出るのかが知りたかったので、gccでアセンブリにしてコードを眺めてみました。末尾にベンチマークの結果も載せています。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: UnicodeとUCSとUTF
 pubtime: 2013-04-19T16:38:00+09:00
-amp: hybrid
-tags: [Unicode, UTF, UCS]
+tags: [コンピュータサイエンス]
 description: UnicodeにはUTF-8やUTF-16などのよく使う方式の他にUCS-2やUCS-4なんかの表わし方もあるそうです。色々調べてみたのでメモです。
 ---
 

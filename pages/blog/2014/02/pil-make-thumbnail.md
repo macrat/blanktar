@@ -1,7 +1,6 @@
 ---
 title: PILで縦横比保ったまま画像を縮小
 pubtime: 2014-02-03T22:56:00+09:00
-amp: hybrid
 tags: [Python, PIL, 画像処理]
 description: Python/PILで、画像の縦横比を保ったまま画像を小さくする方法です。長辺を指定の長さに合せてくれるます。
 ---

@@ -2,8 +2,7 @@
 title: pythonのOpenCVでモザイクをかける
 pubtime: 2015-02-09T23:37:00+09:00
 modtime: 2020-06-19T18:40:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, モザイク]
+tags: [Python, OpenCV, 画像処理]
 image: [/blog/2015/02/python-opencv-mosaic.jpg]
 description: python/OpenCVを使って、簡単に画像にモザイクを掛ける方法です。組み合わせで部分的なモザイクも可能なはずです。
 ---
@@ -34,8 +33,10 @@ cv2.imwrite('output.jpg', img)
 ![モザイクかける前のレナさん](/blog/2015/02/lena.jpg "520x520")
 ![モザイクかけた後のレナさん](/blog/2015/02/fullmosaic_lena.jpg "520x520")
 
-<PS date="2020-06-19" level={1}>
+<ins date="2020-06-19">
+
+# 2020-06-19 追記
 
 最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
 
-</PS>
+</ins>

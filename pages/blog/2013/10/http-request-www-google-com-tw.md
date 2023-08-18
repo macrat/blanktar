@@ -1,8 +1,7 @@
 ---
 title: apacheのログに"GET http://www.google.com.tw HTTP/1.1"なんてのが来てる。
 pubtime: 2013-10-23T00:27:00+09:00
-amp: hybrid
-tags: [Apache, access_log, サーバー]
+tags: [Web, Apache, セキュリティ]
 description: apacheのログを見ていたら、明らかに攻撃っぽいものが残っていたので目的と内容を調べてみました。
 ---
 

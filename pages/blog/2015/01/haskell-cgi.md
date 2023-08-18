@@ -1,7 +1,6 @@
 ---
 title: HaskellでCGIを書いてみた
 pubtime: 2015-01-31T00:12:00+09:00
-amp: hybrid
 tags: [Haskell, CGI]
 description: ライブラリ無しのHaskellだけで階乗を計算するcgiプログラムを作ってみました。
 ---

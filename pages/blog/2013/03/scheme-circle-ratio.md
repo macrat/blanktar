@@ -1,8 +1,7 @@
 ---
 title: Schemeで円周率出してみた
 pubtime: 2013-03-15T02:14:00+09:00
-amp: hybrid
-tags: [Scheme, Gauche, Lisp, 円周率]
+tags: [Lisp, Scheme]
 description: Scheme（Gauche）を使って円周率を計算するプログラムを書いてみました。
 ---
 

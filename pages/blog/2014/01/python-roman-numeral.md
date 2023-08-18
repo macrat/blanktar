@@ -1,8 +1,7 @@
 ---
 title: pythonでローマ数字を作る
 pubtime: 2014-01-19T01:36:00+09:00
-amp: hybrid
-tags: [Python, ローマ数字, int]
+tags: [Python]
 description: pythonを使って、数値をローマ数字に変換するコードを書いてみました。
 ---
 

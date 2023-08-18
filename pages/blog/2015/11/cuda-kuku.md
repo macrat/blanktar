@@ -1,8 +1,7 @@
 ---
 title: CUDA使って九九の計算をやってみた
 pubtime: 2015-11-12T14:38:00+09:00
-amp: hybrid
-tags: [CUDA, GPGPU, C言語]
+tags: [C言語, CUDA]
 description: C言語/CUDAを使う練習として、GPUで九九の計算をしてみました。
 ---
 

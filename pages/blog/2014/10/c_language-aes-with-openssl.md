@@ -1,8 +1,7 @@
 ---
 title: OpenSSLを使ってC言語でAES暗号
 pubtime: 2014-10-07T15:43:00+09:00
-amp: hybrid
-tags: [C言語, OpenSSL, 暗号, セキュリティ]
+tags: [C言語, OpenSSL, セキュリティ]
 description: C言語でOpenSSLを使って、AES暗号の暗号化や復号を試してみました。若干面倒な手間が必要ですが、その分簡単に別のアルゴリズムに切り替えられるようです。
 ---
 

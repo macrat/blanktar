@@ -1,8 +1,7 @@
 ---
 title: JavaScriptでコールバックな関数をPromise化する
 pubtime: 2020-03-27T20:40:00+09:00
-amp: hybrid
-tags: [JavaScript, Promise, async, コールバック, 言語仕様]
+tags: [JavaScript, 言語仕様]
 description: Promiseに対応していなくてコールバック関数を渡さないといけないJavaScriptの関数を、async/awaitで呼び出せるようにPromise化する方法です。
 faq:
   - question: Promiseに対応していないJavaScriptの関数をasync/awaitで使うには？

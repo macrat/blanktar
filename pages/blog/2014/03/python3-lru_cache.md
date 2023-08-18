@@ -1,8 +1,7 @@
 ---
 title: python3.2以降のlru_cacheが素敵すぎて。
 pubtime: 2014-03-17T01:07:00+09:00
-amp: hybrid
-tags: [Python, Python3, lru_cache, functools, LRU, キャッシュ, モジュール]
+tags: [Python, 標準ライブラリ]
 description: python3.2からfunctoolsモジュールに追加された「lru_cache」というデコレータを使って、関数の引数と戻り値のペアをキャッシュする方法です。
 ---
 

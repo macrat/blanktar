@@ -1,9 +1,7 @@
 ---
 title: 続：google+はメールアドレスを流出させる（かもしれない）
 pubtime: 2014-03-02T21:22:00+09:00
-amp: hybrid
-tags: [Google, Google+, YouTube, プロフィール]
-description: null
+tags: []
 ---
 
 [昨日の記事](/blog/2014/03/google-plus-do-email-address-leakage)の続編です。

@@ -1,8 +1,7 @@
 ---
 title: gentooでPILを更新しようとしたらfterrors.hが見つからないって言われた
 pubtime: 2014-12-13T11:30:00+09:00
-amp: hybrid
-tags: [Gentoo, PIL, FreeType, コンパイル]
+tags: [Gentoo, Python, PIL]
 description: gentooにPILを入れる際に、`freetype/fterrors.h`が見つからないというエラーが出る場合の対処方法です。
 ---
 

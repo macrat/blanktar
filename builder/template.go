@@ -38,6 +38,7 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 			}
 			return x
 		},
+		"escapetag": EscapeTag,
 		"tagsize": func(n int) int {
 			return int(math.Ceil(math.Sqrt(math.Sqrt(float64(n))) * 100))
 		},

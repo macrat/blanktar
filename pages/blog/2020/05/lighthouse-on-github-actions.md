@@ -2,8 +2,7 @@
 title: GitHub ActionsでLighthouseを実行する（treosh/lighthouse-ci-actions@v2使用）
 pubtime: 2020-05-04T00:32:00+09:00
 uptime: 2020-05-04T14:19:00+09:00
-amp: hybrid
-tags: [GitHub, GitHub Actions, CI/CD, テスト, Lighthouse, Web]
+tags: [GitHub, CI/CD, テスト, Web]
 description: GitHub Actionsを使ってプッシュの度にLighthouseを実行して、WebサイトのSEO対策の状況を自動的にテストしてもらう方法です。テスト結果はActionsのログから見れる他、Artifactとしても保存されます。
 image: [/blog/2020/05/lighthouse-ci-result-on-github-actions.jpg]
 ---

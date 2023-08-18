@@ -1,8 +1,7 @@
 ---
 title: Google Analytics見たらsocial-buttons.comとやらからスパムアクセスが。
 pubtime: 2015-03-31T22:55:00+09:00
-amp: hybrid
-tags: [analytics, アクセス]
+tags: [Web]
 description: social-buttons.comというところからやたらと大量のアクセスが来ていたので、Google Analyticsの設定を変えてレポートに表示しないように設定しました。
 ---
 

@@ -2,16 +2,17 @@
 title: pythonでビープ音を鳴らし、あまつさえ演奏する。
 pubtime: 2013-08-26T23:12:00+09:00
 modtime: 2015-07-01T00:00:00+09:00
-amp: hybrid
-tags: [Python, ビープ音, 演奏, winsound]
+tags: [Windows, Python, ハードウェア]
 description: Pythonを使って、windows環境で自由な音程・長さのビープ音を鳴らして音楽を演奏するプログラムを作ってみました。
 ---
 
-<PS date="2015-07-01" level={1}>
+<ins date="2015-07-01">
+
+# 2015-07-01 追記
 
 [C言語でほぼ同じ事をした記事](/blog/2013/09/c-language-beep)もあります。
 
-</PS>
+</ins>
 
 pythonには**winsound**というのがあって、wav再生したりエラー音再生したりビープ音鳴らしたり出来るらしい。
 そう、ビープ音を鳴らせる！　これは楽しい！

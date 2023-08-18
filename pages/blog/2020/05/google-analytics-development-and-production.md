@@ -1,8 +1,7 @@
 ---
 title: Google AnalyticsでVercel NowのDevelopmentとProductionを区別する
 pubtime: 2020-05-10T19:41:00+09:00
-amp: hybrid
-tags: [Google Analytics, Web, Vercel Now]
+tags: [Web, Vercel, Google Analytics]
 description: このサイトはGitHubにプッシュするとVercel Nowにデプロイされるようになっています。なので、デバッグ用のデプロイとプロダクションデプロイの二種類があります。この記事は、そんな感じの2種類のサイトから得られるデータを区別する方法です。
 image: [/blog/2020/05/google-analytics-view-list.jpg]
 faq:

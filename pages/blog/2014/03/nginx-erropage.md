@@ -1,8 +1,7 @@
 ---
 title: nginxでエラーページが表示されない
 pubtime: 2014-03-06T23:12:00+09:00
-amp: hybrid
-tags: [Nginx, エラーページ, エラー処理]
+tags: [Web, Nginx, サーバ]
 description: nginxを試していたのですが、上手く404ページが表示されずに"200 OK"が返ってきてしまっていました。この問題への対処方法です。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: Blanktarをリニューアルしました！
 pubtime: 2020-05-03T16:09:00+09:00
-amp: hybrid
-tags: [お知らせ, Next.js]
+tags: [Blanktar.jp, Next.js]
 description: 2012年に作ったCMSモドキで運用してきたBlanktarですが、いい加減古臭さが目立ってきたので全面リニューアルを行ないました！ モダンな技術を色々取り込んでいます。
 image: [/blog/2020/05/blanktar-renewal.png]
 ---

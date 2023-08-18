@@ -1,8 +1,7 @@
 ---
 title: aタグではてなブックマークに追加するためのリンク
 pubtime: 2014-03-01T00:37:00+09:00
-amp: hybrid
-tags: [HTML, はてなブックマーク, 共有リンク]
+tags: [Web, HTML]
 description: HTMLのaタグだけを使ってはてなブックマークに追加するためのリンクの作り方です。
 ---
 

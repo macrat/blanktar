@@ -1,8 +1,7 @@
 ---
-title: jThree Class Tokyo #2行ってきた。
+title: "jThree Class Tokyo #2行ってきた。"
 pubtime: 2014-11-24T13:00:00+09:00
-amp: hybrid
-tags: [jThree, jQuery, WebGL, theta360]
+tags: [Web, jQuery]
 image: [/blog/2014/11/theta-viewer-thumb.png]
 description: jThreeのハンズオンに行って、ハッカソンで全天球画像のビューワーのようなものを作りました。かなり簡単に出来て、とても良い感じ。
 ---

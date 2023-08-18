@@ -2,17 +2,18 @@
 title: pythonのモジュールをCで書く
 pubtime: 2013-01-30T13:28:00+09:00
 modtime: 2013-05-07T23:48:00+09:00
-amp: hybrid
-tags: [Python, C言語, モジュール, Python/C, ctypes]
+tags: [Python, C言語, Python/C]
 description: Pythonから使えるモジュールをC言語で書く方法です。
 ---
 
-<PS date="2013-05-07T23:48:00+09:00" level={1}>
+<ins date="2013-05-07T23:48:00+09:00">
 
-この記事とは真逆の事をする記事も書きました。
+# 2013-05-07 追記
+
+この記事とは真逆の事をする記事も書きました。  
 [pythonのモジュールをC言語から使う](/blog/2013/05/use-python-by-c-lang)
 
-</PS>
+</ins>
 
 pythonは楽だ。難しいこと考えずに書けて、難しいこと考えずともどこでも動く。
 でもね、遅いんだ。速度が出ないんだ。

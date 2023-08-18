@@ -1,8 +1,7 @@
 ---
 title: pythonで良い感じのシングルトンを書く
 pubtime: 2016-07-24T18:18:00+09:00
-amp: hybrid
-tags: [Python, シングルトン, Threading]
+tags: [Python, 言語仕様]
 description: Pythonでシングルトンのクラスをスマートに作る方法です。__new__というメソッドを使用することで、通常のクラスと同じようなインターフェースで使えるようにしています。
 image: [/blog/2016/07/python-singleton.png]
 ---

@@ -1,8 +1,7 @@
 ---
 title: lftpのチートシート的なやつ
 pubtime: 2015-06-13T13:55:00+09:00
-amp: hybrid
-tags: [LFTP, FTP, Linux]
+tags: [Linux, コマンド]
 description: linuxのftpクライアントである"lftp"の使い方のメモです。
 ---
 

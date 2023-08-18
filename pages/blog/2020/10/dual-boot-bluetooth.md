@@ -2,8 +2,7 @@
 title: Linux/Windowsのデュアルブート環境でBluetoothやBLEのデバイスを共有する方法
 pubtime: 2020-10-07T19:49:00+09:00
 modtime: 2021-07-09T21:32:00+09:00
-amp: hybrid
-tags: [Linux, Windows, Bluetooth]
+tags: [Linux, Windows, 環境構築]
 description: デュアルブート環境で同じBluetoothやBLEのデバイスを使おうとすると、OSを変えて起動する度にペアリングしなおさないといけなくて面倒です。少し作業をすることでこれを回避出来るようだったので、試してみました。
 image: [/blog/2020/10/dual-boot-bluetooth.png]
 faq:
@@ -62,14 +61,16 @@ Windows側で生成したキーにLinux側を合せる手順を取るので、Li
 
 # 3. Windowsのレジストリから情報を取り出す
 
-<PS date="2021-07-09" level={2}>
+<ins date="2021-07-09">
+
+## 2021-07-09 追記
 
 新しいデバイスを買ったので同じことをやろうとしたら、必要な情報を見つけられませんでした。
 どうやらWindowsのアップデートか何かで仕様が変わったようです。
 
 下記の方法で見つけられない場合、この記事の末尾にある[別の方法](#別の方法:%20regedit.exeで目的のキー情報を見付けられない場合)が使えるかもしれません。
 
-</PS>
+</ins>
 
 Windowsが作ったキーが欲しいので、regedit.exeを使ってレジストリの以下の場所にある情報をエクスポートします。
 

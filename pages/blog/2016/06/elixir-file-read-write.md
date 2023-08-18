@@ -1,8 +1,7 @@
 ---
 title: Elixirでファイルを読んだり書いたり
 pubtime: 2016-06-19T14:53:00+09:00
-amp: hybrid
-tags: [Elixir, ファイル, File, read, write]
+tags: [Elixir, 言語仕様]
 description: Elixir言語を使って、ファイルの読み書きを試してみました。単発で書き込むだけの場合と、ファイルハンドラを使う方法の2種類があるようです。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: 次世代starの候補版を公開したよ
 pubtime: 2013-04-28T00:48:00+09:00
-amp: hybrid
-tags: [star]
+tags: [作品紹介]
 description: 自作のファイル転送ツール「Star」の最新の候補版、「DraftStar」を公開したので紹介です。
 ---
 

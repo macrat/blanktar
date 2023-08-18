@@ -2,16 +2,17 @@
 title: python標準のunittestのカバレッジを取る
 pubtime: 2015-03-20T16:22:00+09:00
 modtime: 2015-08-28T00:00:00+09:00
-amp: hybrid
-tags: [Python, 単体テスト, unittest, カバレッジ]
+tags: [Python, テスト, コマンド]
 description: Pythonのunittestモジュールで行なった単体テストのカバレッジを取るツール「coverage」の使い方の解説です。
 ---
 
-<PS date="2015-08-28" level={1}>
+<ins date="2015-08-28">
 
-<a href="/blog/2015/08/python-doctest-coverage">doctestのカバレッジを取る方法</a>も書きました。といっても同じツールでほぼ同じ使い方です。素敵。
+# 2015-08-28 追記
 
-</PS>
+[doctestのカバレッジを取る方法](/blog/2015/08/python-doctest-coverage)も書きました。といっても同じツールでほぼ同じ使い方です。素敵。
+
+</ins>
 
 python標準ライブラリの中には**unittest**と言う単体テスト用のモジュールがありまして、案外これが便利だったりします。
 テストのためだけに環境整えるのは面倒だし、かと言ってテストしないどくには不安だし・・・って時にでも？

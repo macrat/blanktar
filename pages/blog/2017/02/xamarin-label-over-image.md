@@ -1,8 +1,7 @@
 ---
 title: Xamarin.FormsでImageの上にLabelを重ねる
 pubtime: 2017-02-06T01:05:00+09:00
-amp: hybrid
-tags: [Xamarin, C#, XAML, Image, Label, Grid]
+tags: [Xamarin]
 description: Xamarin.Formsで、Imageウィジェットの上にLabelを使って文字を重ねてみました。単純に重ねて表示する方法なので、ImageとLabel以外の組み合わせでも使えるはずです。
 ---
 

@@ -2,17 +2,18 @@
 title: gentooでジャンボフレームを使ってみる
 pubtime: 2014-10-02T19:02:00+09:00
 modtime: 2017-03-22T00:00:00+09:00
-amp: hybrid
-tags: [Gentoo, ジャンボフレーム, MTU, ifconfig, iperf]
+tags: [Linux, Gentoo, ネットワーク, 環境構築]
 description: gentoo/OpenRCの環境でジャンボフレームの設定をしてみました。iperfを最適使って最適なMTU値を探して、最後に永続化の設定をしています。
 ---
 
-<PS date="2017-03-22" level={1}>
+<ins date="2017-03-22">
 
-この記事はOpenRCを導入している環境向けです。<br />
-systemd-networkdだとうまく動いてくれないようなので、<a href="/blog/2017/03/gentoo-systemd-networkd-change-mtu">systemdの場合の記事</a>をご覧ください。
+# 2017-03-22 追記
 
-</PS>
+この記事はOpenRCを導入している環境向けです。  
+systemd-networkdだとうまく動いてくれないようなので、[systemdの場合の記事](/blog/2017/03/gentoo-systemd-networkd-change-mtu)をご覧ください。
+
+</ins>
 
 ルーターの設定をぱらぱらと見ていたら、**use jumbo frame**なんて設定項目が。
 そっかージャンボフレーム使えるのかー。んじゃあ使ってみるかー。というノリで導入してみたので、メモ。

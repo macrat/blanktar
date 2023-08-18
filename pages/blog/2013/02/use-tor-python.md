@@ -1,8 +1,7 @@
 ---
 title: 今話題（？）のTorを使ってみる - Python編
 pubtime: 2013-02-28T21:01:00+09:00
-amp: hybrid
-tags: [Tor, Python, Socks, SocksiPy]
+tags: [Python, Tor, ライブラリの紹介]
 description: SocksiPyというライブラリを使用して、PythonでSOCKSプロキシ（を使うTor）を経由して通信を行なう方法です。HTTP通信と、生のTCP通信の2通りの通信方法を試しています。
 ---
 

@@ -1,8 +1,7 @@
 ---
 title: Processing触ってみた
 pubtime: 2014-07-30T20:59:00+09:00
-amp: hybrid
-tags: [Processing, Java]
+tags: []
 description: 教育用（？）のプログラミング言語であるProcessingを使って、お絵かきソフトっぽい何かを作ってみました。
 ---
 

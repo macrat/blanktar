@@ -1,7 +1,6 @@
 ---
 title: C言語のu_int16とかって何なのよ。
 pubtime: 2013-04-28T02:25:00+09:00
-amp: hybrid
 tags: [C言語]
 description: C言語のint8とかu_int16とかの意味とサイズ、最大値と最小値のまとめです。
 ---

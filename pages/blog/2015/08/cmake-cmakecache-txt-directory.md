@@ -1,8 +1,7 @@
 ---
 title: cmakeにThe current CMakeCache.txt directory云々とかってエラー吐かれた。
 pubtime: 2015-08-06T00:34:00+09:00
-amp: hybrid
-tags: [CMake]
+tags: []
 description: cmakeを使っているプロジェクトの場所を移動して、移動後に再コンパイルしようとすると失敗する問題への対処方法です。
 ---
 

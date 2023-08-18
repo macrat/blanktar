@@ -1,8 +1,7 @@
 ---
 title: HaskellでProject Eulerに挑戦してみた
 pubtime: 2015-02-28T21:11:00+09:00
-amp: hybrid
-tags: [Haskell, ProjectEuler]
+tags: [Haskell]
 description: Project Eulerというプログラミング問題を眺めていて、Haskellを使えば綺麗に書けそうだと思ったので実際に書いてみました。この記事では1問目から5問目までを問いています。
 ---
 

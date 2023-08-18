@@ -1,8 +1,7 @@
 ---
 title: pythonのexcept文にExceptionを渡すと色々まとめて捕捉できる理由
 pubtime: 2013-09-15T00:42:00+09:00
-amp: hybrid
-tags: [Python, except文, 言語仕様]
+tags: [Python, 言語仕様]
 description: pythonのtry-except文で`Exception`を渡すとあらゆる例外をキャッチ出来ます。この機能のメカニズムに気付いたので、Python内部の挙動のメモです。
 ---
 

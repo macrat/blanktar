@@ -1,8 +1,7 @@
 ---
 title: vimでdiffを取る。
 pubtime: 2014-02-13T21:36:00+09:00
-amp: hybrid
-tags: [Vim, diff, 差分表示, バッファ]
+tags: [Vim]
 description: vimだけで2つ以上のファイル同士の差分表示をすることが出来たりします。そのやり方の解説です。
 ---
 

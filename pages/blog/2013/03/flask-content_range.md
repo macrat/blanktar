@@ -1,8 +1,7 @@
 ---
 title: flaskでContent-Rangeを返す
 pubtime: 2013-03-31T02:15:00+09:00
-amp: hybrid
-tags: [Flask, HTTP, Rangeリクエスト]
+tags: [Web, Python, Flask]
 description: Python/FlaskでRangeリクエストに答える（Content-Rangeヘッダを返す）方法です。
 ---
 

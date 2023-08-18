@@ -1,8 +1,7 @@
 ---
 title: sshサーバをプロキシサーバとして使う
 pubtime: 2014-04-23T10:57:00+09:00
-amp: hybrid
-tags: [SSH, OpenSSH, プロキシ, Socks]
+tags: [SSH, サーバ, コマンド]
 description: OpenSSHにはsocksプロキシとして動作させる機能があるようです。というわけで、実際に試してみました。もの凄く簡単でした。
 ---
 

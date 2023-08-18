@@ -1,8 +1,7 @@
 ---
 title: dockerグループの権限でホストのrootアカウントを奪取する
 pubtime: 2016-06-14T10:27:00+09:00
-amp: hybrid
-tags: [Docker, root, コンテナ, 仮想化, chroot, CoreOS]
+tags: [Linux, Docker, セキュリティ]
 description: dockerを使うときに使うdockerグループの権限があれば、そのホストのrootアカウントを簡単に奪取出来るそうです。実際に試してみました。
 ---
 

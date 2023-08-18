@@ -1,8 +1,7 @@
 ---
 title: 今話題（？）のTorを使ってみる - windows編
 pubtime: 2013-02-25T19:50:00+09:00
-amp: hybrid
-tags: [Tor, Windows]
+tags: [Windows, Tor, 環境構築]
 description: 今何かと話題の匿名化ソフト「Tor」をwindowsで試す方法です。「TorBrowser」というブラウザとセットになったものを使用しています。
 ---
 

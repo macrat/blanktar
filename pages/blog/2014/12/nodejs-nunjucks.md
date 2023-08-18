@@ -1,8 +1,7 @@
 ---
 title: node.jsのNunjucksっていうjinja風なテンプレートエンジンを使ってみる
 pubtime: 2014-12-09T15:43:00+09:00
-amp: hybrid
-tags: [Node.js, Nunjucks, Jinja, テンプレートエンジン, Express]
+tags: [Web, Node.js, ライブラリの紹介]
 description: Pythonのjinjaのようなシンタックスで書けるnode.js用のテンプレートエンジン「nunjucks」の使い方の解説です。
 ---
 

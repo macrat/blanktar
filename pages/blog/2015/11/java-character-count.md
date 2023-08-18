@@ -1,8 +1,7 @@
 ---
 title: Javaで文字の出現回数を数えたい
 pubtime: 2015-11-08T22:28:00+09:00
-amp: hybrid
-tags: [Java, 文字, 文字列, 正規表現]
+tags: [Java, 言語仕様, ベンチマーク]
 description: Javaを使って文字列の中に特定の文字がいくつ含まれるかを数える方法です。4種類の方法をベンチマークして比較しました。
 image: [/blog/2015/11/java-character-count.png]
 faq:

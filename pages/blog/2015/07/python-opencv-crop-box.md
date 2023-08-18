@@ -2,8 +2,7 @@
 title: python/OpenCVでレシートみたいな四角いものを見つけてトリミングする
 pubtime: 2015-07-04T14:23:00+09:00
 modtime: 2020-06-19T18:16:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, トリミング]
+tags: [Python, OpenCV, 画像処理]
 image: [/blog/2015/07/python-opencv-crop-box.png]
 description: PythonとOpenCVを使って、レシートやメモのような四角い領域を見付けて、その部分だけ綺麗に切り抜くプログラムを書いてみました。
 ---
@@ -106,8 +105,10 @@ if __name__ == '__main__':
 改良の余地はかなりありそうな気がします。
 
 
-<PS date="2020-06-19" level={1}>
+<ins date="2020-06-19">
+
+# 2020-06-19 追記
 
 最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
 
-</PS>
+</ins>

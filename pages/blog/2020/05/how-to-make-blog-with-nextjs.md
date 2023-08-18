@@ -1,8 +1,7 @@
 ---
 title: Next.js + MDXでブログを作る 〜 Blanktarの場合
 pubtime: 2020-05-09T16:05:00+09:00
-amp: hybrid
-tags: [Next.js, mdx, Node.js, JavaScript, ブログ]
+tags: [Next.js, Node.js, JavaScript]
 description: このブログはNext.jsとMDXを使って作られています。Next.jsはブログ用というわけではないので、少し工夫が必要な箇所がありました。この記事は、その工夫をまとめたものです。
 ---
 
@@ -26,7 +25,6 @@ Next.jsでMDXを読み込みたい場合は[@next/mdx](https://www.npmjs.com/pac
 ---
 title: Next.js + MDXでブログを作る 〜 Blanktarの場合
 pubtime: 2020-05-09T16:05:00+09:00
-amp: hybrid
 tags: [nextjs, mdx, nodejs, javascript, typescript, ブログ]
 description: このブログはNext.jsとMDXを使って作られています。Next.jsはブログ用というわけではないので、少し工夫が必要な箇所がありました。この記事は、その工夫をまとめたものです。
 ---

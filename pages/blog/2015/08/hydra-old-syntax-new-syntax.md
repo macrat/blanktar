@@ -1,8 +1,7 @@
 ---
 title: hydraの古い書き方、新しい書き方。
 pubtime: 2015-08-26T17:16:00+09:00
-amp: hybrid
-tags: [hydra, HTTP, ブルートフォース]
+tags: [Web, セキュリティ]
 description: ブルートフォースに使うペネトレーションテスト用のツール「Hydra」の新しいオプションと古いオプションを比較してみました。
 ---
 

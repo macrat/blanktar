@@ -1,8 +1,7 @@
 ---
 title: 暗号化だって出来る。そう、vimならね？
 pubtime: 2015-07-14T14:33:00+09:00
-amp: hybrid
-tags: [Vim, Blowfish, 暗号, セキュリティ]
+tags: [Vim, セキュリティ]
 description: vimを使っていれば、いつでも暗号化した安全なファイルを作る事が出来ます。そう、vimならね？
 ---
 

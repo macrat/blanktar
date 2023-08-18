@@ -1,8 +1,7 @@
 ---
 title: メールを送ろう。curlで。
 pubtime: 2016-01-05T17:36:00+09:00
-amp: hybrid
-tags: [メール, curl, SMTP]
+tags: [curl, メール, コマンド]
 description: curlコマンドはメールの送信のために使われるSMTPも扱うことが出来るようです。実際にメールを作成して、curlで送信してみました。
 ---
 

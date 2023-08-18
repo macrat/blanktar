@@ -1,7 +1,6 @@
 ---
 title: GitHubのdependabotの挙動をカスタマイズする
 pubtime: 2020-08-09T15:11:00+09:00
-amp: hybrid
 tags: [GitHub, CI/CD]
 description: GitHubに組み込みの依存関係更新ツール（？）であるdependabotがPRを作るタイミングやラベルなどをカスタマイズする方法です。結構細かいところまで設定出来るっぽい。
 faq:

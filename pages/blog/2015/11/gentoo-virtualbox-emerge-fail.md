@@ -1,8 +1,7 @@
 ---
 title: virtualboxをemergeしようとするとno input filesとか言われる
 pubtime: 2015-11-22T13:54:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, emerge, VirtualBox, distcc]
+tags: [Gentoo, VirtualBox]
 description: gentooのportageでVirtualBoxをインストールしようとしたところ、gccがno input filesというエラーを吐いたので、対処しました。
 ---
 

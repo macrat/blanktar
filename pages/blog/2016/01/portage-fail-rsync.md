@@ -1,8 +1,7 @@
 ---
 title: portageをsyncしようとすると.gitがどうので怒られる。
 pubtime: 2016-01-04T17:54:00+09:00
-amp: hybrid
-tags: [Portage, emerge, git]
+tags: [Gentoo]
 description: gentooのportageがある日突然「/usr/portage appears to be under revision control」と言ってsync出来なくなってしまった問題への対処方法のメモです。
 ---
 

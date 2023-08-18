@@ -1,8 +1,7 @@
 ---
 title: linuxのmdadmで作ったRAID5を壊したり直したり。
 pubtime: 2014-02-18T22:19:00+09:00
-amp: hybrid
-tags: [mdadm, RAID5, HDD, ディスク]
+tags: [Linux, mdadm, ストレージ]
 description: linuxでRAIDを実現するためのツールであるmdadmの使い方の解説です。RAID5環境を構築したり、ディスクを破壊してみて復旧を試みたりしています。
 ---
 

@@ -2,8 +2,7 @@
 title: python/OpenCVで透過pngをオーバレイする
 pubtime: 2015-02-09T22:46:00+09:00
 modtime: 2020-06-19T18:31:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, オーバレイ, 透過png, 画像処理]
+tags: [Python, OpenCV, 画像処理]
 image: [/blog/2015/02/python-opencv-overlay.png]
 description: python/OpenCVを使って、画像の上に別の画像を重ねる方法の解説です。透過画像のアルファチャンネルを考慮するものとしないものの2種類があります。
 ---
@@ -64,8 +63,10 @@ cv2.imwrite('out.jpg', dst)
 
 ![透過を考慮して乗っけた画像](/blog/2015/02/trans_overlay.jpg "520x520")
 
-<PS date="2020-06-19" level={1}>
+<ins date="2020-06-19">
+
+# 2020-06-19 追記
 
 最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
 
-</PS>
+</ins>

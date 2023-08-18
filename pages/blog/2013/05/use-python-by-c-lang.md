@@ -1,8 +1,7 @@
 ---
 title: pythonのモジュールをC言語から使う
 pubtime: 2013-05-07T23:48:00+09:00
-amp: hybrid
-tags: [Python, C言語, モジュール, Python/C]
+tags: [Python, C言語, Python/C]
 description: Pythonで書かれたモジュールをPython/C APIを使ってC言語から呼び出す方法を試してみました。
 ---
 

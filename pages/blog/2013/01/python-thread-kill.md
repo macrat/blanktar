@@ -1,8 +1,7 @@
 ---
 title: pythonのthreadingを無理やり止めてみる
 pubtime: 2013-01-02T18:16:00+09:00
-amp: hybrid
-tags: [Python, Threading]
+tags: [Python, 標準ライブラリ]
 description: Python2.7の子スレッドを強制的に停止する方法です。
 ---
 

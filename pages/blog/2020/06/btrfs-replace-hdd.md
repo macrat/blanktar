@@ -1,8 +1,7 @@
 ---
 title: RAID5なbtrfsのHDDをreplaceした話
 pubtime: 2020-06-17T19:53:00+09:00
-amp: hybrid
-tags: [Btrfs, Linux, RAID, HDD, サーバ]
+tags: [Linux, Btrfs, ストレージ]
 description: btrfsで作ったRAIDディスクアレイのHDDが怪しい挙動をしていたので、新しいHDDに交換しました。まだマウント出来る状態のHDDを新しいものに置き換えて、ついでに容量を大きくする方法のメモです。
 howto:
   name: btrfsで作ったRAID5のHDDを交換する方法

@@ -1,8 +1,7 @@
 ---
 title: tsocks使ってみたらlocal subnetがどうのこうので失敗した
 pubtime: 2014-09-07T22:24:00+09:00
-amp: hybrid
-tags: [tsocks, socks, subnet]
+tags: [Linux, コマンド]
 description: tsocksを使っているときに発生した「xxx.xxx.xxx.xxx is not on a local subnet!」というようなエラーを修正する方法です。
 ---
 

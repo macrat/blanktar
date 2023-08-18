@@ -1,8 +1,7 @@
 ---
 title: ccv.jsを使ってWeb上でリアルタイムな笑い男をやってみた
 pubtime: 2016-01-11T00:16:00+09:00
-amp: false
-tags: [ccv.js, HTML5, 笑い男]
+tags: [Web, JavaScript, 画像処理]
 image: [/2016/05/laughing-man-eyecatch.png]
 description: HTML5のvideoタグとcanvasタグ、ccv.jsというライブラリを使用して、ブラウザだけでカメラ入力を解析、顔認識をさせて笑い男の画像を重ねるプログラムを書いてみました。
 ---
@@ -15,14 +14,17 @@ description: HTML5のvideoタグとcanvasタグ、ccv.jsというライブラリ
 あと、当然ながら笑い男も用意します。
 
 で、とりあえず実行例。
+
 <script async src="/blog/2016/01/ccv.js"></script>
 <script async src="/blog/2016/01/face.js"></script>
 
-<canvas width={640} height={480} id="laughing_man" style={{border: "1px solid black", backgroundColor: "white"}} /><br />
+<canvas width="640" height="480" id="laughing_man" style="border: 1px solid black; background-color: white"></canvas>
+
 <button id="laughing_run_button">実行</button>
 <button id="laughing_stop_button">停止</button>
 
 <script defer src="/blog/2016/01/html5-realtime-laughing-man.js"></script>
+
 こんなもん。ちょっと、いやすごく重い。
 
 で、ソースコード。

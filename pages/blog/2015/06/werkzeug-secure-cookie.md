@@ -1,8 +1,7 @@
 ---
 title: WerkzeugのSecureCookieを試してみた。
 pubtime: 2015-06-21T16:16:00+09:00
-amp: hybrid
-tags: [Werkzeug, cookie, セッション, セキュリティ]
+tags: [Web, Python, Werkzeug, セキュリティ]
 description: Pythonのflaskのセッションを実装するために使われている"Werkzeug"というライブラリの"SecureCookie"という機能を直接触ってみました。Werkzeug、結構高機能で楽しいです。
 ---
 

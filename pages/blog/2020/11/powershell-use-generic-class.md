@@ -1,8 +1,7 @@
 ---
 title: PowerShellでGenericなクラスとかメソッドを呼び出す
 pubtime: 2020-11-05T18:24:00+09:00
-amp: hybrid
-tags: [PowerShell, 言語仕様]
+tags: [PowerShell, 言語仕様, Windows]
 description: PowerShellではC#の（正確には.NETの）機能を使えるのですが、ところどころ制約があったりします。Generic回りなどもそうで、動的型なPowerShellから使うためには少し型に気を使う必要があります。というわけで、PowerShellでGenericなクラスを扱う方法です。
 image: [/blog/2020/11/powershell-use-generic-class.png]
 faq:
@@ -31,9 +30,7 @@ MethodException: Cannot find an overload for "new" and the argument count: "1".
 
 残念ながらPowerShellでは一部のコンストラクタやメンバは提供されていないみたい…と思っていたのですが、以下のような情報を頂きました。（ありがとうございます！）
 
-<Tweet id="1324020148500508673">
-    <p lang="ja" dir="ltr">PowerShellで配列内のユニークな値の数を数える <a href="https://t.co/GdepJQ28Gb">https://t.co/GdepJQ28Gb</a> <br /><br />Powershellの配列からジェネリックを生成するときは[Tvalue[]]でキャストすると上手くいくというハックがあったり......<br /><br />[HashSet[int]]::new([int[]]$ns).Count # これは上手くいく <a href="https://t.co/2kCZwxeBEJ">pic.twitter.com/2kCZwxeBEJ</a></p>&mdash; lu-anago (@lululu63499233) <a href="https://twitter.com/lululu63499233/status/1324020148500508673?ref_src=twsrc%5Etfw">November 4, 2020</a>
-</Tweet>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">PowerShellで配列内のユニークな値の数を数える <a href="https://t.co/GdepJQ28Gb">https://t.co/GdepJQ28Gb</a> <br><br>Powershellの配列からジェネリックを生成するときは[Tvalue[]]でキャストすると上手くいくというハックがあったり......<br><br>[HashSet[int]]::new([int[]]$ns).Count # これは上手くいく <a href="https://t.co/2kCZwxeBEJ">pic.twitter.com/2kCZwxeBEJ</a></p>&mdash; lu-anago (@lululu63499233) <a href="https://twitter.com/lululu63499233/status/1324020148500508673?ref_src=twsrc%5Etfw">November 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 エラー文は「引数が1個のnewってメソッドは無いよ」的な内容に見えるのですが、実際の意味は「引数の型が正しくない」的な意味のようです。
 

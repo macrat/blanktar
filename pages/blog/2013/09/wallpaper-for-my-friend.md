@@ -1,8 +1,7 @@
 ---
 title: 親愛なる変態に捧ぐ壁紙。
 pubtime: 2013-09-24T00:15:00+09:00
-amp: hybrid
-tags: [壁紙]
+tags: [技術以外の色々]
 image: [/blog/2013/09/wallpaper.bmp]
 description: センター試験を受ける我が友の為に壁紙を作りました。なんとセンター試験までの日数をカウントダウンする壁紙！
 ---

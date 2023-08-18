@@ -1,8 +1,7 @@
 ---
 title: pythonのCryptoでAES暗号を使ってみた
 pubtime: 2013-04-26T17:55:00+09:00
-amp: hybrid
-tags: [Python, 暗号]
+tags: [Python, セキュリティ]
 description: Pythonの「pycrypto」というライブラリを使ってAES暗号で文字列の暗号化を試してみました。
 ---
 

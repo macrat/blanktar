@@ -1,8 +1,7 @@
 ---
 title: python3.3のyield fromとは何なのか
 pubtime: 2015-07-13T17:52:00+09:00
-amp: hybrid
-tags: [Python, Python3, yield, イテレータ, ジェネレータ, 言語仕様]
+tags: [Python, 言語仕様]
 description: Python3.4のasyncioで使われるyield fromという構文は、どうやらPython3.3で既に導入されていたようです。asyncio以外の場面での使い方について調べてみました。
 ---
 

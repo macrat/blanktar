@@ -1,8 +1,7 @@
 ---
 title: pythonを使ったxml-rpcが簡単すぎてびっくりした話。
 pubtime: 2013-09-22T00:39:00+09:00
-amp: hybrid
-tags: [xml-rpc, Python, 標準ライブラリ]
+tags: [Python, 標準ライブラリ]
 description: Pythonの標準ライブラリを使ってXML-RPCを実装してみたのですが、もの凄く手軽に実装出来ました。これを使うと、他のホストのPythonコードを手元のモジュールと同じように扱えます。
 ---
 

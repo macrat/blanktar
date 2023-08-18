@@ -1,7 +1,6 @@
 ---
 title: 生まれた日から今日までの日数をpythonで。
 pubtime: 2014-12-26T16:59:00+09:00
-amp: hybrid
 tags: [Python, Tkinter]
 description: Python/Tkinterを使って、生まれた日から今日までの日数を計算するプログラムを書いてみました。短かく書けるでしょ、と言おうと思ったのだけれど、Tkinterを使うと長い…。
 ---

@@ -1,8 +1,7 @@
 ---
 title: gitのリポジトリをmercurialに変換する
 pubtime: 2014-12-13T21:52:00+09:00
-amp: hybrid
-tags: [git, mercurial, リポジトリ]
+tags: [git, mercurial, バージョン管理]
 description: gitで一度作ったリポジトリを、mercurialに変換するためのmercurialエクステンションの紹介です。
 ---
 

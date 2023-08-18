@@ -1,7 +1,6 @@
 ---
 title: windowsのPILでフォント読み込もうとしたらImportErrorが出るバグの修正パッチ作った。
 pubtime: 2013-09-03T20:47:00+09:00
-amp: hybrid
 tags: [Python, PIL, 画像処理]
 description: windowsのPILでフォントを上手く読み込めないバグがあったので、無理やり修正するパッチを作成してみました。
 ---

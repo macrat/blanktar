@@ -1,8 +1,7 @@
 ---
 title: homebrewでOS XにMPDを入れた。
 pubtime: 2016-02-08T23:44:00+09:00
-amp: hybrid
-tags: [Homebrew, Mac, MPD]
+tags: [Mac]
 description: Homebrewを使ってMac OSにMPDをインストールする方法です。インストール、データベースの作成と、自動起動の設定までをやっています。
 ---
 

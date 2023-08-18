@@ -2,17 +2,18 @@
 title: ソーシャルっぽいものに対応
 pubtime: 2013-01-11T22:35:00+09:00
 modtime: 2014-02-28T16:35:00+09:00
-amp: hybrid
-tags: [ソーシャル, SNS]
+tags: [Blanktar.jp]
 description: twitterとfacebookでシェアするためのボタンを設置してみました。
 ---
 
-<PS date="2014-02-28T16:35:00+09:00" level={1}>
+<ins date="2014-02-28T16:35:00+09:00">
 
-google+の共有ボタンについても書きました。
+# 2014-02-28 追記
+
+google+の共有ボタンについても書きました。  
 [google+の共有ボタンをaタグだけで作る](/blog/2014/02/atag-google-plus-link)
 
-</PS>
+</ins>
 
 tweetボタンとか、いいねボタンとか、作ってみました。
 ついでに拍手のデザインを変更。

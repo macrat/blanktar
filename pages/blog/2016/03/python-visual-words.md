@@ -2,8 +2,7 @@
 title: pythonでBag-of-Visual Wordsとやらを実装してみた。
 pubtime: 2016-03-05T01:01:00+09:00
 modtime: 2016-03-04T00:00:00+09:00
-amp: hybrid
-tags: [Python, 機械学習, Visual-Words, BoVW, OpenCV, scikit-learn, NumPy]
+tags: [Python, OpenCV, 機械学習, 画像処理]
 description: PythonのOpenCVとscikit-learnを使ってBag-of-Visual Wordsを実装して、類似している画像を検索するプログラムを作ってみました。
 ---
 
@@ -49,11 +48,13 @@ for img in images:
 だいたいこんな感じです。`images`はOpenCV形式の画像データが入った配列と思ってください。
 `detectAndCompute`を使うと二次元の配列として特徴点の情報を返してくれるのでとても便利。
 
-<PS date="2016-03-04" level={3}>
+<ins date="2016-03-04">
+
+### 2016-03-04 追記
 
 コードの誤りを修正しました。
 
-</PS>
+</ins>
 
 ## クラスタリングする
 ``` python

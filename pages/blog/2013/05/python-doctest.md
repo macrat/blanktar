@@ -1,8 +1,7 @@
 ---
 title: pythonのdoctestの使い方とか
 pubtime: 2013-05-23T21:59:00+09:00
-amp: hybrid
-tags: [Python, doctest, 標準ライブラリ]
+tags: [Python, テスト, 標準ライブラリ]
 description: Pythonに書いたコメントをテストとして実行出来る標準ライブラリ「doctest」の使い方の紹介です。
 ---
 

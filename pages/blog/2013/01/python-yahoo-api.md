@@ -1,8 +1,7 @@
 ---
 title: pythonでyahoo APIの校正支援を使ってみた
 pubtime: 2013-01-26T23:37:00+09:00
-amp: hybrid
-tags: [Python, API, 校正]
+tags: [Python, API, 自然言語処理]
 description: Pythonからyahoo APIの校正支援機能を使ってみました。
 ---
 

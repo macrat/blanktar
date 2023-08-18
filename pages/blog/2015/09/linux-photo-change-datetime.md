@@ -1,8 +1,7 @@
 ---
 title: linuxで写真の撮影日時を修正する
 pubtime: 2015-09-17T15:31:00+09:00
-amp: hybrid
-tags: [Linux, Exiv2, 写真, Exif, JPEG, DNG]
+tags: [Linux, Exif, コマンド]
 description: カメラの日時設定を間違えていたときに、ズレておかしくなってしまったExifのタイムスタンプ情報をexiv2というコマンドを使って一括で修正する方法です。
 ---
 

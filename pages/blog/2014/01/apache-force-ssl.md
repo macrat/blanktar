@@ -1,8 +1,7 @@
 ---
 title: apacheのmod_rewriteでSSL通信を強制する。
 pubtime: 2014-01-10T00:00:00+09:00
-amp: hybrid
-tags: [Apache, mod_rewrite, httpd.conf, .htaccess, セキュリティ]
+tags: [Web, Apache, サーバ, セキュリティ]
 description: Apacheのmod_rewriteモジュールを使って、特定のページ（あるいは全てのページ）でSSL通信を強制させる設定の方法です。
 ---
 

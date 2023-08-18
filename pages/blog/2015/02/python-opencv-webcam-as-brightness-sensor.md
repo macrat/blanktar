@@ -2,8 +2,7 @@
 title: python/OpenCVでwebカメラを使ったlinuxの液晶の明るさ自動調整
 pubtime: 2015-02-28T15:53:00+09:00
 modtime: 2020-06-19T18:43:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, Webカメラ, 液晶, sysfs]
+tags: [Linux, Python, OpenCV, 画像処理]
 description: python/OpenCVでwebカメラの映像から周囲の明るさを検出して、自動的に最適な画面の明るさを設定してくれるプログラムを作りました。
 ---
 
@@ -38,8 +37,10 @@ with open('/sys/class/backlight/intel_backlight/brightness', 'w') as fp:
 ものすごーく適当に作ったやつだけれど、結構いい感じに調整してくれたのでとても満足。
 acpidと連携してモニターを開いた数秒後とか、画面ロックを解除したあととかに実行するようにすると凄くいい感じのものが出来るかもね？ 夢が広がる。
 
-<PS date="2020-06-19" level={1}>
+<ins date="2020-06-19">
+
+# 2020-06-19 追記
 
 最新の環境（Python 3.8 / OpenCV 4.2）でも動くようにプログラムを更新しました。
 
-</PS>
+</ins>

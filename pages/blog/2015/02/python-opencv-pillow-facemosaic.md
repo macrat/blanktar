@@ -2,17 +2,18 @@
 title: pythonのOpenCVとpillow(PIL)を組み合わせて顔にモザイク
 pubtime: 2015-02-08T22:44:00+09:00
 modtime: 2015-07-01T00:00:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, Pillow, PIL]
+tags: [Python, OpenCV, PIL, 画像処理]
 image: [/blog/2015/02/python-opencv-pillow-facemosaic.png]
 description: pythonのOpenCVを使って顔を検出して、pillowを使ってその顔にモザイクを掛けるというプログラムを書いてみました。
 ---
 
-<PS data="2015-07-01" level={1}>
+<ins data="2015-07-01">
 
-<a href="/blog/2015/02/python-opencv-mosaic">OpenCV単体でモザイクを掛ける方法についての記事</a>もあります。pillow経由するよりも楽です。
+# 2015-07-01 追記
 
-</PS>
+[OpenCV単体でモザイクを掛ける方法についての記事](/blog/2015/02/python-opencv-mosaic)もあります。pillow経由するよりも楽です。
+
+</ins>
 
 OpenCVやれよ、となぜか[jskny氏](http://risdy.net/)に勧められたのでさくっと遊んでみた。
 

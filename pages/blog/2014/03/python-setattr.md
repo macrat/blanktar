@@ -1,7 +1,6 @@
 ---
 title: pythonの__setattr__をオーバーライドしてみたら楽しいかもしれない。
 pubtime: 2014-03-12T23:41:00+09:00
-amp: hybrid
 tags: [Python, メタプログラミング, 言語仕様]
 description: pythonの__setattr__をオーバーライドして、クラスの色々な挙動をカスタマイズするという実験をしてみました。
 ---

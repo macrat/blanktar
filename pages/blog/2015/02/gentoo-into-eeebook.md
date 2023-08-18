@@ -2,8 +2,7 @@
 title: ASUS EeeBook x205TAにgentooを入れようともがいた話
 pubtime: 2015-02-23T00:23:00+09:00
 modtime: 2016-08-16T00:00:00+09:00
-amp: hybrid
-tags: [ASUS, EeeBook, Gentoo, インストール, UEFI]
+tags: [Linux, Gentoo, 環境構築]
 description: ASUSのEeeeBook x205TAにgentooを入れようと頑張った記録です。カーネルの起動までは成功しましたが、ストレージ関連を上手く扱えず最後まで起動出来ませんでした。
 ---
 
@@ -14,17 +13,21 @@ description: ASUSのEeeeBook x205TAにgentooを入れようと頑張った記録
 頑張って起動するまで持っていったのだけれど、起動すると同時にルートディレクトリをマウントできないとカーネルパニックを起こす状態に。
 取った記録がもったいないので一応公開しますが、**この記事の方法では最後までインストール出来ません。**とりあえず日和見でubuntuでも入れることにして、いずれ再挑戦します・・・。
 
-<PS date="2015-07-01" level={1}>
+<ins date="2015-07-01">
 
-<a href="/blog/2015/02/archlinux-into-eeebook">ArchLinuxを入れる記事</a>もどうぞ。入ってはいるけれど、微妙な感じ。
+# 2015-07-01 追記
 
-</PS>
+[ArchLinuxを入れる記事](/blog/2015/02/archlinux-into-eeebook)もどうぞ。入ってはいるけれど、微妙な感じ。
 
-<PS date="2016-08-16" level={1}>
+</ins>
 
-<a href="/blog/2016/08/remixos-install-into-asus-x205ta">RemixOSを入れる記事</a>も書きました。一番マトモな感じで動いています。
+<ins date="2016-08-16">
 
-</PS>
+# 2016-08-16 追記
+
+[RemixOSを入れる記事](/blog/2016/08/remixos-install-into-asus-x205ta)も書きました。一番マトモな感じで動いています。
+
+</ins>
 
 # ともかくlinuxを起動する
 linuxが起動しなきゃ始まらない。という訳でブートします。

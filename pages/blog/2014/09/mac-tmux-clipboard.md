@@ -1,8 +1,7 @@
 ---
 title: macのtmuxの中でもvimでクリップボードを使いたい
 pubtime: 2014-09-30T15:36:00+09:00
-amp: hybrid
-tags: [Mac, tmux, クリップボード, バッファ, MacPorts, Homebeww]
+tags: [Mac, Vim, コマンド]
 description: 何も考えずにmacportsでインストールしたtmuxの中では、vimのクリップボードが上手く動かないようです。この記事では、macのtmuxの中でもクリップボードを使えるようにします。
 ---
 

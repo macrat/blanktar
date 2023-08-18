@@ -1,8 +1,7 @@
 ---
 title: pythonのソースをweb越しにimportしてみる
 pubtime: 2013-05-17T13:51:00+09:00
-amp: hybrid
-tags: [Python, import]
+tags: [Python, ネタ]
 description: Web上にあるPythonモジュールをそのままインポートする関数を作ってみました。かなり危険な気がするけれど、まあ実験用として。
 ---
 

@@ -1,16 +1,17 @@
 ---
 title: pythonには__getattr__の他に__getattribute__なんてものがあるらしい。
 pubtime: 2014-03-12T00:57:00+09:00
-amp: hybrid
 tags: [Python, メタプログラミング, 言語仕様]
 description: pythonがクラスのメンバを取得する流れと、その仮定で使う`__getattr__`と`__getattribute__`の挙動について調べてみました。
 ---
 
-<PS date="2014-04-23" level={1}>
+<ins date="2014-04-23">
 
-<a href="/blog/2014/03/python-setattr">setattrについての記事</a>もどうぞ。
+# 2014-04-23 追記
 
-</PS>
+[setattrについての記事](/blog/2014/03/python-setattr)もどうぞ。
+
+</ins>
 
 pythonで`test.a`みたいなアクセスの仕方をする時、実は裏側では`__gettattr__(test, 'a')`なんてメソッドが呼ばれてるらしい。
 ただのクラスメソッドなので、上書きして自由自在に黒魔術出来ます。楽しいね。

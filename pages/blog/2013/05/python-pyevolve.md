@@ -1,8 +1,7 @@
 ---
 title: pythonのpyevolveで遺伝的アルゴリズム。
 pubtime: 2013-05-01T01:05:00+09:00
-amp: hybrid
-tags: [Python, 遺伝的アルゴリズム, Pyevolve]
+tags: [Python, 機械学習, ライブラリの紹介]
 description: Pythonの「pyevolve」というライブラリを使って、遺伝的アルゴリズムの実装を試してみました。
 ---
 

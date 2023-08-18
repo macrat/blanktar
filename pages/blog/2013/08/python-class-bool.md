@@ -1,8 +1,7 @@
 ---
 title: pythonのクラスにブール値を持たせる。
 pubtime: 2013-08-31T23:06:00+09:00
-amp: hybrid
-tags: [Python, クラス, ブール値, 言語仕様]
+tags: [Python, 言語仕様]
 description: Pythonのクラスに真偽値を持たせて、if文なんかでTrueっぽく見える/Falseっぽく見えるようなクラスを作る方法です。
 ---
 

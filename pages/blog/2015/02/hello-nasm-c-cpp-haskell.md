@@ -1,8 +1,7 @@
 ---
 title: CとC++とHaskellとnasmで書いたハローワールド
 pubtime: 2015-02-11T21:51:00+09:00
-amp: hybrid
-tags: [C言語, C++, Haskell, NASM, アセンブリ言語]
+tags: [C言語, C++, Haskell]
 description: C、C++、Haskell、アセンブリ(nasm)の4つの言語でハローワールドを書いてみて、それぞれのコンパイル後のサイズを比べてみました。
 ---
 

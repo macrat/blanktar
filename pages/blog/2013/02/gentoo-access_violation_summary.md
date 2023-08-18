@@ -1,8 +1,7 @@
 ---
 title: ACCESS VIOLATION SUMMARY とかいうエラー
 pubtime: 2013-02-05T02:47:00+09:00
-amp: hybrid
-tags: [Gentoo, Portage, sandbox]
+tags: [Gentoo]
 description: gentooのアップデートをしていたら発生した「ACCESS VIOLATION SUMMARY」から始まるエラーに対応する方法です。
 ---
 

@@ -2,8 +2,7 @@
 title: RuuMusicっていうandroid用の音楽プレイヤーを作った
 pubtime: 2015-09-22T23:01:00+09:00
 modtime: 2020-07-14T18:57:00+09:00
-amp: hybrid
-tags: [Android, 音楽プレイヤー, RuuMusic]
+tags: [Android, 作品紹介]
 description: 自分用に自作したAndroid用の新しい音楽プレイヤー、「RuuMusic」の紹介です。ファイラのようなUIで音楽を聞ける、シンプルで簡単な音楽プレイヤーです。
 image: [/blog/2015/09/ruumusic-promotion-image.png]
 ---
@@ -34,8 +33,10 @@ google playにて公開しておりますので、お試しいただければと
 
 ~~bitbucketのリポジトリでプロジェクト一式を公開しています。~~よろしければこちらもどうぞ。プルリクくれると嬉しいな？
 
-<PS date="2020-07-14" level={1}>
+<ins date="2020-07-14">
+
+# 2020-07-14 追記
 
 開発リポジトリは[GitHubのmacrat/RuuMusic](https://github.com/macrat/RuuMusic)に移動しました。
 
-</PS>
+</ins>

@@ -2,16 +2,16 @@
 title: google+はメールアドレスを流出させる（かもしれない）
 pubtime: 2014-03-01T23:25:00+09:00
 modtime: 2014-03-06T00:00:00+09:00
-amp: hybrid
-tags: [google+, YouTube, プロフィール, メールアドレス]
-description: null
+tags: []
 ---
 
-<PS date="2014-03-06" level={1}>
+<ins date="2014-03-06">
 
-<a href="/blog/2014/03/google-plus-do-email-address-leakage-sequel">続編</a>も御覧ください。
+# 2014-03-06 追記
 
-</PS>
+[続編](/blog/2014/03/google-plus-do-email-address-leakage-sequel)も御覧ください。
+
+</ins>
 
 google+。google先生の持てる情報をつぎ込んだSNSなので、何も入れなくても結構色々知ってるんですよね。
 色々調べていて気付いたのだけれど、なんか非公開設定のメールアドレスが見えてしまっているようなのです。

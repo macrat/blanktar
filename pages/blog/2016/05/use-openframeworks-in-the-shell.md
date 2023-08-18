@@ -1,8 +1,7 @@
 ---
 title: openFrameworksを使ったlinuxでの開発をIDE抜きで
 pubtime: 2016-05-22T14:02:00+09:00
-amp: hybrid
-tags: [openFrameworks, Linux, IDE]
+tags: [Linux, openFrameworks, 環境構築]
 description: openFrameworksを用いた開発を、Qt CreatorのようなIDEを使わずにエディタとmakeコマンドだけで開発出来るように設定する方法です。
 ---
 

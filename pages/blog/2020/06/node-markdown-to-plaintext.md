@@ -1,8 +1,7 @@
 ---
 title: Node.jsでMarkdownをplain textに変換する
 pubtime: 2020-06-09T22:12:00+09:00
-amp: hybrid
-tags: [Node.js, JavaScript, Markdown]
+tags: [Node.js, JavaScript, ライブラリの紹介]
 description: Node.jsを使って、Markdownのマークアップを削除してプレーンテキストに変換する方法です。依存関係は無いようなので、ブラウザでも動くはずです。
 faq:
   - question: Node.jsでMarkdownをplain textにするには?

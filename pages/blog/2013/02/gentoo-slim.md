@@ -1,8 +1,7 @@
 ---
 title: gentooにSLiMインストールしてみた
 pubtime: 2013-02-18T20:55:00+09:00
-amp: hybrid
-tags: [Gentoo, X11, SLiM, ディスプレイマネージャ]
+tags: [Linux, Gentoo, 環境構築]
 description: gentooに「SLiM」という名前のディスプレイマネージャをインストールしてみました。これで、グラフィカルなログインページを表示させることが出来るようになります。
 ---
 

@@ -2,8 +2,7 @@
 title: シンタックスハイライトに対応してみた。
 pubtime: 2013-08-08T02:54:00+09:00
 modtime: 2020-03-22T02:05:00+09:00
-amp: hybrid
-tags: [HTML, シンタックスハイライト, ソースコード]
+tags: [コマンド, Blanktar.jp]
 description: このブログでもついにシンタックスハイライトに対応しました。そのために使用した「source-highlight」というツールの使い方の解説です。
 ---
 
@@ -13,13 +12,15 @@ print "ということでハイライト出来るようにしましたどーん�
 ```
 ま、ソースに手を加えにゃあかんので過去記事はまだ一部しか対応してないけれど。
 
-<PS date="2020-03-22" level={1}>
+<ins date="2020-03-22">
+
+# 2020-03-22 追記
 
 執筆当時の環境からブログシステムを刷新したので、ここの表示結果と`source-highlight`による出力は異なります。
 
-</PS>
+</ins>
 
-今回使ったのは**[source-highlight](http://www.gnu.org/software/src-highlite/)**というツール。
+今回使ったのは[**source-highlight**](http://www.gnu.org/software/src-highlite/)というツール。
 いろんなソースコードを投げ込むとHTMLとかLATEXとかに変換して出力してくれるという代物。
 javascriptで動的に、とかじゃないから表示が早くていいねー。
 

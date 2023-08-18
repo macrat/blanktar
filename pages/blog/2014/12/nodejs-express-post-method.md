@@ -1,8 +1,7 @@
 ---
 title: express4でPOSTメソッド使おうとしたらbodyDecoderもbodyParserも無かった。
 pubtime: 2014-12-15T11:47:00+09:00
-amp: hybrid
-tags: [Node.js, Express4, POST, body-parser]
+tags: [Web, Node.js]
 description: node.js/express4でPOSTメソッドを受けとって、bodyの中身を読み取る方法です。
 ---
 

@@ -2,8 +2,7 @@
 title: jQueryでタッチパネルを扱う
 pubtime: 2014-06-26T17:49:00+09:00
 modtime: 2014-06-26T19:59:00+09:00
-amp: hybrid
-tags: [jQuery, タッチパネル, JavaScript]
+tags: [Web, jQuery, JavaScript]
 description: jQueryでタッチパネルへのタッチイベントを取得して、アニメーションするものを作ってみました。同時タッチ数制限とか無くいくらでも取得出来るようです。
 ---
 
@@ -29,7 +28,9 @@ $('#target').bind('touchstart', function(){
 
 参考: [iPhone/Android/PC 対応。jQuery で書くタッチイベント (フェンリル | デベロッパーズブログ)](http://blog.fenrir-inc.com/jp/2011/06/ios_android_pc_touchevent.html)
 
-<PS date="2014-06-26T18:55:00+09:00" level={1}>
+<ins date="2014-06-26T18:55:00+09:00">
+
+# 2014-06-26 追記
 
 どうやら、firefox（つまりgecko？）ではeventは引数として渡されるみたいです。
 
@@ -57,9 +58,11 @@ if(typeof(event) == 'undefined'){
 
 のような感じで対応するといいかも。
 
-</PS>
+</ins>
 
-<PS date="2014-06-26T19:59:00+09:00" level={1}>
+<ins date="2014-06-26T19:59:00+09:00">
+
+# 2014-06-26 追記
 
 jQueryを使用してイベントハンドラを登録した場合、
 
@@ -72,4 +75,4 @@ jQueryと銘打っちゃったけど、実はきちんと対応されてない�
 
 参考: [iPhone/SafariでjQueryを使ったイベントのバインドにおける注意点 : nogunogu](http://dev.worksap.co.jp/Members/nogunogu/2010/08/17/iphonesafari%E3%81%A7jquery%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%81%AE%E3%83%90%E3%82%A4%E3%83%B3%E3%83%89%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%B3%A8%E6%84%8F/)
 
-</PS>
+</ins>

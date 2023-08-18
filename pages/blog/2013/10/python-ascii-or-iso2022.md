@@ -1,8 +1,7 @@
 ---
 title: 文字列がasciiなのかiso-2022-jpなのかを区別する
 pubtime: 2013-10-24T17:44:00+09:00
-amp: hybrid
-tags: [iso-2022-jp, ascii, 文字コード]
+tags: [コンピュータサイエンス]
 description: ある文字列を見て、そのエンコードがasciiなのかiso-2022-jpなのかを調べる方法です。
 ---
 

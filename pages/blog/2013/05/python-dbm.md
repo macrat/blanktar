@@ -1,8 +1,7 @@
 ---
 title: pythonのdbmモジュールを使ってみた
 pubtime: 2013-05-02T13:19:00+09:00
-amp: hybrid
-tags: [Python, DBM, 標準ライブラリ, データベース, key-value]
+tags: [Python, データベース, 標準ライブラリ]
 description: Pythonの「dbm」という標準ライブラリを使って、dict型っぽく使えるkey-valueデータベースを扱う方法です。
 ---
 

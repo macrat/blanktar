@@ -1,8 +1,7 @@
 ---
 title: pythonのベンチマーク用モジュールtimeitの使い方と落とし穴。
 pubtime: 2014-03-13T18:40:00+09:00
-amp: hybrid
-tags: [Python, timeit, ベンチマーク, モジュール]
+tags: [Python, テスト, 標準ライブラリ]
 description: pythonの標準モジュールの一つである「timeit」というベンチマークツールの使い方の紹介です。
 ---
 

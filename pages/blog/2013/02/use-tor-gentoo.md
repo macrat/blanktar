@@ -1,8 +1,7 @@
 ---
 title: 今話題（？）のTorを使ってみる - gentoo編
 pubtime: 2013-02-27T19:33:00+09:00
-amp: hybrid
-tags: [Tor, Gentoo, Linux, Vidalia]
+tags: [Linux, Gentoo, Tor, 環境構築]
 description: 今何かと話題の匿名化ソフト「Tor」をgentooで試す方法です。「Vidalia」というソフトを使用しています。
 ---
 

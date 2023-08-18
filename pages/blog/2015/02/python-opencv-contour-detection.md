@@ -1,8 +1,7 @@
 ---
 title: python/OpenCVで輪郭検出してたらなんかかっこいい画像が出来た
 pubtime: 2015-02-09T23:12:00+09:00
-amp: hybrid
-tags: [Python, OpenCV, 輪郭検出, 画像処理]
+tags: [Python, OpenCV, 画像処理]
 image: [/blog/2015/02/triple_canny.jpg]
 description: python/OpenCVを使って輪郭検出をして、ちょっと格好良さげな画像を作ってみました。
 ---
