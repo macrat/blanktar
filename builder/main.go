@@ -1,12 +1,16 @@
 package main
 
 import (
+	"errors"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/fsnotify/fsnotify"
 )
 
 type ModTimer interface {
@@ -31,7 +35,7 @@ func (w OutputWriter) Close() error {
 }
 
 func CreateOutput(path string, conf ConvertConfig, mimetype string) (io.WriteCloser, error) {
-	log.Println("Create", path)
+	log.Println("Generate", path)
 
 	os.MkdirAll(filepath.Join(conf.Destination, filepath.Dir(path)), 0755)
 	f, err := os.Create(filepath.Join(conf.Destination, path))
@@ -51,6 +55,94 @@ func NeedToUpdate[T ModTimer](targetPath string, sourceInfo T, conf ConvertConfi
 	target, err := os.Stat(filepath.Join(conf.Destination, targetPath))
 
 	return err != nil || target.ModTime().Compare(sourceInfo.ModTime()) <= 0
+}
+
+func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGenerator) error {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return err
+	}
+
+	err = filepath.Walk(conf.Source, func(fpath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() && !strings.HasPrefix(info.Name(), ".") {
+			err = watcher.Add(fpath)
+		}
+		return err
+	})
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Events:
+				if event.Has(fsnotify.Write) {
+					if filepath.Base(event.Name)[0] == '.' {
+						continue
+					}
+
+					info, err := os.Stat(event.Name)
+					if err != nil {
+						continue
+					}
+					path, err := filepath.Rel(conf.Source, event.Name)
+					if err != nil {
+						continue
+					}
+
+					err = converter.Convert(path, info, conf)
+					if err != nil {
+						log.Printf("Failed to update: %s: %s", event.Name, err)
+					}
+					err = autoindex.Generate(conf)
+					if err != nil {
+						log.Printf("Failed to update: autoindex: %s", err)
+					}
+				}
+				if event.Has(fsnotify.Create) {
+					info, err := os.Stat(event.Name)
+					if err == nil && info.IsDir() {
+						watcher.Add(event.Name)
+					}
+				}
+			case err := <-watcher.Errors:
+				log.Println("Error:", err)
+			}
+		}
+	}()
+
+	return nil
+}
+
+func PreviewServer(conf ConvertConfig) error {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		path := filepath.Join(conf.Destination, r.URL.Path)
+
+		stat, err := os.Stat(path)
+		if errors.Is(err, os.ErrNotExist) {
+			path += ".html"
+			stat, err = os.Stat(path)
+			if errors.Is(err, os.ErrNotExist) {
+				http.NotFound(w, r)
+				return
+			} else if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
+
+		if stat.IsDir() {
+			path = filepath.Join(path, "index.html")
+		}
+
+		http.ServeFile(w, r, path)
+	})
+	log.Println("Listening on :3000")
+	return http.ListenAndServe(":3000", nil)
 }
 
 func main() {
@@ -111,5 +203,12 @@ func main() {
 	err = indexGenerator.Generate(conf)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if len(os.Args) > 1 && os.Args[1] == "preview" {
+		if err = StartWatching(conf, converter, indexGenerator); err != nil {
+			log.Fatal(err)
+		}
+		log.Fatal(PreviewServer(conf))
 	}
 }

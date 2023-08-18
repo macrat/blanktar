@@ -69,7 +69,7 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 
 	article := Article{
 		URL:        "https://blanktar.jp" + externalPath[:len(externalPath)-5],
-		Path:       externalPath,
+		Path:       externalPath[:len(externalPath)-5],
 		Markdown:   source[separatorPos+5:],
 		SourceInfo: info,
 	}

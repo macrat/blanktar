@@ -32,4 +32,4 @@
 
 - [x] Build speed up
 
-- [ ] Watch and build
+- [x] Watch and build

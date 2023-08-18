@@ -21,6 +21,16 @@ func (a ArticleList) Swap(i, j int) {
 	a[i], a[j] = a[j], a[i]
 }
 
+func (a *ArticleList) Add(article Article) {
+	for i, x := range *a {
+		if x.Path == article.Path {
+			(*a)[i] = article
+			return
+		}
+	}
+	*a = append(*a, article)
+}
+
 func (a ArticleList) ModTime() time.Time {
 	if len(a) == 0 {
 		return time.Time{}
@@ -36,21 +46,22 @@ func (a ArticleList) ModTime() time.Time {
 }
 
 type IndexGenerator struct {
-	articles map[int]map[int]ArticleList
+	articles map[int]map[int]*ArticleList
 	template *TemplateLoader
-	statics  ArticleList
+	statics  *ArticleList
 }
 
 func NewIndexGenerator(template *TemplateLoader) *IndexGenerator {
 	return &IndexGenerator{
-		articles: make(map[int]map[int]ArticleList),
+		articles: make(map[int]map[int]*ArticleList),
 		template: template,
+		statics:  &ArticleList{},
 	}
 }
 
 func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) {
 	if !strings.HasPrefix(path, "blog/") {
-		g.statics = append(g.statics, article)
+		g.statics.Add(article)
 		return
 	}
 
@@ -58,14 +69,14 @@ func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) 
 	month := int(article.Published.Month())
 
 	if _, ok := g.articles[year]; !ok {
-		g.articles[year] = make(map[int]ArticleList)
+		g.articles[year] = make(map[int]*ArticleList)
 	}
 
 	if _, ok := g.articles[year][month]; !ok {
-		g.articles[year][month] = make(ArticleList, 0)
+		g.articles[year][month] = &ArticleList{}
 	}
 
-	g.articles[year][month] = append(g.articles[year][month], article)
+	g.articles[year][month].Add(article)
 }
 
 func (g *IndexGenerator) Generate(conf ConvertConfig) error {
@@ -104,7 +115,7 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 	var articles ArticleList
 	for _, months := range g.articles {
 		for _, posts := range months {
-			articles = append(articles, posts...)
+			articles = append(articles, *posts...)
 		}
 	}
 	sort.Sort(sort.Reverse(articles))
@@ -190,10 +201,10 @@ func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
 		posts := make([]ArticleList, 12)
 		for i, ps := range months {
 			sort.Sort(ps)
-			posts[i-1] = ps
+			posts[i-1] = *ps
 
 			if ps.ModTime().After(latestUpdated.ModTime()) {
-				latestUpdated = ps
+				latestUpdated = *ps
 			}
 		}
 
@@ -265,7 +276,7 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 				URL:   fmt.Sprintf("https://blanktar.jp/blog/%04d/%02d", year, month),
 				Year:  year,
 				Month: month,
-				Posts: posts,
+				Posts: *posts,
 			})
 			if err != nil {
 				output.Close()
@@ -318,10 +329,10 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 	for _, months := range g.articles {
 		for _, posts := range months {
 			if posts.ModTime().After(latestUpdated.ModTime()) {
-				latestUpdated = posts
+				latestUpdated = *posts
 			}
 
-			for _, post := range posts {
+			for _, post := range *posts {
 				for _, tag := range post.Tags {
 					if _, ok := articles[tag]; !ok {
 						articles[tag] = make(ArticleList, 0)
@@ -408,11 +419,11 @@ type SitemapContext struct {
 }
 
 func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
-	pages := g.statics
+	pages := *g.statics
 
 	for _, months := range g.articles {
 		for _, posts := range months {
-			pages = append(pages, posts...)
+			pages = append(pages, *posts...)
 		}
 	}
 
@@ -458,7 +469,7 @@ func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
 
 	for _, months := range g.articles {
 		for _, ps := range months {
-			posts = append(posts, ps...)
+			posts = append(posts, *ps...)
 		}
 	}
 
