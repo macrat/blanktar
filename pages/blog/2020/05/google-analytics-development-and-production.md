@@ -22,9 +22,9 @@ masterブランチはProductionとして、それ以外のブランチはDevelop
 
 ## 1. ビューを作る
 
-[Google Analyticsの管理画面](https://analytics.google.com/analytics/web/)に行って、左下の<img alt="管理" style={{height: '1.5em', width: 'auto', transform: 'translateY(.5em)'}} width={141} height={40} src="/blog/2020/05/google-analytics-manage-button.png" />をクリックします。
+[Google Analyticsの管理画面](https://analytics.google.com/analytics/web/)に行って、左下の <img alt="管理" style="height: 1.5em; width: auto; transform: translateY(.5em)" width=141 height=40 src="/blog/2020/05/google-analytics-manage-button.png" /> をクリックします。
 
-開いた設定画面で、一番右の列の上にある<img alt="ビューを作成" style={{height: '1.5em', width: 'auto', transform: 'translateY(.5em)'}} width={216} height={44} src="/blog/2020/05/google-analytics-create-view-button.png" />をクリックすると新しいビューを作ることが出来ます。
+開いた設定画面で、一番右の列の上にある <img alt="ビューを作成" style="height: 1.5em; width: auto; transform: translateY(.5em)" width=216 height=44 src="/blog/2020/05/google-analytics-create-view-button.png" /> をクリックすると新しいビューを作ることが出来ます。
 
 ![3つ列があるうちの、一番右の列がビューに関する設定です。この列の一番上に「ビューを作成」ボタンがあります。](/blog/2020/05/google-analytics-create-view-button-place.jpg "1200x403")
 
@@ -36,8 +36,8 @@ masterブランチはProductionとして、それ以外のブランチはDevelop
 
 ビューが出来たら、ドメイン名を使ってProduction（このサイトの場合は`blanktar.jp`）とDevelopment（こっちは`.now.sh`で終わるドメイン）を区別するようにします。
 
-まず、設定画面から<img alt="フィルタ" style={{height: '1.5em', width: 'auto', transform: 'translateY(.5em)'}} width={180} height={43} src="/blog/2020/05/google-analytics-filter-button.png" />をクリックします。
-出てきた画面の<img alt="フィルタを追加" style={{height: '1.5em', width: 'auto', transform: 'translateY(.5em)'}} width={260} height={61} src="/blog/2020/05/google-analytics-add-filter-button.png" />で新しいフィルタを作ります。
+まず、設定画面から <img alt="フィルタ" style="height: 1.5em; width: auto; transform: translateY(.5em)" width=180 height=43 src="/blog/2020/05/google-analytics-filter-button.png" /> をクリックします。
+出てきた画面の <img alt="フィルタを追加" style="height: 1.5em; width: auto; transform: translateY(.5em)" width=260 height=61 src="/blog/2020/05/google-analytics-add-filter-button.png" /> で新しいフィルタを作ります。
 
 このサイトの場合、以下のような設定になっています。
 

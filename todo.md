@@ -4,7 +4,7 @@
 
 - [x] Blog index page
 
-- [ ] Replace custom components from old Blanktar
+- [X] Replace custom components from old Blanktar
 
 - [x] Share button
 
