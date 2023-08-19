@@ -130,7 +130,7 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 	}
 
 	for page := 0; page < totalPages; page++ {
-		targetPath := fmt.Sprintf("blog/%d.html", page+1)
+		targetPath := fmt.Sprintf("blog/%d/index.html", page+1)
 		if page == 0 {
 			targetPath = "blog/index.html"
 		}
@@ -355,7 +355,7 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 	}
 
 	for tag, posts := range articles {
-		targetPath := fmt.Sprintf("blog/tags/%s.html", EscapeTag(tag))
+		targetPath := fmt.Sprintf("blog/tags/%s/index.html", EscapeTag(tag))
 
 		tagPageContext := TagPageContext{
 			URL:   fmt.Sprintf("https://blanktar.jp/blog/tags/%s", EscapeTag(tag)),

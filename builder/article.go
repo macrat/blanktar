@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"html/template"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -67,13 +68,9 @@ func NewArticleLoader() *ArticleLoader {
 func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInfo) (Article, error) {
 	separatorPos := bytes.Index(source[3:], []byte("\n---\n")) + 3
 
-	withoutExt := externalPath[:len(externalPath)-5]
-	if strings.HasSuffix(withoutExt, "/index") {
-		withoutExt = withoutExt[:len(withoutExt)-6]
-	}
 	article := Article{
-		URL:        "https://blanktar.jp" + withoutExt,
-		Path:       withoutExt,
+		URL:        "https://blanktar.jp" + externalPath,
+		Path:       externalPath,
 		Markdown:   source[separatorPos+5:],
 		SourceInfo: info,
 	}
@@ -89,7 +86,7 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 	}
 
 	if len(article.Image) == 0 {
-		article.Image = []string{"https://blanktar.jp/images" + externalPath[:len(externalPath)-5] + ".png"}
+		article.Image = []string{"https://blanktar.jp/images" + externalPath + ".png"}
 	}
 
 	var buf strings.Builder
@@ -131,9 +128,13 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		return ErrUnsupportedFormat
 	}
 
-	destination := source[:len(source)-3] + ".html"
+	external := source[:len(source)-3]
+	destination := path.Join(external, "index.html")
+	if path.Base(external) == "index" {
+		destination = external + ".html"
+	}
 
-	article, err := c.article.Load("/"+destination, input, info)
+	article, err := c.article.Load("/"+external, input, info)
 	if err != nil {
 		return err
 	}

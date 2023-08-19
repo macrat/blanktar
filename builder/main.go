@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -139,21 +138,13 @@ func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGene
 func PreviewServer(conf ConvertConfig) error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		path := filepath.Join(conf.Destination, r.URL.Path)
-
-		stat, err := os.Stat(path)
-		if errors.Is(err, os.ErrNotExist) {
-			path += ".html"
-			stat, err = os.Stat(path)
-			if errors.Is(err, os.ErrNotExist) {
-				http.NotFound(w, r)
-				return
-			} else if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
+		if strings.HasSuffix(r.URL.Path, "/") {
+			http.Redirect(w, r, r.URL.Path[:len(r.URL.Path)-1], http.StatusFound)
+			return
 		}
 
-		if stat.IsDir() {
+		stat, err := os.Stat(path)
+		if err == nil && stat.IsDir() {
 			path = filepath.Join(path, "index.html")
 		}
 
