@@ -33,3 +33,5 @@
 - [x] Build speed up
 
 - [x] Watch and build
+
+- [ ] ServiceWorker remover
