@@ -3,36 +3,8 @@
     "config:base",
     ":timezone(Asia/Tokyo)"
   ],
-  "schedule": ["every weekend"],
+  "schedule": [],
   "labels": ["依存関係"],
   "packageRules": [
-    {
-      "updateTypes": ["minor", "patch"],
-      "groupName": "minor updates",
-      "excludePackagePatterns": [
-        "^next$"
-      ]
-    },
-    {
-      "packagePatterns": [
-        "^@types/",
-        "^@typescript-eslint/",
-        "^asyncmark$",
-        "^enzyme",
-        "^eslint",
-        "^jest",
-        "^ts-jest$",
-        "^typescript$"
-      ],
-      "automerge": "true",
-      "minor": {
-        "groupName": "minor updates (test/type)"
-      }
-    },
-    {
-      "updateTypes": ["major"],
-      "schedule": ["at any time"],
-      "automerge": false
-    }
   ]
 }
