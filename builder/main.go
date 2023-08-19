@@ -175,9 +175,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	thumbnailGenerator, err := NewThumbnailGenerator("../assets/kokuri-font/regular.ttf", "../assets/kokuri-font/semibold.ttf")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	indexGenerator := NewIndexGenerator(template)
 
-	mdConverter, err := NewArticleConverter(template, indexGenerator.Hook)
+	mdConverter, err := NewArticleConverter(template, thumbnailGenerator.Hook, indexGenerator.Hook)
 	if err != nil {
 		log.Fatal(err)
 	}

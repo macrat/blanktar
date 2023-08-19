@@ -67,9 +67,13 @@ func NewArticleLoader() *ArticleLoader {
 func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInfo) (Article, error) {
 	separatorPos := bytes.Index(source[3:], []byte("\n---\n")) + 3
 
+	withoutExt := externalPath[:len(externalPath)-5]
+	if strings.HasSuffix(withoutExt, "/index") {
+		withoutExt = withoutExt[:len(withoutExt)-6]
+	}
 	article := Article{
-		URL:        "https://blanktar.jp" + externalPath[:len(externalPath)-5],
-		Path:       externalPath[:len(externalPath)-5],
+		URL:        "https://blanktar.jp" + withoutExt,
+		Path:       withoutExt,
 		Markdown:   source[separatorPos+5:],
 		SourceInfo: info,
 	}
@@ -84,6 +88,10 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 		}
 	}
 
+	if len(article.Image) == 0 {
+		article.Image = []string{"https://blanktar.jp/images" + externalPath[:len(externalPath)-5] + ".png"}
+	}
+
 	var buf strings.Builder
 	if err := l.md.Convert(&buf, article.Markdown); err != nil {
 		return Article{}, err
@@ -93,19 +101,19 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 	return article, nil
 }
 
-type ArticleHook func(sourcePath string, article Article, conf ConvertConfig)
+type ArticleHook func(sourcePath string, article Article, conf ConvertConfig) error
 
 type ArticleConverter struct {
 	article  *ArticleLoader
 	template *TemplateLoader
-	hook     ArticleHook
+	hooks    []ArticleHook
 }
 
-func NewArticleConverter(template *TemplateLoader, hook ArticleHook) (*ArticleConverter, error) {
+func NewArticleConverter(template *TemplateLoader, hooks ...ArticleHook) (*ArticleConverter, error) {
 	return &ArticleConverter{
 		article:  NewArticleLoader(),
 		template: template,
-		hook:     hook,
+		hooks:    hooks,
 	}, nil
 }
 
@@ -138,8 +146,10 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		}
 	}
 
-	if c.hook != nil {
-		c.hook(source, article, conf)
+	for _, hook := range c.hooks {
+		if err := hook(source, article, conf); err != nil {
+			return err
+		}
 	}
 
 	if !NeedToUpdate(destination, info, conf) {

@@ -59,10 +59,10 @@ func NewIndexGenerator(template *TemplateLoader) *IndexGenerator {
 	}
 }
 
-func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) {
+func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) error {
 	if !strings.HasPrefix(path, "blog/") {
 		g.statics.Add(article)
-		return
+		return nil
 	}
 
 	year := article.Published.Year()
@@ -77,6 +77,8 @@ func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) 
 	}
 
 	g.articles[year][month].Add(article)
+
+	return nil
 }
 
 func (g *IndexGenerator) Generate(conf ConvertConfig) error {

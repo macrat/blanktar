@@ -13,14 +13,37 @@ import (
 )
 
 func MinifyWriter(mimetype string, w io.Writer) io.WriteCloser {
+	types := map[string]minify.MinifierFunc{
+		"text/html":           html.Minify,
+		"text/css":            css.Minify,
+		"text/javascript":     js.Minify,
+		"application/json":    json.Minify,
+		"application/ld+json": json.Minify,
+		"image/svg+xml":       svg.Minify,
+		"text/xml":            xml.Minify,
+		"application/xml":     xml.Minify,
+	}
+
+	if _, ok := types[mimetype]; !ok {
+		return NopWriteCloser{w}
+	}
+
 	m := minify.New()
-	m.AddFunc("text/html", html.Minify)
-	m.AddFunc("text/css", css.Minify)
-	m.AddFunc("text/javascript", js.Minify)
-	m.AddFunc("application/json", json.Minify)
-	m.AddFunc("application/ld+json", json.Minify)
-	m.AddFunc("image/svg+xml", svg.Minify)
-	m.AddFunc("text/xml", xml.Minify)
-	m.AddFunc("application/xml", xml.Minify)
+	for k, v := range types {
+		m.AddFunc(k, v)
+	}
+
 	return m.Writer(mimetype, w)
+}
+
+type NopWriteCloser struct {
+	io.Writer
+}
+
+func (w NopWriteCloser) Write(p []byte) (int, error) {
+	return w.Writer.Write(p)
+}
+
+func (w NopWriteCloser) Close() error {
+	return nil
 }

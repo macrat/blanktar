@@ -22,7 +22,7 @@
 
 ## SEO and social
 
-- [ ] Icon, eyecatches, and /img/banner.jpg
+- [x] Icon, eyecatches, and /img/banner.jpg
 
 - [x] Json-LD for pages, bread crumbs, FAQ, and How-To
 
