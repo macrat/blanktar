@@ -15,18 +15,38 @@ type InMemory struct {
 
 func NewInMemory() *InMemory {
 	return &InMemory{
-		files: map[string]*InMemoryFile{},
-		dirs:  map[string]time.Time{},
+		files: make(map[string]*InMemoryFile),
+		dirs: map[string]time.Time{
+			".": time.Now(),
+		},
 	}
 }
 
 func (s *InMemory) Open(name string) (fs.File, error) {
 	name = path.Clean(name)
 	if t, ok := s.dirs[name]; ok {
-		return &InMemoryFileReader{name: name, modTime: t}, nil
+		var children []fs.DirEntry
+		for n, c := range s.files {
+			if path.Dir(n) == name {
+				children = append(children, fs.FileInfoToDirEntry(c.getReader()))
+			}
+		}
+		for n, t := range s.dirs {
+			if n != name && path.Dir(n) == name {
+				children = append(children, fs.FileInfoToDirEntry(&InMemoryFileReader{
+					name:    n,
+					modTime: t,
+				}))
+			}
+		}
+		return &InMemoryFileReader{
+			name:     name,
+			modTime:  t,
+			children: children,
+		}, nil
 	}
 	if f, ok := s.files[name]; ok {
-		return f.GetReader(), nil
+		return f.getReader(), nil
 	}
 	return nil, fs.ErrNotExist
 }
@@ -73,7 +93,7 @@ func (f *InMemoryFile) Close() error {
 	return nil
 }
 
-func (f *InMemoryFile) GetReader() *InMemoryFileReader {
+func (f *InMemoryFile) getReader() *InMemoryFileReader {
 	return &InMemoryFileReader{
 		name:    f.name,
 		modTime: f.modTime,
@@ -82,9 +102,10 @@ func (f *InMemoryFile) GetReader() *InMemoryFileReader {
 }
 
 type InMemoryFileReader struct {
-	name    string
-	modTime time.Time
-	r       *bytes.Reader
+	name     string
+	modTime  time.Time
+	r        *bytes.Reader
+	children []fs.DirEntry
 }
 
 func (f *InMemoryFileReader) Stat() (fs.FileInfo, error) {
@@ -92,7 +113,24 @@ func (f *InMemoryFileReader) Stat() (fs.FileInfo, error) {
 }
 
 func (f *InMemoryFileReader) Read(p []byte) (n int, err error) {
+	if f.r == nil {
+		return 0, fs.ErrInvalid
+	}
 	return f.r.Read(p)
+}
+
+func (f *InMemoryFileReader) Seek(offset int64, whence int) (int64, error) {
+	if f.r == nil {
+		return 0, fs.ErrInvalid
+	}
+	return f.r.Seek(offset, whence)
+}
+
+func (f *InMemoryFileReader) ReadDir(n int) ([]fs.DirEntry, error) {
+	if !f.IsDir() {
+		return nil, fs.ErrInvalid
+	}
+	return f.children, nil
 }
 
 func (f *InMemoryFileReader) Close() error {

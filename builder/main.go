@@ -74,7 +74,7 @@ func StartWatching(ctx ConvertContext, basepath string, converter Converter, aut
 		return err
 	}
 
-	err = fs.WalkDir(ctx.Source, ".", func(fpath string, d fs.DirEntry, err error) error {
+	err = filepath.WalkDir(basepath, func(fpath string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -128,28 +128,47 @@ func StartWatching(ctx ConvertContext, basepath string, converter Converter, aut
 
 func PreviewServer(ctx ConvertContext) error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if strings.HasSuffix(r.URL.Path, "/") {
+		if r.URL.Path != "/" && strings.HasSuffix(r.URL.Path, "/") {
 			http.Redirect(w, r, r.URL.Path[:len(r.URL.Path)-1], http.StatusFound)
 			return
 		}
 
 		path := r.URL.Path[1:]
 
-		stat, err := fs.Stat(ctx.Source, path)
+		stat, err := fs.Stat(ctx.Dest, path)
 		if err == nil && stat.IsDir() {
 			path = filepath.Join(path, "index.html")
 		}
 
-		http.ServeFile(w, r, path)
+		f, err := ctx.Dest.Open(path)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		defer f.Close()
+
+		http.ServeContent(w, r, path, fs.ModTime(ctx.Dest, path), f.(io.ReadSeeker))
 	})
+
 	log.Println("Listening on :3000")
 	return http.ListenAndServe(":3000", nil)
 }
 
 func main() {
+	stopProfiler := startProfiler()
+	defer stopProfiler()
+
+	preview := len(os.Args) > 1 && os.Args[1] == "preview"
+
 	sourceDir := "../pages"
+	var dest fs.Writable = fs.NewOnDisk("../dist")
+
+	if preview {
+		dest = fs.NewInMemory()
+	}
+
 	ctx := ConvertContext{
-		Dest:         fs.NewOnDisk("../dist"),
+		Dest:         dest,
 		Source:       fs.NewOnDisk(sourceDir),
 		PostsPerPage: 10,
 	}
