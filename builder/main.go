@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
+	"github.com/macrat/blanktar/builder/fs"
 )
 
 type ModTimer interface {
@@ -17,7 +18,7 @@ type ModTimer interface {
 }
 
 type OutputWriter struct {
-	f *os.File
+	f io.WriteCloser
 	m io.WriteCloser
 }
 
@@ -33,11 +34,10 @@ func (w OutputWriter) Close() error {
 	return w.f.Close()
 }
 
-func CreateOutput(path string, conf ConvertConfig, mimetype string) (io.WriteCloser, error) {
+func CreateOutput(dst fs.Writable, path string, mimetype string) (io.WriteCloser, error) {
 	log.Println("Generate", path)
 
-	os.MkdirAll(filepath.Join(conf.Destination, filepath.Dir(path)), 0755)
-	f, err := os.Create(filepath.Join(conf.Destination, path))
+	f, err := dst.Create(path)
 	if err != nil {
 		return nil, err
 	}
@@ -48,12 +48,6 @@ func CreateOutput(path string, conf ConvertConfig, mimetype string) (io.WriteClo
 
 	m := MinifyWriter(mimetype, f)
 	return &OutputWriter{f, m}, nil
-}
-
-func NeedToUpdate[T ModTimer](targetPath string, sourceInfo T, conf ConvertConfig) bool {
-	target, err := os.Stat(filepath.Join(conf.Destination, targetPath))
-
-	return err != nil || target.ModTime().Compare(sourceInfo.ModTime()) <= 0
 }
 
 func EscapeTag(s string) string {
@@ -74,17 +68,17 @@ func EscapeTag(s string) string {
 	return s
 }
 
-func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGenerator) error {
+func StartWatching(ctx ConvertContext, basepath string, converter Converter, autoindex *IndexGenerator) error {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		return err
 	}
 
-	err = filepath.Walk(conf.Source, func(fpath string, info os.FileInfo, err error) error {
+	err = fs.WalkDir(ctx.Source, ".", func(fpath string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if info.IsDir() && !strings.HasPrefix(info.Name(), ".") {
+		if d.IsDir() && !strings.HasPrefix(d.Name(), ".") {
 			err = watcher.Add(fpath)
 		}
 		return err
@@ -102,20 +96,17 @@ func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGene
 						continue
 					}
 
-					info, err := os.Stat(event.Name)
-					if err != nil {
-						continue
-					}
-					path, err := filepath.Rel(conf.Source, event.Name)
+					path, err := filepath.Rel(basepath, event.Name)
 					if err != nil {
 						continue
 					}
 
-					err = converter.Convert(path, info, conf)
+					err = converter.Convert(ctx, path)
 					if err != nil {
 						log.Printf("Failed to update: %s: %s", event.Name, err)
 					}
-					err = autoindex.Generate(conf)
+
+					err = autoindex.Generate(ctx)
 					if err != nil {
 						log.Printf("Failed to update: autoindex: %s", err)
 					}
@@ -135,15 +126,16 @@ func StartWatching(conf ConvertConfig, converter Converter, autoindex *IndexGene
 	return nil
 }
 
-func PreviewServer(conf ConvertConfig) error {
+func PreviewServer(ctx ConvertContext) error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		path := filepath.Join(conf.Destination, r.URL.Path)
 		if strings.HasSuffix(r.URL.Path, "/") {
 			http.Redirect(w, r, r.URL.Path[:len(r.URL.Path)-1], http.StatusFound)
 			return
 		}
 
-		stat, err := os.Stat(path)
+		path := r.URL.Path[1:]
+
+		stat, err := fs.Stat(ctx.Source, path)
 		if err == nil && stat.IsDir() {
 			path = filepath.Join(path, "index.html")
 		}
@@ -155,9 +147,10 @@ func PreviewServer(conf ConvertConfig) error {
 }
 
 func main() {
-	conf := ConvertConfig{
-		Destination:  "../dist",
-		Source:       "../pages",
+	sourceDir := "../pages"
+	ctx := ConvertContext{
+		Dest:         fs.NewOnDisk("../dist"),
+		Source:       fs.NewOnDisk(sourceDir),
 		PostsPerPage: 10,
 	}
 
@@ -186,20 +179,15 @@ func main() {
 
 	var errorCount int
 
-	err = filepath.Walk(conf.Source, func(fpath string, info os.FileInfo, err error) error {
+	err = fs.WalkDir(ctx.Source, ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if info.IsDir() || strings.HasPrefix(info.Name(), ".") {
+		if d.IsDir() || strings.HasPrefix(d.Name(), ".") {
 			return nil
 		}
 
-		path, err := filepath.Rel(conf.Source, fpath)
-		if err != nil {
-			return err
-		}
-
-		err = converter.Convert(path, info, conf)
+		err = converter.Convert(ctx, path)
 		if err != nil {
 			log.Printf("Error  %s\n%s", path, err)
 			errorCount++
@@ -214,15 +202,15 @@ func main() {
 		log.Fatal("Error occurred during build.")
 	}
 
-	err = indexGenerator.Generate(conf)
+	err = indexGenerator.Generate(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	if len(os.Args) > 1 && os.Args[1] == "preview" {
-		if err = StartWatching(conf, converter, indexGenerator); err != nil {
+		if err = StartWatching(ctx, sourceDir, converter, indexGenerator); err != nil {
 			log.Fatal(err)
 		}
-		log.Fatal(PreviewServer(conf))
+		log.Fatal(PreviewServer(ctx))
 	}
 }

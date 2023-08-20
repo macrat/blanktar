@@ -4,6 +4,7 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/macrat/blanktar/builder/fs"
 	"github.com/macrat/blanktar/builder/thumbnail"
 )
 
@@ -16,14 +17,14 @@ func NewThumbnailGenerator(regularFontPath, semiBoldFontPath string) (ThumbnailG
 	return ThumbnailGenerator{generator}, err
 }
 
-func (g ThumbnailGenerator) Hook(articlePath string, article Article, conf ConvertConfig) error {
+func (g ThumbnailGenerator) Hook(ctx ConvertContext, articlePath string, article Article) error {
 	outputPath := path.Join("images", articlePath[:len(articlePath)-len(filepath.Ext(articlePath))]+".png")
 
-	if !NeedToUpdate(outputPath, article.SourceInfo, conf) {
+	if fs.ModTime(ctx.Dest, outputPath).After(fs.ModTime(ctx.Source, articlePath)) {
 		return nil
 	}
 
-	w, err := CreateOutput(outputPath, conf, "image/png")
+	w, err := CreateOutput(ctx.Dest, outputPath, "image/png")
 	if err != nil {
 		return err
 	}

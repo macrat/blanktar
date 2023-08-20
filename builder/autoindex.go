@@ -5,6 +5,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/macrat/blanktar/builder/fs"
 )
 
 type ArticleList []Article
@@ -59,7 +61,7 @@ func NewIndexGenerator(template *TemplateLoader) *IndexGenerator {
 	}
 }
 
-func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) error {
+func (g *IndexGenerator) Hook(ctx ConvertContext, path string, article Article) error {
 	if !strings.HasPrefix(path, "blog/") {
 		g.statics.Add(article)
 		return nil
@@ -81,23 +83,23 @@ func (g *IndexGenerator) Hook(path string, article Article, conf ConvertConfig) 
 	return nil
 }
 
-func (g *IndexGenerator) Generate(conf ConvertConfig) error {
-	if err := g.generateOrderedIndex(conf); err != nil {
+func (g *IndexGenerator) Generate(ctx ConvertContext) error {
+	if err := g.generateOrderedIndex(ctx); err != nil {
 		return err
 	}
-	if err := g.generateYearlyIndex(conf); err != nil {
+	if err := g.generateYearlyIndex(ctx); err != nil {
 		return err
 	}
-	if err := g.generateMonthlyIndex(conf); err != nil {
+	if err := g.generateMonthlyIndex(ctx); err != nil {
 		return err
 	}
-	if err := g.generateTagsIndex(conf); err != nil {
+	if err := g.generateTagsIndex(ctx); err != nil {
 		return err
 	}
-	if err := g.generateSitemap(conf); err != nil {
+	if err := g.generateSitemap(ctx); err != nil {
 		return err
 	}
-	if err := g.generateFeed(conf); err != nil {
+	if err := g.generateFeed(ctx); err != nil {
 		return err
 	}
 	return nil
@@ -113,7 +115,7 @@ type IndexContext struct {
 	Posts      ArticleList
 }
 
-func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
+func (g *IndexGenerator) generateOrderedIndex(ctx ConvertContext) error {
 	var articles ArticleList
 	for _, months := range g.articles {
 		for _, posts := range months {
@@ -122,7 +124,7 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 	}
 	sort.Sort(sort.Reverse(articles))
 
-	totalPages := len(articles)/conf.PostsPerPage + 1
+	totalPages := len(articles)/ctx.PostsPerPage + 1
 
 	tmpl, err := g.template.Load("blog/index.html")
 	if err != nil {
@@ -135,14 +137,14 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 			targetPath = "blog/index.html"
 		}
 
-		start := page * conf.PostsPerPage
-		end := page*conf.PostsPerPage + conf.PostsPerPage
+		start := page * ctx.PostsPerPage
+		end := page*ctx.PostsPerPage + ctx.PostsPerPage
 		if end > len(articles) {
 			end = len(articles)
 		}
 		posts := articles[start:end]
 
-		if !NeedToUpdate(targetPath, posts, conf) {
+		if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
 			continue
 		}
 
@@ -162,7 +164,7 @@ func (g *IndexGenerator) generateOrderedIndex(conf ConvertConfig) error {
 			pagerFrom -= pagerSize + 1 - (pagerTo - page)
 		}
 
-		output, err := CreateOutput(targetPath, conf, "text/html")
+		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
 		if err != nil {
 			return err
 		}
@@ -196,23 +198,23 @@ type YearlyContext struct {
 	Posts []ArticleList
 }
 
-func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
+func (g *IndexGenerator) generateYearlyIndex(ctx ConvertContext) error {
 	for year, months := range g.articles {
-		var latestUpdated ArticleList
+		var latestUpdated time.Time
 
 		posts := make([]ArticleList, 12)
 		for i, ps := range months {
 			sort.Sort(ps)
 			posts[i-1] = *ps
 
-			if ps.ModTime().After(latestUpdated.ModTime()) {
-				latestUpdated = *ps
+			if ps.ModTime().After(latestUpdated) {
+				latestUpdated = ps.ModTime()
 			}
 		}
 
 		targetPath := fmt.Sprintf("blog/%04d/index.html", year)
 
-		if !NeedToUpdate(targetPath, latestUpdated, conf) {
+		if fs.ModTime(ctx.Dest, targetPath).After(latestUpdated) {
 			continue
 		}
 
@@ -221,7 +223,7 @@ func (g *IndexGenerator) generateYearlyIndex(conf ConvertConfig) error {
 			return err
 		}
 
-		output, err := CreateOutput(targetPath, conf, "text/html")
+		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
 		if err != nil {
 			return err
 		}
@@ -253,12 +255,12 @@ type MonthlyContext struct {
 	Posts ArticleList
 }
 
-func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
+func (g *IndexGenerator) generateMonthlyIndex(ctx ConvertContext) error {
 	for year, months := range g.articles {
 		for month, posts := range months {
 			targetPath := fmt.Sprintf("blog/%04d/%02d/index.html", year, month)
 
-			if !NeedToUpdate(targetPath, posts, conf) {
+			if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
 				continue
 			}
 
@@ -269,7 +271,7 @@ func (g *IndexGenerator) generateMonthlyIndex(conf ConvertConfig) error {
 				return err
 			}
 
-			output, err := CreateOutput(targetPath, conf, "text/html")
+			output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
 			if err != nil {
 				return err
 			}
@@ -324,14 +326,14 @@ type TagIndexContext struct {
 	Tags TagPageContextList
 }
 
-func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
+func (g *IndexGenerator) generateTagsIndex(ctx ConvertContext) error {
 	articles := make(map[string]ArticleList)
-	var latestUpdated ArticleList
+	var latestUpdated time.Time
 
 	for _, months := range g.articles {
 		for _, posts := range months {
-			if posts.ModTime().After(latestUpdated.ModTime()) {
-				latestUpdated = *posts
+			if posts.ModTime().After(latestUpdated) {
+				latestUpdated = posts.ModTime()
 			}
 
 			for _, post := range *posts {
@@ -364,13 +366,13 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 		}
 		tagIndexContext.Tags = append(tagIndexContext.Tags, tagPageContext)
 
-		if !NeedToUpdate(targetPath, posts, conf) {
+		if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
 			continue
 		}
 
 		sort.Sort(sort.Reverse(posts))
 
-		output, err := CreateOutput(targetPath, conf, "text/html")
+		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
 		if err != nil {
 			return err
 		}
@@ -389,7 +391,7 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 
 	targetPath := "blog/tags/index.html"
 
-	if !NeedToUpdate(targetPath, latestUpdated, conf) {
+	if fs.ModTime(ctx.Dest, targetPath).After(latestUpdated) {
 		return nil
 	}
 
@@ -400,7 +402,7 @@ func (g *IndexGenerator) generateTagsIndex(conf ConvertConfig) error {
 
 	sort.Sort(tagIndexContext.Tags)
 
-	output, err := CreateOutput(targetPath, conf, "text/html")
+	output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
 	if err != nil {
 		return err
 	}
@@ -420,7 +422,7 @@ type SitemapContext struct {
 	Pages []Article
 }
 
-func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
+func (g *IndexGenerator) generateSitemap(ctx ConvertContext) error {
 	pages := *g.statics
 
 	for _, months := range g.articles {
@@ -433,7 +435,7 @@ func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
 
 	targetPath := "sitemap.xml"
 
-	if !NeedToUpdate(targetPath, pages, conf) {
+	if fs.ModTime(ctx.Dest, targetPath).After(pages.ModTime()) {
 		return nil
 	}
 
@@ -442,7 +444,7 @@ func (g *IndexGenerator) generateSitemap(conf ConvertConfig) error {
 		return err
 	}
 
-	output, err := CreateOutput(targetPath, conf, "application/xml")
+	output, err := CreateOutput(ctx.Dest, targetPath, "application/xml")
 	if err != nil {
 		return err
 	}
@@ -466,7 +468,7 @@ type FeedContext struct {
 	Posts     ArticleList
 }
 
-func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
+func (g *IndexGenerator) generateFeed(ctx ConvertContext) error {
 	var posts ArticleList
 
 	for _, months := range g.articles {
@@ -479,7 +481,7 @@ func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
 
 	targetPath := "blog/feed.xml"
 
-	if !NeedToUpdate(targetPath, posts, conf) {
+	if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
 		return nil
 	}
 
@@ -488,7 +490,7 @@ func (g *IndexGenerator) generateFeed(conf ConvertConfig) error {
 		return err
 	}
 
-	output, err := CreateOutput(targetPath, conf, "application/xml")
+	output, err := CreateOutput(ctx.Dest, targetPath, "application/xml")
 	if err != nil {
 		return err
 	}

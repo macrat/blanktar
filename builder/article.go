@@ -5,10 +5,10 @@ import (
 	"html/template"
 	"os"
 	"path"
-	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/macrat/blanktar/builder/fs"
 	"gopkg.in/yaml.v3"
 )
 
@@ -98,7 +98,7 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 	return article, nil
 }
 
-type ArticleHook func(sourcePath string, article Article, conf ConvertConfig) error
+type ArticleHook func(ctx ConvertContext, sourcePath string, article Article) error
 
 type ArticleConverter struct {
 	article  *ArticleLoader
@@ -114,12 +114,12 @@ func NewArticleConverter(template *TemplateLoader, hooks ...ArticleHook) (*Artic
 	}, nil
 }
 
-func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
-	if !strings.HasSuffix(source, ".md") {
+func (c *ArticleConverter) Convert(ctx ConvertContext, sourcePath string) error {
+	if !strings.HasSuffix(sourcePath, ".md") {
 		return ErrUnsupportedFormat
 	}
 
-	input, err := os.ReadFile(filepath.Join(conf.Source, source))
+	input, err := fs.ReadFile(ctx.Source, sourcePath)
 	if err != nil {
 		return err
 	}
@@ -128,19 +128,24 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		return ErrUnsupportedFormat
 	}
 
-	external := source[:len(source)-3]
-	destination := path.Join(external, "index.html")
-	if path.Base(external) == "index" {
-		destination = external + ".html"
+	externalPath := sourcePath[:len(sourcePath)-3]
+	destPath := path.Join(externalPath, "index.html")
+	if path.Base(externalPath) == "index" {
+		destPath = externalPath + ".html"
 	}
 
-	article, err := c.article.Load("/"+external, input, info)
+	info, err := fs.Stat(ctx.Source, sourcePath)
+	if err != nil {
+		return err
+	}
+
+	article, err := c.article.Load("/"+externalPath, input, info)
 	if err != nil {
 		return err
 	}
 
 	if article.Layout == "" {
-		if strings.HasPrefix(source, "blog/") {
+		if strings.HasPrefix(sourcePath, "blog/") {
 			article.Layout = "blog/post.html"
 		} else {
 			article.Layout = "default.html"
@@ -148,12 +153,12 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 	}
 
 	for _, hook := range c.hooks {
-		if err := hook(source, article, conf); err != nil {
+		if err := hook(ctx, sourcePath, article); err != nil {
 			return err
 		}
 	}
 
-	if !NeedToUpdate(destination, info, conf) {
+	if fs.ModTime(ctx.Dest, destPath).After(article.SourceInfo.ModTime()) {
 		return nil
 	}
 
@@ -162,7 +167,7 @@ func (c *ArticleConverter) Convert(source string, info os.FileInfo, conf Convert
 		return err
 	}
 
-	output, err := CreateOutput(destination, conf, "text/html")
+	output, err := CreateOutput(ctx.Dest, destPath, "text/html")
 	if err != nil {
 		return err
 	}

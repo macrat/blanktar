@@ -3,30 +3,30 @@ package main
 import (
 	"errors"
 	"io"
-	"os"
-	"path/filepath"
 	"strings"
+
+	"github.com/macrat/blanktar/builder/fs"
 )
 
 var (
 	ErrUnsupportedFormat = errors.New("unsupported format")
 )
 
-type ConvertConfig struct {
-	Destination  string
-	Source       string
+type ConvertContext struct {
+	Dest         fs.Writable
+	Source       fs.Readable
 	PostsPerPage int
 }
 
 type Converter interface {
-	Convert(source string, info os.FileInfo, conf ConvertConfig) error
+	Convert(ctx ConvertContext, sourcePath string) error
 }
 
 type ConverterSet []Converter
 
-func (c ConverterSet) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
+func (c ConverterSet) Convert(ctx ConvertContext, sourcePath string) error {
 	for _, converter := range c {
-		err := converter.Convert(source, info, conf)
+		err := converter.Convert(ctx, sourcePath)
 		if !errors.Is(err, ErrUnsupportedFormat) {
 			return err
 		}
@@ -34,49 +34,34 @@ func (c ConverterSet) Convert(source string, info os.FileInfo, conf ConvertConfi
 	return ErrUnsupportedFormat
 }
 
-type CopyConverter struct {
+type CopyConverter struct{}
+
+func (c CopyConverter) Convert(ctx ConvertContext, sourcePath string) error {
+	return Copy(ctx, sourcePath, "")
 }
 
-func (c CopyConverter) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
-	if !NeedToUpdate(source, info, conf) {
-		return nil
-	}
+type SVGConverter struct{}
 
-	input, err := os.Open(filepath.Join(conf.Source, source))
-	if err != nil {
-		return err
-	}
-	defer input.Close()
-
-	output, err := CreateOutput(source, conf, "")
-	if err != nil {
-		return err
-	}
-	defer output.Close()
-
-	_, err = io.Copy(output, input)
-	return err
-}
-
-type SVGConverter struct {
-}
-
-func (c SVGConverter) Convert(source string, info os.FileInfo, conf ConvertConfig) error {
-	if !strings.HasSuffix(source, ".svg") {
+func (c SVGConverter) Convert(ctx ConvertContext, sourcePath string) error {
+	if !strings.HasSuffix(sourcePath, ".svg") {
 		return ErrUnsupportedFormat
 	}
 
-	if !NeedToUpdate(source, info, conf) {
+	return Copy(ctx, sourcePath, "image/svg+xml")
+}
+
+func Copy(ctx ConvertContext, path, mimeType string) error {
+	if fs.ModTime(ctx.Dest, path).After(fs.ModTime(ctx.Source, path)) {
 		return nil
 	}
 
-	input, err := os.Open(filepath.Join(conf.Source, source))
+	input, err := ctx.Source.Open(path)
 	if err != nil {
 		return err
 	}
 	defer input.Close()
 
-	output, err := CreateOutput(source, conf, "image/svg+xml")
+	output, err := CreateOutput(ctx.Dest, path, mimeType)
 	if err != nil {
 		return err
 	}
