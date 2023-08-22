@@ -38,71 +38,109 @@ func (a ArticleList) ModTime() time.Time {
 		return time.Time{}
 	}
 
-	latestModTime := a[0].SourceInfo.ModTime()
+	latestModTime := a[0].Sources().ModTime()
 	for _, article := range a {
-		if article.SourceInfo.ModTime().After(latestModTime) {
-			latestModTime = article.SourceInfo.ModTime()
+		if article.Sources().ModTime().After(latestModTime) {
+			latestModTime = article.Sources().ModTime()
 		}
 	}
 	return latestModTime
 }
 
-type IndexGenerator struct {
-	articles map[int]map[int]*ArticleList
-	template *TemplateLoader
-	statics  *ArticleList
-}
-
-func NewIndexGenerator(template *TemplateLoader) *IndexGenerator {
-	return &IndexGenerator{
-		articles: make(map[int]map[int]*ArticleList),
-		template: template,
-		statics:  &ArticleList{},
+func (a ArticleList) Sources() SourceList {
+	sources := make(SourceList, 0, len(a))
+	for _, article := range a {
+		sources = append(sources, article.Sources()...)
 	}
+	return sources
 }
 
-func (g *IndexGenerator) Hook(ctx ConvertContext, path string, article Article) error {
-	if !strings.HasPrefix(path, "blog/") {
-		g.statics.Add(article)
+func (a ArticleList) GeneratePerPath(path func(a Article) string, generate func(path string, articles ArticleList) error) error {
+	if len(a) == 0 {
 		return nil
 	}
 
-	year := article.Published.Year()
-	month := int(article.Published.Month())
+	current := path(a[0])
+	store := ArticleList{a[0]}
 
-	if _, ok := g.articles[year]; !ok {
-		g.articles[year] = make(map[int]*ArticleList)
+	for _, article := range a[1:] {
+		p := path(article)
+		if p == current {
+			store = append(store, article)
+		} else {
+			if err := generate(current, store); err != nil {
+				return err
+			}
+
+			current = p
+			store = ArticleList{article}
+		}
 	}
 
-	if _, ok := g.articles[year][month]; !ok {
-		g.articles[year][month] = &ArticleList{}
+	if len(store) > 0 {
+		return generate(current, store)
 	}
-
-	g.articles[year][month].Add(article)
 
 	return nil
 }
 
-func (g *IndexGenerator) Generate(ctx ConvertContext) error {
-	if err := g.generateOrderedIndex(ctx); err != nil {
-		return err
+type IndexGenerator struct {
+	template *TemplateLoader
+}
+
+func NewIndexGenerator(template *TemplateLoader) IndexGenerator {
+	return IndexGenerator{
+		template: template,
 	}
-	if err := g.generateYearlyIndex(ctx); err != nil {
-		return err
+}
+
+func (g IndexGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf Config) (ArtifactList, error) {
+	var articles ArticleList
+	var posts ArticleList
+	for _, artifact := range artifacts {
+		if article, ok := artifact.(Article); ok {
+			articles = append(articles, article)
+			if strings.HasPrefix(article.Name(), "blog/") {
+				posts.Add(article)
+			}
+		}
 	}
-	if err := g.generateMonthlyIndex(ctx); err != nil {
-		return err
+	sort.Sort(posts)
+	sort.Sort(sort.Reverse(articles))
+
+	var result ArtifactList
+
+	if as, err := g.generateOrderedIndex(dst, posts, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
 	}
-	if err := g.generateTagsIndex(ctx); err != nil {
-		return err
+	if as, err := g.generateYearlyIndex(dst, posts, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
 	}
-	if err := g.generateSitemap(ctx); err != nil {
-		return err
+	if as, err := g.generateMonthlyIndex(dst, posts, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
 	}
-	if err := g.generateFeed(ctx); err != nil {
-		return err
+	if as, err := g.generateTagsIndex(dst, posts, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
 	}
-	return nil
+	if as, err := g.generateFeed(dst, posts, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
+	}
+	if as, err := g.generateSitemap(dst, articles, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
+	}
+	return result, nil
 }
 
 type IndexContext struct {
@@ -115,20 +153,20 @@ type IndexContext struct {
 	Posts      ArticleList
 }
 
-func (g *IndexGenerator) generateOrderedIndex(ctx ConvertContext) error {
-	var articles ArticleList
-	for _, months := range g.articles {
-		for _, posts := range months {
-			articles = append(articles, *posts...)
-		}
-	}
-	sort.Sort(sort.Reverse(articles))
+func (g *IndexGenerator) generateOrderedIndex(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	var result ArtifactList
 
-	totalPages := len(articles)/ctx.PostsPerPage + 1
+	reversed := make(ArticleList, len(articles))
+	for i, article := range articles {
+		reversed[len(articles)-i-1] = article
+	}
+	articles = reversed
+
+	totalPages := len(articles)/conf.PostsPerPage + 1
 
 	tmpl, err := g.template.Load("blog/index.html")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	for page := 0; page < totalPages; page++ {
@@ -137,14 +175,19 @@ func (g *IndexGenerator) generateOrderedIndex(ctx ConvertContext) error {
 			targetPath = "blog/index.html"
 		}
 
-		start := page * ctx.PostsPerPage
-		end := page*ctx.PostsPerPage + ctx.PostsPerPage
+		start := page * conf.PostsPerPage
+		end := page*conf.PostsPerPage + conf.PostsPerPage
 		if end > len(articles) {
 			end = len(articles)
 		}
 		posts := articles[start:end]
 
-		if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
+		result = append(result, Index{
+			name:    targetPath,
+			sources: posts.Sources(),
+		})
+
+		if fs.ModTime(dst, targetPath).After(posts.ModTime()) {
 			continue
 		}
 
@@ -164,9 +207,9 @@ func (g *IndexGenerator) generateOrderedIndex(ctx ConvertContext) error {
 			pagerFrom -= pagerSize + 1 - (pagerTo - page)
 		}
 
-		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
+		output, err := CreateOutput(dst, targetPath, "text/html")
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		err = tmpl.Execute(output, IndexContext{
@@ -179,16 +222,16 @@ func (g *IndexGenerator) generateOrderedIndex(ctx ConvertContext) error {
 		})
 		if err != nil {
 			output.Close()
-			return err
+			return nil, err
 		}
 
 		err = output.Close()
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 
-	return nil
+	return result, nil
 }
 
 type YearlyContext struct {
@@ -198,39 +241,40 @@ type YearlyContext struct {
 	Posts []ArticleList
 }
 
-func (g *IndexGenerator) generateYearlyIndex(ctx ConvertContext) error {
-	for year, months := range g.articles {
-		var latestUpdated time.Time
+func (g *IndexGenerator) generateYearlyIndex(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	var result ArtifactList
 
+	tmpl, err := g.template.Load("blog/year.html")
+	if err != nil {
+		return nil, err
+	}
+
+	err = articles.GeneratePerPath(func(a Article) string {
+		return a.Published.Format("blog/2006/index.html")
+	}, func(targetPath string, articles ArticleList) error {
 		posts := make([]ArticleList, 12)
-		for i, ps := range months {
-			sort.Sort(ps)
-			posts[i-1] = *ps
-
-			if ps.ModTime().After(latestUpdated) {
-				latestUpdated = ps.ModTime()
-			}
+		for _, p := range articles {
+			month := p.Published.Month()
+			posts[month-1] = append(posts[month-1], p)
 		}
 
-		targetPath := fmt.Sprintf("blog/%04d/index.html", year)
+		result = append(result, Index{
+			name:    targetPath,
+			sources: articles.Sources(),
+		})
 
-		if fs.ModTime(ctx.Dest, targetPath).After(latestUpdated) {
-			continue
+		if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+			return nil
 		}
 
-		tmpl, err := g.template.Load("blog/year.html")
-		if err != nil {
-			return err
-		}
-
-		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
+		output, err := CreateOutput(dst, targetPath, "text/html")
 		if err != nil {
 			return err
 		}
 
 		err = tmpl.Execute(output, YearlyContext{
-			URL:   fmt.Sprintf("https://blanktar.jp/blog/%04d", year),
-			Year:  year,
+			URL:   articles[0].Published.Format("https://blanktar.jp/blog/2006"),
+			Year:  articles[0].Published.Year(),
 			Posts: posts,
 		})
 		if err != nil {
@@ -238,13 +282,10 @@ func (g *IndexGenerator) generateYearlyIndex(ctx ConvertContext) error {
 			return err
 		}
 
-		err = output.Close()
-		if err != nil {
-			return err
-		}
-	}
+		return output.Close()
+	})
 
-	return nil
+	return result, nil
 }
 
 type MonthlyContext struct {
@@ -255,46 +296,46 @@ type MonthlyContext struct {
 	Posts ArticleList
 }
 
-func (g *IndexGenerator) generateMonthlyIndex(ctx ConvertContext) error {
-	for year, months := range g.articles {
-		for month, posts := range months {
-			targetPath := fmt.Sprintf("blog/%04d/%02d/index.html", year, month)
+func (g *IndexGenerator) generateMonthlyIndex(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	var result ArtifactList
 
-			if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
-				continue
-			}
-
-			sort.Sort(posts)
-
-			tmpl, err := g.template.Load("blog/month.html")
-			if err != nil {
-				return err
-			}
-
-			output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
-			if err != nil {
-				return err
-			}
-
-			err = tmpl.Execute(output, MonthlyContext{
-				URL:   fmt.Sprintf("https://blanktar.jp/blog/%04d/%02d", year, month),
-				Year:  year,
-				Month: month,
-				Posts: *posts,
-			})
-			if err != nil {
-				output.Close()
-				return err
-			}
-
-			err = output.Close()
-			if err != nil {
-				return err
-			}
-		}
+	tmpl, err := g.template.Load("blog/month.html")
+	if err != nil {
+		return nil, err
 	}
 
-	return nil
+	articles.GeneratePerPath(func(a Article) string {
+		return a.Published.Format("blog/2006/01/index.html")
+	}, func(targetPath string, articles ArticleList) error {
+		result = append(result, Index{
+			name:    targetPath,
+			sources: articles.Sources(),
+		})
+
+		if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+			return nil
+		}
+
+		output, err := CreateOutput(dst, targetPath, "text/html")
+		if err != nil {
+			return err
+		}
+
+		err = tmpl.Execute(output, MonthlyContext{
+			URL:   articles[0].Published.Format("https://blanktar.jp/blog/2006/01"),
+			Year:  articles[0].Published.Year(),
+			Month: int(articles[0].Published.Month()),
+			Posts: articles,
+		})
+		if err != nil {
+			output.Close()
+			return err
+		}
+
+		return output.Close()
+	})
+
+	return result, nil
 }
 
 type TagPageContext struct {
@@ -326,37 +367,37 @@ type TagIndexContext struct {
 	Tags TagPageContextList
 }
 
-func (g *IndexGenerator) generateTagsIndex(ctx ConvertContext) error {
-	articles := make(map[string]ArticleList)
-	var latestUpdated time.Time
+func (g *IndexGenerator) generateTagsIndex(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	var result ArtifactList
 
-	for _, months := range g.articles {
-		for _, posts := range months {
-			if posts.ModTime().After(latestUpdated) {
-				latestUpdated = posts.ModTime()
-			}
+	tags := make(map[string]ArticleList)
 
-			for _, post := range *posts {
-				for _, tag := range post.Tags {
-					if _, ok := articles[tag]; !ok {
-						articles[tag] = make(ArticleList, 0)
-					}
-					articles[tag] = append(articles[tag], post)
-				}
+	for _, article := range articles {
+		for _, tag := range article.Tags {
+			if _, ok := tags[tag]; !ok {
+				tags[tag] = make(ArticleList, 0)
 			}
+			tags[tag] = append(tags[tag], article)
 		}
+	}
+	for tag, posts := range tags {
+		reversed := make(ArticleList, len(posts))
+		for i, post := range posts {
+			reversed[len(posts)-i-1] = post
+		}
+		tags[tag] = reversed
 	}
 
 	tagPageTemplate, err := g.template.Load("blog/tagpage.html")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	tagIndexContext := TagIndexContext{
 		URL: "https://blanktar.jp/blog/tags",
 	}
 
-	for tag, posts := range articles {
+	for tag, posts := range tags {
 		targetPath := fmt.Sprintf("blog/tags/%s/index.html", EscapeTag(tag))
 
 		tagPageContext := TagPageContext{
@@ -366,99 +407,62 @@ func (g *IndexGenerator) generateTagsIndex(ctx ConvertContext) error {
 		}
 		tagIndexContext.Tags = append(tagIndexContext.Tags, tagPageContext)
 
-		if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
+		result = append(result, Index{
+			name:    targetPath,
+			sources: posts.Sources(),
+		})
+
+		if fs.ModTime(dst, targetPath).After(posts.ModTime()) {
 			continue
 		}
 
-		sort.Sort(sort.Reverse(posts))
-
-		output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
+		output, err := CreateOutput(dst, targetPath, "text/html")
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		err = tagPageTemplate.Execute(output, tagPageContext)
 		if err != nil {
 			output.Close()
-			return err
+			return nil, err
 		}
 
 		err = output.Close()
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 
 	targetPath := "blog/tags/index.html"
 
-	if fs.ModTime(ctx.Dest, targetPath).After(latestUpdated) {
-		return nil
+	result = append(result, Index{
+		name:    targetPath,
+		sources: articles.Sources(),
+	})
+
+	if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+		return result, nil
 	}
 
 	tagIndexTemplate, err := g.template.Load("blog/tagindex.html")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	sort.Sort(tagIndexContext.Tags)
 
-	output, err := CreateOutput(ctx.Dest, targetPath, "text/html")
+	output, err := CreateOutput(dst, targetPath, "text/html")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = tagIndexTemplate.Execute(output, tagIndexContext)
 	if err != nil {
 		output.Close()
-		return err
+		return nil, err
 	}
 
-	return output.Close()
-}
-
-type SitemapContext struct {
-	URL   string
-	Image []string
-	Pages []Article
-}
-
-func (g *IndexGenerator) generateSitemap(ctx ConvertContext) error {
-	pages := *g.statics
-
-	for _, months := range g.articles {
-		for _, posts := range months {
-			pages = append(pages, *posts...)
-		}
-	}
-
-	sort.Sort(sort.Reverse(pages))
-
-	targetPath := "sitemap.xml"
-
-	if fs.ModTime(ctx.Dest, targetPath).After(pages.ModTime()) {
-		return nil
-	}
-
-	tmpl, err := g.template.Load("sitemap.xml")
-	if err != nil {
-		return err
-	}
-
-	output, err := CreateOutput(ctx.Dest, targetPath, "application/xml")
-	if err != nil {
-		return err
-	}
-
-	err = tmpl.Execute(output, SitemapContext{
-		URL:   "https://blanktar.jp/sitemap.xml",
-		Pages: pages,
-	})
-	if err != nil {
-		output.Close()
-		return err
-	}
-
-	return output.Close()
+	return result, output.Close()
 }
 
 type FeedContext struct {
@@ -468,42 +472,81 @@ type FeedContext struct {
 	Posts     ArticleList
 }
 
-func (g *IndexGenerator) generateFeed(ctx ConvertContext) error {
-	var posts ArticleList
-
-	for _, months := range g.articles {
-		for _, ps := range months {
-			posts = append(posts, *ps...)
-		}
+func (g *IndexGenerator) generateFeed(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	reversed := make(ArticleList, len(articles))
+	for i, article := range articles {
+		reversed[len(articles)-i-1] = article
 	}
-
-	sort.Sort(sort.Reverse(posts))
+	articles = reversed
 
 	targetPath := "blog/feed.xml"
+	result := ArtifactList{Index{
+		name:    targetPath,
+		sources: articles.Sources(),
+	}}
 
-	if fs.ModTime(ctx.Dest, targetPath).After(posts.ModTime()) {
-		return nil
+	if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+		return result, nil
 	}
 
 	tmpl, err := g.template.Load("blog/feed.xml")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	output, err := CreateOutput(ctx.Dest, targetPath, "application/xml")
+	output, err := CreateOutput(dst, targetPath, "application/xml")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = tmpl.Execute(output, FeedContext{
 		URL:       "https://blanktar.jp/blog/feed.xml",
 		Generated: time.Now(),
-		Posts:     posts,
+		Posts:     articles,
 	})
 	if err != nil {
 		output.Close()
-		return err
+		return nil, err
 	}
 
-	return output.Close()
+	return result, output.Close()
+}
+
+type SitemapContext struct {
+	URL   string
+	Image []string
+	Pages []Article
+}
+
+func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	targetPath := "sitemap.xml"
+	result := ArtifactList{Index{
+		name:    targetPath,
+		sources: articles.Sources(),
+	}}
+
+	if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+		return result, nil
+	}
+
+	tmpl, err := g.template.Load("sitemap.xml")
+	if err != nil {
+		return nil, err
+	}
+
+	output, err := CreateOutput(dst, targetPath, "application/xml")
+	if err != nil {
+		return nil, err
+	}
+
+	err = tmpl.Execute(output, SitemapContext{
+		URL:   "https://blanktar.jp/sitemap.xml",
+		Pages: articles,
+	})
+	if err != nil {
+		output.Close()
+		return nil, err
+	}
+
+	return result, output.Close()
 }

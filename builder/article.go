@@ -3,18 +3,22 @@ package main
 import (
 	"bytes"
 	"html/template"
-	"os"
 	"path"
 	"strings"
 	"time"
 
 	"github.com/macrat/blanktar/builder/fs"
+	"github.com/macrat/blanktar/builder/thumbnail"
 	"gopkg.in/yaml.v3"
 )
 
 type Article struct {
-	URL         string           `yaml:"-"`
-	Path        string           `yaml:"-"`
+	name   string `yaml:"-"`
+	source Source `yaml:"-"`
+
+	URL  string `yaml:"-"`
+	Path string `yaml:"-"`
+
 	Title       string           `yaml:"title"`
 	Image       []string         `yaml:"image"`
 	Description string           `yaml:"description"`
@@ -25,9 +29,17 @@ type Article struct {
 	HowTo       *HowTo           `yaml:"howto"`
 	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
 	Layout      string           `yaml:"layout"`
-	Markdown    []byte           `yaml:"-"`
-	Content     template.HTML    `yaml:"-"`
-	SourceInfo  os.FileInfo      `yaml:"-"`
+
+	Markdown []byte        `yaml:"-"`
+	Content  template.HTML `yaml:"-"`
+}
+
+func (a Article) Name() string {
+	return a.name
+}
+
+func (a Article) Sources() SourceList {
+	return SourceList{a.source}
 }
 
 type FAQItem struct {
@@ -65,17 +77,16 @@ func NewArticleLoader() *ArticleLoader {
 	}
 }
 
-func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInfo) (Article, error) {
-	separatorPos := bytes.Index(source[3:], []byte("\n---\n")) + 3
+func (l *ArticleLoader) Load(externalPath string, raw []byte) (Article, error) {
+	separatorPos := bytes.Index(raw[3:], []byte("\n---\n")) + 3
 
 	article := Article{
-		URL:        "https://blanktar.jp" + externalPath,
-		Path:       externalPath,
-		Markdown:   source[separatorPos+5:],
-		SourceInfo: info,
+		URL:      "https://blanktar.jp" + externalPath,
+		Path:     externalPath,
+		Markdown: raw[separatorPos+5:],
 	}
 
-	if err := yaml.Unmarshal(source[:separatorPos], &article); err != nil {
+	if err := yaml.Unmarshal(raw[:separatorPos], &article); err != nil {
 		return Article{}, err
 	}
 
@@ -98,85 +109,125 @@ func (l *ArticleLoader) Load(externalPath string, source []byte, info os.FileInf
 	return article, nil
 }
 
-type ArticleHook func(ctx ConvertContext, sourcePath string, article Article) error
-
 type ArticleConverter struct {
-	article  *ArticleLoader
-	template *TemplateLoader
-	hooks    []ArticleHook
+	article   *ArticleLoader
+	template  *TemplateLoader
+	thumbnail thumbnail.Generator
 }
 
-func NewArticleConverter(template *TemplateLoader, hooks ...ArticleHook) (*ArticleConverter, error) {
+func NewArticleConverter(template *TemplateLoader, regularFontPath, semiBoldFontPath string) (*ArticleConverter, error) {
+	generator, err := thumbnail.NewGenerator(regularFontPath, semiBoldFontPath)
+	if err != nil {
+		return nil, err
+	}
+
 	return &ArticleConverter{
-		article:  NewArticleLoader(),
-		template: template,
-		hooks:    hooks,
+		article:   NewArticleLoader(),
+		template:  template,
+		thumbnail: generator,
 	}, nil
 }
 
-func (c *ArticleConverter) Convert(ctx ConvertContext, sourcePath string) error {
-	if !strings.HasSuffix(sourcePath, ".md") {
-		return ErrUnsupportedFormat
+func (c *ArticleConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
+	if !strings.HasSuffix(src.Name(), ".md") {
+		return nil, ErrUnsupportedFormat
 	}
 
-	input, err := fs.ReadFile(ctx.Source, sourcePath)
+	input, err := src.ReadAll()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if len(input) < 8 || !bytes.Equal(input[:4], []byte("---\n")) {
-		return ErrUnsupportedFormat
+		return nil, ErrUnsupportedFormat
 	}
 
-	externalPath := sourcePath[:len(sourcePath)-3]
+	externalPath := src.Name()[:len(src.Name())-len(".md")]
+	if strings.HasSuffix(externalPath, "/index") {
+		externalPath = externalPath[:len(externalPath)-len("/index")]
+	}
+	if externalPath == "index" {
+		externalPath = ""
+	}
+
+	article, err := c.convertHTML(dst, src, externalPath, input)
+	if err != nil {
+		return nil, err
+	}
+
+	asset, err := c.convertImage(dst, src, externalPath, article)
+	if err != nil {
+		return nil, err
+	}
+
+	return ArtifactList{
+		article,
+		asset,
+	}, nil
+}
+
+func (c *ArticleConverter) convertHTML(dst fs.Writable, src Source, externalPath string, input []byte) (Article, error) {
 	destPath := path.Join(externalPath, "index.html")
 	if path.Base(externalPath) == "index" {
 		destPath = externalPath + ".html"
 	}
 
-	info, err := fs.Stat(ctx.Source, sourcePath)
+	article, err := c.article.Load("/"+externalPath, input)
 	if err != nil {
-		return err
+		return Article{}, err
 	}
-
-	article, err := c.article.Load("/"+externalPath, input, info)
-	if err != nil {
-		return err
-	}
+	article.name = destPath
+	article.source = src
 
 	if article.Layout == "" {
-		if strings.HasPrefix(sourcePath, "blog/") {
+		if strings.HasPrefix(src.Name(), "blog/") {
 			article.Layout = "blog/post.html"
 		} else {
 			article.Layout = "default.html"
 		}
 	}
 
-	for _, hook := range c.hooks {
-		if err := hook(ctx, sourcePath, article); err != nil {
-			return err
-		}
-	}
-
-	if fs.ModTime(ctx.Dest, destPath).After(article.SourceInfo.ModTime()) {
-		return nil
+	if fs.ModTime(dst, destPath).After(src.ModTime()) {
+		return article, nil
 	}
 
 	tmpl, err := c.template.Load(article.Layout)
 	if err != nil {
-		return err
+		return Article{}, err
 	}
 
-	output, err := CreateOutput(ctx.Dest, destPath, "text/html")
+	output, err := CreateOutput(dst, destPath, "text/html")
 	if err != nil {
-		return err
+		return Article{}, err
 	}
 
 	err = tmpl.Execute(output, article)
 	if err != nil {
 		output.Close()
-		return err
+		return Article{}, err
 	}
 
-	return output.Close()
+	return article, output.Close()
+}
+
+func (c *ArticleConverter) convertImage(dst fs.Writable, src Source, externalPath string, article Article) (Asset, error) {
+	outputPath := path.Join("images", externalPath+".png")
+
+	asset := Asset{
+		name:   outputPath,
+		source: src,
+	}
+
+	if fs.ModTime(dst, outputPath).After(src.ModTime()) {
+		return asset, nil
+	}
+
+	w, err := CreateOutput(dst, outputPath, "image/png")
+	if err != nil {
+		return Asset{}, err
+	}
+	defer w.Close()
+
+	err = c.thumbnail.Generate(w, article.Title, article.Tags)
+	return asset, err
 }

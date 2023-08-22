@@ -7,14 +7,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/macrat/blanktar/builder/fs"
 )
 
-type ModTimer interface {
-	ModTime() time.Time
+type Config struct {
+	PostsPerPage int
 }
 
 type OutputWriter struct {
@@ -68,13 +67,92 @@ func EscapeTag(s string) string {
 	return s
 }
 
-func StartWatching(ctx ConvertContext, basepath string, converter Converter, autoindex *IndexGenerator) error {
+func PreviewServer(fs_ fs.Readable) error {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" && strings.HasSuffix(r.URL.Path, "/") {
+			http.Redirect(w, r, r.URL.Path[:len(r.URL.Path)-1], http.StatusFound)
+			return
+		}
+
+		path := r.URL.Path[1:]
+
+		stat, err := fs.Stat(fs_, path)
+		if err == nil && stat.IsDir() {
+			path = filepath.Join(path, "index.html")
+		}
+
+		f, err := fs_.Open(path)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		defer f.Close()
+
+		http.ServeContent(w, r, path, fs.ModTime(fs_, path), f.(io.ReadSeeker))
+	})
+
+	log.Println("Listening on :3000")
+	return http.ListenAndServe(":3000", nil)
+}
+
+type ContinuousBuilder struct {
+	Src  fs.Readable
+	Dst  fs.Writable
+	Conf Config
+
+	Converter Converter
+	Generator Generator
+
+	converted ArtifactList
+	generated ArtifactList
+}
+
+func (b *ContinuousBuilder) Build() error {
+	var errs []error
+
+	err := WalkSources(b.Src, func(s Source) error {
+		as, err := b.Converter.Convert(b.Dst, s, b.Conf)
+		if err != nil {
+			errs = append(errs, err)
+			return nil
+		}
+		b.converted.Merge(as)
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+
+	if as, err := b.Generator.Generate(b.Dst, b.converted, b.Conf); err == nil {
+		b.generated.Merge(as)
+	} else {
+		return err
+	}
+
+	return nil
+}
+
+func (b *ContinuousBuilder) Update(sourceName string) error {
+	for _, xs := range []*ArtifactList{&b.converted, &b.generated} {
+		for i := 0; i < len(*xs); i++ {
+			x := (*xs)[i]
+			if x.Sources().Includes(sourceName) {
+				b.Dst.Remove(x.Name())
+				*xs = append((*xs)[:i], (*xs)[i+1:]...)
+				i--
+			}
+		}
+	}
+	return b.Build()
+}
+
+func (b *ContinuousBuilder) StartWatching(sourceDir string) error {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		return err
 	}
 
-	err = filepath.WalkDir(basepath, func(fpath string, d fs.DirEntry, err error) error {
+	err = filepath.WalkDir(sourceDir, func(fpath string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -91,26 +169,20 @@ func StartWatching(ctx ConvertContext, basepath string, converter Converter, aut
 		for {
 			select {
 			case event := <-watcher.Events:
-				if event.Has(fsnotify.Write) {
-					if filepath.Base(event.Name)[0] == '.' {
-						continue
-					}
-
-					path, err := filepath.Rel(basepath, event.Name)
-					if err != nil {
-						continue
-					}
-
-					err = converter.Convert(ctx, path)
-					if err != nil {
-						log.Printf("Failed to update: %s: %s", event.Name, err)
-					}
-
-					err = autoindex.Generate(ctx)
-					if err != nil {
-						log.Printf("Failed to update: autoindex: %s", err)
-					}
+				if filepath.Base(event.Name)[0] == '.' || strings.HasSuffix(event.Name, "~") {
+					continue
 				}
+
+				if event.Op&(fsnotify.Write|fsnotify.Create|fsnotify.Remove) != 0 {
+					path, err := filepath.Rel(sourceDir, event.Name)
+					if err != nil {
+						continue
+					}
+
+					log.Println("Update:", path)
+					b.Update(path)
+				}
+
 				if event.Has(fsnotify.Create) {
 					info, err := os.Stat(event.Name)
 					if err == nil && info.IsDir() {
@@ -126,34 +198,6 @@ func StartWatching(ctx ConvertContext, basepath string, converter Converter, aut
 	return nil
 }
 
-func PreviewServer(ctx ConvertContext) error {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" && strings.HasSuffix(r.URL.Path, "/") {
-			http.Redirect(w, r, r.URL.Path[:len(r.URL.Path)-1], http.StatusFound)
-			return
-		}
-
-		path := r.URL.Path[1:]
-
-		stat, err := fs.Stat(ctx.Dest, path)
-		if err == nil && stat.IsDir() {
-			path = filepath.Join(path, "index.html")
-		}
-
-		f, err := ctx.Dest.Open(path)
-		if err != nil {
-			http.NotFound(w, r)
-			return
-		}
-		defer f.Close()
-
-		http.ServeContent(w, r, path, fs.ModTime(ctx.Dest, path), f.(io.ReadSeeker))
-	})
-
-	log.Println("Listening on :3000")
-	return http.ListenAndServe(":3000", nil)
-}
-
 func main() {
 	stopProfiler := startProfiler()
 	defer stopProfiler()
@@ -161,15 +205,14 @@ func main() {
 	preview := len(os.Args) > 1 && os.Args[1] == "preview"
 
 	sourceDir := "../pages"
-	var dest fs.Writable = fs.NewOnDisk("../dist")
+	src := fs.NewOnDisk(sourceDir)
+	var dst fs.Writable = fs.NewOnDisk("../dist")
 
 	if preview {
-		dest = fs.NewInMemory()
+		dst = fs.NewInMemory()
 	}
 
-	ctx := ConvertContext{
-		Dest:         dest,
-		Source:       fs.NewOnDisk(sourceDir),
+	conf := Config{
 		PostsPerPage: 10,
 	}
 
@@ -178,58 +221,31 @@ func main() {
 		log.Fatal(err)
 	}
 
-	thumbnailGenerator, err := NewThumbnailGenerator("../assets/kokuri-font/regular.ttf", "../assets/kokuri-font/semibold.ttf")
+	mdConverter, err := NewArticleConverter(template, "../assets/kokuri-font/regular.ttf", "../assets/kokuri-font/semibold.ttf")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	indexGenerator := NewIndexGenerator(template)
-
-	mdConverter, err := NewArticleConverter(template, thumbnailGenerator.Hook, indexGenerator.Hook)
-	if err != nil {
-		log.Fatal(err)
+	builder := ContinuousBuilder{
+		Src:  src,
+		Dst:  dst,
+		Conf: conf,
+		Converter: ConverterSet{
+			mdConverter,
+			SVGConverter{},
+			CopyConverter{},
+		},
+		Generator: NewIndexGenerator(template),
 	}
 
-	converter := ConverterSet{
-		mdConverter,
-		SVGConverter{},
-		CopyConverter{},
-	}
-
-	var errorCount int
-
-	err = fs.WalkDir(ctx.Source, ".", func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if d.IsDir() || strings.HasPrefix(d.Name(), ".") {
-			return nil
-		}
-
-		err = converter.Convert(ctx, path)
-		if err != nil {
-			log.Printf("Error  %s\n%s", path, err)
-			errorCount++
-		}
-
-		return nil
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	if errorCount > 0 {
-		log.Fatal("Error occurred during build.")
-	}
-
-	err = indexGenerator.Generate(ctx)
-	if err != nil {
+	if err := builder.Build(); err != nil {
 		log.Fatal(err)
 	}
 
 	if len(os.Args) > 1 && os.Args[1] == "preview" {
-		if err = StartWatching(ctx, sourceDir, converter, indexGenerator); err != nil {
+		if err = builder.StartWatching(sourceDir); err != nil {
 			log.Fatal(err)
 		}
-		log.Fatal(PreviewServer(ctx))
+		log.Fatal(PreviewServer(dst))
 	}
 }

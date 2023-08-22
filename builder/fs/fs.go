@@ -12,6 +12,8 @@ var WalkDir = fs.WalkDir
 
 type DirEntry = fs.DirEntry
 
+type File = fs.File
+
 type Readable fs.FS
 
 type Writable interface {

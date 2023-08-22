@@ -12,61 +12,63 @@ var (
 	ErrUnsupportedFormat = errors.New("unsupported format")
 )
 
-type ConvertContext struct {
-	Dest         fs.Writable
-	Source       fs.Readable
-	PostsPerPage int
-}
-
+// Converter converts a single source to one or more artifacts.
 type Converter interface {
-	Convert(ctx ConvertContext, sourcePath string) error
+	Convert(fs.Writable, Source, Config) (ArtifactList, error)
 }
 
+// ConverterSet is a converter that converts by one of the converters.
 type ConverterSet []Converter
 
-func (c ConverterSet) Convert(ctx ConvertContext, sourcePath string) error {
+func (c ConverterSet) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
 	for _, converter := range c {
-		err := converter.Convert(ctx, sourcePath)
-		if !errors.Is(err, ErrUnsupportedFormat) {
-			return err
+		as, err := converter.Convert(dst, src, conf)
+		if errors.Is(err, ErrUnsupportedFormat) {
+			continue
 		}
+		return as, nil
 	}
-	return ErrUnsupportedFormat
+	return nil, ErrUnsupportedFormat
 }
 
 type CopyConverter struct{}
 
-func (c CopyConverter) Convert(ctx ConvertContext, sourcePath string) error {
-	return Copy(ctx, sourcePath, "")
+func (c CopyConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
+	return Copy(dst, src, "")
 }
 
 type SVGConverter struct{}
 
-func (c SVGConverter) Convert(ctx ConvertContext, sourcePath string) error {
-	if !strings.HasSuffix(sourcePath, ".svg") {
-		return ErrUnsupportedFormat
+func (c SVGConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
+	if !strings.HasSuffix(src.Name(), ".svg") {
+		return nil, ErrUnsupportedFormat
 	}
 
-	return Copy(ctx, sourcePath, "image/svg+xml")
+	return Copy(dst, src, "image/svg+xml")
 }
 
-func Copy(ctx ConvertContext, path, mimeType string) error {
-	if fs.ModTime(ctx.Dest, path).After(fs.ModTime(ctx.Source, path)) {
-		return nil
+func Copy(dst fs.Writable, src Source, mimeType string) (ArtifactList, error) {
+	as := ArtifactList{Asset{
+		name:   src.Name(),
+		source: src,
+	}}
+
+	if fs.ModTime(dst, src.Name()).After(src.ModTime()) {
+		return as, nil
 	}
 
-	input, err := ctx.Source.Open(path)
+	input, err := src.Open()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer input.Close()
 
-	output, err := CreateOutput(ctx.Dest, path, mimeType)
+	output, err := CreateOutput(dst, src.Name(), mimeType)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer output.Close()
 
 	_, err = io.Copy(output, input)
-	return err
+	return as, err
 }
