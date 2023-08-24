@@ -17,38 +17,64 @@ import (
 	extraAst "github.com/yuin/goldmark/extension/ast"
 )
 
+type LexerRegistry struct {
+	lexers map[string]chroma.Lexer
+}
+
+func (r *LexerRegistry) Get(lang, code string) chroma.Lexer {
+	lexer := r.lexers[lang]
+	if lexer != nil {
+		return lexer
+	}
+
+	lexer = lexers.Get(string(lang))
+	if lexer == nil {
+		lexer = lexers.Analyse(code)
+		if lexer == nil {
+			lexer = lexers.Fallback
+		}
+	}
+
+	r.lexers[lexer.Config().Name] = lexer
+	r.lexers[lang] = lexer
+
+	return lexer
+}
+
 type Markdown struct {
-	md   *markdown.Converter
-	code *CodeRenderer
+	lexers *LexerRegistry
 }
 
 func NewMarkdown() *Markdown {
-	codeRenderer := NewCodeRenderer()
 	return &Markdown{
-		md: markdown.NewConverter(markdown.WithNodeRenderers(
-			codeRenderer,
-			HeadingRenderer{},
-			ImageRenderer{},
-			TableRenderer{},
-			LinkRenderer{},
-		)),
-		code: codeRenderer,
+		lexers: &LexerRegistry{
+			lexers: make(map[string]chroma.Lexer),
+		},
 	}
 }
 
 func (c *Markdown) Convert(w io.Writer, source []byte) error {
 	var buf bytes.Buffer
 
-	if err := c.md.Convert(&buf, source); err != nil {
+	code := NewCodeRenderer(c.lexers)
+	md := markdown.NewConverter(markdown.WithNodeRenderers(
+		code,
+		HeadingRenderer{},
+		ImageRenderer{},
+		TableRenderer{},
+		LinkRenderer{},
+	))
+
+	if err := md.Convert(&buf, source); err != nil {
 		return err
 	}
 
-	if c.code.Count > 0 {
+	if code.Count > 0 {
 		if _, err := w.Write([]byte("<style>")); err != nil {
 			return err
 		}
 
-		if err := c.code.WriteStyleSheet(w); err != nil {
+		if err := code.WriteStyleSheet(w); err != nil {
 			return err
 		}
 
@@ -57,7 +83,7 @@ func (c *Markdown) Convert(w io.Writer, source []byte) error {
 		}
 	}
 
-	c.code.Count = 0
+	code.Count = 0
 
 	_, err := buf.WriteTo(w)
 	return err
@@ -66,15 +92,17 @@ func (c *Markdown) Convert(w io.Writer, source []byte) error {
 // CodeRenderer is a renderer for fenced code blocks with highlighting.
 type CodeRenderer struct {
 	formatter *html.Formatter
+	lexers    *LexerRegistry
 	Count     int
 }
 
-func NewCodeRenderer() *CodeRenderer {
+func NewCodeRenderer(lexers *LexerRegistry) *CodeRenderer {
 	return &CodeRenderer{
 		formatter: html.New(
 			html.WithClasses(true),
 			html.PreventSurroundingPre(true),
 		),
+		lexers: lexers,
 	}
 }
 
@@ -104,13 +132,7 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 	}
 	plainCode := strings.Join(plainCodeLines, "")
 
-	lexer := lexers.Get(string(lang))
-	if lexer == nil {
-		lexer = lexers.Analyse(plainCode)
-		if lexer == nil {
-			lexer = lexers.Fallback
-		}
-	}
+	lexer := r.lexers.Get(string(lang), plainCode)
 
 	iterator, err := lexer.Tokenise(nil, plainCode)
 	if err != nil {
