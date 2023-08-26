@@ -1,12 +1,15 @@
 package main
 
 import (
+	"errors"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"sync"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/macrat/blanktar/builder/fs"
@@ -96,6 +99,8 @@ func PreviewServer(fs_ fs.Readable) error {
 }
 
 type ContinuousBuilder struct {
+	sync.Mutex
+
 	Src  fs.Readable
 	Dst  fs.Writable
 	Conf Config
@@ -107,20 +112,53 @@ type ContinuousBuilder struct {
 	generated ArtifactList
 }
 
-func (b *ContinuousBuilder) Build() error {
-	var errs []error
-
-	err := WalkSources(b.Src, func(s Source) error {
+func (b *ContinuousBuilder) Builder(ch <-chan Source, errs chan<- error) {
+	for s := range ch {
 		as, err := b.Converter.Convert(b.Dst, s, b.Conf)
 		if err != nil {
-			errs = append(errs, err)
-			return nil
+			errs <- err
+			continue
 		}
+
+		b.Lock()
 		b.converted.Merge(as)
+		b.Unlock()
+	}
+}
+
+func (b *ContinuousBuilder) Build() error {
+	var errs []error
+	errsCh := make(chan error)
+	go func(errsCh <-chan error) {
+		for err := range errsCh {
+			errs = append(errs, err)
+		}
+	}(errsCh)
+
+	var wg sync.WaitGroup
+	ch := make(chan Source, runtime.GOMAXPROCS(0))
+	for i := 0; i < runtime.GOMAXPROCS(0); i++ {
+		wg.Add(1)
+		go func() {
+			b.Builder(ch, errsCh)
+			wg.Done()
+		}()
+	}
+
+	err := WalkSources(b.Src, func(s Source) error {
+		ch <- s
 		return nil
 	})
 	if err != nil {
 		return err
+	}
+
+	close(ch)
+	wg.Wait()
+	close(errsCh)
+
+	if len(errs) > 0 {
+		return errors.Join(errs...)
 	}
 
 	if as, err := b.Generator.Generate(b.Dst, b.converted, b.Conf); err == nil {

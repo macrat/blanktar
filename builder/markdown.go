@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"regexp"
 	"strings"
+	"sync"
 
 	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters/html"
@@ -18,10 +19,14 @@ import (
 )
 
 type LexerRegistry struct {
+	sync.Mutex
 	lexers map[string]chroma.Lexer
 }
 
 func (r *LexerRegistry) Get(lang, code string) chroma.Lexer {
+	r.Lock()
+	defer r.Unlock()
+
 	lexer := r.lexers[lang]
 	if lexer != nil {
 		return lexer
