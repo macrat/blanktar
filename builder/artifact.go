@@ -18,14 +18,18 @@ func (al ArtifactList) Index(name string) int {
 	return -1
 }
 
+func (al *ArtifactList) Add(a Artifact) {
+	idx := al.Index(a.Name())
+	if idx == -1 {
+		*al = append(*al, a)
+	} else {
+		(*al)[idx] = a
+	}
+}
+
 func (al *ArtifactList) Merge(bl ArtifactList) {
 	for _, b := range bl {
-		idx := al.Index(b.Name())
-		if idx == -1 {
-			*al = append(*al, b)
-			continue
-		}
-		(*al)[idx] = b
+		al.Add(b)
 	}
 }
 

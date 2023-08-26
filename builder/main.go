@@ -233,6 +233,7 @@ func main() {
 		Converter: ConverterSet{
 			mdConverter,
 			SVGConverter{},
+			PhotoConverter{},
 			CopyConverter{},
 		},
 		Generator: NewIndexGenerator(template),

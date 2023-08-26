@@ -26,7 +26,7 @@ func (c ConverterSet) Convert(dst fs.Writable, src Source, conf Config) (Artifac
 		if errors.Is(err, ErrUnsupportedFormat) {
 			continue
 		}
-		return as, nil
+		return as, err
 	}
 	return nil, ErrUnsupportedFormat
 }
