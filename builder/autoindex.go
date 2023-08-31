@@ -88,12 +88,6 @@ type IndexGenerator struct {
 	template *TemplateLoader
 }
 
-func NewIndexGenerator(template *TemplateLoader) IndexGenerator {
-	return IndexGenerator{
-		template: template,
-	}
-}
-
 func (g IndexGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf Config) (ArtifactList, error) {
 	var articles ArticleList
 	var posts ArticleList

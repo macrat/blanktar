@@ -274,7 +274,10 @@ func main() {
 			PhotoConverter{},
 			CopyConverter{},
 		},
-		Generator: NewIndexGenerator(template),
+		Generator: GeneratorSet{
+			IndexGenerator{template},
+			PhotoGenerator{template},
+		},
 	}
 
 	if err := builder.Build(); err != nil {

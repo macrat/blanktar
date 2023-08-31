@@ -1,0 +1,31 @@
+{{/* {{define "title"}}{{.Title}} - Blanktar{{end}} */}}
+
+{{define "description"}}{{.Metadata.Comment}}{{end}}
+
+{{define "head"}}
+    <meta property="og:image" content="https://blanktar.jp{{ index .VariantPathes 1920 }}>">
+{{end}}
+
+{{/* <style> */}}
+{{define "style"}}
+{{end}}
+{{/* </style> */}}
+
+{{define "main"}}
+    <img
+        src="/{{.ImagePath}}"
+        srcset="
+            {{range $k, $v := .VariantPathes}}
+                /{{$v}} {{$k}}w,
+            {{end}}
+        "
+        alt="{{.Metadata.Comment}}">
+
+    <div>
+        {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}
+    </div>
+
+    <div>
+        {{.Metadata.Comment}}
+    </div>
+{{end}}
