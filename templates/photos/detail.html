@@ -40,7 +40,7 @@ img {
                 height="{{.Metadata.Height}}"
                 loading="lazy">
 
-            {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}
+            {{.Metadata.DateTime.Format "2006年01月02日"}} - {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}
 
             {{if .Metadata.Comment}}
                 <div id="image-comment">
