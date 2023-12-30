@@ -38,6 +38,24 @@ img:hover {
     filter: brightness(1.1);
     z-index: 2;
 }
+.date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff9;
+    color: #666;
+}
+@media (prefers-color-scheme: dark) {
+    .date {
+        background-color: #0002;
+        color: #bbb;
+    }
+}
+h2 {
+    margin: .5em 0;
+    padding: 0;
+    font-size: 32px;
+}
 {{end}}
 {{/* </style> */}}
 
@@ -51,7 +69,15 @@ img:hover {
     <h1>{{.PageName}}</h1>
 
     <ul>
+        {{$date := ""}}
         {{range .Pages}}
+            {{$d := .Metadata.DateTime.Format "2006年 1月"}}
+            {{if ne $date $d}}
+                {{$date = $d}}
+                <li class="date">
+                    <h2>{{$date}}</h2>
+                </li>
+            {{end}}
             <li>
                 <a href="/{{.Path}}">
                     <img
