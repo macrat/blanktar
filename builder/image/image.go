@@ -121,7 +121,7 @@ func resizeImage(img image.Image, maxSize int) image.Image {
 	return img
 }
 
-func (i *Image) SaveThumbnail(w io.Writer, quality int) error {
+func (i *Image) SaveThumbnail(w io.Writer, size, quality int) error {
 	width := i.img.Bounds().Max.X
 	height := i.img.Bounds().Max.Y
 
@@ -133,7 +133,7 @@ func (i *Image) SaveThumbnail(w io.Writer, quality int) error {
 	top := (height - shorter) / 2
 	left := (width - shorter) / 2
 
-	cropped := image.NewRGBA(image.Rect(0, 0, 320, 320))
+	cropped := image.NewRGBA(image.Rect(0, 0, size, size))
 	draw.CatmullRom.Scale(cropped, cropped.Bounds(), i.img, image.Rect(left, top, width-left, height-top), draw.Over, nil)
 
 	return i.saveImage(w, quality, cropped)
@@ -201,8 +201,8 @@ func (i *Image) Metadata() (Metadata, error) {
 	}
 
 	m := Metadata{
-		Width: i.img.Bounds().Max.X,
-		Height: i.img.Bounds().Max.Y,
+		Width:       i.img.Bounds().Max.X,
+		Height:      i.img.Bounds().Max.Y,
 		AspectRatio: float64(i.img.Bounds().Max.X) / float64(i.img.Bounds().Max.Y),
 	}
 
@@ -273,8 +273,8 @@ type Metadata struct {
 	ApertureValue   float64
 	ISOSpeedRatings uint16
 
-	Width int
-	Height int
+	Width       int
+	Height      int
 	AspectRatio float64
 
 	Comment string

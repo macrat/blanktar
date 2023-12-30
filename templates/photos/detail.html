@@ -34,7 +34,7 @@ img {
         <div id="image-container">
             <img
                 src="/{{.ImagePath}}"
-                srcset="{{range $k, $v := .VariantPathes}}/{{$v}} {{$k}}w, {{end}}"
+                srcset="{{range $w, $p := .VariantPathes}}/{{$p}} {{$w}}w, {{end}}"
                 alt="{{.Metadata.Comment}}"
                 width="{{.Metadata.Width}}"
                 height="{{.Metadata.Height}}"

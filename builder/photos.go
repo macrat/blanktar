@@ -11,17 +11,18 @@ import (
 	"github.com/macrat/blanktar/builder/image"
 )
 
-var IMAGE_SIZES = []int{1920, 1024, 640, 320}
+var IMAGE_SIZES = []int{2560, 1920, 1024, 640, 320}
+var THUMBNAIL_SIZES = []int{1280, 960, 640, 320, 160}
 
 type Photo struct {
 	name   string
 	source Source
 
-	Size          int
-	OriginalPath  string
-	VariantPathes map[int]string
-	ThumbnailPath string
-	Metadata      image.Metadata
+	Size           int
+	OriginalPath   string
+	VariantPathes  map[int]string
+	ThumbnailPaths map[int]string
+	Metadata       image.Metadata
 }
 
 func (p Photo) Name() string {
@@ -65,19 +66,18 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 
 	targetName := fmt.Sprintf("photos/%d/%s", meta.DateTime.Year(), path.Base(src.Name()))
 	variants := make(map[int]string)
-	thumbnail := fmt.Sprintf("photos/%d/%s-thumbnail.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4])
+	thumbnails := make(map[int]string)
 
 	var artifacts ArtifactList
 	addArtifact := func(name string, size int) {
-		variants[size] = name
 		artifacts = append(artifacts, Photo{
-			name:          name,
-			source:        src,
-			OriginalPath:  targetName,
-			VariantPathes: variants,
-			ThumbnailPath: thumbnail,
-			Size:          size,
-			Metadata:      meta,
+			name:           name,
+			source:         src,
+			OriginalPath:   targetName,
+			VariantPathes:  variants,
+			ThumbnailPaths: thumbnails,
+			Size:           size,
+			Metadata:       meta,
 		})
 	}
 
@@ -90,15 +90,20 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 
 	for _, size := range IMAGE_SIZES {
 		targetName := fmt.Sprintf("photos/%d/%s-%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
+		variants[size] = targetName
 		addArtifact(targetName, size)
 		if err := c.saveCompactImage(dst, targetName, img, size, srcModTime); err != nil {
 			return nil, err
 		}
 	}
 
-	addArtifact(thumbnail, 0)
-	if err := c.saveThumbnail(dst, thumbnail, img, srcModTime); err != nil {
-		return nil, err
+	for _, size := range THUMBNAIL_SIZES {
+		targetName := fmt.Sprintf("photos/%d/%s-s%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
+		thumbnails[size] = targetName
+		addArtifact(targetName, size)
+		if err := c.saveThumbnail(dst, targetName, img, size, srcModTime); err != nil {
+			return nil, err
+		}
 	}
 
 	return artifacts, nil
@@ -147,7 +152,7 @@ func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *imag
 	return img.SaveCompact(f, size, 75)
 }
 
-func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.Image, srcModTime time.Time) error {
+func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.Image, size int, srcModTime time.Time) error {
 	if fs.ModTime(dst, name).After(srcModTime) {
 		return nil
 	}
@@ -158,7 +163,7 @@ func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.I
 	}
 	defer f.Close()
 
-	return img.SaveThumbnail(f, 75)
+	return img.SaveThumbnail(f, size, 75)
 }
 
 type PhotoList []Photo
@@ -182,7 +187,7 @@ type PhotoGenerator struct {
 func (g PhotoGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf Config) (ArtifactList, error) {
 	var photos PhotoList
 	for _, a := range artifacts {
-		if p, ok := a.(Photo); ok && p.Size == 0 && p.name != p.ThumbnailPath {
+		if p, ok := a.(Photo); ok && p.Size == 0 {
 			photos = append(photos, p)
 		}
 	}
@@ -212,11 +217,11 @@ type PhotoPageContext struct {
 	targetPath string
 	source     Source
 
-	URL           string
-	Path          string
-	ImagePath     string
-	VariantPathes map[int]string
-	ThumbnailPath string
+	URL            string
+	Path           string
+	ImagePath      string
+	VariantPathes  map[int]string
+	ThumbnailPaths map[int]string
 
 	Metadata image.Metadata
 
@@ -256,11 +261,11 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 			targetPath: externalPath + "/index.html",
 			source:     p.source,
 
-			URL:           fmt.Sprintf("https://blanktar.jp/%s", externalPath),
-			Path:          externalPath,
-			ImagePath:     p.OriginalPath,
-			VariantPathes: p.VariantPathes,
-			ThumbnailPath: p.ThumbnailPath,
+			URL:            fmt.Sprintf("https://blanktar.jp/%s", externalPath),
+			Path:           externalPath,
+			ImagePath:      p.OriginalPath,
+			VariantPathes:  p.VariantPathes,
+			ThumbnailPaths: p.ThumbnailPaths,
 
 			Metadata: p.Metadata,
 		})
@@ -331,8 +336,8 @@ func (g PhotoGenerator) generateIndexPages(dst fs.Writable, pages PhotoPageConte
 			targetPath: "photos/index.html",
 
 			PageName: "photos",
-			URL:  "https://blanktar.jp/photos",
-			Path: "photos",
+			URL:      "https://blanktar.jp/photos",
+			Path:     "photos",
 		},
 	}
 
@@ -344,8 +349,8 @@ func (g PhotoGenerator) generateIndexPages(dst fs.Writable, pages PhotoPageConte
 				targetPath: externalPath + "/index.html",
 
 				PageName: fmt.Sprintf("%d年の写真", p.Metadata.DateTime.Year()),
-				URL:  fmt.Sprintf("https://blanktar.jp/%s", externalPath),
-				Path: externalPath,
+				URL:      fmt.Sprintf("https://blanktar.jp/%s", externalPath),
+				Path:     externalPath,
 			}
 		}
 
