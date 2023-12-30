@@ -12,10 +12,10 @@
 
 - [x] Top page
 
-- [ ] Works page  
+- [x] Works page  
   Link to GitHub or something else?
 
-- [ ] Photos page  
+- [x] Photos page  
   Make something new
 
 - [x] Footer and privacy policy

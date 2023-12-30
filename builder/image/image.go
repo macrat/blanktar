@@ -68,9 +68,7 @@ func (i *Image) SaveAsIs(w io.Writer) error {
 	return i.sl.Write(w)
 }
 
-func (i *Image) SaveCompact(w io.Writer, maxSize, quality int) error {
-	img := resizeImage(i.img, maxSize)
-
+func (i *Image) saveImage(w io.Writer, quality int, img image.Image) error {
 	var buf bytes.Buffer
 
 	err := jpeg.Encode(&buf, img, &jpeg.Options{
@@ -97,6 +95,11 @@ func (i *Image) SaveCompact(w io.Writer, maxSize, quality int) error {
 	return sl.Write(w)
 }
 
+func (i *Image) SaveCompact(w io.Writer, maxSize, quality int) error {
+	img := resizeImage(i.img, maxSize)
+	return i.saveImage(w, quality, img)
+}
+
 func resizeImage(img image.Image, maxSize int) image.Image {
 	width := img.Bounds().Max.X
 	height := img.Bounds().Max.Y
@@ -116,6 +119,24 @@ func resizeImage(img image.Image, maxSize int) image.Image {
 	}
 
 	return img
+}
+
+func (i *Image) SaveThumbnail(w io.Writer, quality int) error {
+	width := i.img.Bounds().Max.X
+	height := i.img.Bounds().Max.Y
+
+	shorter := width
+	if height < shorter {
+		shorter = height
+	}
+
+	top := (height - shorter) / 2
+	left := (width - shorter) / 2
+
+	cropped := image.NewRGBA(image.Rect(0, 0, 320, 320))
+	draw.CatmullRom.Scale(cropped, cropped.Bounds(), i.img, image.Rect(left, top, width-left, height-top), draw.Over, nil)
+
+	return i.saveImage(w, quality, cropped)
 }
 
 func (i *Image) SetArtist(artist, copyright string) error {
@@ -179,7 +200,11 @@ func (i *Image) Metadata() (Metadata, error) {
 		return Metadata{}, err
 	}
 
-	var m Metadata
+	m := Metadata{
+		Width: i.img.Bounds().Max.X,
+		Height: i.img.Bounds().Max.Y,
+		AspectRatio: float64(i.img.Bounds().Max.X) / float64(i.img.Bounds().Max.Y),
+	}
 
 	var description, usercomment, comment string
 
@@ -247,6 +272,10 @@ type Metadata struct {
 	ExposureTime    Rational
 	ApertureValue   float64
 	ISOSpeedRatings uint16
+
+	Width int
+	Height int
+	AspectRatio float64
 
 	Comment string
 }

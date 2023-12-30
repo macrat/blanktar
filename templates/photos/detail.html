@@ -8,24 +8,45 @@
 
 {{/* <style> */}}
 {{define "style"}}
+#image-container {
+    margin: .5em auto 0;
+    max-width: 100%;
+    width: fit-content;
+}
+img {
+    display: block;
+    margin: 0 auto;
+    max-height: 80vh;
+    width: auto;
+    aspect-ratio: {{.Metadata.AspectRatio}};
+}
 {{end}}
 {{/* </style> */}}
 
 {{define "main"}}
-    <img
-        src="/{{.ImagePath}}"
-        srcset="
-            {{range $k, $v := .VariantPathes}}
-                /{{$v}} {{$k}}w,
+    <article>
+        <ol class="bread-crumbs">
+            <li><a href="/">top</a></li>
+            <li><a href="/photos">photos</a></li>
+            <li><a href="/photos/{{.Metadata.DateTime.Year}}">{{.Metadata.DateTime.Year}}</a></li>
+        </ol>
+
+        <div id="image-container">
+            <img
+                src="/{{.ImagePath}}"
+                srcset="{{range $k, $v := .VariantPathes}}/{{$v}} {{$k}}w, {{end}}"
+                alt="{{.Metadata.Comment}}"
+                width="{{.Metadata.Width}}"
+                height="{{.Metadata.Height}}"
+                loading="lazy">
+
+            {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}
+
+            {{if .Metadata.Comment}}
+                <div id="image-comment">
+                    {{.Metadata.Comment}}
+                </div>
             {{end}}
-        "
-        alt="{{.Metadata.Comment}}">
-
-    <div>
-        {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}
-    </div>
-
-    <div>
-        {{.Metadata.Comment}}
-    </div>
+        </div>
+    </article>
 {{end}}

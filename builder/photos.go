@@ -17,10 +17,11 @@ type Photo struct {
 	name   string
 	source Source
 
-	Size     int
-	OriginalPath string
+	Size          int
+	OriginalPath  string
 	VariantPathes map[int]string
-	Metadata image.Metadata
+	ThumbnailPath string
+	Metadata      image.Metadata
 }
 
 func (p Photo) Name() string {
@@ -64,17 +65,19 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 
 	targetName := fmt.Sprintf("photos/%d/%s", meta.DateTime.Year(), path.Base(src.Name()))
 	variants := make(map[int]string)
+	thumbnail := fmt.Sprintf("photos/%d/%s-thumbnail.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4])
 
 	var artifacts ArtifactList
 	addArtifact := func(name string, size int) {
 		variants[size] = name
 		artifacts = append(artifacts, Photo{
-			name:     name,
-			source:   src,
-			OriginalPath: targetName,
+			name:          name,
+			source:        src,
+			OriginalPath:  targetName,
 			VariantPathes: variants,
-			Size:     size,
-			Metadata: meta,
+			ThumbnailPath: thumbnail,
+			Size:          size,
+			Metadata:      meta,
 		})
 	}
 
@@ -91,6 +94,11 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 		if err := c.saveCompactImage(dst, targetName, img, size, srcModTime); err != nil {
 			return nil, err
 		}
+	}
+
+	addArtifact(thumbnail, 0)
+	if err := c.saveThumbnail(dst, thumbnail, img, srcModTime); err != nil {
+		return nil, err
 	}
 
 	return artifacts, nil
@@ -139,6 +147,20 @@ func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *imag
 	return img.SaveCompact(f, size, 75)
 }
 
+func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.Image, srcModTime time.Time) error {
+	if fs.ModTime(dst, name).After(srcModTime) {
+		return nil
+	}
+
+	f, err := CreateOutput(dst, name, "image/jpeg")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return img.SaveThumbnail(f, 75)
+}
+
 type PhotoList []Photo
 
 func (l PhotoList) Len() int {
@@ -146,7 +168,7 @@ func (l PhotoList) Len() int {
 }
 
 func (l PhotoList) Less(i, j int) bool {
-	return l[i].Metadata.DateTime.Before(l[j].Metadata.DateTime)
+	return l[i].Metadata.DateTime.After(l[j].Metadata.DateTime)
 }
 
 func (l PhotoList) Swap(i, j int) {
@@ -160,26 +182,28 @@ type PhotoGenerator struct {
 func (g PhotoGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf Config) (ArtifactList, error) {
 	var photos PhotoList
 	for _, a := range artifacts {
-		if p, ok := a.(Photo); ok && p.Size == 0 {
+		if p, ok := a.(Photo); ok && p.Size == 0 && p.name != p.ThumbnailPath {
 			photos = append(photos, p)
 		}
 	}
 	sort.Sort(photos)
 
+	var pages []PhotoPageContext
 	var result ArtifactList
 
-	if as, err := g.generateDetailPages(dst, photos, conf); err == nil {
+	var err error
+	if pages, err = g.generateDetailPages(dst, photos, conf); err == nil {
+		for _, p := range pages {
+			result = append(result, p)
+		}
+	} else {
+		return nil, err
+	}
+	if as, err := g.generateIndexPages(dst, pages, conf); err == nil {
 		result = append(result, as...)
 	} else {
 		return nil, err
 	}
-	/*
-	if as, err := g.generateIndexPages(dst, photos, conf); err == nil {
-		result = append(result, as...)
-	} else {
-		return nil, err
-	}
-	*/
 
 	return result, nil
 }
@@ -188,10 +212,11 @@ type PhotoPageContext struct {
 	targetPath string
 	source     Source
 
-	URL  string
-	Path string
-	ImagePath string
+	URL           string
+	Path          string
+	ImagePath     string
 	VariantPathes map[int]string
+	ThumbnailPath string
 
 	Metadata image.Metadata
 
@@ -199,7 +224,29 @@ type PhotoPageContext struct {
 	Newer []PhotoPageContext
 }
 
-func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, conf Config) (ArtifactList, error) {
+func (c PhotoPageContext) Name() string {
+	return c.targetPath
+}
+
+func (c PhotoPageContext) Sources() SourceList {
+	return SourceList{c.source}
+}
+
+type PhotoPageContextList []PhotoPageContext
+
+func (l PhotoPageContextList) Len() int {
+	return len(l)
+}
+
+func (l PhotoPageContextList) Less(i, j int) bool {
+	return l[i].Metadata.DateTime.After(l[j].Metadata.DateTime)
+}
+
+func (l PhotoPageContextList) Swap(i, j int) {
+	l[i], l[j] = l[j], l[i]
+}
+
+func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, conf Config) ([]PhotoPageContext, error) {
 	var contexts []PhotoPageContext
 
 	for _, p := range photos {
@@ -213,8 +260,7 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 			Path:          externalPath,
 			ImagePath:     p.OriginalPath,
 			VariantPathes: p.VariantPathes,
-			// TODO: add original image with actual size
-			// TODO: use width rather than height even if the image is portrait
+			ThumbnailPath: p.ThumbnailPath,
 
 			Metadata: p.Metadata,
 		})
@@ -225,11 +271,11 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 			contexts[i].Newer = contexts[i+1 : i+7]
 		}
 
-		left := i-6
+		left := i - 6
 		if left < 0 {
 			left = 0
 		}
-		contexts[i].Older = contexts[left : i]
+		contexts[i].Older = contexts[left:i]
 	}
 
 	tmpl, err := g.template.Load("photos/detail.html")
@@ -237,9 +283,93 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 		return nil, err
 	}
 
+	for _, c := range contexts {
+		if fs.ModTime(dst, c.targetPath).After(c.source.ModTime()) {
+			continue
+		}
+
+		f, err := CreateOutput(dst, c.targetPath, "text/html")
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+
+		if err := tmpl.Execute(f, c); err != nil {
+			return nil, err
+		}
+	}
+
+	return contexts, nil
+}
+
+type PhotoIndexPageContext struct {
+	targetPath string
+
+	PageName string
+
+	URL  string
+	Path string
+
+	Pages PhotoPageContextList
+}
+
+func (c PhotoIndexPageContext) Name() string {
+	return c.targetPath
+}
+
+func (c PhotoIndexPageContext) Sources() SourceList {
+	var sources SourceList
+	for _, p := range c.Pages {
+		sources = append(sources, p.source)
+	}
+	return sources
+}
+
+func (g PhotoGenerator) generateIndexPages(dst fs.Writable, pages PhotoPageContextList, conf Config) (ArtifactList, error) {
+	contexts := map[string]*PhotoIndexPageContext{
+		"photos": {
+			targetPath: "photos/index.html",
+
+			PageName: "photos",
+			URL:  "https://blanktar.jp/photos",
+			Path: "photos",
+		},
+	}
+
+	for _, p := range pages {
+		externalPath := fmt.Sprintf("photos/%d", p.Metadata.DateTime.Year())
+
+		if _, ok := contexts[externalPath]; !ok {
+			contexts[externalPath] = &PhotoIndexPageContext{
+				targetPath: externalPath + "/index.html",
+
+				PageName: fmt.Sprintf("%d年の写真", p.Metadata.DateTime.Year()),
+				URL:  fmt.Sprintf("https://blanktar.jp/%s", externalPath),
+				Path: externalPath,
+			}
+		}
+
+		contexts[externalPath].Pages = append(contexts[externalPath].Pages, p)
+		contexts["photos"].Pages = append(contexts["photos"].Pages, p)
+	}
+
+	for _, c := range contexts {
+		sort.Sort(c.Pages)
+	}
+	contexts["photos"].Pages = contexts["photos"].Pages[:60]
+
+	tmpl, err := g.template.Load("photos/index.html")
+	if err != nil {
+		return nil, err
+	}
+
 	var as ArtifactList
 
 	for _, c := range contexts {
+		if fs.ModTime(dst, c.targetPath).After(c.Sources().ModTime()) {
+			continue
+		}
+
 		f, err := CreateOutput(dst, c.targetPath, "text/html")
 		if err != nil {
 			return nil, err
@@ -250,10 +380,7 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 			return nil, err
 		}
 
-		as = append(as, Asset{
-			name:   c.targetPath,
-			source: c.source,
-		})
+		as = append(as, c)
 	}
 
 	return as, nil
