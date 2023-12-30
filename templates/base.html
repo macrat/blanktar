@@ -219,6 +219,14 @@ footer > a {
         <footer>
             <a href="/privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
         </footer>
+
+        <script>
+            navigator.serviceWorker.getRegistrations().then((rs) => {
+                for(let r of rs) {
+                    r.unregister();
+                }
+            });
+        </script>
     </body>
 </html>
 {{end}}

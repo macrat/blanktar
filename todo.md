@@ -34,4 +34,4 @@
 
 - [x] Watch and build
 
-- [ ] ServiceWorker remover
+- [x] ServiceWorker remover
