@@ -46,6 +46,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
+        id: deploy
         run: |
           echo -n "url="
           vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
