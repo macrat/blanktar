@@ -1,0 +1,34 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "startServerCommand": "serve dist/",
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/blog",
+        "http://localhost:3000/blog/2020/05/blanktar-renewal",
+        "http://localhost:3000/blog/2020/11/powershell-unique-value-count",
+        "http://localhost:3000/works",
+        "http://localhost:3000/photos"
+      ]
+    },
+    "assert": {
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "canonical": "off",
+        "dom-size": "warn",
+        "link-text": "warn",
+        "non-composited-animations": "warn",
+        "preload-lcp-image": "off",
+        "unsized-images": "warn",
+        "unused-javascript": "off",
+        "uses-http2": "off",
+        "uses-responsive-images": "warn",
+        "uses-webp-images": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
