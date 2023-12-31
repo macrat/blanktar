@@ -1,7 +1,7 @@
 {{define "title"}}{{.Title}} - Blanktar{{end}}
 
 {{define "head"}}
-    <meta property="og:image" content="{{if .Image}}{{index .Image 0}}{{else}}https://blanktar.jp/images/blanktar.png{{end}}">
+    <meta property="og:image" content="https://blanktar.jp{{if .Image}}{{index .Image 0}}{{else}}/images/blanktar.png{{end}}">
 
     <script type="application/ld+json">
 {
