@@ -1,5 +1,3 @@
-.mdx-data
-.next
+dist
 .vercel
-node_modules
-out
+pages/photos

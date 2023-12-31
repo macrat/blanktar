@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+    <defs><style><![CDATA[
+    path { stroke: #333; fill: none; }
+
+    @media (prefers-color-scheme: dark) {
+      path { stroke: #eee; }
+    }
+  ]]></style></defs>
+  <path d="m32 26 77 77-90 90m0-128 90 90-77 77" stroke-width="25"/>
+  <path d="m227 26-77 77 90 90m0-128-90 90 77 77" stroke-width="15"/>
+</svg>

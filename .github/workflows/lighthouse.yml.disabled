@@ -1,0 +1,30 @@
+name: Lighthouse
+
+on:
+  push:
+
+jobs:
+  lighthouse:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+      - name: Checkout photos branch
+        uses: actions/checkout@v3
+        with:
+          ref: photos
+          path: pages/photos
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.21.x
+      - name: Build pages
+        run: make build
+
+      - name: Install test server
+        run: npm install --global serve@latest
+      - uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: '.github/lighthouse.json'
+          uploadArtifacts: true

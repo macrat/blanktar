@@ -1,0 +1,42 @@
+{{define "title"}}{{.Year}}/{{.Month}} blog posts - Blanktar{{end}}
+
+{{define "description"}}Blanktarに掲載された{{.Year}}年{{.Month}}月のブログ記事一覧。{{end}}
+
+{{/* <style> */}}
+{{define "style"}}
+.articles-of-month {
+    list-style: disc;
+}
+.articles-of-month a {
+    color: inherit;
+    text-decoration: none;
+}
+.articles-of-month time::after {
+    content: '   ';
+    white-space: pre;
+}
+
+@media (hover: hover) {
+    .articles-of-month a:hover {
+        text-decoration: underline;
+    }
+}
+{{end}}
+{{/* </style> */}}
+
+{{define "main"}}
+    <ol class="bread-crumbs">
+        <li><a href="/">top</a></li>
+        <li><a href="/blog">blog</a></li>
+        <li><a href="/blog/{{.Year}}">{{.Year}}</a></li>
+    </ol>
+    <h1>{{.Year}}年{{.Month}}月の記事</h1>
+    <ol class="articles-of-month">
+        {{range .Posts}}
+            <li><a href="{{.Path}}">
+                <time>{{.Published.Format "2006-01-02"}}</time>
+                {{.Title}}
+            </a></li>
+        {{end}}
+    </ol>
+{{end}}

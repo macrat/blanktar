@@ -1,3 +1,3 @@
-[![Blanktar](./assets/social-preview-2x1.svg)](https://blanktar.jp)
+[![Blanktar](./pages/images/blanktar.png)](https://blanktar.jp)
 
 [MacRatのホームページ「Blanktar」](https://blanktar.jp)のリポジトリ
