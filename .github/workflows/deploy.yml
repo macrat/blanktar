@@ -48,8 +48,8 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         id: deploy
         run: |
-          echo -n "url="
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+          echo -n "url=" >> $GITHUB_OUTPUT
+          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
 
   production:
     name: Production Deploy
