@@ -7,4 +7,4 @@ image: [/blog/2021/01/new-year.svg]
 
 あけましておめでとうございます。
 
-<img alt="2021年の年賀状。パジャマ姿で在宅を楽しむGNU。" src="/blog/2021/01/new-year.svg" width="591" height="874" center />
+<div style="text-align: center"><img alt="2021年の年賀状。パジャマ姿で在宅を楽しむGNU。" src="/blog/2021/01/new-year.svg" width="591" height="874" /></div>

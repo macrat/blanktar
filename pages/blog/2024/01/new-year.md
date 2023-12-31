@@ -5,4 +5,4 @@ tags: [謹賀新年]
 image: [/blog/2024/01/new-year.jpg]
 ---
 
-<img alt="2024年の年賀状。あけおめことよろ の龍。" src="/blog/2024/01/new-year.jpg" width="512" height="512" center />
+<div style="text-align: center"><img alt="2024年の年賀状。「あけおめことよろ」の龍。" src="/blog/2024/01/new-year.jpg" width="512" height="512" style="border-radius: 32px" /></div>

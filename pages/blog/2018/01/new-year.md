@@ -5,4 +5,4 @@ tags: [謹賀新年]
 image: [/blog/2018/01/new-year.png]
 ---
 
-<img alt="あけましておめでとうございます" src="/blog/2018/01/new-year.png" width="1088" height="576" center />
+<div style="text-align: center"><img alt="あけましておめでとうございます" src="/blog/2018/01/new-year.png" width="1088" height="576" /></div>
