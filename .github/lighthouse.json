@@ -4,12 +4,12 @@
       "numberOfRuns": 1,
       "staticDistDir": "./dist",
       "url": [
-        "http://localhost:3000/",
-        "http://localhost:3000/blog",
-        "http://localhost:3000/blog/2020/05/blanktar-renewal",
-        "http://localhost:3000/blog/2020/11/powershell-unique-value-count",
-        "http://localhost:3000/works",
-        "http://localhost:3000/photos"
+        "/",
+        "/blog",
+        "/blog/2020/05/blanktar-renewal",
+        "/blog/2023/08/golang-goldmark-custom-renderer",
+        "/works",
+        "/photos"
       ]
     },
     "assert": {
