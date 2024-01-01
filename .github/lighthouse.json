@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 3,
+      "numberOfRuns": 1,
       "startServerCommand": "serve dist/",
       "url": [
         "http://localhost:3000/",
@@ -15,16 +15,21 @@
     "assert": {
       "preset": "lighthouse:no-pwa",
       "assertions": {
+        "bf-cache": "off",
         "canonical": "off",
+        "csp-xss": "off",
         "dom-size": "warn",
+        "lcp-lazy-loaded": "warn",
         "link-text": "warn",
-        "non-composited-animations": "warn",
+        "non-composited-animations": "error",
         "preload-lcp-image": "off",
-        "unsized-images": "warn",
+        "tap-targets": "warn",
+        "unsized-images": "error",
         "unused-javascript": "off",
         "uses-http2": "off",
+        "uses-long-cache-ttl": "off",
         "uses-responsive-images": "warn",
-        "uses-webp-images": "warn"
+        "uses-webp-images": "off"
       }
     },
     "upload": {

@@ -77,7 +77,7 @@ h2 {
                 </li>
             {{end}}
             <li>
-                <a href="/{{.Path}}">
+                <a href="/{{.Path}}" {{if eq .Metadata.Comment ""}}aria-label="{{.Metadata.DateTime.Format "2006年1月2日"}}に撮影した写真"{{end}}>
                     <img
                         src="/{{index .ThumbnailPaths 640}}"
                         srcset="{{range $w, $p := .ThumbnailPaths}}/{{$p}} {{$w}}w, {{end}}"

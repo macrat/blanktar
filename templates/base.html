@@ -68,7 +68,7 @@ nav a {
     color: inherit;
     text-decoration: none;
 }
-nav li a {
+nav li > a {
     padding: 0 8px;
 }
 
@@ -158,6 +158,17 @@ footer > a {
 @media (hover: hover) {
     nav a:hover, .bread-crumbs a:hover {
         text-decoration: underline;
+    }
+}
+@media (hover: none) {
+    header {
+        margin: 24px 0 32px;
+    }
+    header > nav > ul {
+        margin-top: 8px;
+    }
+    header > nav li > a {
+        padding: 8px;
     }
 }
 

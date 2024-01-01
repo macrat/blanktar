@@ -142,7 +142,7 @@
     <ol class="pager">
         <li>
             {{if eq .Page 1}}
-                <a class="disabled">前へ</a>
+                <span class="disabled">前へ</span>
             {{else if eq .Page 2}}
                 <a href="/blog" class="prev-page">前へ</a>
             {{else}}
@@ -163,7 +163,7 @@
 
         <li>
             {{if eq .Page .TotalPages}}
-                <a class="disabled">次へ</a>
+                <span class="disabled">次へ</span>
             {{else}}
                 <a href="/blog/{{add .Page 1}}" class="next-page">次へ</a>
             {{end}}
