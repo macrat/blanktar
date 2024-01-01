@@ -61,7 +61,7 @@ jobs:
 #          uploadArtifacts: true
 
   preview:
-    name: Deploy
+    name: Preview Deploy
     runs-on: ubuntu-latest
     needs: [test, build]
     if: ${{github.ref != 'refs/heads/master' && github.ref != 'refs/hedas/photos'}}
@@ -88,7 +88,7 @@ jobs:
           vercel deploy --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
 
   production:
-    name: Deploy
+    name: Production Deploy
     runs-on: ubuntu-latest
     needs: [test, build]
     if: ${{github.ref == 'refs/heads/master' || github.ref == 'refs/hedas/photos'}}
