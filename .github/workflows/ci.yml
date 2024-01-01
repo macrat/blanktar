@@ -43,22 +43,22 @@ jobs:
           name: dist
           path: dist/
 
-#  lighthouse:
-#    name: Test
-#    runs-on: ubuntu-latest
-#    needs: [build]
-#    steps:
-#      - name: Load artifact
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: dist
-#
-#      - name: Install test server
-#        run: npm install --global serve@latest
-#      - uses: treosh/lighthouse-ci-action@v10
-#        with:
-#          configPath: '.github/lighthouse.json'
-#          uploadArtifacts: true
+  lighthouse:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Load artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+
+      - name: Install test server
+        run: npm install --global serve@latest
+      - uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: '.github/lighthouse.json'
+          uploadArtifacts: true
 
   preview:
     name: Preview Deploy
@@ -90,7 +90,7 @@ jobs:
   production:
     name: Production Deploy
     runs-on: ubuntu-latest
-    needs: [test, build]
+    needs: [test, lighthouse, build]
     if: ${{github.ref == 'refs/heads/master' || github.ref == 'refs/hedas/photos'}}
     environment:
       name: production
