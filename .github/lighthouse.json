@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "numberOfRuns": 1,
-      "startServerCommand": "cd builder && ./builder serve",
+      "staticDistDir": "./dist",
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/blog",
