@@ -1,16 +1,7 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 1,
-      "staticDistDir": "./dist",
-      "url": [
-        "/",
-        "/blog",
-        "/blog/2020/05/blanktar-renewal",
-        "/blog/2023/08/golang-goldmark-custom-renderer",
-        "/works",
-        "/photos"
-      ]
+      "staticDistDir": "./dist"
     },
     "assert": {
       "preset": "lighthouse:no-pwa",
