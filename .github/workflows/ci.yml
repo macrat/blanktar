@@ -59,6 +59,11 @@ jobs:
         with:
           name: dist
 
+      - name: Build test server
+        run: |
+          cd builder
+          go build .
+
       - uses: treosh/lighthouse-ci-action@v10
         with:
           configPath: '.github/lighthouse.json'
