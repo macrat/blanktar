@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "numberOfRuns": 1,
-      "startServerCommand": "serve dist/",
+      "startServerCommand": "make serve",
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/blog",

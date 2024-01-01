@@ -236,11 +236,21 @@ func (b *ContinuousBuilder) StartWatching(sourceDir string) error {
 	return nil
 }
 
+func serve(path string) {
+	http.Handle("/", http.FileServer(http.Dir(path)))
+	log.Println("Listening on :3000")
+	log.Fatal(http.ListenAndServe(":3000", nil))
+}
+
 func main() {
 	stopProfiler := startProfiler()
 	defer stopProfiler()
 
 	preview := len(os.Args) > 1 && os.Args[1] == "preview"
+
+	if len(os.Args) > 1 && os.Args[1] == "serve" {
+		serve("../dist")
+	}
 
 	sourceDir := "../pages"
 	src := fs.NewOnDisk(sourceDir)
