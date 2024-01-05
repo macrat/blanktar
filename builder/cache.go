@@ -8,12 +8,14 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 )
 
 type AssetCache interface {
 	Create(w io.Writer, key string, hash []byte, fallback func(io.Writer) error) error
-	Tidy() error
+	Tidy(threshold time.Time) error
 }
 
 var ErrCacheMiss = errors.New("cache miss")
@@ -118,28 +120,43 @@ func (c FileAssetCache) Create(w io.Writer, key string, hash []byte, fallback fu
 	return fallback(f)
 }
 
-func (c FileAssetCache) Tidy() error {
-	fs, err := os.ReadDir(c.path)
+func (c FileAssetCache) Tidy(threshold time.Time) error {
+	ds, err := os.ReadDir(c.path)
 	if err != nil {
 		return err
 	}
 
 	var errs []error
 
-	now := time.Now().Unix()
-
-	for _, f := range fs {
-		if f.IsDir() {
+	for _, d := range ds {
+		if !d.IsDir() {
 			continue
 		}
 
-		var t int64
-		fmt.Sscanf(f.Name(), "%s-%d", nil, &t)
+		fs, err := os.ReadDir(filepath.Join(c.path, d.Name()))
+		if err != nil {
+			return err
+		}
 
-		if t < now-30*24*60*60 {
-			err := os.Remove(filepath.Join(c.path, f.Name()))
+		for _, f := range fs {
+			if f.IsDir() {
+				continue
+			}
+
+			xs := strings.SplitN(f.Name(), "-", 2)
+			if len(xs) != 2 {
+				continue
+			}
+			t, err := strconv.ParseInt(xs[1], 10, 64)
 			if err != nil {
-				errs = append(errs, err)
+				continue
+			}
+
+			if t < threshold.Unix() {
+				err := os.Remove(filepath.Join(c.path, d.Name(), f.Name()))
+				if err != nil {
+					errs = append(errs, err)
+				}
 			}
 		}
 	}
