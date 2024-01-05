@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"path"
 	"sort"
 	"strings"
@@ -34,6 +35,7 @@ func (p Photo) Sources() SourceList {
 }
 
 type PhotoConverter struct {
+	Cache AssetCache
 }
 
 func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
@@ -135,7 +137,9 @@ func (c PhotoConverter) saveImage(dst fs.Writable, name string, img *image.Image
 	}
 	defer f.Close()
 
-	return img.SaveAsIs(f)
+	return c.Cache.Create(f, name, img.Hash(), func(w io.Writer) error {
+		return img.SaveAsIs(w)
+	})
 }
 
 func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *image.Image, size int, srcModTime time.Time) error {
@@ -149,7 +153,9 @@ func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *imag
 	}
 	defer f.Close()
 
-	return img.SaveCompact(f, size, 75)
+	return c.Cache.Create(f, name, img.Hash(), func(w io.Writer) error {
+		return img.SaveCompact(w, size, 75)
+	})
 }
 
 func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.Image, size int, srcModTime time.Time) error {
@@ -163,7 +169,9 @@ func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.I
 	}
 	defer f.Close()
 
-	return img.SaveThumbnail(f, size, 75)
+	return c.Cache.Create(f, name, img.Hash(), func(w io.Writer) error {
+		return img.SaveThumbnail(w, size, 75)
+	})
 }
 
 type PhotoList []Photo

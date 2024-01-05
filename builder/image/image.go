@@ -2,6 +2,7 @@ package image
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"fmt"
 	"image"
 	"image/jpeg"
@@ -20,6 +21,7 @@ type Image struct {
 	sl   *jpegstructure.SegmentList
 	root *exif.IfdBuilder
 	img  image.Image
+	hash []byte
 }
 
 func Load(r io.Reader) (*Image, error) {
@@ -57,10 +59,20 @@ func Load(r io.Reader) (*Image, error) {
 		return nil, err
 	}
 
+	_, err = rs.Seek(0, io.SeekStart)
+	if err != nil {
+		return nil, err
+	}
+	hash := sha256.New()
+	if _, err := io.Copy(hash, rs); err != nil {
+		return nil, err
+	}
+
 	return &Image{
 		sl:   sl,
 		root: root,
 		img:  img,
+		hash: hash.Sum(nil),
 	}, nil
 }
 
@@ -137,6 +149,10 @@ func (i *Image) SaveThumbnail(w io.Writer, size, quality int) error {
 	draw.CatmullRom.Scale(cropped, cropped.Bounds(), i.img, image.Rect(left, top, width-left, height-top), draw.Over, nil)
 
 	return i.saveImage(w, quality, cropped)
+}
+
+func (i *Image) Hash() []byte {
+	return i.hash
 }
 
 func (i *Image) SetArtist(artist, copyright string) error {

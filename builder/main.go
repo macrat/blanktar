@@ -269,6 +269,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	cache, err := NewFileAssetCache("../.cache")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	mdConverter, err := NewArticleConverter(template, "../assets/kokuri-font/regular.ttf", "../assets/kokuri-font/semibold.ttf")
 	if err != nil {
 		log.Fatal(err)
@@ -281,7 +286,9 @@ func main() {
 		Converter: ConverterSet{
 			mdConverter,
 			SVGConverter{},
-			PhotoConverter{},
+			PhotoConverter{
+				Cache: cache,
+			},
 			CopyConverter{},
 		},
 		Generator: GeneratorSet{
