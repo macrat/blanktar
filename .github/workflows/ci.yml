@@ -36,6 +36,15 @@ jobs:
           ref: photos
           path: pages/photos
 
+      - name: Cache assets
+        uses: actions/cache@v3
+        with:
+          path: .cache
+          key: build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
+          restore-keys: |
+            build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
+            build-cache-
+
       - name: Build pages
         run: make build
 

@@ -17,5 +17,5 @@ prepare:
 	git worktree add pages/photos photos
 
 clean:
-	-rm -rf ./dist
+	-rm -rf ./dist ./.cache
 	git worktree remove pages/photos

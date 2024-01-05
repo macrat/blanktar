@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/macrat/blanktar/builder/fs"
@@ -269,6 +270,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	cache, err := NewFileAssetCache("../.cache")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	mdConverter, err := NewArticleConverter(template, "../assets/kokuri-font/regular.ttf", "../assets/kokuri-font/semibold.ttf")
 	if err != nil {
 		log.Fatal(err)
@@ -281,7 +287,9 @@ func main() {
 		Converter: ConverterSet{
 			mdConverter,
 			SVGConverter{},
-			PhotoConverter{},
+			PhotoConverter{
+				Cache: cache,
+			},
 			CopyConverter{},
 		},
 		Generator: GeneratorSet{
@@ -292,6 +300,10 @@ func main() {
 
 	if err := builder.Build(); err != nil {
 		log.Fatal(err)
+	}
+
+	if err := cache.Tidy(time.Now().Add(-30 * 24 * time.Hour)); err != nil {
+		log.Println("Failed to tidy cache:", err)
 	}
 
 	if len(os.Args) > 1 && os.Args[1] == "preview" {
