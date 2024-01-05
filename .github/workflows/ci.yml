@@ -40,9 +40,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .cache
-          key: build-cache-${{ hashFiles('photos/**/*.jpg') }}
+          key: build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
           restore-keys: |
-            build-cache-${{ hashFiles('photos/**/*.jpg') }}
+            build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
             build-cache-
 
       - name: Build pages
