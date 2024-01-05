@@ -36,6 +36,11 @@ jobs:
           ref: photos
           path: pages/photos
 
+      - uses: actions/cache@v3
+        with:
+          path: .cache
+          key: build-cache
+
       - name: Build pages
         run: make build
 
