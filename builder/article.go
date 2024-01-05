@@ -97,7 +97,7 @@ func (l *ArticleLoader) Load(externalPath string, raw []byte) (Article, error) {
 	}
 
 	if len(article.Image) == 0 {
-		article.Image = []string{"https://blanktar.jp/images" + externalPath + ".png"}
+		article.Image = []string{"/images" + externalPath + ".png"}
 	}
 
 	var buf strings.Builder
