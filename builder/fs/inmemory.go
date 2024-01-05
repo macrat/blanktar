@@ -5,10 +5,13 @@ import (
 	"io"
 	"io/fs"
 	"path"
+	"sync"
 	"time"
 )
 
 type InMemory struct {
+	sync.RWMutex
+
 	files map[string]*InMemoryFile
 	dirs  map[string]time.Time
 }
@@ -23,6 +26,9 @@ func NewInMemory() *InMemory {
 }
 
 func (s *InMemory) Open(name string) (fs.File, error) {
+	s.RLock()
+	defer s.RUnlock()
+
 	name = path.Clean(name)
 	if t, ok := s.dirs[name]; ok {
 		var children []fs.DirEntry
@@ -51,7 +57,7 @@ func (s *InMemory) Open(name string) (fs.File, error) {
 	return nil, fs.ErrNotExist
 }
 
-func (s *InMemory) MkdirAll(name string) {
+func (s *InMemory) mkdirAll(name string) {
 	for name != "." && name != "/" {
 		s.dirs[name] = time.Now()
 		name = path.Dir(name)
@@ -59,14 +65,20 @@ func (s *InMemory) MkdirAll(name string) {
 }
 
 func (s *InMemory) Create(name string) (io.WriteCloser, error) {
+	s.Lock()
+	defer s.Unlock()
+
 	name = path.Clean(name)
-	s.MkdirAll(path.Dir(name))
+	s.mkdirAll(path.Dir(name))
 	f := &InMemoryFile{name: name}
 	s.files[name] = f
 	return f, nil
 }
 
 func (s *InMemory) Remove(name string) error {
+	s.Lock()
+	defer s.Unlock()
+
 	_, dok := s.dirs[name]
 	_, fok := s.files[name]
 	if !dok && !fok {
@@ -79,16 +91,24 @@ func (s *InMemory) Remove(name string) error {
 }
 
 type InMemoryFile struct {
+	sync.Mutex
+
 	name    string
 	buf     bytes.Buffer
 	modTime time.Time
 }
 
 func (f *InMemoryFile) Write(p []byte) (n int, err error) {
+	f.Lock()
+	defer f.Unlock()
+
 	return f.buf.Write(p)
 }
 
 func (f *InMemoryFile) Close() error {
+	f.Lock()
+	defer f.Unlock()
+
 	f.modTime = time.Now()
 	return nil
 }
@@ -102,6 +122,8 @@ func (f *InMemoryFile) getReader() *InMemoryFileReader {
 }
 
 type InMemoryFileReader struct {
+	sync.Mutex
+
 	name     string
 	modTime  time.Time
 	r        *bytes.Reader
@@ -116,6 +138,10 @@ func (f *InMemoryFileReader) Read(p []byte) (n int, err error) {
 	if f.r == nil {
 		return 0, fs.ErrInvalid
 	}
+
+	f.Lock()
+	defer f.Unlock()
+
 	return f.r.Read(p)
 }
 
@@ -123,6 +149,10 @@ func (f *InMemoryFileReader) Seek(offset int64, whence int) (int64, error) {
 	if f.r == nil {
 		return 0, fs.ErrInvalid
 	}
+
+	f.Lock()
+	defer f.Unlock()
+
 	return f.r.Seek(offset, whence)
 }
 
