@@ -4,6 +4,9 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">    
+
+        {{block "early-head" .}}{{end}}
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{block "title" .}}Blanktar{{end}}</title>
         <link rel="icon" href="/favicon.svg">

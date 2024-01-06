@@ -1,5 +1,13 @@
 {{define "title"}}{{.Title}} - Blanktar{{end}}
 
+{{define "early-head"}}
+    {{if .Resources}}
+        {{range .Resources}}
+            <link rel="preload" href="{{.URL}}" as="{{.Type}}">
+        {{end}}
+    {{end}}
+{{end}}
+
 {{define "head"}}
     <meta property="og:image" content="https://blanktar.jp{{if .Image}}{{index .Image 0}}{{else}}/images/blanktar.png{{end}}">
 

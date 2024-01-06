@@ -58,40 +58,44 @@ func NewMarkdown() *Markdown {
 	}
 }
 
-func (c *Markdown) Convert(w io.Writer, source []byte) error {
+func (c *Markdown) Convert(w io.Writer, source []byte) (ResourceList, error) {
 	var buf bytes.Buffer
 
 	code := NewCodeRenderer(c.lexers)
+	image := &ImageRenderer{}
 	md := markdown.NewConverter(markdown.WithNodeRenderers(
 		code,
 		HeadingRenderer{},
-		ImageRenderer{},
+		image,
 		TableRenderer{},
 		LinkRenderer{},
 	))
 
 	if err := md.Convert(&buf, source); err != nil {
-		return err
+		return nil, err
 	}
 
 	if code.Count > 0 {
 		if _, err := w.Write([]byte("<style>")); err != nil {
-			return err
+			return nil, err
 		}
 
 		if err := code.WriteStyleSheet(w); err != nil {
-			return err
+			return nil, err
 		}
 
 		if _, err := w.Write([]byte("</style>")); err != nil {
-			return err
+			return nil, err
 		}
 	}
 
 	code.Count = 0
 
+	var resources ResourceList
+	resources.Add(image.Resources...)
+
 	_, err := buf.WriteTo(w)
-	return err
+	return resources, err
 }
 
 // CodeRenderer is a renderer for fenced code blocks with highlighting.
@@ -243,6 +247,7 @@ func (r HeadingRenderer) Render(w markdown.BufWriter, source []byte, node ast.No
 
 // ImageRenderer renders images with width and height.
 type ImageRenderer struct {
+	Resources ResourceList
 }
 
 func (r ImageRenderer) Priority() int {
@@ -253,7 +258,7 @@ func (r ImageRenderer) Kind() ast.NodeKind {
 	return ast.KindImage
 }
 
-func (r ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
+func (r *ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
 	if !entering {
 		fmt.Fprintf(w, "</img>")
 		return ast.WalkContinue, nil
@@ -271,6 +276,11 @@ func (r ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 			sizes[1],
 			sizes[2],
 		)
+
+		r.Resources.Add(ResourceInfo{
+			Type: "image",
+			URL:  string(image.Destination),
+		})
 
 		return ast.WalkSkipChildren, err
 	} else {

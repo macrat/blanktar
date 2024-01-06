@@ -12,6 +12,31 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// ResourceInfo is information for preloading resources.
+type ResourceInfo struct {
+	Type string
+	URL  string
+}
+
+type ResourceList []ResourceInfo
+
+func (l ResourceList) Has(r ResourceInfo) bool {
+	for _, x := range l {
+		if x.Type == r.Type && x.URL == r.URL {
+			return true
+		}
+	}
+	return false
+}
+
+func (l *ResourceList) Add(xs ...ResourceInfo) {
+	for _, x := range xs {
+		if !l.Has(x) {
+			*l = append(*l, x)
+		}
+	}
+}
+
 type Article struct {
 	name   string `yaml:"-"`
 	source Source `yaml:"-"`
@@ -30,8 +55,9 @@ type Article struct {
 	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
 	Layout      string           `yaml:"layout"`
 
-	Markdown []byte        `yaml:"-"`
-	Content  template.HTML `yaml:"-"`
+	Resources []ResourceInfo `yaml:"-"`
+	Markdown  []byte         `yaml:"-"`
+	Content   template.HTML  `yaml:"-"`
 }
 
 func (a Article) Name() string {
@@ -101,9 +127,11 @@ func (l *ArticleLoader) Load(externalPath string, raw []byte) (Article, error) {
 	}
 
 	var buf strings.Builder
-	if err := l.md.Convert(&buf, article.Markdown); err != nil {
+	resources, err := l.md.Convert(&buf, article.Markdown)
+	if err != nil {
 		return Article{}, err
 	}
+	article.Resources = resources
 	article.Content = template.HTML(buf.String())
 
 	return article, nil
