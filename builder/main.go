@@ -219,7 +219,9 @@ func (b *ContinuousBuilder) StartWatching(sourceDir string) error {
 					}
 
 					log.Println("Update:", path)
-					b.Update(path)
+					if err = b.Update(path); err != nil {
+						log.Println("Failed to update:", err)
+					}
 				}
 
 				if event.Has(fsnotify.Create) {
