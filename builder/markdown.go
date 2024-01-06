@@ -270,7 +270,7 @@ func (r *ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Nod
 	if len(sizes) == 3 {
 		_, err := fmt.Fprintf(
 			w,
-			`<img src="%s" alt="%s" width="%s" height="%s" loading="lazy" />`,
+			`<img src="%s" alt="%s" width="%s" height="%s" />`,
 			image.Destination,
 			image.Text(source),
 			sizes[1],
