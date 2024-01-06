@@ -153,7 +153,7 @@ Next.jsをやめて完全に静的なサイトにした結果、以下のよう�
 
 まだ細かいチューンングをする前ですが、それでもかなりの高速化ができたようです。
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(506px, 1fr)); grid-gap: 1em">
+<div class="two-columns-20240106">
 <div>
 
 ## Before
@@ -179,6 +179,18 @@ Next.jsをやめて完全に静的なサイトにした結果、以下のよう�
 
 </div>
 </div>
+<style>
+.two-columns-20240106 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em
+}
+@media (max-width: calc(800px)) {
+  .two-columns-20240106 {
+    display: block;
+  }
+}
+</style>
 
 
 # リニューアルを終えて
