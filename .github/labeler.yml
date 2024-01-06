@@ -1,0 +1,6 @@
+記事:
+  - pages/blog/**/*
+
+リポジトリ管理:
+  - .github/**/*
+  - README.md
