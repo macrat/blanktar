@@ -324,14 +324,17 @@ func (r LinkRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node,
 		return ast.WalkContinue, err
 	}
 
-	var err error
-
 	dest := string(link.Destination)
-	if strings.HasPrefix(dest, "/") || strings.HasPrefix(dest, "#") {
-		_, err = fmt.Fprintf(w, `<a href="%s">`, dest)
-	} else {
-		_, err = fmt.Fprintf(w, `<a href="%s" target="_blank" rel="noreferrer noopener">`, dest)
+
+	attribute := `target="_blank" rel="noreferrer noopener"`
+	if strings.HasPrefix(dest, "https://blanktar.jp/") {
+		dest = strings.Replace(dest, "https://blanktar.jp/", "/", 1)
+		attribute = `target="_blank"`
+	} else if strings.HasPrefix(dest, "/") || strings.HasPrefix(dest, "#") {
+		attribute = ""
 	}
+
+	_, err := fmt.Fprintf(w, `<a href="%s" %s>`, dest, attribute)
 
 	return ast.WalkContinue, err
 }
