@@ -2,6 +2,7 @@
 title: Blanktarのリニューアル 〜 Next.jsをやめてGo製のサイトジェネレータにした話
 pubtime: 2024-01-06T17:44:00+09:00
 tags: [Blanktar.jp]
+image: [/blog/2024/01/blanktar-renewal.jpg, /blog/2024/01/blanktar-renewal/after-screenshot.jpg]
 description: 2024年1月1日に行なったBlanktarのリニューアルに関するまとめです。あえてモダン技術を捨てて更なる速度の追求を行なっています。
 ---
 
