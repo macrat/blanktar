@@ -288,7 +288,8 @@ func main() {
 		Conf: conf,
 		Converter: ConverterSet{
 			mdConverter,
-			SVGConverter{},
+			NewMinifyConverter(".svg", "image/svg+xml"),
+			NewMinifyConverter(".css", "text/css"),
 			PhotoConverter{
 				Cache: cache,
 			},

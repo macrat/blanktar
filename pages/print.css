@@ -1,0 +1,44 @@
+html {
+    background: none;
+}
+body {
+    padding: 0;
+}
+
+header {
+    display: none;
+}
+
+.bread-crumbs li:first-child::before {
+    content: "blanktar.jp";
+}
+.bread-crumbs li:first-child a {
+    display: none;
+}
+
+h1 {
+    font-size: 200%;
+    margin: 0;
+}
+h2 {
+    margin: 1em 0 0.5em;
+}
+
+article table th {
+    background-color: inherit;
+    border-bottom: 2px double #000 !important;
+}
+article table th, article table td {
+    border: 1px solid #000;
+}
+
+.share {
+    display: none;
+}
+
+footer {
+    opacity: 1;
+}
+footer a[href="/privacy-policy"] {
+    display: none;
+}

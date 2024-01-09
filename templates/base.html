@@ -172,7 +172,7 @@ footer > a {
     }
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
     html {
         background-color: #484040;
         background-image: linear-gradient(90deg, #0000 0, #0000 9.8mm, #4f4a4a 9.8mm, #4f4a4a 10mm), linear-gradient(0deg, #0000 0, #0000 9.8mm, #4f4a4a 9.8mm, #4f4a4a 10mm);
@@ -186,7 +186,7 @@ footer > a {
     }
 }
 
-@media (prefers-color-scheme: light) and (prefers-contrast: more) {
+@media screen and (prefers-color-scheme: light) and (prefers-contrast: more) {
     html {
         background-color: #fff;
         background-image: none;
@@ -196,7 +196,7 @@ footer > a {
         color: #00a;
     }
 }
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+@media screen and (prefers-color-scheme: dark) and (prefers-contrast: more) {
     html {
         background-color: #000;
         background-image: none;
@@ -209,6 +209,7 @@ footer > a {
 
 {{block "style" .}}{{end}}
 </style>
+        <link rel="stylesheet" href="/print.css" media="print">
     </head>
 
     <body>

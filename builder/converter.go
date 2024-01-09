@@ -37,14 +37,24 @@ func (c CopyConverter) Convert(dst fs.Writable, src Source, conf Config) (Artifa
 	return Copy(dst, src, "")
 }
 
-type SVGConverter struct{}
+type MinifyConverter struct{
+	Extension string
+	MIMEType string
+}
 
-func (c SVGConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
-	if !strings.HasSuffix(src.Name(), ".svg") {
+func NewMinifyConverter(extension, mimeType string) MinifyConverter {
+	return MinifyConverter{
+		Extension: extension,
+		MIMEType: mimeType,
+	}
+}
+
+func (c MinifyConverter) Convert(dst fs.Writable, src Source, conf Config) (ArtifactList, error) {
+	if !strings.HasSuffix(src.Name(), c.Extension) {
 		return nil, ErrUnsupportedFormat
 	}
 
-	return Copy(dst, src, "image/svg+xml")
+	return Copy(dst, src, c.MIMEType)
 }
 
 func Copy(dst fs.Writable, src Source, mimeType string) (ArtifactList, error) {
