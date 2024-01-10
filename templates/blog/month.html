@@ -2,8 +2,8 @@
 
 {{define "description"}}Blanktarに掲載された{{.Year}}年{{.Month}}月のブログ記事一覧。{{end}}
 
-{{/* <style> */}}
-{{define "style"}}
+{{define "head"}}
+<style>
 .articles-of-month {
     list-style: disc;
 }
@@ -21,8 +21,8 @@
         text-decoration: underline;
     }
 }
+</style>
 {{end}}
-{{/* </style> */}}
 
 {{define "main"}}
     <ol class="bread-crumbs">

@@ -4,10 +4,7 @@
 
 {{define "head"}}
     <meta property="og:image" content="https://blanktar.jp{{ index .VariantPathes 1920 }}>">
-{{end}}
-
-{{/* <style> */}}
-{{define "style"}}
+    <style>
 #image-container {
     margin: .5em auto 0;
     max-width: 100%;
@@ -20,8 +17,8 @@ img {
     width: auto;
     aspect-ratio: {{.Metadata.AspectRatio}};
 }
+    </style>
 {{end}}
-{{/* </style> */}}
 
 {{define "main"}}
     <article>

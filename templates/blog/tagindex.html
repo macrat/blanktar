@@ -2,8 +2,8 @@
 
 {{define "description"}}Blanktarに掲載されたブログ記事に設定されたタグの一覧。{{end}}
 
-{{/* <style> */}}
-{{define "style"}}
+{{define "head"}}
+<style>
 .tag-list {
     text-align: center;
     margin: 0;
@@ -26,8 +26,8 @@
         text-decoration: underline;
     }
 }
+</style>
 {{end}}
-{{/* </style> */}}
 
 {{define "main"}}
     <ol class="bread-crumbs">

@@ -2,8 +2,8 @@
 
 {{define "description"}}Blanktarに掲載されたブログ記事一覧の{{.TotalPages}}ページ中{{.Page}}ページ目。{{end}}
 
-{{/* <style> */}}
-{{define "style"}}
+{{define "head"}}
+<style>
 .blog-articles {
     list-style: none;
     padding: 0;
@@ -115,8 +115,8 @@
         background-color: #403030;
     }
 }
+</style>
 {{end}}
-{{/* </style> */}}
 
 {{define "main"}}
     <ol class="bread-crumbs">

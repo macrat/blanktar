@@ -2,8 +2,8 @@
 
 {{define "description"}}タグ「{{.Tag}}」が付与されたブログ記事の一覧。全{{len .Posts}}記事。{{end}}
 
-{{/* <style> */}}
-{{define "style"}}
+{{define "head"}}
+<style>
 .articles-of-tag {
     list-style: disc;
 }
@@ -21,8 +21,8 @@
         text-decoration: underline;
     }
 }
+</style>
 {{end}}
-{{/* </style> */}}
 
 {{define "main"}}
     <ol class="bread-crumbs">
