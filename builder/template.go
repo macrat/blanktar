@@ -4,9 +4,12 @@ import (
 	"html/template"
 	"math"
 	"path/filepath"
+	"sync"
 )
 
 type TemplateLoader struct {
+	sync.Mutex
+
 	basePath     string
 	baseTemplate *template.Template
 	cache        map[string]*template.Template
@@ -55,6 +58,9 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 }
 
 func (tl *TemplateLoader) Load(name string) (*template.Template, error) {
+	tl.Lock()
+	defer tl.Unlock()
+
 	t, ok := tl.cache[name]
 	if ok {
 		return t, nil
@@ -69,8 +75,6 @@ func (tl *TemplateLoader) Load(name string) (*template.Template, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	t = t
 
 	tl.cache[name] = t
 
