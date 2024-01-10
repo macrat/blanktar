@@ -34,6 +34,7 @@
     <ol class="articles-of-month">
         {{range .Posts}}
             <li><a href="{{.Path}}">
+                <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
                 <time>{{.Published.Format "2006-01-02"}}</time>
                 {{.Title}}
             </a></li>

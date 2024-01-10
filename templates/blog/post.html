@@ -221,7 +221,7 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
     }
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
     .chroma {
         border: none;
     }
@@ -259,6 +259,7 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
                     <li><a href="/blog/tags/{{. | escapetag}}">{{.}}</a></li>
                 {{end}}
             </ul>
+            <img src="/images{{.Path}}.qr.png" alt="このページのQRコード" class="pageqr" loading="lazy">
         </div>
         {{.Content}}
         <aside class="share">

@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/macrat/blanktar/builder/fs"
+	"github.com/macrat/blanktar/builder/qr"
 	"github.com/macrat/blanktar/builder/thumbnail"
 	"gopkg.in/yaml.v3"
 )
@@ -155,14 +156,20 @@ func (c *ArticleConverter) Convert(dst fs.Writable, src Source, conf Config) (Ar
 		return nil, err
 	}
 
-	asset, err := c.convertImage(dst, src, externalPath, article)
+	preview, err := c.convertImage(dst, src, externalPath, article)
+	if err != nil {
+		return nil, err
+	}
+
+	qrcode, err := c.convertQR(dst, src, externalPath, article)
 	if err != nil {
 		return nil, err
 	}
 
 	return ArtifactList{
 		article,
-		asset,
+		preview,
+		qrcode,
 	}, nil
 }
 
@@ -211,6 +218,10 @@ func (c *ArticleConverter) convertHTML(dst fs.Writable, src Source, externalPath
 }
 
 func (c *ArticleConverter) convertImage(dst fs.Writable, src Source, externalPath string, article Article) (Asset, error) {
+	if externalPath == "" {
+		externalPath = "index"
+	}
+
 	outputPath := path.Join("images", externalPath+".png")
 
 	asset := Asset{
@@ -229,5 +240,31 @@ func (c *ArticleConverter) convertImage(dst fs.Writable, src Source, externalPat
 	defer w.Close()
 
 	err = c.thumbnail.Generate(w, article.Title, article.Tags)
+	return asset, err
+}
+
+func (c *ArticleConverter) convertQR(dst fs.Writable, src Source, externalPath string, article Article) (Asset, error) {
+	if externalPath == "" {
+		externalPath = "index"
+	}
+
+	outputPath := path.Join("images", externalPath+".qr.png")
+
+	asset := Asset{
+		name:   outputPath,
+		source: src,
+	}
+
+	if _, err := fs.Stat(dst, outputPath); err == nil {
+		return asset, nil
+	}
+
+	w, err := CreateOutput(dst, outputPath, "image/png")
+	if err != nil {
+		return Asset{}, err
+	}
+	defer w.Close()
+
+	err = qr.Generate(w, 512, article.URL)
 	return asset, err
 }
