@@ -37,15 +37,15 @@ func (c CopyConverter) Convert(dst fs.Writable, src Source, conf Config) (Artifa
 	return Copy(dst, src, "")
 }
 
-type MinifyConverter struct{
+type MinifyConverter struct {
 	Extension string
-	MIMEType string
+	MIMEType  string
 }
 
 func NewMinifyConverter(extension, mimeType string) MinifyConverter {
 	return MinifyConverter{
 		Extension: extension,
-		MIMEType: mimeType,
+		MIMEType:  mimeType,
 	}
 }
 

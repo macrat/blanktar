@@ -126,6 +126,7 @@
     <ol class="blog-articles">
         {{range .Posts}}
             <li>
+                <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
                 <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02"}}</time>
                 <ol class="tags">
                     {{range .Tags}}

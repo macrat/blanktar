@@ -22,10 +22,15 @@ header {
 h1 {
     font-size: 200%;
     text-align: center;
-    margin: 0 0 .5em;
+    margin: 0 1.5cm;
+    min-height: 1.7cm;
 }
 h2 {
     margin: 1em 0 0.5em;
+}
+
+.tags a {
+    color: inherit;
 }
 
 article {
@@ -38,6 +43,24 @@ article {
     position: absolute;
     top: 0;
     right: 0;
+    text-align: right;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.metadata time {
+    grid-area: 1 / 2;
+    margin: 0 .5em 0 1em;
+}
+.metadata .tags {
+    grid-area: 1 / 1;
+    margin: 0;
+}
+.metadata .pageqr {
+    grid-area: 2 / 2;
+    display: block;
+    width: 1.5cm;
+    height: 1.5cm;
+    margin-left: auto;
 }
 article table th {
     background-color: inherit;
@@ -56,6 +79,66 @@ pre {
 
 .share {
     display: none;
+}
+
+.blog-articles {
+    column-width: 25em;
+}
+.blog-articles > li {
+    display: block;
+    margin: 8px 0;
+    padding: 2mm 0;
+    page-break-inside: avoid;
+}
+.blog-articles .pageqr {
+    display: block;
+    float: left;
+    width: 1.5cm;
+    height: 1.5cm;
+}
+.blog-articles h2 {
+    font-size: 150%;
+}
+.blog-articles > li > a {
+    margin-left: 1.5cm;
+}
+
+.pager > li {
+    display: none;
+}
+.pager > li.current-page {
+    display: inline;
+    background-color: transparent;
+}
+.pager > li.current-page::before {
+    content: "page ";
+}
+
+.articles-of-year > li {
+    page-break-inside: avoid;
+}
+.articles-of-month {
+    column-width: 20em;
+    list-style: none;
+    padding: 0;
+}
+.articles-of-month > li {
+    page-break-inside: avoid;
+    padding-left: 1cm;
+    margin: 0 0 5mm;
+    position: relative;
+}
+.articles-of-month .pageqr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 1cm;
+    height: 1cm;
+}
+.articles-of-month time {
+    display: block;
+    font-weight: bold;
 }
 
 footer {

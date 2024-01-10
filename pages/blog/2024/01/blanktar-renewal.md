@@ -180,10 +180,12 @@ Next.jsをやめて完全に静的なサイトにした結果、以下のよう�
 </div>
 </div>
 <style>
-.two-columns-20240106 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em
+@media screen {
+  .two-columns-20240106 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em
+  }
 }
 @media (max-width: calc(800px)) {
   .two-columns-20240106 {
