@@ -1,0 +1,41 @@
+{{define "title"}}{{.Description}} - Blanktar{{end}}
+
+{{/* <style> */}}    
+{{define "style"}}
+html, body {
+    height: 100%;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+}
+div > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 4000%;
+    opacity: 0.05;
+    user-select: none;
+    z-index: -1;
+}
+{{end}}
+{{/* </style> */}}
+
+{{define "body"}}
+    <main>
+        <div>
+            <span>{{.Title}}</span>
+            <h1>{{.Description}}</h1>
+            <p>→ <a href="/">トップページに戻る</a></p>
+        </div>
+    </main>
+{{end}}

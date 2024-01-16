@@ -513,13 +513,20 @@ type SitemapContext struct {
 }
 
 func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	as := make(ArticleList, 0, len(articles))
+	for _, a := range articles {
+		if !a.Hidden {
+			as = append(as, a)
+		}
+	}
+
 	targetPath := "sitemap.xml"
 	result := ArtifactList{Index{
 		name:    targetPath,
-		sources: articles.Sources(),
+		sources: as.Sources(),
 	}}
 
-	if fs.ModTime(dst, targetPath).After(articles.ModTime()) {
+	if fs.ModTime(dst, targetPath).After(as.ModTime()) {
 		return result, nil
 	}
 
@@ -535,7 +542,7 @@ func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, 
 
 	err = tmpl.Execute(output, SitemapContext{
 		URL:   "https://blanktar.jp/sitemap.xml",
-		Pages: articles,
+		Pages: as,
 	})
 	if err != nil {
 		output.Close()
