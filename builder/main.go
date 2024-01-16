@@ -298,6 +298,7 @@ func main() {
 		Generator: GeneratorSet{
 			IndexGenerator{template},
 			PhotoGenerator{template},
+			ErrorGenerator{template},
 		},
 	}
 
