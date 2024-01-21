@@ -1,6 +1,6 @@
 ---
 title: GoでJPEGのExif情報を読み書きする
-description: 
+description: JPEG形式の画像にはExifと呼ばれる形式で撮影日時やカメラの情報などが保存されていることがよくあります。この記事では、そんなExifの情報をGo言語から読み書きする方法をご紹介します。
 pubtime: 2024-01-21T17:44:00+09:00
 tags: [Go言語, ライブラリの紹介]
 faq:
