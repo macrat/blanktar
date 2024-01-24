@@ -6,6 +6,28 @@ pubtime: 2012-12-06T14:54:00+09:00
 modtime: 2023-08-16T20:14:00+09:00
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "dataCreated": "2012-12-06T14:54:00+09:00",
+  "dataModified": "2023-08-16T20:14:00+09:00",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "志太 悠真",
+    "alternateName": "MacRat",
+    "image": "https://blanktar.jp/images/macrat.png",
+    "sameAs": [
+      "https://twitter.com/macrat_jp",
+      "https://mstdn.jp/@macrat",
+      "https://bsky.app/profile/macrat.bsky.social",
+      "https://facebook.com/yuuma.shida",
+      "https://github.com/macrat",
+    ]
+  }
+}
+</script>
+
 ![MacRatのアイコン。デフォルメされた口髭のキャラクターがこちらを見ている。](/images/macrat.png "128x128")
 
 <dl aria-label="MacRatのプロフィール">
