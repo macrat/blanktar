@@ -206,6 +206,10 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
     fill: #eee;
 }
 @media screen and (max-width: 33em) {
+    .tags {
+        display: block;
+        margin: 0;
+    }
     .share {
         display: flex;
     }
@@ -253,7 +257,9 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
         </ol>
         <h1>{{.Title}}</h1>
         <div class="metadata">
-            <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02 15:04"}}</time>
+            <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02"}}</time>
+            {{- if and (not .Modified.IsZero) (ne (.Published.Format "2006-01-02") (.Modified.Format "2006-01-02"))}}(初版) → <time datetime="{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}">{{.Modified.Format "2006-01-02"}}</time>(改訂)
+            {{end}}
             <ul class="tags">
                 {{range .Tags}}
                     <li><a href="/blog/tags/{{. | escapetag}}">{{.}}</a></li>

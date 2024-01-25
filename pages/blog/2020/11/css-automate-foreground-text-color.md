@@ -1,54 +1,27 @@
 ---
 title: CSSのfilterを使って、背景色に合わせた文字色を自動的に設定する
 pubtime: 2020-11-01T01:29:00+09:00
+modtime: 2024-01-25T18:50:00+09:00
 tags: [Web, HTML, CSS]
-description: 背景色が動的に変わる状況で、文字色が見えなくならないように良い感じに設定したい時があります。JavaScriptで書いても良いのですが面倒なので、CSSのfilterを使って上手いことやってもらう方法をご紹介します。
+description: 背景色が動的に変わる状況で、文字色が見えなくならないように良い感じに設定したい時があります。JavaScriptで書くのは面倒なので、CSSのfilterを使って上手いことやってもらう方法をご紹介します。
 image:
   - /blog/2020/11/css-automate-foreground-text-color.png
   - /blog/2020/11/css-automate-foreground-text-color-4x3.png
   - /blog/2020/11/css-automate-foreground-text-color-1x1.png
 faq:
   - question: CSSの機能だけで背景色に合わせた文字色を選ばせるには？
-    answer: filterを使って、反転した色を白黒にして使ってあげればそれらしくなります。
-  - question: CSSで色を反転させるには？
-    answer: "`invert(100%)`というフィルタが使えます。"
-  - question: CSSで色を白黒にするには？
-    answer: "`grayscale(100%)`というフィルタでグレースケールにしたあと、`contrast(100)`でコントラストを上げれば白黒になります。"
+    answer: filterを使って、 invert(100%) で反転した色を grayscale(100%) contrast(100) で白黒にして使ってあげればそれらしくなります。
+  - question: CSSだけで文字や画像の色を反転させるには？
+    answer: invert(100%) というフィルタが使えます。
+  - question: CSSで文字や画像を白黒にするには？
+    answer: grayscale(100%) というフィルタでグレースケールにしたあと、 contrast(100) でコントラストを上げれば白黒になります。
 ---
 
 背景色が動的に変わる状況で、文字色を良い感じに設定したい事があります。
 ユーザーの入力によって色が決まるとか、外部のAPIが色を決めてるとか。
 
-このサイトの[worksページ](/works)の各リポジトリについている、「Python」とか「TypeScript」とかの言語タグの色がそんな感じになっています。
-この色はGitHubのAPIが決めているものなのですが、文字色の方は提供してくれないのでCSSで動的に計算するようにしています。
-
-ここで使っているテクニックが地味に面白いのでご紹介します。
-
-
-# やり方
-
-色設定のコードは以下のような感じ。
-
-``` html
-<div>
-    <span>hello world!</span>
-</div>
-
-<style>
-div {
-    background-color: red;
-}
-span {
-    color: red;
-    filter: invert(100%) grayscale(100%) contrast(100);
-}
-</style>
-```
-
-以上、これだけ。
-背景色と同じ色を文字色にも設定しちゃって、CSSのfilterを使って見える色に変化させています。
-
-実際色んな色でやってみると以下のような表示になります。
+そこで、文字色が動的に設定される方法を考えてみました。それも、CSSだけで。  
+実際に動かしてみると以下のような表示になります。
 
 <div role="img" aria-label="カラフルな27色の枠と、その上に白か黒の文字でカラーコードが表示されている。明るい色の場合は黒い文字、暗い色の場合は白い文字。">
   <div style="background-color: #000000; display: inline-block; text-align: center; padding: 1em; width: 6em"><span style="color: #000000; filter: invert(100%) grayscale(100%) contrast(100)">#000000</span></div>
@@ -80,24 +53,50 @@ span {
   <div style="background-color: #FFFFFF; display: inline-block; text-align: center; padding: 1em; width: 6em"><span style="color: #FFFFFF; filter: invert(100%) grayscale(100%) contrast(100)">#FFFFFF</span></div>
 </div>
 
-基本全部に上手いこと色を当ててくれている感じ。
+いかがでしょうか。
+グレー(`#808080`)に近い色はやや見づらくなってしまっていますが、それ以外はかなり上手く表示できているのではないかと思います。
 
-ただ、中間付近の色（`#8080FF`とか）だとちょっと微妙ですね。
-あとは`invert()`が効かない完全な中間色である`#808080`などはかなり見辛くなります。
 
-とはいえ、この簡単さで基本上手くいっているので十分でしょう。
+# やり方
+
+上記のサンプルは以下のようなCSSで実現しています。
+
+``` html
+<div>
+    <span>hello world!</span>
+</div>
+
+<style>
+div {
+    background-color: red;
+}
+span {
+    color: red;
+    filter: invert(100%) grayscale(100%) contrast(100);
+}
+</style>
+```
+
+以上、これだけです。
+
+[詳しい解説は後述](#仕組み)しますが、`color`と`background-color`に同じ色を設定してから、文字色だけCSSのfilterで見える色に変化させる仕組みです。
+
+なお、divとspanをセットにすると背景色にもフィルターが適用されてしまうので注意してください。
 
 
 # ブラウザの対応状況
 
-基本的なブラウザで使用することが出来ますが、IEだけは対応しないのでご注意。
+今回使用したCSS Filterは基本的なブラウザで使用することが出来ます。
 
+ただ、IEだけは対応しないのでご注意ください。
 まあもうIEは良いでしょう。良いということにしましょう。
 
 [![Can I useで調べたCSS Filter Effectsの対応状況。主要ブラウザだとIE11だけが非対応。](/blog/2020/11/caniuse-css-filter-effects.jpg "600x356")](https://caniuse.com/css-filters)
 
 
 # 仕組み
+
+ここからは、詳細な仕組みをご説明します。
 
 ## まずは同じ色で描画する
 
@@ -155,3 +154,27 @@ span {
 </div>
 
 これで完成。結構シンプルです。
+
+---
+
+**Q&A**:
+- CSSの機能だけで背景色に合わせた文字色を選ばせるには？  
+  → filterを使って、`invert(100%)`で反転した色を`grayscale(100%) contrast(100)`で白黒にして使ってあげればそれらしくなります。
+
+- CSSだけで文字や画像の色を反転させるには？  
+  → `invert(100%)`というフィルタが使えます。
+
+- CSSで文字や画像を白黒にするには？  
+  → `grayscale(100%)`というフィルタでグレースケールにしたあと、`contrast(100)`でコントラストを上げれば白黒になります。
+
+---
+
+参考: [filter - CSS: カスケーディングスタイルシート | MDN](https://developer.mozilla.org/ja/docs/Web/CSS/filter)
+
+<ins>
+
+# 2024-01-25 追記
+
+読みやすさのために一部構成を変更しました。
+
+</ins>
