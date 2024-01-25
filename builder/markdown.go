@@ -142,7 +142,7 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 		return ast.WalkStop, err
 	}
 
-	_, err = fmt.Fprintf(w, `<pre class="chroma"><div class="meta">%s<button onclick='copyCodeBlock(this, %s)'>Copy</button></div>`, string(lang), jsonCode)
+	_, err = fmt.Fprintf(w, `<div class="chroma"><button onclick='copyCodeBlock(this, %s)'>Copy</button><pre>`, jsonCode)
 	if err != nil {
 		return ast.WalkStop, err
 	}
@@ -152,7 +152,7 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 		return ast.WalkStop, err
 	}
 
-	_, err = fmt.Fprintf(w, `</pre>`)
+	_, err = fmt.Fprintf(w, `</pre></div>`)
 	return ast.WalkSkipChildren, err
 }
 
@@ -171,34 +171,36 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 		<style>
 		.chroma {
 			line-height: 1.5;
-			padding: 0 12px 16px;
-			overflow-x: auto;
 			border: 1px solid #433;
+			position: relative;
+		}
+		.chroma pre {
+			padding: 24px 12px 16px;
+			overflow-x: auto;
 			font-family: monospace, sans-serif;
 			font-size: 90%%;
 		}
 		.chroma .line {
 			width: fit-content;
 		}
-		.chroma .meta {
-			position: relative;
-			padding: 2px 12px;
-			margin: 0 -12px 8px;
-			background: #8883;
-			color: #664;
-		}
 		.chroma button {
-			float: right;
-			padding: 2px 8px;
+			position: absolute;
+			top: 2px;
+			right: 2px;
+			height: 24px;
+			padding: 0 8px;
 			color: inherit;
 			background: transparent;
-			border: none;
+			border: 1px solid #808080;
+			border-radius: 4px;
 			cursor: pointer;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity .2s, visibility .2s;
 		}
-		@media (prefers-color-scheme: dark) {
-			.chroma .meta {
-				color: #a0a0a0;
-			}
+		.chroma:hover button {
+			opacity: 1;
+			visibility: visible;
 		}
 		@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
 	`)
