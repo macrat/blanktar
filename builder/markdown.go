@@ -175,7 +175,7 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 			position: relative;
 		}
 		.chroma pre {
-			padding: 24px 12px 16px;
+			padding: 24px 12px;
 			overflow-x: auto;
 			font-family: monospace, sans-serif;
 			font-size: 90%%;
