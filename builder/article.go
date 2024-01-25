@@ -30,7 +30,7 @@ type Article struct {
 	HowTo       *HowTo           `yaml:"howto"`
 	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
 	Layout      string           `yaml:"layout"`
-	Hidden	    bool             `yaml:"hidden"`
+	Hidden      bool             `yaml:"hidden"`
 
 	Markdown []byte        `yaml:"-"`
 	Content  template.HTML `yaml:"-"`

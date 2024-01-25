@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/url"
@@ -75,15 +76,7 @@ func (c *Markdown) Convert(w io.Writer, source []byte) error {
 	}
 
 	if code.Count > 0 {
-		if _, err := w.Write([]byte("<style>")); err != nil {
-			return err
-		}
-
-		if err := code.WriteStyleSheet(w); err != nil {
-			return err
-		}
-
-		if _, err := w.Write([]byte("</style>")); err != nil {
+		if err := code.WriteCodeBlockAssets(w); err != nil {
 			return err
 		}
 	}
@@ -144,7 +137,12 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 		return ast.WalkStop, err
 	}
 
-	_, err = fmt.Fprintf(w, `<pre class="chroma">`)
+	jsonCode, err := json.Marshal(plainCode)
+	if err != nil {
+		return ast.WalkStop, err
+	}
+
+	_, err = fmt.Fprintf(w, `<pre class="chroma"><div class="meta">%s<button onclick='copyCodeBlock(this, %s)'>Copy</button></div>`, string(lang), jsonCode)
 	if err != nil {
 		return ast.WalkStop, err
 	}
@@ -158,8 +156,52 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 	return ast.WalkSkipChildren, err
 }
 
-func (r *CodeRenderer) WriteStyleSheet(w io.Writer) error {
-	_, err := fmt.Fprintf(w, "@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {")
+func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
+	_, err := fmt.Fprintf(w, `
+		<script>
+		function copyCodeBlock(elm, code) {
+			navigator.clipboard.writeText(code).then(() => {
+				elm.innerText = "Copied!";
+				setTimeout(() => {
+					elm.innerText = "Copy";
+				}, 1000);
+			});
+		}
+		</script>
+		<style>
+		.chroma {
+			line-height: 1.5;
+			padding: 0 12px 16px;
+			overflow-x: auto;
+			border: 1px solid #433;
+			font-family: monospace, sans-serif;
+			font-size: 90%%;
+		}
+		.chroma .line {
+			width: fit-content;
+		}
+		.chroma .meta {
+			position: relative;
+			padding: 2px 12px;
+			margin: 0 -12px 8px;
+			background: #8883;
+			color: #664;
+		}
+		.chroma button {
+			float: right;
+			padding: 2px 8px;
+			color: inherit;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+		}
+		@media (prefers-color-scheme: dark) {
+			.chroma .meta {
+				color: #a0a0a0;
+			}
+		}
+		@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
+	`)
 	if err != nil {
 		return err
 	}
@@ -169,7 +211,12 @@ func (r *CodeRenderer) WriteStyleSheet(w io.Writer) error {
 		return err
 	}
 
-	_, err = fmt.Fprintf(w, "}\n@media (prefers-color-scheme: dark) and (not (prefers-contrast: more)) {")
+	_, err = fmt.Fprintf(w, `}
+		@media (prefers-color-scheme: dark) and (not (prefers-contrast: more)) {
+			.chroma {
+				border: none;
+			}
+	`)
 	if err != nil {
 		return err
 	}
@@ -211,7 +258,7 @@ func (r *CodeRenderer) WriteStyleSheet(w io.Writer) error {
 		return err
 	}
 
-	_, err = fmt.Fprintf(w, "}")
+	_, err = fmt.Fprintf(w, "}\n</style>")
 	return err
 }
 

@@ -31,7 +31,7 @@ func (e ErrorGenerator) Generate(dst fs.Writable, as ArtifactList, conf Config) 
 	defer w.Close()
 
 	err = tmpl.Execute(w, map[string]interface{}{
-		"Title": "404",
+		"Title":       "404",
 		"Description": "Not Found",
 	})
 	if err != nil {
