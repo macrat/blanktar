@@ -10,6 +10,8 @@ var ErrNotExist = fs.ErrNotExist
 
 var WalkDir = fs.WalkDir
 
+var SkipDir = fs.SkipDir
+
 type DirEntry = fs.DirEntry
 
 type File = fs.File

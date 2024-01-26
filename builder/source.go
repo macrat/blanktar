@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"path"
 	"time"
 
 	"github.com/macrat/blanktar/builder/fs"
@@ -72,7 +71,10 @@ func WalkSources(f fs.Readable, fn WalkSourcesFunc) error {
 		if err != nil {
 			return err
 		}
-		if !d.IsDir() && path.Base(name)[0] != '.' {
+		if d.IsDir() && d.Name()[0] == '.' {
+			return fs.SkipDir
+		}
+		if !d.IsDir() && d.Name()[0] != '.' {
 			fn(Source{name, f})
 		}
 		return nil
