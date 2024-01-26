@@ -252,12 +252,12 @@ func main() {
 	preview := len(os.Args) > 1 && os.Args[1] == "preview"
 
 	if len(os.Args) > 1 && os.Args[1] == "serve" {
-		serve("../dist")
+		serve("../.vercel/output/static")
 	}
 
 	sourceDir := "../pages"
 	src := fs.NewOnDisk(sourceDir)
-	var dst fs.Writable = fs.NewOnDisk("../dist")
+	var dst fs.Writable = fs.NewOnDisk("../.vercel/output")
 
 	if preview {
 		dst = fs.NewInMemory()
@@ -272,7 +272,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	cache, err := NewFileAssetCache("../.cache")
+	cache, err := NewFileAssetCache("../.vercel/cache")
 	if err != nil {
 		log.Fatal(err)
 	}

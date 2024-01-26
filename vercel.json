@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist",
+  "buildCommand": "make build",
   "trailingSlash": false,
   "headers": [
     {

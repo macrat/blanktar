@@ -4,7 +4,7 @@ build:
 	cd builder && go run .
 
 rebuild:
-	-rm -rf ./dist
+	-rm -rf ./.vercel/output
 	cd builder && go run .
 
 serve:
@@ -17,5 +17,5 @@ prepare:
 	git worktree add pages/photos photos
 
 clean:
-	-rm -rf ./dist ./.cache
+	-rm -rf ./.vercel/output ./.vercel/cache
 	git worktree remove pages/photos

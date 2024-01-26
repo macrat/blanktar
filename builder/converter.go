@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"io"
+	"path"
 	"strings"
 
 	"github.com/macrat/blanktar/builder/fs"
@@ -58,12 +59,13 @@ func (c MinifyConverter) Convert(dst fs.Writable, src Source, conf Config) (Arti
 }
 
 func Copy(dst fs.Writable, src Source, mimeType string) (ArtifactList, error) {
+	dstPath := path.Join("static", src.Name())
 	as := ArtifactList{Asset{
-		name:   src.Name(),
+		name:   dstPath,
 		source: src,
 	}}
 
-	if fs.ModTime(dst, src.Name()).After(src.ModTime()) {
+	if fs.ModTime(dst, dstPath).After(src.ModTime()) {
 		return as, nil
 	}
 
@@ -73,7 +75,7 @@ func Copy(dst fs.Writable, src Source, mimeType string) (ArtifactList, error) {
 	}
 	defer input.Close()
 
-	output, err := CreateOutput(dst, src.Name(), mimeType)
+	output, err := CreateOutput(dst, dstPath, mimeType)
 	if err != nil {
 		return nil, err
 	}

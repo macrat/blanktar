@@ -175,9 +175,9 @@ func (c *ArticleConverter) Convert(dst fs.Writable, src Source, conf Config) (Ar
 }
 
 func (c *ArticleConverter) convertHTML(dst fs.Writable, src Source, externalPath string, input []byte) (Article, error) {
-	destPath := path.Join(externalPath, "index.html")
+	destPath := path.Join("static", externalPath, "index.html")
 	if path.Base(externalPath) == "index" {
-		destPath = externalPath + ".html"
+		destPath = path.Join("static", externalPath+".html")
 	}
 
 	article, err := c.article.Load("/"+externalPath, input)
@@ -223,7 +223,7 @@ func (c *ArticleConverter) convertImage(dst fs.Writable, src Source, externalPat
 		externalPath = "index"
 	}
 
-	outputPath := path.Join("images", externalPath+".png")
+	outputPath := path.Join("static", "images", externalPath+".png")
 
 	asset := Asset{
 		name:   outputPath,
@@ -249,7 +249,7 @@ func (c *ArticleConverter) convertQR(dst fs.Writable, src Source, externalPath s
 		externalPath = "index"
 	}
 
-	outputPath := path.Join("images", externalPath+".qr.png")
+	outputPath := path.Join("static", "images", externalPath+".qr.png")
 
 	asset := Asset{
 		name:   outputPath,

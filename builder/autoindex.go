@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"encoding/json"
 	"sort"
 	"strings"
 	"time"
@@ -94,7 +95,7 @@ func (g IndexGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf C
 	for _, artifact := range artifacts {
 		if article, ok := artifact.(Article); ok {
 			articles = append(articles, article)
-			if strings.HasPrefix(article.Name(), "blog/") {
+			if strings.HasPrefix(article.Name(), "static/blog/") {
 				posts.Add(article)
 			}
 		}
@@ -134,6 +135,11 @@ func (g IndexGenerator) Generate(dst fs.Writable, artifacts ArtifactList, conf C
 	} else {
 		return nil, err
 	}
+	if as, err := g.generateConfig(dst, articles, conf); err == nil {
+		result = append(result, as...)
+	} else {
+		return nil, err
+	}
 	return result, nil
 }
 
@@ -164,9 +170,9 @@ func (g *IndexGenerator) generateOrderedIndex(dst fs.Writable, articles ArticleL
 	}
 
 	for page := 0; page < totalPages; page++ {
-		targetPath := fmt.Sprintf("blog/%d/index.html", page+1)
+		targetPath := fmt.Sprintf("static/blog/%d/index.html", page+1)
 		if page == 0 {
-			targetPath = "blog/index.html"
+			targetPath = "static/blog/index.html"
 		}
 
 		start := page * conf.PostsPerPage
@@ -244,7 +250,7 @@ func (g *IndexGenerator) generateYearlyIndex(dst fs.Writable, articles ArticleLi
 	}
 
 	err = articles.GeneratePerPath(func(a Article) string {
-		return a.Published.Format("blog/2006/index.html")
+		return a.Published.Format("static/blog/2006/index.html")
 	}, func(targetPath string, articles ArticleList) error {
 		posts := make([]ArticleList, 12)
 		for _, p := range articles {
@@ -299,7 +305,7 @@ func (g *IndexGenerator) generateMonthlyIndex(dst fs.Writable, articles ArticleL
 	}
 
 	articles.GeneratePerPath(func(a Article) string {
-		return a.Published.Format("blog/2006/01/index.html")
+		return a.Published.Format("static/blog/2006/01/index.html")
 	}, func(targetPath string, articles ArticleList) error {
 		result = append(result, Index{
 			name:    targetPath,
@@ -392,7 +398,7 @@ func (g *IndexGenerator) generateTagsIndex(dst fs.Writable, articles ArticleList
 	}
 
 	for tag, posts := range tags {
-		targetPath := fmt.Sprintf("blog/tags/%s/index.html", EscapeTag(tag))
+		targetPath := fmt.Sprintf("static/blog/tags/%s/index.html", EscapeTag(tag))
 
 		tagPageContext := TagPageContext{
 			URL:   fmt.Sprintf("https://blanktar.jp/blog/tags/%s", EscapeTag(tag)),
@@ -427,7 +433,7 @@ func (g *IndexGenerator) generateTagsIndex(dst fs.Writable, articles ArticleList
 		}
 	}
 
-	targetPath := "blog/tags/index.html"
+	targetPath := "static/blog/tags/index.html"
 
 	result = append(result, Index{
 		name:    targetPath,
@@ -473,7 +479,7 @@ func (g *IndexGenerator) generateFeed(dst fs.Writable, articles ArticleList, con
 	}
 	articles = reversed
 
-	targetPath := "blog/feed.xml"
+	targetPath := "static/blog/feed.xml"
 	result := ArtifactList{Index{
 		name:    targetPath,
 		sources: articles.Sources(),
@@ -520,7 +526,7 @@ func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, 
 		}
 	}
 
-	targetPath := "sitemap.xml"
+	targetPath := "static/sitemap.xml"
 	result := ArtifactList{Index{
 		name:    targetPath,
 		sources: as.Sources(),
@@ -550,4 +556,21 @@ func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, 
 	}
 
 	return result, output.Close()
+}
+
+func (g *IndexGenerator) generateConfig(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
+	output, err := CreateOutput(dst, "config.json", "application/json")
+	if err != nil {
+		return nil, err
+	}
+	defer output.Close()
+
+	err = json.NewEncoder(output).Encode(map[string]any{
+		"version": 3,
+	})
+	as := ArtifactList{Index{
+		name:    "config.json",
+		sources: articles.Sources(),
+	}}
+	return as, err
 }
