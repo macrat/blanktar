@@ -39,20 +39,20 @@ jobs:
       - name: Cache assets
         uses: actions/cache@v3
         with:
-          path: .cache
+          path: .vercel/cache
           key: build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
           restore-keys: |
             build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
             build-cache-
 
       - name: Build pages
-        run: make build
+        run: ./make build
 
       - name: Save artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist/
+          path: .vercel/output/
 
   lighthouse:
     name: Lighthouse Test
@@ -66,7 +66,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: dist/
+          path: .vercel/output/
 
       - uses: treosh/lighthouse-ci-action@v10
         with:
@@ -102,7 +102,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: dist/
+          path: .vercel/output/
 
       - name: Pull Vercel environment information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
@@ -110,7 +110,7 @@ jobs:
         id: deploy
         run: |
           echo -n "url=" >> $GITHUB_OUTPUT
-          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
+          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
 
   production:
     name: Production Deploy
@@ -135,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: dist/
+          path: .vercel/output/
 
       - name: Pull Vercel environment information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -143,4 +143,4 @@ jobs:
         id: deploy
         run: |
           echo -n "url=" >> $GITHUB_OUTPUT
-          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --prod >> $GITHUB_OUTPUT
+          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod >> $GITHUB_OUTPUT
