@@ -20,17 +20,18 @@ type Article struct {
 	URL  string `yaml:"-"`
 	Path string `yaml:"-"`
 
-	Title       string           `yaml:"title"`
-	Image       []string         `yaml:"image"`
-	Description string           `yaml:"description"`
-	Tags        []string         `yaml:"tags"`
-	Published   time.Time        `yaml:"pubtime"`
-	Modified    time.Time        `yaml:"modtime"`
-	FAQ         []FAQItem        `yaml:"faq"`
-	HowTo       *HowTo           `yaml:"howto"`
-	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
-	Layout      string           `yaml:"layout"`
-	Hidden      bool             `yaml:"hidden"`
+	Title       string            `yaml:"title"`
+	Image       []string          `yaml:"image"`
+	Description string            `yaml:"description"`
+	Tags        []string          `yaml:"tags"`
+	Published   time.Time         `yaml:"pubtime"`
+	Modified    time.Time         `yaml:"modtime"`
+	FAQ         []FAQItem         `yaml:"faq"`
+	HowTo       *HowTo            `yaml:"howto"`
+	BreadCrumb  []BreadCrumbItem  `yaml:"breadcrumb"`
+	Layout      string            `yaml:"layout"`
+	Hidden      bool              `yaml:"hidden"`
+	Headers     map[string]string `yaml:"headers"`
 
 	Markdown []byte        `yaml:"-"`
 	Content  template.HTML `yaml:"-"`
@@ -100,6 +101,10 @@ func (l *ArticleLoader) Load(externalPath string, raw []byte) (Article, error) {
 
 	if len(article.Image) == 0 {
 		article.Image = []string{"/images" + externalPath + ".png"}
+	}
+
+	if len(article.Headers) == 0 {
+		article.Headers = make(map[string]string)
 	}
 
 	var buf strings.Builder

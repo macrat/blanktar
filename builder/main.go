@@ -78,7 +78,7 @@ func PreviewServer(fs_ fs.Readable) error {
 			return
 		}
 
-		path := r.URL.Path[1:]
+		path := filepath.Join("static", r.URL.Path)
 
 		stat, err := fs.Stat(fs_, path)
 		if err == nil && stat.IsDir() {
@@ -95,8 +95,13 @@ func PreviewServer(fs_ fs.Readable) error {
 		http.ServeContent(w, r, path, fs.ModTime(fs_, path), f.(io.ReadSeeker))
 	})
 
-	log.Println("Listening on :3000")
-	return http.ListenAndServe(":3000", nil)
+	addr := ":3000"
+	if len(os.Args) > 2 {
+		addr = ":" + os.Args[2]
+	}
+
+	log.Printf("Listening on %s\n", addr)
+	return http.ListenAndServe(addr, nil)
 }
 
 type ContinuousBuilder struct {
@@ -239,27 +244,21 @@ func (b *ContinuousBuilder) StartWatching(sourceDir string) error {
 	return nil
 }
 
-func serve(path string) {
-	http.Handle("/", http.FileServer(http.Dir(path)))
-	log.Println("Listening on :3000")
-	log.Fatal(http.ListenAndServe(":3000", nil))
-}
-
 func main() {
 	stopProfiler := startProfiler()
 	defer stopProfiler()
 
-	preview := len(os.Args) > 1 && os.Args[1] == "preview"
-
-	if len(os.Args) > 1 && os.Args[1] == "serve" {
-		serve("../.vercel/output/static")
-	}
+	dev := len(os.Args) > 1 && os.Args[1] == "dev"
 
 	sourceDir := "../pages"
 	src := fs.NewOnDisk(sourceDir)
 	var dst fs.Writable = fs.NewOnDisk("../.vercel/output")
 
-	if preview {
+	if len(os.Args) > 1 && os.Args[1] == "serve" {
+		log.Fatal(PreviewServer(dst))
+	}
+
+	if dev {
 		dst = fs.NewInMemory()
 	}
 
@@ -310,7 +309,7 @@ func main() {
 		log.Println("Failed to tidy cache:", err)
 	}
 
-	if len(os.Args) > 1 && os.Args[1] == "preview" {
+	if dev {
 		if err = builder.StartWatching(sourceDir); err != nil {
 			log.Fatal(err)
 		}

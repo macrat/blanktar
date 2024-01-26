@@ -1,5 +1,6 @@
 {
-  "buildCommand": "make build",
+  "buildCommand": "./make build",
+  "devCommand": "./make dev $PORT",
   "trailingSlash": false,
   "headers": [
     {

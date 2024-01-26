@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -558,19 +559,41 @@ func (g *IndexGenerator) generateSitemap(dst fs.Writable, articles ArticleList, 
 	return result, output.Close()
 }
 
-func (g *IndexGenerator) generateConfig(dst fs.Writable, articles ArticleList, conf Config) (ArtifactList, error) {
-	output, err := CreateOutput(dst, "config.json", "application/json")
+func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Config) (ArtifactList, error) {
+	targetPath := "config.json"
+
+	if fs.ModTime(dst, targetPath).After(as.ModTime()) {
+		return nil, nil
+	}
+
+	output, err := CreateOutput(dst, targetPath, "application/json")
 	if err != nil {
 		return nil, err
 	}
 	defer output.Close()
 
+	type Route struct {
+		Src     string            `json:"src"`
+		Headers map[string]string `json:"headers"`
+	}
+
+	routes := make([]Route, 0, len(as))
+
+	for _, a := range as {
+		if len(a.Headers) > 0 {
+			routes = append(routes, Route{
+				Src:     fmt.Sprintf("^%s$", regexp.QuoteMeta(a.Path)),
+				Headers: a.Headers,
+			})
+		}
+	}
+
 	err = json.NewEncoder(output).Encode(map[string]any{
 		"version": 3,
+		"routes":  routes,
 	})
-	as := ArtifactList{Index{
+	return ArtifactList{Index{
 		name:    "config.json",
-		sources: articles.Sources(),
-	}}
-	return as, err
+		sources: as.Sources(),
+	}}, err
 }
