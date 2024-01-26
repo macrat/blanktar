@@ -1,6 +1,16 @@
 {
   "outputDirectory": "dist",
   "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {"key": "X-Content-Type-Options", "value": "nosniff"},
+        {"key": "X-Frame-Options", "value": "deny"},
+        {"key": "Content-Security-Policy", "value": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.twitter.com https://*.twimg.com; script-src 'self' 'unsafe-inline' https://platform.twitter.com/ https://cdn.syndication.twimg.com/; frame-src https://platform.twitter.com/ https://syndication.twitter.com/; frame-ancestors 'none'"}
+      ]
+    }
+  ],
   "redirects": [
     {"source": "/about.html", "destination": "/about"},
     {"source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+)\\.html", "destination": "/blog/$1/$2/$3"},
