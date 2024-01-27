@@ -590,6 +590,10 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 	})
 
 	for _, a := range as {
+		if len(a.Headers) == 0 {
+			continue
+		}
+
 		h := make(map[string]string)
 
 		for k, v := range conf.Headers {

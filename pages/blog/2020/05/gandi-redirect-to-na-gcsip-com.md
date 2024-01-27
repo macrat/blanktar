@@ -7,6 +7,8 @@ image: [/blog/2020/05/gandi-na-gcsip-com.png]
 faq:
   - question: Gandi.netにクレジットカードを登録するときに出てくる「na.gcsip.com」は安全？
     answer: Gandi.netが使用している正規の決済サービスのようです。なので多分大丈夫。
+headers:
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://platform.twitter.com/; style-src 'self' 'unsafe-inline' https://*.twitter.com/; img-src 'self' https://*.twitter.com/ https://*.twimg.com/; frame-src https://platform.twitter.com/ https://syndication.twitter.com/; frame-ancestors 'none'"
 ---
 
 # TL;DR
