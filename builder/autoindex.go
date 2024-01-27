@@ -573,7 +573,7 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 	defer output.Close()
 
 	type Route struct {
-		Src      string            `json:"src"`
+		Src      string            `json:"src,omitempty"`
 		Dest     string            `json:"dest,omitempty"`
 		Handle   string            `json:"handle,omitempty"`
 		Headers  map[string]string `json:"headers,omitempty"`
