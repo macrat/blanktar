@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"io"
 	"log"
@@ -16,8 +17,31 @@ import (
 	"github.com/macrat/blanktar/builder/fs"
 )
 
+type BlogConfig struct {
+	PostsPerPage int `json:"posts_per_page"`
+}
+
+type RedirectConfig struct {
+	Source      string `json:"source"`
+	Destination string `json:"destination"`
+}
+
 type Config struct {
-	PostsPerPage int
+	Blog      BlogConfig        `json:"blog"`
+	Headers   map[string]string `json:"headers"`
+	Redirects []RedirectConfig  `json:"redirects"`
+}
+
+func LoadConfig(path string) (Config, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return Config{}, err
+	}
+	defer f.Close()
+
+	var conf Config
+	err = json.NewDecoder(f).Decode(&conf)
+	return conf, err
 }
 
 type OutputWriter struct {
@@ -262,9 +286,7 @@ func main() {
 		dst = fs.NewInMemory()
 	}
 
-	conf := Config{
-		PostsPerPage: 10,
-	}
+	conf, err := LoadConfig("../config.json")
 
 	template, err := NewTemplateLoader("../templates")
 	if err != nil {

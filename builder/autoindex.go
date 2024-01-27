@@ -163,7 +163,7 @@ func (g *IndexGenerator) generateOrderedIndex(dst fs.Writable, articles ArticleL
 	}
 	articles = reversed
 
-	totalPages := len(articles)/conf.PostsPerPage + 1
+	totalPages := len(articles)/conf.Blog.PostsPerPage + 1
 
 	tmpl, err := g.template.Load("blog/index.html")
 	if err != nil {
@@ -176,8 +176,8 @@ func (g *IndexGenerator) generateOrderedIndex(dst fs.Writable, articles ArticleL
 			targetPath = "static/blog/index.html"
 		}
 
-		start := page * conf.PostsPerPage
-		end := page*conf.PostsPerPage + conf.PostsPerPage
+		start := page * conf.Blog.PostsPerPage
+		end := page*conf.Blog.PostsPerPage + conf.Blog.PostsPerPage
 		if end > len(articles) {
 			end = len(articles)
 		}
@@ -573,19 +573,50 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 	defer output.Close()
 
 	type Route struct {
-		Src     string            `json:"src"`
-		Headers map[string]string `json:"headers"`
+		Src      string            `json:"src"`
+		Dest     string            `json:"dest,omitempty"`
+		Handle   string            `json:"handle,omitempty"`
+		Headers  map[string]string `json:"headers,omitempty"`
+		Status   int               `json:"status,omitempty"`
+		Continue bool              `json:"continue,omitempty"`
 	}
 
-	routes := make([]Route, 0, len(as))
+	routes := make([]Route, 0, len(as)+len(conf.Redirects)+2)
+
+	routes = append(routes, Route{
+		Src:      "/.*",
+		Headers:  conf.Headers,
+		Continue: true,
+	})
 
 	for _, a := range as {
-		if len(a.Headers) > 0 {
-			routes = append(routes, Route{
-				Src:     fmt.Sprintf("^%s$", regexp.QuoteMeta(a.Path)),
-				Headers: a.Headers,
-			})
+		h := make(map[string]string)
+
+		for k, v := range conf.Headers {
+			h[k] = v
 		}
+		for k, v := range a.Headers {
+			h[k] = v
+		}
+
+		routes = append(routes, Route{
+			Src:     regexp.QuoteMeta(a.Path),
+			Headers: h,
+		})
+	}
+
+	routes = append(routes, Route{
+		Handle: "filesystem",
+	})
+
+	for _, r := range conf.Redirects {
+		routes = append(routes, Route{
+			Src: r.Source,
+			Headers: map[string]string{
+				"Location": r.Destination,
+			},
+			Status: 301,
+		})
 	}
 
 	err = json.NewEncoder(output).Encode(map[string]any{
