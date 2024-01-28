@@ -581,9 +581,15 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 		Continue bool              `json:"continue,omitempty"`
 	}
 
-	routes := make([]Route, 0, len(as)+len(conf.Redirects)+2)
+	routes := make([]Route, 0, len(as)+len(conf.Redirects)+3)
 
 	routes = append(routes, Route{
+		Src: "/(.*)/",
+		Headers: map[string]string{
+			"Location": "/$1",
+		},
+		Status: 301,
+	}, Route{
 		Src:      "/.*",
 		Headers:  conf.Headers,
 		Continue: true,
