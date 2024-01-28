@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"io"
 	"log"
@@ -16,8 +17,31 @@ import (
 	"github.com/macrat/blanktar/builder/fs"
 )
 
+type BlogConfig struct {
+	PostsPerPage int `json:"posts_per_page"`
+}
+
+type RedirectConfig struct {
+	Source      string `json:"source"`
+	Destination string `json:"destination"`
+}
+
 type Config struct {
-	PostsPerPage int
+	Blog      BlogConfig        `json:"blog"`
+	Headers   map[string]string `json:"headers"`
+	Redirects []RedirectConfig  `json:"redirects"`
+}
+
+func LoadConfig(path string) (Config, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return Config{}, err
+	}
+	defer f.Close()
+
+	var conf Config
+	err = json.NewDecoder(f).Decode(&conf)
+	return conf, err
 }
 
 type OutputWriter struct {
@@ -78,7 +102,7 @@ func PreviewServer(fs_ fs.Readable) error {
 			return
 		}
 
-		path := r.URL.Path[1:]
+		path := filepath.Join("static", r.URL.Path)
 
 		stat, err := fs.Stat(fs_, path)
 		if err == nil && stat.IsDir() {
@@ -95,8 +119,13 @@ func PreviewServer(fs_ fs.Readable) error {
 		http.ServeContent(w, r, path, fs.ModTime(fs_, path), f.(io.ReadSeeker))
 	})
 
-	log.Println("Listening on :3000")
-	return http.ListenAndServe(":3000", nil)
+	addr := ":3000"
+	if len(os.Args) > 2 {
+		addr = ":" + os.Args[2]
+	}
+
+	log.Printf("Listening on %s\n", addr)
+	return http.ListenAndServe(addr, nil)
 }
 
 type ContinuousBuilder struct {
@@ -239,40 +268,32 @@ func (b *ContinuousBuilder) StartWatching(sourceDir string) error {
 	return nil
 }
 
-func serve(path string) {
-	http.Handle("/", http.FileServer(http.Dir(path)))
-	log.Println("Listening on :3000")
-	log.Fatal(http.ListenAndServe(":3000", nil))
-}
-
 func main() {
 	stopProfiler := startProfiler()
 	defer stopProfiler()
 
-	preview := len(os.Args) > 1 && os.Args[1] == "preview"
-
-	if len(os.Args) > 1 && os.Args[1] == "serve" {
-		serve("../dist")
-	}
+	dev := len(os.Args) > 1 && os.Args[1] == "dev"
 
 	sourceDir := "../pages"
 	src := fs.NewOnDisk(sourceDir)
-	var dst fs.Writable = fs.NewOnDisk("../dist")
+	var dst fs.Writable = fs.NewOnDisk("../.vercel/output")
 
-	if preview {
+	if len(os.Args) > 1 && os.Args[1] == "serve" {
+		log.Fatal(PreviewServer(dst))
+	}
+
+	if dev {
 		dst = fs.NewInMemory()
 	}
 
-	conf := Config{
-		PostsPerPage: 10,
-	}
+	conf, err := LoadConfig("../config.json")
 
 	template, err := NewTemplateLoader("../templates")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	cache, err := NewFileAssetCache("../.cache")
+	cache, err := NewFileAssetCache("../.vercel/cache")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -310,7 +331,7 @@ func main() {
 		log.Println("Failed to tidy cache:", err)
 	}
 
-	if len(os.Args) > 1 && os.Args[1] == "preview" {
+	if dev {
 		if err = builder.StartWatching(sourceDir); err != nil {
 			log.Fatal(err)
 		}

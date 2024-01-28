@@ -20,17 +20,18 @@ type Article struct {
 	URL  string `yaml:"-"`
 	Path string `yaml:"-"`
 
-	Title       string           `yaml:"title"`
-	Image       []string         `yaml:"image"`
-	Description string           `yaml:"description"`
-	Tags        []string         `yaml:"tags"`
-	Published   time.Time        `yaml:"pubtime"`
-	Modified    time.Time        `yaml:"modtime"`
-	FAQ         []FAQItem        `yaml:"faq"`
-	HowTo       *HowTo           `yaml:"howto"`
-	BreadCrumb  []BreadCrumbItem `yaml:"breadcrumb"`
-	Layout      string           `yaml:"layout"`
-	Hidden      bool             `yaml:"hidden"`
+	Title       string            `yaml:"title"`
+	Image       []string          `yaml:"image"`
+	Description string            `yaml:"description"`
+	Tags        []string          `yaml:"tags"`
+	Published   time.Time         `yaml:"pubtime"`
+	Modified    time.Time         `yaml:"modtime"`
+	FAQ         []FAQItem         `yaml:"faq"`
+	HowTo       *HowTo            `yaml:"howto"`
+	BreadCrumb  []BreadCrumbItem  `yaml:"breadcrumb"`
+	Layout      string            `yaml:"layout"`
+	Hidden      bool              `yaml:"hidden"`
+	Headers     map[string]string `yaml:"headers"`
 
 	Markdown []byte        `yaml:"-"`
 	Content  template.HTML `yaml:"-"`
@@ -100,6 +101,10 @@ func (l *ArticleLoader) Load(externalPath string, raw []byte) (Article, error) {
 
 	if len(article.Image) == 0 {
 		article.Image = []string{"/images" + externalPath + ".png"}
+	}
+
+	if len(article.Headers) == 0 {
+		article.Headers = make(map[string]string)
 	}
 
 	var buf strings.Builder
@@ -175,9 +180,9 @@ func (c *ArticleConverter) Convert(dst fs.Writable, src Source, conf Config) (Ar
 }
 
 func (c *ArticleConverter) convertHTML(dst fs.Writable, src Source, externalPath string, input []byte) (Article, error) {
-	destPath := path.Join(externalPath, "index.html")
+	destPath := path.Join("static", externalPath, "index.html")
 	if path.Base(externalPath) == "index" {
-		destPath = externalPath + ".html"
+		destPath = path.Join("static", externalPath+".html")
 	}
 
 	article, err := c.article.Load("/"+externalPath, input)
@@ -223,7 +228,7 @@ func (c *ArticleConverter) convertImage(dst fs.Writable, src Source, externalPat
 		externalPath = "index"
 	}
 
-	outputPath := path.Join("images", externalPath+".png")
+	outputPath := path.Join("static", "images", externalPath+".png")
 
 	asset := Asset{
 		name:   outputPath,
@@ -249,7 +254,7 @@ func (c *ArticleConverter) convertQR(dst fs.Writable, src Source, externalPath s
 		externalPath = "index"
 	}
 
-	outputPath := path.Join("images", externalPath+".qr.png")
+	outputPath := path.Join("static", "images", externalPath+".qr.png")
 
 	asset := Asset{
 		name:   outputPath,

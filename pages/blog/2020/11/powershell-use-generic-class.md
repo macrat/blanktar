@@ -9,6 +9,8 @@ faq:
     answer: 引数の型を丁寧に明示してあげると上手くいくことがあるようです。
   - question: 'HashSet::newするときに「MethodException: Cannot find an overload for "new" and the argument count: "1".」ってエラーが出た。これは何？'
     answer: もしかしたら、引数の型が正しくないエラーかもしれません。
+headers:
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://platform.twitter.com/; style-src 'self' 'unsafe-inline'; frame-src https://platform.twitter.com/; frame-ancestors 'none'"
 ---
 
 [昨日の記事](/blog/2020/11/powershell-unique-value-count)の中で[System.Collections.Generic.HashSet&lt;T&gt;](https://docs.microsoft.com/ja-jp/dotnet/api/system.collections.generic.hashset-1)というクラスを使いました。

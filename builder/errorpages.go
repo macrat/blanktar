@@ -14,17 +14,18 @@ func (e ErrorGenerator) Generate(dst fs.Writable, as ArtifactList, conf Config) 
 		return nil, err
 	}
 
+	targetPath := "static/404.html"
 	assets := ArtifactList{
 		Asset{
-			name: "/404.html",
+			name: targetPath,
 		},
 	}
 
-	if _, err := fs.Stat(dst, "/404.html"); err == nil {
+	if _, err := fs.Stat(dst, targetPath); err == nil {
 		return assets, nil
 	}
 
-	w, err := CreateOutput(dst, "/404.html", "text/html")
+	w, err := CreateOutput(dst, targetPath, "text/html")
 	if err != nil {
 		return nil, err
 	}

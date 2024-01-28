@@ -66,7 +66,7 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 		return nil, err
 	}
 
-	targetName := fmt.Sprintf("photos/%d/%s", meta.DateTime.Year(), path.Base(src.Name()))
+	externalName := fmt.Sprintf("photos/%d/%s", meta.DateTime.Year(), path.Base(src.Name()))
 	variants := make(map[int]string)
 	thumbnails := make(map[int]string)
 
@@ -75,7 +75,7 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 		artifacts = append(artifacts, Photo{
 			name:           name,
 			source:         src,
-			OriginalPath:   targetName,
+			OriginalPath:   externalName,
 			VariantPathes:  variants,
 			ThumbnailPaths: thumbnails,
 			Size:           size,
@@ -85,25 +85,25 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 
 	srcModTime := src.ModTime()
 
-	addArtifact(targetName, 0)
-	if err := c.saveImage(dst, targetName, img, srcModTime); err != nil {
+	addArtifact(externalName, 0)
+	if err := c.saveImage(dst, externalName, img, srcModTime); err != nil {
 		return nil, err
 	}
 
 	for _, size := range IMAGE_SIZES {
-		targetName := fmt.Sprintf("photos/%d/%s-%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
-		variants[size] = targetName
-		addArtifact(targetName, size)
-		if err := c.saveCompactImage(dst, targetName, img, size, srcModTime); err != nil {
+		externalName := fmt.Sprintf("photos/%d/%s-%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
+		variants[size] = externalName
+		addArtifact(externalName, size)
+		if err := c.saveCompactImage(dst, externalName, img, size, srcModTime); err != nil {
 			return nil, err
 		}
 	}
 
 	for _, size := range THUMBNAIL_SIZES {
-		targetName := fmt.Sprintf("photos/%d/%s-s%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
-		thumbnails[size] = targetName
-		addArtifact(targetName, size)
-		if err := c.saveThumbnail(dst, targetName, img, size, srcModTime); err != nil {
+		externalName := fmt.Sprintf("photos/%d/%s-s%d.jpg", meta.DateTime.Year(), path.Base(src.Name())[0:len(path.Base(src.Name()))-4], size)
+		thumbnails[size] = externalName
+		addArtifact(externalName, size)
+		if err := c.saveThumbnail(dst, externalName, img, size, srcModTime); err != nil {
 			return nil, err
 		}
 	}
@@ -127,6 +127,8 @@ func (c PhotoConverter) loadImage(src Source) (*image.Image, error) {
 }
 
 func (c PhotoConverter) saveImage(dst fs.Writable, name string, img *image.Image, srcModTime time.Time) error {
+	name = path.Join("static", name)
+
 	if fs.ModTime(dst, name).After(srcModTime) {
 		return nil
 	}
@@ -143,6 +145,8 @@ func (c PhotoConverter) saveImage(dst fs.Writable, name string, img *image.Image
 }
 
 func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *image.Image, size int, srcModTime time.Time) error {
+	name = path.Join("static", name)
+
 	if fs.ModTime(dst, name).After(srcModTime) {
 		return nil
 	}
@@ -159,6 +163,8 @@ func (c PhotoConverter) saveCompactImage(dst fs.Writable, name string, img *imag
 }
 
 func (c PhotoConverter) saveThumbnail(dst fs.Writable, name string, img *image.Image, size int, srcModTime time.Time) error {
+	name = path.Join("static", name)
+
 	if fs.ModTime(dst, name).After(srcModTime) {
 		return nil
 	}
@@ -266,7 +272,7 @@ func (g PhotoGenerator) generateDetailPages(dst fs.Writable, photos PhotoList, c
 		externalPath := fmt.Sprintf("photos/%d/%s", p.Metadata.DateTime.Year(), path.Base(p.Name())[0:len(path.Base(p.Name()))-4])
 
 		contexts = append(contexts, PhotoPageContext{
-			targetPath: externalPath + "/index.html",
+			targetPath: path.Join("static", externalPath, "index.html"),
 			source:     p.source,
 
 			URL:            fmt.Sprintf("https://blanktar.jp/%s", externalPath),
@@ -341,7 +347,7 @@ func (c PhotoIndexPageContext) Sources() SourceList {
 func (g PhotoGenerator) generateIndexPages(dst fs.Writable, pages PhotoPageContextList, conf Config) (ArtifactList, error) {
 	contexts := map[string]*PhotoIndexPageContext{
 		"photos": {
-			targetPath: "photos/index.html",
+			targetPath: "static/photos/index.html",
 
 			PageName: "photos",
 			URL:      "https://blanktar.jp/photos",
@@ -354,7 +360,7 @@ func (g PhotoGenerator) generateIndexPages(dst fs.Writable, pages PhotoPageConte
 
 		if _, ok := contexts[externalPath]; !ok {
 			contexts[externalPath] = &PhotoIndexPageContext{
-				targetPath: externalPath + "/index.html",
+				targetPath: path.Join("static", externalPath, "index.html"),
 
 				PageName: fmt.Sprintf("%d年の写真", p.Metadata.DateTime.Year()),
 				URL:      fmt.Sprintf("https://blanktar.jp/%s", externalPath),

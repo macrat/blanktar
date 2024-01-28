@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist"
+      "staticDistDir": "./.vercel/output/static"
     },
     "assert": {
       "preset": "lighthouse:no-pwa",
