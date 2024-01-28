@@ -594,18 +594,9 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 			continue
 		}
 
-		h := make(map[string]string)
-
-		for k, v := range conf.Headers {
-			h[k] = v
-		}
-		for k, v := range a.Headers {
-			h[k] = v
-		}
-
 		routes = append(routes, Route{
 			Src:     regexp.QuoteMeta(a.Path),
-			Headers: h,
+			Headers: a.Headers,
 		})
 	}
 
