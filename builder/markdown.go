@@ -2,8 +2,8 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"net/url"
 	"regexp"
@@ -137,12 +137,7 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 		return ast.WalkStop, err
 	}
 
-	jsonCode, err := json.Marshal(plainCode)
-	if err != nil {
-		return ast.WalkStop, err
-	}
-
-	_, err = fmt.Fprintf(w, `<div class="chroma"><button onclick='copyCodeBlock(this, %s)'>Copy</button><pre>`, jsonCode)
+	_, err = fmt.Fprintf(w, `<div class="chroma" data-code="%s"><button onclick='copyCodeBlock(this)'>Copy</button><pre>`, template.HTMLEscapeString(plainCode))
 	if err != nil {
 		return ast.WalkStop, err
 	}
@@ -159,8 +154,8 @@ func (r *CodeRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 	_, err := fmt.Fprintf(w, `
 		<script>
-		function copyCodeBlock(elm, code) {
-			navigator.clipboard.writeText(code).then(() => {
+		function copyCodeBlock(elm) {
+			navigator.clipboard.writeText(elm.parentNode.dataset.code).then(() => {
 				elm.innerText = "Copied!";
 				setTimeout(() => {
 					elm.innerText = "Copy";
