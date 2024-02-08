@@ -26,10 +26,15 @@ type RedirectConfig struct {
 	Destination string `json:"destination"`
 }
 
+type HeaderConfig struct {
+	Source  string            `json:"source"`
+	Headers map[string]string `json:"headers"`
+}
+
 type Config struct {
-	Blog      BlogConfig        `json:"blog"`
-	Headers   map[string]string `json:"headers"`
-	Redirects []RedirectConfig  `json:"redirects"`
+	Blog      BlogConfig       `json:"blog"`
+	Headers   []HeaderConfig   `json:"headers"`
+	Redirects []RedirectConfig `json:"redirects"`
 }
 
 func LoadConfig(path string) (Config, error) {

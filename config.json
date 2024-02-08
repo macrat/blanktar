@@ -2,11 +2,29 @@
   "blog": {
     "posts_per_page": 10
   },
-  "headers": {
-    "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "deny",
-    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'"
-  },
+  "headers": [
+    {
+      "source": "/.*",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'",
+        "Cache-Control": "public, max-age=1800, s-maxage=0, stale-while-revalidate=3600"
+      }
+    },
+    {
+      "source": "/print.css",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, s-maxage=600, stale-while-revalidate=86400"
+      }
+    },
+    {
+      "source": "/.*\\.(jpg|jpeg|png|gif|svg|ico|webp)",
+      "headers": {
+        "Cache-Control": "public, max-age=86400, s-maxage=600, stale-while-revalidate=86400"
+      }
+    }
+  ],
   "redirects": [
     {"source": "/about.html", "destination": "/about"},
     {"source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+)\\.html", "destination": "/blog/$1/$2/$3"},
