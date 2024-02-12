@@ -1,7 +1,7 @@
 ---
 title: raspberry Pi/golangで温湿度センサ（HDC1000）を読んでfluentdに流す温度・湿度ロガー作った話
 pubtime: 2018-09-27T20:37:00+09:00
-tags: [Linux, Go, Fluentd, ライブラリの紹介, ハードウェア]
+tags: [Linux, Go言語, Fluentd, ライブラリの紹介, ハードウェア]
 image: [/blog/2018/09/raspberrypi-zero-temperature-humidity-logger.jpg]
 description: go言語を使ってraspberry Piに付けた温湿度センサ（HDC1000）の値を読み取ってみました。読み取ったデータはfluentdに流して記録しています。
 howto:
