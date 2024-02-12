@@ -111,7 +111,10 @@ func main() {
 日本語や他の言語に対応させる場合は、それぞれに対応したフォントファイルを読み込む必要があります。
 
 ここでは、[github.com/golang/freetype/truetype](https://pkg.go.dev/github.com/golang/freetype/truetype)を使ってTrueTypeフォント（拡張子が.ttfのフォント）を読み込んで使います。
-フォントはどんなものでも大丈夫ですが、サンプルには[Koruriフォント](https://koruri.github.io/)を使います。
+
+下記のサンプルコードは、カレントディレクトリの中に「font.ttf」というファイル名でフォントファイルを置いてから実行してください。
+フォントは.ttfならどんなものでも大丈夫です。  
+（サンプル画像では[Koruriフォント](https://koruri.github.io/)を使っています）
 
 ```go
 import (
