@@ -605,8 +605,8 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 
 	for _, h := range conf.Headers {
 		routes = append(routes, Route{
-			Src:     h.Source,
-			Headers: h.Headers,
+			Src:      h.Source,
+			Headers:  h.Headers,
 			Continue: true,
 		})
 	}
