@@ -8,36 +8,36 @@ jobs:
     name: Unit Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         with:
           go-version: 1.21.x
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cd builder && go test -race ./...
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         with:
           go-version: 1.21.x
 
       - name: Checkout base branch
         if: ${{ github.ref != 'refs/heads/photos' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checkout master branch
         if: ${{ github.ref == 'refs/heads/photos' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: master
       - name: Checkout photos branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: photos
           path: pages/photos
 
       - name: Cache assets
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .vercel/cache
           key: build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
@@ -61,14 +61,14 @@ jobs:
     if: ${{ github.ref != 'refs/heads/photos' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Load artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: .vercel/output/
 
-      - uses: treosh/lighthouse-ci-action@v10
+      - uses: treosh/lighthouse-ci-action@v11
         with:
           configPath: .github/lighthouse.json
           runs: 3
@@ -97,7 +97,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Load artifact
         uses: actions/download-artifact@v4
         with:
@@ -128,7 +128,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: master
       - name: Load artifact
