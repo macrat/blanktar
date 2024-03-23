@@ -220,7 +220,7 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 				visibility: visible;
 			}
 		}
-		@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
+		@media screen and (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
 			.chroma::before {
 				background: linear-gradient(to left, #0000, #fff);
 			}
@@ -238,7 +238,7 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 	}
 
 	_, err = fmt.Fprintf(w, `}
-		@media (prefers-color-scheme: dark) and (not (prefers-contrast: more)) {
+		@media screen and (prefers-color-scheme: dark) and (not (prefers-contrast: more)) {
 			.chroma {
 				border: none;
 			}
