@@ -39,6 +39,9 @@ article {
 .bread-crumbs, article h1, article .metadata {
     column-span: all;
 }
+article h1 {
+    padding: 0 1.5cm;
+}
 .metadata {
     position: absolute;
     top: 0;
