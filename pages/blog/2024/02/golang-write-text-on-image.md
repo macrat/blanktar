@@ -83,9 +83,9 @@ func main() {
 
 	// 画像をoutput.jpgとして保存する。
 	out, err := os.Create("output.jpg")
-  if err != nil {
-    log.Fatal(err)
-  }
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer out.Close()
 	if err := jpeg.Encode(out, img, nil); err != nil {
 		log.Fatal(err)
