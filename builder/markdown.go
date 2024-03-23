@@ -168,8 +168,24 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 			line-height: 1.5;
 			border: 1px solid #433;
 			position: relative;
+			margin: .5em 0;
+		}
+		.chroma::before, .chroma::after {
+			content: "";
+			position: absolute;
+			top: 24px;
+			bottom: 24px;
+			width: 12px;
+			z-index: 1;
+		}
+		.chroma::before {
+			left: 0;
+		}
+		.chroma::after {
+			right: 0;
 		}
 		.chroma pre {
+			margin: 0;
 			padding: 24px 12px;
 			overflow-x: auto;
 			font-family: monospace, sans-serif;
@@ -192,12 +208,25 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 			opacity: 0;
 			visibility: hidden;
 			transition: opacity .2s, visibility .2s;
+			z-index: 2;
 		}
 		.chroma:hover button {
 			opacity: 1;
 			visibility: visible;
 		}
+		@media (hover: none) {
+			.chroma button {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
 		@media (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
+			.chroma::before {
+				background: linear-gradient(to left, #0000, #fff);
+			}
+			.chroma::after {
+				background: linear-gradient(to right, #0000, #fff);
+			}
 	`)
 	if err != nil {
 		return err
@@ -213,6 +242,12 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 			.chroma {
 				border: none;
 			}
+			.chroma::before {
+				background: linear-gradient(to left, #0000, #2e3440);
+			}
+			.chroma::after {
+				background: linear-gradient(to right, #0000, #2e3440);
+			}
 	`)
 	if err != nil {
 		return err
@@ -223,7 +258,12 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 		return err
 	}
 
-	_, err = fmt.Fprintf(w, "}\n@media (prefers-contrast: more) {")
+	_, err = fmt.Fprintf(w, `}
+		@media (prefers-contrast: more) {
+			.chroma {
+				border-color: currentColor;
+			}
+	`)
 	if err != nil {
 		return err
 	}

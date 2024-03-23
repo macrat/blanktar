@@ -20,24 +20,49 @@
 
 <style>
 html {
-    background-color: #f9f9f9;
-    background-image: linear-gradient(90deg, #0000 0, #0000 9.8mm, #eee 9.8mm, #eee 10mm), linear-gradient(0deg, #0000 0, #0000 9.8mm, #eee 9.8mm, #eee 10mm);
-    background-size: 10mm 10mm;
-    color: #322;
+    background-color: #f0ece9;
+    color: #331d1d;
+    overflow-x: hidden;
 }
 body {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 0 8px;
-    max-width: 1200px;
+    margin: 0;
     line-break: strict;
+    overflow-x: hidden;
 }
 body > div {
-    flex: 1;
+    width: 100%;
+    max-width: 297mm;
+    margin: 16px auto 0;
+    position: relative;
 }
+@media screen and (max-width: 313mm) {
+    body > div {
+        width: auto;
+        margin: 20px 8mm 0;
+    }
+}
+@media screen and (max-width: 40em) {
+    body > div {
+        margin: 0 12px;
+    }
+    .tombo {
+        display: none;
+    }
+}
+.tombo {
+    position: absolute;
+    stroke: currentColor;
+}
+.tombo.top { top: -16mm; }
+.tombo.bottom { bottom: -16mm; }
+.tombo.left { left: -16mm; }
+.tombo.right { right: -16mm; }
+.tombo.hcenter { left: 50%; transform: translateX(-50%); }
+.tombo.vcenter { top: 50%; transform: translateY(-50%); }
+
 a {
     color: #43e;
 }
@@ -73,10 +98,6 @@ nav li > a {
 }
 .pageqr {
     display: none;
-}
-
-main {
-    padding: 0 8px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -120,6 +141,12 @@ article h5::before {
 article h6::before {
     content: '##### ';
     opacity: .3;
+}
+article hr {
+    width: 50%;
+    margin: 3em auto;
+    border: none;
+    border-top: .1mm solid currentColor;
 }
 
 img {
@@ -178,8 +205,7 @@ footer > a {
 @media screen and (prefers-color-scheme: dark) {
     html {
         background-color: #484040;
-        background-image: linear-gradient(90deg, #0000 0, #0000 9.8mm, #4f4a4a 9.8mm, #4f4a4a 10mm), linear-gradient(0deg, #0000 0, #0000 9.8mm, #4f4a4a 9.8mm, #4f4a4a 10mm);
-        color: #eee;
+        color: #eee9e9;
     }
     a {
         color: #aaf;
@@ -217,21 +243,30 @@ footer > a {
 
     <body>
         {{block "body" .}}
+            <header>
+                <nav>
+                    <a href="/" class="site-name">Blanktar</a>
+                    <ul>
+                        <li><a href="/about">about</a></li>
+                        <li><a href="/blog">blog</a></li>
+                        <li><a href="/works">works</a></li>
+                        <li><a href="/photos">photos</a></li>
+                    </ul>
+                </nav>
+            </header>
+
             <div>
-                <header>
-                    <nav>
-                        <a href="/" class="site-name">Blanktar</a>
-                        <ul>
-                            <li><a href="/about">about</a></li>
-                            <li><a href="/blog">blog</a></li>
-                            <li><a href="/works">works</a></li>
-                            <li><a href="/photos">photos</a></li>
-                        </ul>
-                    </nav>
-                </header>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top left"><polyline points="15 0, 15 10, 5 10" fill="none" stroke-width="0.2" /><polyline points="10 5, 10 15, 0 15" fill="none" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top hcenter"><line x1="0" x2="15" y1="10" y2="10" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="5" y2="11" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top right"><polyline points="0 0, 0 10, 10 10" fill="none" stroke-width="0.2" /><polyline points="5 5, 5 15, 15 15" fill="none" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo left vcenter"><line x1="10" x2="10" y1="0" y2="15" stroke-width="0.2" /><line x1="5" x2="11" y1="7.5" y2="7.5" stroke-width="0.2" /></svg>
                 <main>
                     {{template "main" .}}
                 </main>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom left"><polyline points="15 15, 15 5, 5 5" fill="none" stroke-width="0.2" /><polyline points="10 10, 10 0, 0 0" fill="none" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom hcenter"><line x1="0" x2="15" y1="5" y2="5" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="4" y2="10" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom right"><polyline points="0 15, 0 5, 10 5" fill="none" stroke-width="0.2" /><polyline points="5 10, 5 0, 15 0" fill="none" stroke-width="0.2" /></svg>
+                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo right vcenter"><line x1="5" x2="5" y1="0" y2="15" stroke-width="0.2" /><line x1="4" x2="10" y1="7.5" y2="7.5" stroke-width="0.2" /></svg>
             </div>
         {{end}}
 
