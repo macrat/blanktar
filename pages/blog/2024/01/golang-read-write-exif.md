@@ -118,12 +118,12 @@ import (
 )
 
 func main() {
-  // ...省略...
+	// ...省略...
 
-  list := tag.Value.([]exifcommon.Rational)
-  float := float64(list[0].Numerator) / float64(list[0].Denominator)
+	list := tag.Value.([]exifcommon.Rational)
+	float := float64(list[0].Numerator) / float64(list[0].Denominator)
 
-  fmt.Printf("変換前: %v\n変換後: %f\n", tag.Value, float)
+	fmt.Printf("変換前: %v\n変換後: %f\n", tag.Value, float)
 }
 ```
 
