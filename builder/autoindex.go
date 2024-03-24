@@ -576,12 +576,13 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 		Src      string            `json:"src,omitempty"`
 		Dest     string            `json:"dest,omitempty"`
 		Handle   string            `json:"handle,omitempty"`
+		Check    bool              `json:"check,omitempty"`
 		Headers  map[string]string `json:"headers,omitempty"`
 		Status   int               `json:"status,omitempty"`
 		Continue bool              `json:"continue,omitempty"`
 	}
 
-	routes := make([]Route, 0, len(as)+len(conf.Redirects)+len(conf.Headers)+4)
+	routes := make([]Route, 0, len(as)+len(conf.Redirects)+len(conf.Headers)+6)
 
 	routes = append(routes, Route{
 		Src: "/(.*)/",
@@ -635,6 +636,15 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 			Status: 301,
 		})
 	}
+
+	routes = append(routes, Route{
+		Handle: "miss",
+	}, Route{
+		Src: "/(.*)",
+		Dest: "/404.html",
+		Check: true,
+		Status: 404,
+	})
 
 	err = json.NewEncoder(output).Encode(map[string]any{
 		"version": 3,
