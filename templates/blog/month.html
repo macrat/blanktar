@@ -2,6 +2,41 @@
 
 {{define "description"}}Blanktarに掲載された{{.Year}}年{{.Month}}月のブログ記事一覧。{{end}}
 
+{{define "head"}}
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "blanktar.jp",
+            "item": "https://blanktar.jp"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "blog",
+            "item": "https://blanktar.jp/blog"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{.Year}}",
+            "item": "https://blanktar.jp/blog/{{.Year}}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "{{zfill .Month 2}}",
+            "item": {{.URL}}
+        }
+    ]
+}
+    </script>
+{{end}}
+
 {{/* <style> */}}
 {{define "style"}}
 .articles-of-month {

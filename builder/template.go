@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"math"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -40,6 +42,16 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 				return -x
 			}
 			return x
+		},
+		"zfill": func(x, n int) string {
+			s := strconv.Itoa(x)
+			if len(s) >= n {
+				return s
+			}
+			return strings.Repeat("0", n-len(s)) + s
+		},
+		"concat": func(s ...string) string {
+			return strings.Join(s, "")
 		},
 		"escapetag": EscapeTag,
 		"tagsize": func(n int) int {

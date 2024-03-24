@@ -640,9 +640,9 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 	routes = append(routes, Route{
 		Handle: "miss",
 	}, Route{
-		Src: "/(.*)",
-		Dest: "/404.html",
-		Check: true,
+		Src:    "/(.*)",
+		Dest:   "/404.html",
+		Check:  true,
 		Status: 404,
 	})
 

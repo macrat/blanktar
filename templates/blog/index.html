@@ -2,6 +2,37 @@
 
 {{define "description"}}Blanktarに掲載されたブログ記事一覧の{{.TotalPages}}ページ中{{.Page}}ページ目。{{end}}
 
+{{define "head"}}
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "blanktar.jp",
+            "item": "https://blanktar.jp"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "blog",
+            "item": "https://blanktar.jp/blog"
+        {{if gt .Page 1}},
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{.Page}}",
+                "item": "https://blanktar.jp/blog/{{.Page}}"
+        {{end}}
+        }
+    ]
+}
+    </script>
+{{end}}
+
 {{/* <style> */}}
 {{define "style"}}
 .blog-articles {

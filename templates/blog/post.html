@@ -13,7 +13,7 @@
     {{if .Image}}
         "image": [
             {{range .Image}}
-                "{{.}}",
+                {{concat "https://blanktar.jp" .}},
             {{end}}
         ],
     {{end}}
@@ -38,20 +38,26 @@
         {
             "@type": "ListItem",
             "position": 2,
-            "name": "{{.Published.Format "2006"}}",
-            "item": "https://blanktar.jp/{{.Published.Format "2006"}}"
+            "name": "blog",
+            "item": "https://blanktar.jp/blog"
         },
         {
             "@type": "ListItem",
             "position": 3,
-            "name": "{{.Published.Format "01"}}",
-            "item": "https://blanktar.jp/{{.Published.Format "2006"}}/{{.Published.Format "01"}}"
+            "name": "{{.Published.Format "2006"}}",
+            "item": "https://blanktar.jp/blog/{{.Published.Format "2006"}}"
         },
         {
             "@type": "ListItem",
             "position": 4,
+            "name": "{{.Published.Format "01"}}",
+            "item": "https://blanktar.jp/blog/{{.Published.Format "2006"}}/{{.Published.Format "01"}}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 5,
             "name": "{{.Title}}",
-            "item": "https://blanktar.jp{{.Path}}"
+            "item": {{.URL}}
         }
     ]
 }

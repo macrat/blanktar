@@ -4,6 +4,39 @@
 
 {{define "head"}}
     <meta property="og:image" content="https://blanktar.jp{{ index .VariantPathes 1920 }}>">
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "blanktar.jp",
+            "item": "https://blanktar.jp"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "photos",
+            "item": "https://blanktar.jp/photos"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{.Metadata.DateTime.Year}}",
+            "item": "https://blanktar.jp/photos/{{.Metadata.DateTime.Year}}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "{{.Metadata.DateTime.Format "2006年01月02日"}}",
+            "item": {{.URL}}
+        }
+    ]
+}
+    </script>
 {{end}}
 
 {{/* <style> */}}
@@ -47,6 +80,22 @@ img {
                     {{.Metadata.Comment}}
                 </div>
             {{end}}
+
+            {{.Path}}
+            <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "contentUrl": {{concat "https://blanktar.jp/" .ImagePath}},
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": {
+        "@type": "Person",
+        "name": "MacRat",
+        "url": "https://blanktar.jp/about",
+    },
+    "creditText": "SHIDA Yuma (aka MacRat)",
+}
+            </script>
         </div>
     </article>
 {{end}}
