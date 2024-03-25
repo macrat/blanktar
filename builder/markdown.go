@@ -345,8 +345,8 @@ func (r ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 
 	image := node.(*ast.Image)
 
-	sizes := regexp.MustCompile(`^([0-9]+)x([0-9]+)$`).FindSubmatch(image.Title)
-	if len(sizes) == 3 {
+	sizes := regexp.MustCompile(`^([0-9]+)x([0-9]+)( CC-BY)?$`).FindSubmatch(image.Title)
+	if len(sizes) >= 3 {
 		_, err := fmt.Fprintf(
 			w,
 			`<img src="%s" alt="%s" width="%s" height="%s" loading="lazy" />`,
@@ -355,6 +355,28 @@ func (r ImageRenderer) Render(w markdown.BufWriter, source []byte, node ast.Node
 			sizes[1],
 			sizes[2],
 		)
+		if err != nil {
+			return ast.WalkStop, err
+		}
+
+		if len(sizes) >= 4 && string(sizes[3]) == " CC-BY" {
+			_, err = fmt.Fprintf(w, `
+				<script type="application/ld+json">
+					{
+						"@context": "http://schema.org",
+						"@type": "ImageObject",
+						"license": "https://creativecommons.org/licenses/by/4.0",
+						"contentUrl": "https://blanktar.jp%s",
+						"creditText": "blanktar.jp",
+						"copyrightNotice": "SHIDA Yuma (aka MacRat)",
+						"creator": {
+							"@type": "Person",
+							"name": "MacRat"
+						}
+					}
+				</script>
+			`, image.Destination)
+		}
 
 		return ast.WalkSkipChildren, err
 	} else {

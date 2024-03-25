@@ -154,7 +154,7 @@ func ResizeImageKeepAspect(img image.Image, size int) image.Image {
 画像をトリミングする場合、以下のような考え方で切り抜く範囲を決めます。
 左上座標が (top, left) 、右下の座標が (top+width, left+height) 、完成する画像のサイズは width × height になります。
 
-![画像をトリミングする場合の座標のイメージ。元となる画像の左上から、トリミングしたいエリアの一番上までの高さがTop、一番左までの幅がLeft、トリミングしたいエリアの幅と高さがWidthとHeightとなる。](/blog/2024/01/golang-resize-image/image-triming.svg "480x320")
+![画像をトリミングする場合の座標のイメージ。元となる画像の左上から、トリミングしたいエリアの一番上までの高さがTop、一番左までの幅がLeft、トリミングしたいエリアの幅と高さがWidthとHeightとなる。](/blog/2024/01/golang-resize-image/image-triming.svg "480x320 CC-BY")
 
 座標が決まったら、以下のようなコードでトリミングをします。
 
@@ -177,7 +177,7 @@ func TrimImage(img image.Image, top, left, width, height int) image.Image {
 トリミング方法のよくあるパターンとして、画像の中心部分を正方形になるように切り抜く場合を取り上げます。
 具体的には、サムネイルに使うための画像を作成する場合などですね。
 
-![画像を正方形にくり抜くイメージ。横長の画像の左右を切って、中央の正方形になる部分を取り出している。](/blog/2024/01/golang-resize-image/image-square-triming.svg "480x320")
+![画像を正方形にくり抜くイメージ。横長の画像の左右を切って、中央の正方形になる部分を取り出している。](/blog/2024/01/golang-resize-image/image-square-triming.svg "480x320 CC-BY")
 
 ```go
 func SquareTrimImage(img image.Image, size int) image.Image {
