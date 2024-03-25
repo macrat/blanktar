@@ -1,4 +1,4 @@
-{{define "title"}}photos {{.Metadata.DateTime.Format "2006/01/02"}} - Blanktar{{end}}
+{{define "title"}}{{.Metadata.DateTime.Format "2006年01月02日"}}の写真 - Blanktar{{end}}
 
 {{define "description"}}{{.Metadata.Comment}}{{end}}
 
@@ -80,8 +80,6 @@ img {
                     {{.Metadata.Comment}}
                 </div>
             {{end}}
-
-            {{.Path}}
         </div>
     </article>
 {{end}}
