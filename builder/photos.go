@@ -62,7 +62,7 @@ func (c PhotoConverter) Convert(dst fs.Writable, src Source, conf Config) (Artif
 		}
 	}
 
-	if err := img.SetArtist("SHIDA Yuma (aka. MacRat)", meta.DateTime.Format("CC-BY (c)2006 MacRat")); err != nil {
+	if err := img.SetArtist("SHIDA Yuma (aka. MacRat)", meta.DateTime.Format("(c)2006 MacRat")); err != nil {
 		return nil, err
 	}
 
