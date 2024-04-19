@@ -13,7 +13,7 @@ require (
 	github.com/tdewolff/minify/v2 v2.20.19
 	github.com/yuin/goldmark v1.7.0
 	golang.org/x/image v0.15.0
-	golang.org/x/net v0.22.0
+	golang.org/x/net v0.23.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
