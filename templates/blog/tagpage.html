@@ -35,7 +35,7 @@
         {{range .Posts}}
             <li><a href="{{.Path}}">
                 <time>{{.Published.Format "2006-01-02"}}</time>
-                {{.Title}}
+                <span style="view-transition-name: {{.Path | shorthash}}">{{.Title}}</span>
             </a></li>
         {{end}}
     </ol>

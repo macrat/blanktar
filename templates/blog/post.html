@@ -254,7 +254,7 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
             <li><a href="/blog/{{.Published.Format "2006"}}">{{.Published.Format "2006"}}</a></li>
             <li><a href="/blog/{{.Published.Format "2006/01"}}">{{.Published.Format "01"}}</a></li>
         </ol>
-        <h1>{{.Title}}</h1>
+        <h1><span style="view-transition-name: {{.Path | shorthash}}">{{.Title}}</span></h1>
         <div class="metadata">
             <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02"}}</time>
             {{- if and (not .Modified.IsZero) (ne (.Published.Format "2006-01-02") (.Modified.Format "2006-01-02"))}}(初版) → <time datetime="{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}">{{.Modified.Format "2006-01-02"}}</time>(改訂)

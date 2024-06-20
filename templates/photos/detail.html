@@ -71,6 +71,7 @@ img {
                 alt="{{.Metadata.Comment}}"
                 width="{{.Metadata.Width}}"
                 height="{{.Metadata.Height}}"
+                style="view-transition-name: {{.Path | shorthash}}"
                 loading="lazy">
 
             {{.Metadata.DateTime.Format "2006年01月02日"}} - {{.Metadata.Model}}{{if ne .Metadata.LensModel "unknown"}} - {{.Metadata.LensModel}}{{end}} - {{.Metadata.ExposureTime}} - F{{.Metadata.ApertureValue}} - ISO{{.Metadata.ISOSpeedRatings}}

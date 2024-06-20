@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"crypto/sha256"
+	"encoding/base64"
 )
 
 type TemplateLoader struct {
@@ -59,6 +61,11 @@ func NewTemplateLoader(basePath string) (*TemplateLoader, error) {
 		},
 		"xmldecralation": func() template.HTML {
 			return template.HTML(`<?xml version="1.0" encoding="UTF-8"?>`)
+		},
+		"shorthash": func(s string) string {
+			hash := sha256.New()
+			hash.Write([]byte(s))
+			return base64.URLEncoding.EncodeToString(hash.Sum(nil)[:8])[:8]
 		},
 	})
 
