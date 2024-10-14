@@ -1,7 +1,7 @@
 ---
 title: Linux/Windowsのデュアルブート環境でBluetoothやBLEのデバイスを共有する方法
 pubtime: 2020-10-07T19:49:00+09:00
-modtime: 2021-07-09T21:32:00+09:00
+modtime: 2024-10-14T15:50:00+09:00
 tags: [Linux, Windows, 環境構築]
 description: デュアルブート環境で同じBluetoothやBLEのデバイスを使おうとすると、OSを変えて起動する度にペアリングしなおさないといけなくて面倒です。少し作業をすることでこれを回避出来るようだったので、試してみました。
 image: [/blog/2020/10/dual-boot-bluetooth.png]
@@ -40,13 +40,20 @@ howto:
 デバイスから見ると、「同じMACアドレスを名乗っているのに約束していたキーと違う。偽物だ！」みたいな感じらしいです。
 
 調べてみたら結構簡単に合せられるっぽいので、設定してみました。
-Bluetoothの場合とBluetooth LEの場合で一部手順が違うので、お使いのデバイスに合わせて対応してください。
+Bluetoothの場合とBluetooth LE (以下BLE)の場合で一部手順が違うので、お使いのデバイスに合わせて対応してください。
+
+BluetoothとBLEのどちらも、全体としては以下のような流れで作業します。
+
+1. [Linux側でペアリングする](#1.+Linux側でペアリングする): 接続情報のファイルを生成するために、まずはLinux側で接続します。
+2. [Windows側でペアリングする](2.+Windows側でペアリングする): Windows側でも接続して、最終的に使うキーを生成します。
+3. [Windowsのレジストリから情報を取り出す](3.+Windowsのレジストリから情報を取り出す): Windowsが作った接続に必要な情報を取り出します。
+4. [Linuxに戻って接続情報を編集する](4.+Linuxに戻って接続情報を編集する): 3で取り出した情報を加工して、1で作ったファイルに書き込みます。
 
 
 # 1. Linux側でペアリングする
 
-Windows側で生成したキーにLinux側を合せる手順を取るので、LinuxでペアリングしてからWindowsでペアリングする順序にします。
-というわけで、まずはLinuxで普通にペアリング。
+まずはLinuxを起動して、対象のデバイスと普通にペアリングをします。
+bluetoothctlやbluemanなどを使っていつも通り接続してください。
 
 接続すると、`/var/lib/bluetooth/{レシーバのmacアドレス}/{デバイスのmacアドレス}`の中に接続情報が書かれたファイルが生成されるはずです。
 
@@ -56,7 +63,7 @@ Windows側で生成したキーにLinux側を合せる手順を取るので、Li
 今度はWindowsを起動して、もう一度ペアリングします。
 
 ここでWindowsとデバイス間で作られたキーの情報を使って接続するようにします。
-別にLinux側で作ったやつをWindows側に持っていっても良いと思うのだけれど、Linux側の方がいじりやすいので。
+別にLinux側で作ったやつをWindows側に持っていっても良いはずなのですが、Linux側の方がいじりやすいのでこの手順にしています。
 
 
 # 3. Windowsのレジストリから情報を取り出す
@@ -305,6 +312,7 @@ Node has 2 subkeys and 4 values
 Bluetoothの場合のやり方はかなり単純で、以下のように `hex` コマンドを使うと必要なLinkKeyを取り出せます。
 
 ```
+(...)\Parameters\Keys\001bdxxxxxxx> hex cc988bxxxxxx
 Value <cc988bxxxxxx> of type REG_BINARY (3), data length 16 [0x10]
 :00000  84 10 10 XX XX XX XX XX XX XX XX XX XX 27 CE ED ................
 ```
