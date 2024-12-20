@@ -1,7 +1,7 @@
 ---
 title: Python3ならintとbytesの変換が楽勝になる
 pubtime: 2014-10-05T00:10:00+09:00
-modtime: 2024-01-25T18:50:00+09:00
+modtime: 2024-12-21T00:12:00+09:00
 tags: [Python, 言語仕様]
 description: Python3.2以降で、bytes型のバイナリデータとint型の整数を相互に変換する方法の紹介です。
 image: [/blog/2014/10/python3-convert-int-bytes.png]
@@ -27,7 +27,7 @@ C言語ならキャストしちゃえば一発なんだけどねー。
 
 使い方は以下のような感じになります。
 
-# bytesからintにする
+# intからbytesにする
 
 ``` python
 >>> a = 128
@@ -59,7 +59,7 @@ b'\x80'
 b'\x02\xbc'
 ```
 
-# intからbytesにする
+# bytesからintにする
 
 int -&gt; bytesが出来るのだからもちろんbytes -&gt; intも出来ます。
 ``` python
