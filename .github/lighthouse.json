@@ -12,6 +12,7 @@
         "dom-size": "warn",
         "identical-links-same-purpose": "warn",
         "lcp-lazy-loaded": "warn",
+        "lcp-discovery-insight": "warn",
         "link-text": "warn",
         "non-composited-animations": "error",
         "preload-lcp-image": "off",
