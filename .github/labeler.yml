@@ -1,6 +1,8 @@
 記事:
-  - pages/blog/**/*
+  - changed-files:
+    - any-glob-to-any-file: pages/blog/**/*
 
 リポジトリ管理:
-  - .github/**/*
-  - README.md
+  - changed-files:
+    - any-glob-to-any-file: .github/**/*
+    - any-glob-to-any-file: README.md
