@@ -10,7 +10,7 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/google/go-cmp v0.7.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/tdewolff/minify/v2 v2.24.0
+	github.com/tdewolff/minify/v2 v2.24.2
 	github.com/yuin/goldmark v1.7.13
 	golang.org/x/image v0.30.0
 	golang.org/x/net v0.43.0
