@@ -12,7 +12,6 @@ tags: [メール, SMTP]
 メールサーバーはGmailで、送信に使ったクライアントはcurlです。
 
 ```shell
-server='smtps://smtp.gmail.com:465'
 from='"MySystem" <my-system@example.com>'
 
 curl $server -u "${username}:${password}" --mail-from $from --mail-rcpt $to -T - <<EOS
