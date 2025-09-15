@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: quarterly
+    labels:
+      - 依存関係
+    groups:
+      github-actions:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - major
+          - minor
+          - patch
+  - package-ecosystem: gomod
+    directory: /builder
+    schedule:
+      interval: monthly
+    labels:
+      - 依存関係
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch

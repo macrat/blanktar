@@ -6,14 +6,14 @@ require (
 	github.com/alecthomas/chroma v0.10.0
 	github.com/dsoprea/go-exif/v3 v3.0.1
 	github.com/dsoprea/go-jpeg-image-structure/v2 v2.0.0-20221012074422-4f3f7e934102
-	github.com/fsnotify/fsnotify v1.8.0
+	github.com/fsnotify/fsnotify v1.9.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/tdewolff/minify/v2 v2.21.3
-	github.com/yuin/goldmark v1.7.8
-	golang.org/x/image v0.24.0
-	golang.org/x/net v0.34.0
+	github.com/tdewolff/minify/v2 v2.24.2
+	github.com/yuin/goldmark v1.7.13
+	golang.org/x/image v0.30.0
+	golang.org/x/net v0.43.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -26,7 +26,7 @@ require (
 	github.com/go-errors/errors v1.5.1 // indirect
 	github.com/go-xmlfmt/xmlfmt v1.1.3 // indirect
 	github.com/golang/geo v0.0.0-20230421003525-6adc56603217 // indirect
-	github.com/tdewolff/parse/v2 v2.7.20 // indirect
-	golang.org/x/sys v0.30.0 // indirect
+	github.com/tdewolff/parse/v2 v2.8.3 // indirect
+	golang.org/x/sys v0.35.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
