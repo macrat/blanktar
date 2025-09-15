@@ -27,7 +27,7 @@ EOS
 これを実行すると、以下のようなエラーが返ってきました。
 
 ```text
-target@example.com [555-5.5.2 Syntax error, cannot decode response. For more information, go to5.5.2  https://support.google.com/a/answer/3221692 and review RFC 5321 5.5.2 specifications. x4-00000000000000000000000000000000000000000pgl.108 - gsmtp]
+target@example.com [555-5.5.2 Syntax error, cannot decode response. For more information, go to 5.5.2  https://support.google.com/a/answer/3221692 and review RFC 5321 5.5.2 specifications. x4-00000000000000000000000000000000000000000pgl.108 - gsmtp]
 ```
 
 [RFC5321](https://www.ietf.org/rfc/rfc5321.txt)によれば、555は「555  MAIL FROM/RCPT TO parameters not recognized or not implemented」という意味のようです。
