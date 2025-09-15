@@ -7,6 +7,8 @@ jobs:
   test:
     name: Unit Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/setup-go@v5
         with:
@@ -19,6 +21,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/setup-go@v5
         with:
@@ -63,6 +67,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     if: ${{ github.ref != 'refs/heads/photos' }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -90,6 +96,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, build]
     if: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/photos' }}
+    permissions:
+      contents: read
+      deployments: write
     environment:
       name: preview
       url: ${{ steps.deploy.outputs.url }}
@@ -121,6 +130,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, lighthouse, build]
     if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/photos' }}
+    permissions:
+      contents: read
+      deployments: write
     environment:
       name: production
       url: ${{ steps.deploy.outputs.url }}
