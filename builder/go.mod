@@ -1,6 +1,6 @@
 module github.com/macrat/blanktar/builder
 
-go 1.23.5
+go 1.25.1
 
 require (
 	github.com/alecthomas/chroma v0.10.0
