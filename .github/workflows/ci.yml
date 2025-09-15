@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: builder/go.mod
-          cache-dependency-path: builder/go.mod
+          cache-dependency-path: builder/go.sum
       - uses: actions/checkout@v5
       - run: cd builder && go test -race ./...
 
@@ -26,8 +26,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: builder/go.mod
-          check-latest: true
-          cache-dependency-path: builder/go.mod
+          cache-dependency-path: builder/go.sum
 
       - name: Checkout base branch
         if: ${{ github.ref != 'refs/heads/photos' }}
