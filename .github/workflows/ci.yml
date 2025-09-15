@@ -29,11 +29,11 @@ jobs:
       - name: Checkout base branch
         if: ${{ github.ref != 'refs/heads/photos' }}
         uses: actions/checkout@v5
-      - name: Checkout master branch
+      - name: Checkout main branch
         if: ${{ github.ref == 'refs/heads/photos' }}
         uses: actions/checkout@v5
         with:
-          ref: master
+          ref: main
       - name: Checkout photos branch
         uses: actions/checkout@v5
         with:
@@ -89,7 +89,7 @@ jobs:
     name: Preview Deploy
     runs-on: ubuntu-latest
     needs: [test, build]
-    if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/photos' }}
+    if: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/photos' }}
     environment:
       name: preview
       url: ${{ steps.deploy.outputs.url }}
@@ -120,7 +120,7 @@ jobs:
     name: Production Deploy
     runs-on: ubuntu-latest
     needs: [test, lighthouse, build]
-    if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/photos' }}
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/photos' }}
     environment:
       name: production
       url: ${{ steps.deploy.outputs.url }}
@@ -134,7 +134,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          ref: master
+          ref: main
       - name: Load artifact
         uses: actions/download-artifact@v5
         with:
