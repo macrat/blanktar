@@ -1,7 +1,7 @@
 ---
 title: gentooでコンソールからgmailを読み書きする
 pubtime: 2015-08-30T21:12:00+09:00
-tags: [Linux, Gentoo, メール, コマンド]
+tags: [Linux, Gentoo, メール, SMTP, IMAP, コマンド]
 description: linuxのコンソールからメールを扱うためのコマンド「ssmtp」と「fetchmail」の紹介です。
 ---
 
