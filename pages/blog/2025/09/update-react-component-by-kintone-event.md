@@ -14,7 +14,6 @@ Cybozu Developer Networkにも[Reactを使う方法の解説](https://cybozu.dev
 その問題は、たとえば以下のようなコードで発生します。
 
 ```typescript
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 // レコードのタイトルを箇条書きで表示するコンポーネント。
@@ -58,7 +57,6 @@ kintone.events.on('app.record.index.show', (event) => {
 一番単純な方法は、以下のようにモジュールスコープの変数に保存しておくやり方です。
 
 ```typescript
-import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 // レコードのタイトルを箇条書きで表示するコンポーネント。
@@ -110,7 +108,6 @@ kintoneから渡されるイベントが必要な箇所は、必ずしもコン�
 入れ子が一段、使う箇所が一箇所くらいであれば大した問題にはなりませんが、深くネストしていたり、多数のコンポーネントで使っていたりすると大変なことになってしまいます。
 
 ```typescript
-import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 // レコードのタイトルを箇条書きで表示するコンポーネント。
@@ -155,7 +152,7 @@ propsのバケツリレーを避けるためには、ReactのContextという機
 これを使えば、イベントで受け取った値をコンテキストに保存しておき、子コンポーネントや孫コンポーネントなどの必要な場所から取り出して使うことができます。
 
 ```typescript
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 // イベントから渡される値を保存するためのコンテキスト。
