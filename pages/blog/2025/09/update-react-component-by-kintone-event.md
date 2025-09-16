@@ -72,7 +72,7 @@ let root: Root | null = null;
 // 一覧画面が表示されたらShowListコンポーネントをマウントする。
 kintone.events.on('app.record.index.show', (event) => {
   // まだルートが無いときだけcreateRootを呼ぶ。
-  // 2回目移行は、既存のルートに対してrenderを呼ぶだけ。
+  // 2回目以降は、既存のルートに対してrenderを呼ぶだけ。
   if (!root) {
     root = createRoot(kintone.app.getHeaderSpaceElement()!);
   }
