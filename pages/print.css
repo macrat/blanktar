@@ -4,8 +4,11 @@ html {
     padding: 0;
 }
 body {
-    padding: 0;
-    max-width: 100%;
+    padding: 0 0 1em;
+}
+
+.tombo {
+	display: none;
 }
 
 header {
