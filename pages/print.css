@@ -75,9 +75,13 @@ article table th, article table td {
 ul, ol {
     padding-left: 2em;
 }
-pre {
+.chroma button {
+    display: none;
+}
+.chroma pre {
     white-space: pre-wrap;
     word-break: break-all;
+    padding: 12px !important;
 }
 
 .share {

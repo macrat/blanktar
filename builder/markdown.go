@@ -220,7 +220,7 @@ func (r *CodeRenderer) WriteCodeBlockAssets(w io.Writer) error {
 				visibility: visible;
 			}
 		}
-		@media screen and (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
+		@media print, (not (prefers-color-scheme: dark)) and (not (prefers-contrast: more)) {
 			.chroma::before {
 				background: linear-gradient(to left, #0000, #fff);
 			}
