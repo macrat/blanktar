@@ -18,7 +18,7 @@ modtime: 2023-08-16T20:14:00+09:00
     "alternateName": "MacRat",
     "image": "https://blanktar.jp/images/macrat.png",
     "sameAs": [
-      "https://twitter.com/macrat_jp",
+      "https://x.com/macrat_jp",
       "https://mstdn.jp/@macrat",
       "https://bsky.app/profile/macrat.bsky.social",
       "https://facebook.com/yuuma.shida",
@@ -40,8 +40,8 @@ modtime: 2023-08-16T20:14:00+09:00
   <dt>メール</dt>
   <dd><a target="_blank" href="mailto:m@crat.jp" rel="noopener noreferrer">m@crat.jp</a></dd>
 
-  <dt>Twitter</dt>
-  <dd><a target="_blank" href="https://twitter.com/macrat_jp" rel="noopener noreferrer">@macrat_jp</a></dd>
+  <dt>X (旧Twitter)</dt>
+  <dd><a target="_blank" href="https://x.com/macrat_jp" rel="noopener noreferrer">@macrat_jp</a></dd>
 
   <dt>Mastodon</dt>
   <dd><a target="_blank" href="https://mstdn.jp/@macrat" rel="noopener noreferrer">@macrat@mstdn.jp</a></dd>
