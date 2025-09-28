@@ -71,7 +71,7 @@ func WalkSources(f fs.Readable, fn WalkSourcesFunc) error {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && d.Name()[0] == '.' && d.Name() != ".well-known" {
+		if d.IsDir() && d.Name()[0] == '.' {
 			return fs.SkipDir
 		}
 		if !d.IsDir() && d.Name()[0] != '.' {
