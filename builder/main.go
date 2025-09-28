@@ -31,10 +31,16 @@ type HeaderConfig struct {
 	Headers map[string]string `json:"headers"`
 }
 
+type OverrideConfig struct {
+	Path        string `json:"path"`
+	ContentType string `json:"content_type"`
+}
+
 type Config struct {
-	Blog      BlogConfig       `json:"blog"`
-	Headers   []HeaderConfig   `json:"headers"`
-	Redirects []RedirectConfig `json:"redirects"`
+	Blog      BlogConfig                `json:"blog"`
+	Headers   []HeaderConfig            `json:"headers"`
+	Redirects []RedirectConfig          `json:"redirects"`
+	Overrides map[string]OverrideConfig `json:"overrides"`
 }
 
 func LoadConfig(path string) (Config, error) {
