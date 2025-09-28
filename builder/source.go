@@ -71,10 +71,10 @@ func WalkSources(f fs.Readable, fn WalkSourcesFunc) error {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && d.Name()[0] == '.' {
+		if d.IsDir() && d.Name() == ".git" {
 			return fs.SkipDir
 		}
-		if !d.IsDir() && d.Name()[0] != '.' {
+		if !d.IsDir() && d.Name() != ".git" {
 			fn(Source{name, f})
 		}
 		return nil
