@@ -646,9 +646,18 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 		Status: 404,
 	})
 
+	overrides := map[string]map[string]string{}
+	for p, o := range conf.Overrides {
+		overrides[p] = map[string]string{
+			"path":        o.Path,
+			"contentType": o.ContentType,
+		}
+	}
+
 	err = json.NewEncoder(output).Encode(map[string]any{
-		"version": 3,
-		"routes":  routes,
+		"version":   3,
+		"routes":    routes,
+		"overrides": overrides,
 	})
 	return ArtifactList{Index{
 		name:    "config.json",
