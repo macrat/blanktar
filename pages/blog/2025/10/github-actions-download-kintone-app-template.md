@@ -97,7 +97,7 @@ jobs:
 
       # リリースを作成してアプリテンプレートを添付する
       - name: Create Release
-        runs: gh release create $GITHUB_REF_NAME ./template.zip --title $GITHUB_REF_NAME --generate-notes
+        run: gh release create $GITHUB_REF_NAME ./template.zip --title $GITHUB_REF_NAME --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
