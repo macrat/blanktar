@@ -8,7 +8,7 @@ tags: [kintone, GitHub, CI/CD]
 [kintone](https://kintone.cybozu.co.jp/)で作ったアプリは、「[アプリテンプレート](https://jp.cybozu.help/k/ja/app/setup/template/whats_template.html)」という機能でzipファイルにしてダウンロードできます。
 このアプリテンプレートを使えば、アプリのフィールドやビューの設定をバックアップしたり、他の環境にコピーしたり、あるいは他のユーザーに配布したりすることができます。
 
-実はとても便利な機能なのですが、このアプリテンプレートはCLIツールやAPIなどではダウンロードできません。しかし残念ながら、kintoneの管理画面から手動でダウンロードする必要があります。これは面倒くさい。
+実はとても便利な機能なのですが、このアプリテンプレートはCLIツールやAPIなどではダウンロードできません。しかたがないのでkintoneの管理画面から手動でダウンロードする必要があります。これは面倒くさい。
 
 というわけで、GitHub Actionsを使って自動的にダウンロードするために「[macrat/download-kintone-template-action](https://github.com/macrat/download-kintone-template-action)」というアクションを作ってみました。
 このアクションを使えば、わざわざブラウザを操作しなくとも、自動的にアプリテンプレートをダウンロードしてどこかに保存することができます。
