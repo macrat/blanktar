@@ -10,10 +10,10 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/google/go-cmp v0.7.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/tdewolff/minify/v2 v2.24.3
+	github.com/tdewolff/minify/v2 v2.24.5
 	github.com/yuin/goldmark v1.7.13
-	golang.org/x/image v0.31.0
-	golang.org/x/net v0.44.0
+	golang.org/x/image v0.32.0
+	golang.org/x/net v0.46.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -26,7 +26,7 @@ require (
 	github.com/go-errors/errors v1.5.1 // indirect
 	github.com/go-xmlfmt/xmlfmt v1.1.3 // indirect
 	github.com/golang/geo v0.0.0-20230421003525-6adc56603217 // indirect
-	github.com/tdewolff/parse/v2 v2.8.3 // indirect
-	golang.org/x/sys v0.36.0 // indirect
+	github.com/tdewolff/parse/v2 v2.8.5-0.20251020133559-0efcf90bef1a // indirect
+	golang.org/x/sys v0.37.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
