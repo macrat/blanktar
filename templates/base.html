@@ -278,5 +278,26 @@ footer > a {
 
         <script type="text/javascript">navigator.serviceWorker.getRegistrations().then(e=>{for(let r of e)r.unregister()})</script>
     </body>
+
+    <script>
+if (window.fetchLater) {
+    window.addEventListener('load', () => {
+        fetchLater('/log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                requested_at: performance.timing.fetchStart,
+                loaded_at: performance.timing.loadEventStart,
+                path: location.pathname,
+                queries: new URL(location).searchParams,
+                window_width: window.innerWidth,
+                window_height: window.innerHeight,
+            }),
+        });
+    });
+}
+    </script>
 </html>
 {{end}}
