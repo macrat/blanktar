@@ -6,6 +6,8 @@ image:
   - /blog/2025/11/kintone-hack-shidax-in-opening.jpg
   - /blog/2025/11/kintone-hack-last-slide.jpg
 tags: [kintone]
+headers:
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube.com; frame-ancestors 'none'
 ---
 
 ![本戦の会場に登場したときの写真。巨大なスクリーンに「シダックス」と表示され、登壇者である志太悠真の顔写真をAIでイラスト化したものが映っている。ステージには登壇者たちが並んでいる。](/blog/2025/11/kintone-hack-shidax-in-opening-wide.jpg "1920x687")
