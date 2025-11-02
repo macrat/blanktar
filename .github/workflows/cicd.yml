@@ -29,6 +29,10 @@ jobs:
           go-version: 1.25
           cache-dependency-path: builder/go.sum
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
       - name: Checkout base branch
         if: ${{ github.ref != 'refs/heads/photos' }}
         uses: actions/checkout@v5
@@ -52,8 +56,12 @@ jobs:
             build-cache-${{ hashFiles('pages/photos/**/*.jpg') }}
             build-cache-
 
+      - name: Install dependencies
+        run: npm ci
+        working-directory: functions/log.func
+
       - name: Build pages
-        run: ./make build
+        run: make build
 
       - name: Save artifact
         uses: actions/upload-artifact@v4
