@@ -288,8 +288,8 @@ if (window.fetchLater) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                requested_at: performance.timing.fetchStart,
-                loaded_at: performance.timing.loadEventStart,
+                requested_at: performance.getEntriesByType('navigation')[0].fetchStart,
+                loaded_at: performance.getEntriesByType('navigation')[0].loadEventStart,
                 path: location.pathname,
                 queries: new URL(location).searchParams,
                 window_width: window.innerWidth,
