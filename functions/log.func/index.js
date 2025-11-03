@@ -12,9 +12,9 @@ const bigquery = new BigQuery({
 const DATASET = process.env.BQ_DATASET;
 const TABLE = process.env.BQ_TABLE;
 
-async function handler(req) {
+async function handler(req, recordedAt) {
   const data = {
-    recorded_at: new Date(),
+    recorded_at: recordedAt,
     requested_at: new Date(req.body.requested_at),
     loaded_at: new Date(req.body.loaded_at),
     fcp: req.body.fcp,
@@ -42,15 +42,44 @@ async function handler(req) {
 }
 
 module.exports = (req, res) => {
+  const recordedAt = new Date();
+
   if (req.method !== 'POST') {
-    res.status(405).send('Method Not Allowed');
+    res.status(405).json({ error: 'Method Not Allowed' });
     return;
   } else if (req.headers['content-type'] !== 'application/json') {
-    res.status(400).send('Bad Request: Content-Type must be application/json');
+    res.status(400).json({ error: 'Invalid Content-Type' });
     return;
   }
 
-  waitUntil(handler(req));
+  const errors = [];
+  if (isNaN(req.body.requested_at)) {
+    errors.push('requested_at must be a valid timestamp');
+  }
+  if (isNaN(req.body.loaded_at)) {
+    errors.push('loaded_at must be a valid timestamp');
+  }
+  if (isNaN(req.body.fcp) || req.body.fcp < 0) {
+    errors.push('fcp must be a positive number');
+  }
+  if (typeof req.body.path !== 'string' || req.body.path.length === 0) {
+    errors.push('path must be a non-empty string');
+  }
+  if (typeof req.body.queries !== 'object' || req.body.queries === null) {
+    errors.push('queries must be a valid object');
+  }
+  if (typeof req.body.window_width !== 'number' || req.body.window_width <= 0) {
+    errors.push('window_width must be a positive number');
+  }
+  if (typeof req.body.window_height !== 'number' || req.body.window_height <= 0) {
+    errors.push('window_height must be a positive number');
+  }
+  if (errors.length > 0) {
+    res.status(400).json({ errors });
+    return;
+  }
+
+  waitUntil(handler(req, recordedAt));
 
   res.status(201).send();
 }
