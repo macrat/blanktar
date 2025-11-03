@@ -276,10 +276,7 @@ footer > a {
             <a href="/privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
         </footer>
 
-        <script type="text/javascript">navigator.serviceWorker.getRegistrations().then(e=>{for(let r of e)r.unregister()})</script>
-    </body>
-
-    <script>
+        <script>
 if (window.fetchLater) {
     window.addEventListener('load', () => {
         fetchLater('/log', {
@@ -299,6 +296,7 @@ if (window.fetchLater) {
         });
     });
 }
-    </script>
+        </script>
+    </body>
 </html>
 {{end}}
