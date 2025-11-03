@@ -71,10 +71,10 @@ module.exports = (req, res) => {
   if (typeof req.body.queries !== 'object' || req.body.queries === null) {
     errors.push('queries must be a valid object');
   }
-  if (typeof req.body.window_width !== 'number' || req.body.window_width <= 0) {
+  if (typeof req.body.window_width !== 'number' || isNaN(req.body.window_width) || req.body.window_width <= 0) {
     errors.push('window_width must be a positive number');
   }
-  if (typeof req.body.window_height !== 'number' || req.body.window_height <= 0) {
+  if (typeof req.body.window_height !== 'number' || isNaN(req.body.window_height) || req.body.window_height <= 0) {
     errors.push('window_height must be a positive number');
   }
   if (errors.length > 0) {
