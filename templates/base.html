@@ -288,10 +288,10 @@ if (window.fetchLater) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                requested_at: performance.getEntriesByType('navigation')[0].fetchStart,
-                loaded_at: performance.getEntriesByType('navigation')[0].loadEventStart,
+                requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
+                loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
                 path: location.pathname,
-                queries: new URL(location).searchParams,
+                queries: Object.fromEntries(new URL(location).searchParams),
                 window_width: window.innerWidth,
                 window_height: window.innerHeight,
             }),
