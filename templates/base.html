@@ -276,7 +276,27 @@ footer > a {
             <a href="/privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
         </footer>
 
-        <script type="text/javascript">navigator.serviceWorker.getRegistrations().then(e=>{for(let r of e)r.unregister()})</script>
+        <script>
+if (window.fetchLater) {
+    window.addEventListener('load', () => {
+        fetchLater('/log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
+                loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
+                fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
+                path: location.pathname,
+                queries: Object.fromEntries(new URLSearchParams(location.search)),
+                window_width: window.innerWidth,
+                window_height: window.innerHeight,
+            }),
+        });
+    });
+}
+        </script>
     </body>
 </html>
 {{end}}
