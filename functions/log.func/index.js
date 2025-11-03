@@ -19,6 +19,7 @@ async function handler(req) {
     recorded_at: new Date(),
     requested_at: new Date(req.body.requested_at),
     loaded_at: new Date(req.body.loaded_at),
+    fcp: req.body.fcp,
     path: req.body.path,
     queries: JSON.stringify(req.body.queries),
     user_agent: req.headers['user-agent'] ?? '',
