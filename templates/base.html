@@ -289,7 +289,7 @@ if (window.fetchLater) {
                 loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
                 fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
                 path: location.pathname,
-                queries: Object.fromEntries(new URL(location).searchParams),
+                queries: Object.fromEntries(new URLSearchParams(location.search)),
                 window_width: window.innerWidth,
                 window_height: window.innerHeight,
             }),
