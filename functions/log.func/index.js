@@ -53,10 +53,10 @@ module.exports = (req, res) => {
   }
 
   const errors = [];
-  if (isNaN(req.body.requested_at)) {
+  if (typeof req.body.requested_at !== 'number' || isNaN(req.body.requested_at)) {
     errors.push('requested_at must be a valid timestamp');
   }
-  if (isNaN(req.body.loaded_at)) {
+  if (typeof req.body.loaded_at !== 'number' || isNaN(req.body.loaded_at)) {
     errors.push('loaded_at must be a valid timestamp');
   }
   if (req.body.fcp !== undefined && (isNaN(req.body.fcp) || req.body.fcp < 0)) {
