@@ -1,5 +1,3 @@
-const crypto = require('crypto');
-
 const { BigQuery } = require('@google-cloud/bigquery');
 const { waitUntil } = require('@vercel/functions');
 
