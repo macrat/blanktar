@@ -59,7 +59,10 @@ module.exports = (req, res) => {
   if (typeof req.body.loaded_at !== 'number' || isNaN(req.body.loaded_at)) {
     errors.push('loaded_at must be a valid timestamp');
   }
-  if (req.body.fcp !== undefined && (isNaN(req.body.fcp) || req.body.fcp < 0)) {
+  if (
+    req.body.fcp !== undefined &&
+    (typeof req.body.fcp !== 'number' || isNaN(req.body.fcp) || req.body.fcp < 0)
+  ) {
     errors.push('fcp must be a positive number');
   }
   if (typeof req.body.path !== 'string' || req.body.path.length === 0) {
