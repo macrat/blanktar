@@ -47,7 +47,7 @@ module.exports = (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
     return;
-  } else if (req.headers['content-type'] !== 'application/json') {
+  } else if (!req.headers['content-type']?.startsWith('application/json')) {
     res.status(400).json({ error: 'Invalid Content-Type' });
     return;
   }
