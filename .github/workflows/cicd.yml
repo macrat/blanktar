@@ -131,7 +131,7 @@ jobs:
         id: deploy
         run: |
           echo -n "url=" >> $GITHUB_OUTPUT
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
+          vercel deploy --archive=tgz --prebuilt --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
 
   production:
     name: Production Deploy
@@ -167,4 +167,4 @@ jobs:
         id: deploy
         run: |
           echo -n "url=" >> $GITHUB_OUTPUT
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod >> $GITHUB_OUTPUT
+          vercel deploy --archive=tgz --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod >> $GITHUB_OUTPUT
