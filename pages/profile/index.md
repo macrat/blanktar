@@ -3,7 +3,7 @@ title: profile
 description: "志太 悠真 (ハンドルネーム: MacRat) のプロフィール。各SNSのアカウントや保有資格など。"
 image: [/profile/photo.jpg, /profile/icon.png]
 pubtime: 2012-12-06T14:54:00+09:00
-modtime: 2023-08-16T20:14:00+09:00
+modtime: 2025-11-09T13:52:00+09:00
 ---
 
 <script type="application/ld+json">
