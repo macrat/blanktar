@@ -30,7 +30,7 @@ X (旧Twitter) や Facebook のシェアボタンを設置してみました。
 - `{TEXT}` : ポストに含めたいテキスト。ページタイトルなど。
 - `{USERNAME}` : ポストに含めたいXのユーザー名。`@`は不要。
 
-たとえば[`https://x.com/share?url=https://blanktar.jp&url=https%3A%2F%2Fblanktar.jp&text=ここに記事タイトル&via=macrat_jp`](https://x.com?share?url=https://blanktar.jp&url=https%3A%2F%2Fblanktar.jp&text=ここに記事タイトル&via=macrat_jp)のようにすると、 **「ここに記事タイトル https://blanktar.jp @macrat_jpより 」** という内容でポストする画面にリンクできます。
+たとえば[`https://x.com/share?url=https://blanktar.jp&url=https%3A%2F%2Fblanktar.jp&text=ここに記事タイトル&via=macrat_jp`](https://x.com/share?&url=https%3A%2F%2Fblanktar.jp&text=ここに記事タイトル&via=macrat_jp)のようにすると、 **「ここに記事タイトル https://blanktar.jp @macrat_jpより 」** という内容でポストする画面にリンクできます。
 
 
 # Facebook
