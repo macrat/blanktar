@@ -1,5 +1,5 @@
 ---
-title: Obsidianの中でHTMLとJavaScriptを使った小さなツールを作ってみた
+title: Obsidianの中でJavaScriptを使った小さなツールを作ってみた
 description: Obsidianはとても便利なノートアプリです。あまりにも便利なので常に開いています。常に開いているならちょっとしたツールもObsidianの中で動かせたら更に便利なのではと思い、HTMLとJavaScriptを使った小さなツールを作ってみました。簡単なツールを動かすにはとても良い実行環境かもしれません。
 pubtime: 2025-11-09T15:33:00+09:00
 tags: [Obsidian]
