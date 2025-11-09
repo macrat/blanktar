@@ -16,7 +16,7 @@ modtime: 2025-11-09T13:52:00+09:00
     "@type": "Person",
     "name": "志太 悠真",
     "alternateName": "MacRat",
-    "image": "https://blanktar.jp/profile/macrat-icon.png",
+    "image": "https://blanktar.jp/profile/icon.png",
     "sameAs": [
       "https://x.com/macrat_jp",
       "https://mstdn.jp/@macrat",
