@@ -1,328 +1,508 @@
 ---
-title: sqlite3を使ってみる
+title: SQLite3の基本的な使い方
 pubtime: 2013-02-16T02:01:00+09:00
-modtime: 2013-05-02T13:19:00+09:00
-tags: [データベース]
-description: sqlite3（というよりもSQL）の使い方です。とりあえずなんとなくSQLを使えるようになるための逆引き表のようになっています。
+modtime: 2025-11-09T00:00:00+09:00
+tags: [データベース, SQLite]
+description: SQLite3の基本的な使い方を解説します。テーブルの作成、データの追加・更新・削除、検索など、SQLの基本操作を実例とともに紹介します。
 ---
 
-sqlite3の使い方っぽいものを書いてみるよ。
+SQLite3は、サーバー不要で使える軽量なSQLデータベースです。データベースの保存に必要なファイルが1つだけで済むので、小規模なアプリケーションで非常に手軽に使うことができます。
 
-とりあえず、SQLをなんとなく使えるようになる、ってのが今回の趣旨。
-詳しい使い方とかは省いてるので、細かいことはほかのサイトを参照してください。
-
-sqliteというのはSQLの実装の一つで、いちいちサーバーを建てなくて済むのが利点。
-その分巨大なデータベースには向いていないけれど、中規模くらいまでなら大丈夫らしい。
-
-データベースを一個のファイルとして扱うので、それも利点かも。扱いが凄く容易。
-
-ああ、それともう一つ大きな利点として、データ型を指定しなくていい、ってのもあります。楽ちん。
-
-今回はコマンドラインで使ってみます。
-各言語からの使い方とかは、ググって探してみてください。
-なお、sqlite3コマンドを使っているので、例はすべて行末に;が付いてます。
-他の言語のバインディングから使う時は;を取って使ってください。いや、ついてても使えるのかな？　分からんけど。
+この記事では、SQLite3の基本的な使い方をご紹介します。
+ここではコマンドラインインターフェースを使いますが、SQLの文法はPythonなどの他の言語から使う場合もほぼ同じです。
 
 <ins date="2013-05-02T13:19:00+09:00">
 
 # 2013-05-02 追記
 
-pythonから手軽にデータベースを使いたい方にはこちらの記事もオススメ。
+Pythonから手軽にデータベースを使いたい方にはこちらの記事もおすすめです。
 [pythonのdbmモジュールを使ってみた](/blog/2013/05/python-dbm)
 
 </ins>
 
-- [インストールする](#インストールする)
-- [テーブルを作る](#テーブルを作る)
-- [データを追加する](#データを追加する)
-- [データを表示する](#データを表示する)
-  * [特定の列だけを表示する](#特定の列だけを表示する)
-  * [条件に沿う値を持つ行だけを表示する](#条件に沿う値を持つ行だけを表示する)
-  * [並べ替えてから表示する](#並べ替えてから表示する)
-  * [x行目からn行だけ表示する](#x行目からn行だけ表示する)
-  * [行数を数える](#行数を数える)
-  * [合計とか平均とか](#合計とか平均とか)
-- [値を変更する](#値を変更する)
-- [行を削除する](#行を削除する)
-- [テーブルを削除する](#テーブルを削除する)
-- [HDD上のデータベースを編集する](#HDD上のデータベースを編集する)
+# 目次
+
+- [SQLite3の特徴](#sqlite3の特徴)
+- [インストールと起動](#インストールと起動)
+- [テーブルの作成](#テーブルの作成)
+- [データの追加](#データの追加)
+- [データの検索](#データの検索)
+- [データの更新](#データの更新)
+- [データの削除](#データの削除)
+- [トランザクション](#トランザクション)
+- [Pythonから使う](#pythonから使う)
+- [まとめ](#まとめ)
 
 <section>
 
-# インストールする
-[公式サイトのダウンロードページ](http://www.sqlite.org/download.html)から、各環境にあったものをダウンロードしてきます。
-linuxならapt-getとかyumとかの方が良いかもね。
+# SQLite3の特徴
 
-落としてきたzipを解凍してみると、実行ファイルが出てくるはずです。
-なんと、こいつはインストールいらずなのだ。
+SQLite3には以下のような特徴があります。
 
-そのディレクトリでコマンドラインを開いて
-``` shell
-$ sqlite3
+- **サーバー不要**: 別途データベースサーバーを立てる必要がありません
+- **ファイルベース**: データベース全体が1つのファイルに保存されます
+- **軽量**: 実装がコンパクトで、組み込み用途にも適しています
+- **型の柔軟性**: 動的型付けを採用しており、列に異なる型のデータを格納できます（ただし推奨はされません）
+- **標準SQL対応**: 標準的なSQLの多くをサポートしています
+
+一方で、大規模なデータや高い同時実行性が必要な場合は、PostgreSQLやMySQLなどのサーバー型データベースの方が適しています。
+
+</section>
+<section>
+
+# インストールと起動
+
+## インストール
+
+**公式サイトから:**
+[SQLite公式サイト](https://www.sqlite.org/download.html)から、使用環境に合ったバイナリをダウンロードします。
+
+**パッケージマネージャを使う場合:**
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install sqlite3
+
+# macOS (Homebrew)
+brew install sqlite3
+
+# Windows (Chocolatey)
+choco install sqlite
 ```
-って入力。当然だけど`$`はいらないからね。
 
-起動できたら完了。次の章へどうぞ。
+## 起動
 
-ちなみに、sqlite3を終了する時は
+コマンドラインで以下のように入力します。
+
+```bash
+sqlite3
 ```
+
+メモリ上に一時的なデータベースが作成されます。ファイルとして保存したい場合は、ファイル名を指定します。
+
+```bash
+sqlite3 mydata.db
+```
+
+指定したファイルが存在しない場合は、新規作成されます。
+
+## 終了
+
+SQLite3を終了するには、以下のコマンドを入力します。
+
+```sql
 .exit
 ```
-って入力すればおっけーです。
+
+または `.quit` でも終了できます。
+
+## コメント
+
+SQL文の中でコメント（メモ書き）を記述するには、先頭に`--`を付けます。
+
+```sql
+-- これはコメントです
+SELECT * FROM test;  -- ここにもコメントが書けます
+```
 
 </section>
 <section>
 
-# テーブルを作る
-起動できたら、とりあえずテーブルを作ってみます。
+# テーブルの作成
 
-テーブルを作るコマンドは
-``` sql
-create table テーブル名 (カンマ区切りの列名);
+データを格納するためのテーブルを作成します。
+
+## 基本的な構文
+
+```sql
+CREATE TABLE テーブル名 (
+    列名1 データ型 制約,
+    列名2 データ型 制約,
+    ...
+);
 ```
-です。
 
-日本語のところは適当に置き換えてください。
-環境によっては日本語も使えるみたい。あんまりオススメしませんが。
+## 実例
 
-具体的には
-``` sql
-create table test (key, value);
+```sql
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    age INTEGER,
+    email TEXT UNIQUE
+);
 ```
-みたいな感じ。
 
-以下のサンプルは基本的にこのテーブルを使います。
+この例では、以下のような制約を設定しています。
+
+- `PRIMARY KEY`: 主キー（各行を一意に識別する）
+- `AUTOINCREMENT`: 自動的に連番を割り当てる
+- `NOT NULL`: NULL値を許可しない
+- `UNIQUE`: 重複する値を許可しない
+
+## データ型
+
+SQLite3の主なデータ型は以下の通りです。
+
+- `INTEGER`: 整数
+- `REAL`: 浮動小数点数
+- `TEXT`: 文字列
+- `BLOB`: バイナリデータ
+- `NULL`: NULL値
+
+型の指定は省略しても動作しますし、実は何なら誤った型を指定したり別の型の値を格納したりすることさえできてしまいますが、推奨される使い方ではありません。
+エラーが出ないので、よく注意して使ってください。
+
+以降の例では、シンプルなテーブルを使います。
+
+```sql
+CREATE TABLE test (key TEXT, value INTEGER);
+```
 
 </section>
 <section>
 
-# データを追加する
-データベースなんだから、データを入れなきゃしょうが無い。入れてみましょう。
-``` sql
-insert into テーブル名 values(カンマ区切りの値);
-```
-です。
+# データの追加
 
-上記の例に合わせるのなら
-``` sql
-insert into test values("abc", 123);
-```
-みたいな感じ。
+テーブルにデータを追加します。
 
-データ型をかなり柔軟になんとかしてくれるようで、数字を入れたのと同じ行に文字列を追加しても怒られません。
-逆に言うと、間違えたデータを入れてもエラーが発生しないので要注意です。
+## 基本的な構文
+
+```sql
+INSERT INTO テーブル名 (列名1, 列名2, ...) VALUES (値1, 値2, ...);
+```
+
+列名を省略した場合は、すべての列に値を指定する必要があります。
+
+```sql
+INSERT INTO テーブル名 VALUES (値1, 値2, ...);
+```
+
+## 実例
+
+```sql
+INSERT INTO test VALUES ('abc', 123);
+INSERT INTO test VALUES ('def', 456);
+INSERT INTO test VALUES ('ghi', 789);
+```
+
+## 複数行の一括挿入
+
+```sql
+INSERT INTO test VALUES
+    ('jkl', 100),
+    ('mno', 200),
+    ('pqr', 300);
+```
 
 </section>
 <section>
 
-# データを表示する
-追加したなら見てみたい。今度はデータを表示してみます。
-``` sql
-select * from テーブル名;
+# データの検索
+
+テーブルからデータを取得します。`SELECT`文は非常に多機能で、様々な条件でデータを検索できます。
+
+## すべてのデータを取得
+
+```sql
+SELECT * FROM test;
 ```
-でテーブル内のデータをすべて表示します。
-他の言語から扱う場合は、このselect文を使ってデータを取得することになります。
 
-このselect文ってのはむやみやたらと奥が深くて、色んなことができます。
-簡単に書いておきますが、正直私もよくわかってないっす。
+`*`はすべての列を意味します。
 
-<section>
+## 特定の列のみ取得
 
-## 特定の列だけを表示する
-上記の例で`*`と書いていたのは、実は**すべての列を表示する**みたいな意味があります。
-
-つまり、特定の列だけ表示したい場合は
-``` sql
-select 列名 from テーブル名;
+```sql
+SELECT key FROM test;
 ```
-とすれば良いことになります。
 
-``` sql
-select key from test;
-```
-みたいな感じね。
+複数の列を指定する場合はカンマで区切ります。
 
-``` sql
-select value, key from test;
+```sql
+SELECT value, key FROM test;
 ```
-のようにカンマ区切りで複数書いたりもできます。
+
+## 条件を指定して取得
+
+`WHERE`句を使って条件を指定します。
+
+```sql
+-- valueが100のデータ
+SELECT * FROM test WHERE value = 100;
+
+-- valueが100以上500未満のデータ
+SELECT * FROM test WHERE value >= 100 AND value < 500;
+
+-- keyが'abc'または'def'のデータ
+SELECT * FROM test WHERE key = 'abc' OR key = 'def';
+```
+
+## 並べ替え
+
+`ORDER BY`句を使って結果を並べ替えます。
+
+```sql
+-- valueの昇順（小さい順）
+SELECT * FROM test ORDER BY value ASC;
+
+-- valueの降順（大きい順）
+SELECT * FROM test ORDER BY value DESC;
+```
+
+`ASC`（昇順）は省略可能です。
+
+## 取得件数の制限
+
+`LIMIT`句を使って取得する行数を制限します。
+
+```sql
+-- 先頭から3行
+SELECT * FROM test LIMIT 3;
+
+-- 5行目から3行分（オフセットは0始まり）
+SELECT * FROM test LIMIT 3 OFFSET 5;
+```
+
+## 集計関数
+
+### 行数をカウント
+
+```sql
+SELECT COUNT(*) FROM test;
+
+-- 条件に一致する行数
+SELECT COUNT(*) FROM test WHERE value > 100;
+```
+
+### 合計値
+
+```sql
+SELECT SUM(value) FROM test;
+```
+
+### 平均値
+
+```sql
+SELECT AVG(value) FROM test;
+```
+
+### 最大値・最小値
+
+```sql
+SELECT MAX(value) FROM test;
+SELECT MIN(value) FROM test;
+```
 
 </section>
 <section>
 
-## 条件に沿う値を持つ行だけを表示する
-``` sql
-select * from テーブル名 where 条件;
-```
-とすると、条件に沿うものだけを表示できます。
+# データの更新
 
-例えば
-``` sql
-select * from test where value = 1;
-```
-ならvalueが1のものだけ
+既存のデータを更新します。
 
-``` sql
-select * from test where 0 < value and value < 10;
-```
-ならvalueが1以上10未満のものだけ
+## 基本的な構文
 
-``` sql
-select * from test where key = "abc" and key = "def";
+```sql
+UPDATE テーブル名 SET 列名1 = 値1, 列名2 = 値2, ... WHERE 条件;
 ```
-ならkeyがabcかdefのものを表示します。
+
+## 実例
+
+```sql
+-- keyが'abc'の行のvalueを999に更新
+UPDATE test SET value = 999 WHERE key = 'abc';
+
+-- 複数の列を同時に更新
+UPDATE test SET key = 'xyz', value = 0 WHERE key = 'abc';
+```
+
+**重要**: `WHERE`句を省略すると、すべての行が更新されてしまいます。意図しない場合は注意してください。
+
+```sql
+-- すべての行のvalueを0にする
+UPDATE test SET value = 0;
+```
 
 </section>
 <section>
 
-## 並べ替えてから表示する
-``` sql
-select * from test order by value asc;
-```
-とするとvalueをキーにして昇順で並べ替えて表示します。
-ちなみに、ascは省略しても問題ありません。
+# データの削除
 
-``` sql
-select * from test order by value desc;
+## 行の削除
+
+```sql
+DELETE FROM テーブル名 WHERE 条件;
 ```
-なら降順で表示します。
+
+実例：
+
+```sql
+-- keyが'abc'の行を削除
+DELETE FROM test WHERE key = 'abc';
+```
+
+**重要**: `WHERE`句を省略すると、すべての行が削除されます。
+
+```sql
+-- すべての行を削除
+DELETE FROM test;
+```
+
+## テーブルの削除
+
+テーブル自体を削除する場合は`DROP TABLE`を使います。
+
+```sql
+DROP TABLE test;
+```
 
 </section>
 <section>
 
-## x行目からn行だけ表示する
-``` sql
-select * from test limit 3;
-```
-とすると、先頭から三行だけ表示されます。
+# トランザクション
 
-ちなみに
-``` sql
-select * from test limit 5, 3;
+複数のSQL文をまとめて実行し、すべて成功したときだけ結果を保存する仕組みです。
+たとえば、送金元口座からの引き落しと送金先口座への入金のような、どちらか一方だけが成功しては困る操作に使います。
+
+トランザクションは以下のように使います。
+
+```sql
+BEGIN TRANSACTION;  -- トランザクションを開始
+
+INSERT INTO test VALUES ('aaa', 100);
+UPDATE test SET value = 200 WHERE key = 'bbb';
+DELETE FROM test WHERE key = 'ccc';
+
+COMMIT;  -- 変更を確定
 ```
-とすると5行目から3行分表示されます。
+
+エラーが発生した場合や、変更を取り消したい場合は`ROLLBACK`を使います。
+
+```sql
+BEGIN TRANSACTION;
+
+INSERT INTO test VALUES ('aaa', 100);
+-- 何か問題が発生した場合
+
+ROLLBACK;  -- 変更を取り消し
+```
 
 </section>
 <section>
 
-## 行数を数える
-ある条件に当てはまる行を数えたい場合は
-``` sql
-select count(*) from テーブル名 where 条件;
-```
-とします。
+# Pythonから使う
 
-もちろんwhereを省略すれば、全ての行を数えます
+PythonにはSQLite3のサポートが標準ライブラリに含まれています。
+Pythonから実行する場合は、末尾の`;`は省略できます。
 
-ちなみに
-``` sql
-select key, count(*) from test;
+```python
+import sqlite3
+
+# データベースに接続（ファイルが存在しない場合は作成される）
+conn = sqlite3.connect('mydata.db')
+
+# カーソルを作成
+cursor = conn.cursor()
+
+# テーブルを作成
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        age INTEGER
+    )
+''')
+
+# データを挿入（プレースホルダを使用）
+cursor.execute('INSERT INTO users (name, age) VALUES (?, ?)', ('Alice', 30))
+
+# 複数行を一括挿入
+users = [
+    ('Bob', 25),
+    ('Charlie', 35),
+]
+cursor.executemany('INSERT INTO users (name, age) VALUES (?, ?)', users)
+
+# 変更を確定
+conn.commit()
+
+# データを取得
+cursor.execute('SELECT * FROM users WHERE age >= ?', (30,))
+results = cursor.fetchall()
+
+for row in results:
+    print(row)
+
+# 接続を閉じる
+conn.close()
 ```
-みたいな使い方もできるよ。意味があるのかは知らん。
+
+## プレースホルダとSQLインジェクション
+
+外部からの入力に基づいてSQL文を作りたいときは、絶対に文字列連結やフォーマットでSQL文を構築しないでください。
+
+**悪い例**:
+```python
+password = input("Enter your name: ")
+cursor.execute(f"SELECT * FROM users WHERE password = '{password}'")
+```
+
+このようにすると、パスワードとして`' OR '1'='1`のような文字列を入力された場合、以下のようなSQL文として実行されてしまいます。
+これだと、すべてのユーザーが取得されてしまいます。
+
+```sql
+SELECT * FROM users WHERE password = '' OR '1'='1'
+```
+
+このような悪意のあるSQL文を含んだ入力をする攻撃のことを**SQLインジェクション**と呼びます。
+
+SQL文を安全に組み立てられるように、**プレースホルダ**という機能を使って以下のように記述してください。
+
+**良い例**:
+```python
+password = input("Enter your name: ")
+cursor.execute("SELECT * FROM users WHERE password = ?", [password])
+```
+
+この書き方であれば、`password`にどんな値が入っていてもSQLインジェクションの問題は発生しません。
 
 </section>
 <section>
 
-## 合計とか平均とか
-上記の行数を数えるのとほぼ同じで
-``` sql
-select sum(value) from test;
+# ファイルの保存
+
+コマンドラインで起動時にファイル名を指定した場合、変更は自動的にファイルに保存されます。
+
+```bash
+sqlite3 mydata.db
 ```
-とすると、valueの合計値を計算してくれます。あら便利。
 
-勿論where文を付け足せば、条件に当てはまる列からだけ、とかも出来ます。
+メモリ上のデータベース（ファイル名なしで起動した場合）の内容をファイルに保存するには、`.backup`コマンドを使います。
 
-``` sql
-select avg(value) from test;
+```sql
+.backup mydata.db
 ```
-でvalueの平均値を出してくれます。
 
-勿論where文を以下省略。
+逆に、ファイルからメモリ上のデータベースに読み込むには、`.restore`コマンドを使います。
 
-</section>
-</section>
-<section>
-
-# 値を変更する
-いやー、長かった、select文。
-さて、今度は値を変更してきます。更新できなきゃしょうが無いもんね。
-
-``` sql
-update テーブル名 set 列名=値をカンマ区切り where 条件;
+```sql
+.restore mydata.db
 ```
-みたいな感じ。わかりにくいか。
-
-例えば
-``` sql
-update test set value="abcd", key=10 where value="abc";
-```
-とすると、valueが"abc"のものを valueを"abcd"に、keyを10 に変更します。
-ややっこいねー・・・。
-
-``` sql
-update test set key=10 where value="abc";
-```
-なら自然か。
-valueが"abc"の列のkeyを10に変更します。
-
-お察しの通りwhereを省略できます。
-省略すると全ての列を変更しちゃうので、まあ実用的かどうかわかりませんが・・・。
-
-</section>
-<section>
-
-# 行を削除する
-使っていれば要らないデータが出るもので、そいつを消してみます。
-``` sql
-delete from テーブル名 where 条件;
-```
-で特定の行を削除出来ます。
-
-これもやっぱりwhereを省略可能で、そうすると全ての行を削除出来ます。
-
-</section>
-<section>
-
-# テーブルを削除する
-さて、ここまでくればそれなりの作業ができるようになっている、はず。
-
-そしたら最後に、テーブルを削除してみます。
-``` sql
-drop table テーブル名;
-```
-こんな感じ。
-
-</section>
-<section>
-
-# HDD上のデータベースを編集する
-そうそう、HDD上ののファイルを扱えなきゃしょうが無い。
-今まではメモリ上でデータベースを扱っていたので、ファイルに書き出せてないです。
-
-ファイルを開く時は、sqlite3を起動するときに
-``` shell
-$ sqlite3 ファイル名
-```
-とします。
-新規作成でも同じコマンドっす。
-
-え？　メモリ上で作業してたデータベースを保存するにはどうするかって？
-いや、それがね、よく知らんのよね・・・。
-誰か知ってたら教えてー
 
 </section>
 
----
+# まとめ
 
-さて、ここまでくれば大体使えるようになってるんじゃないでしょうか。
-データベースってのは中々楽しいものなので、是非に挑戦して頂ければと思います、ええ。
-ま、個人でやろうとすると、何作れってんだって感はあるけどねー。
+この記事では、SQLite3の基本的な使い方を紹介しました。
 
-はじめに申し上げましたとおり、ほんの一部の機能しか紹介しておりません。
-てゆか、私自身が全体像を全く掴めておりません。SQLむつかしいれす。
+- **テーブルの作成**: `CREATE TABLE`
+- **データの追加**: `INSERT INTO`
+- **データの検索**: `SELECT`（条件指定、並べ替え、集計など）
+- **データの更新**: `UPDATE`
+- **データの削除**: `DELETE`、`DROP TABLE`
+- **トランザクション**: `BEGIN`、`COMMIT`、`ROLLBACK`
 
-という訳で、ここで書いていなくても出来ることがいっぱいあります。むしろ書いてないことだらけです。
-欲しい機能があればググってみてくださいまし。結構、あるかもね。
+SQLite3は、これ以外にも多くの機能を持っています。
+より詳しい情報は、[SQLite公式ドキュメント](https://www.sqlite.org/docs.html)を参照してください。
 
-やー、しかし結構長くなってしまった。
-なんともはや。
+データベースは、データを効率的に管理するための強力なツールです。小規模なアプリケーションから始めて、徐々に機能を学んでいくことをおすすめします。
