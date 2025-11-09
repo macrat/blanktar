@@ -20,7 +20,7 @@
     "author": {
         "@type": "Person",
         "name": "MacRat",
-        "url": "https://blanktar.jp/about"
+        "url": "https://blanktar.jp/profile"
     }
 }
     </script>
@@ -151,6 +151,16 @@
 .tags a::before {
     content: '#';
 }
+.author {
+    color: inherit;
+    text-decoration: none;
+}
+.author > img {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    vertical-align: middle;
+}
 
 article table {
     border-collapse: collapse;
@@ -264,6 +274,8 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
                     <li><a href="/blog/tags/{{. | escapetag}}">{{.}}</a></li>
                 {{end}}
             </ul>
+            <br>
+            <a class="author" href="/profile" rel="author"><img src="/profile/icon.png" alt="" loading="lazy"> MacRat</a>
             <img src="/images{{.Path}}.qr.png" alt="このページのQRコード" class="pageqr" loading="lazy">
         </div>
         {{.Content}}

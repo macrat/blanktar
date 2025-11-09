@@ -38,7 +38,12 @@
     }
   },
   "redirects": [
-    {"source": "/about.html", "destination": "/about"},
+    {"source": "/about", "destination": "/profile"},
+    {"source": "/about.html", "destination": "/profile"},
+    {"source": "/profile.html", "destination": "/profile"},
+
+    {"source": "/images/macrat.png", "destination": "/profile/icon.png"},
+
     {"source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+)\\.html", "destination": "/blog/$1/$2/$3"},
     {"source": "/blog/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+)\\.amp", "destination": "/blog/$1/$2/$3"},
     {"source": "/(20[0-9]{2})/(1[0-2]|0[0-9])/(.+)", "destination": "/blog/$1/$2/$3"},
