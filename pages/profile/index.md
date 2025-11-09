@@ -30,7 +30,7 @@ modtime: 2025-11-09T13:52:00+09:00
 
 <div style="display:flex; flex-wrap:wrap; gap:1em">
 
-<img src="/profile/photo.jpg" alt="志太悠真 (MacRat) の写真。細い縁のメガンをかけて、白いTシャツに濃いブラウンのジャケットを着ている。巨大なスクリーンの前でハンドマイクを持って、ハンドジェスチャーをまじえながら講演している。" width="1024" height="1024" style="display:block; width:128px; height:128px; border-radius:100%" />
+<img src="/profile/photo.jpg" alt="志太悠真 (MacRat) の写真。細い縁のメガネをかけて、白いTシャツに濃いブラウンのジャケットを着ている。巨大なスクリーンの前でハンドマイクを持って、ハンドジェスチャーをまじえながら講演している。" width="1024" height="1024" style="display:block; width:128px; height:128px; border-radius:100%" />
 
 <img src="/profile/icon.png" width="512" height="512" alt="志太悠真 (MacRat) のアイコン。白黒の画像で、かわいらしいヒゲのキャラクターがこちらを見ている。" style="display:block; width:128px; height:128px; border-radius:100%" />
 
