@@ -623,10 +623,6 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 		})
 	}
 
-	routes = append(routes, Route{
-		Handle: "filesystem",
-	})
-
 	for _, r := range conf.Redirects {
 		routes = append(routes, Route{
 			Src: r.Source,
@@ -636,6 +632,10 @@ func (g *IndexGenerator) generateConfig(dst fs.Writable, as ArticleList, conf Co
 			Status: 301,
 		})
 	}
+
+	routes = append(routes, Route{
+		Handle: "filesystem",
+	})
 
 	routes = append(routes, Route{
 		Handle: "miss",
