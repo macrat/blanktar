@@ -11,7 +11,7 @@ modtime: 2025-11-09T13:52:00+09:00
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "dataCreated": "2012-12-06T14:54:00+09:00",
-  "dataModified": "2023-08-16T20:14:00+09:00",
+  "dataModified": "2025-11-09T13:52:00+09:00",
   "mainEntity": {
     "@type": "Person",
     "name": "志太 悠真",
