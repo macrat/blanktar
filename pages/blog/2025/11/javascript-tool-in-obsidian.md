@@ -46,7 +46,7 @@ elm.style.color = "red";  // 操作は普通のHTMLDivElementと同じ。
 const elm = dv.el('div');
 elm.style = 'background-color:#333;display:flex;justify-content:center;align-items:center';
 elm.innerHTML = `
-  <svg viewbox="0 0 20 10" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+  <svg viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
     <text x="10" y="5.5" dominant-baseline="middle" text-anchor="middle" font-size="4" fill="#999" style="font-weight:bold"><tspan id="dh">--</tspan> <tspan id="dm">--</tspan></text>
     <line x1="10" y1="5" x2="10" y2="2" stroke="#877" stroke-width="0.4" stroke-linecap="round" id="ah" />
     <line x1="10" y1="5" x2="10" y2="0.3" stroke="#877" stroke-width="0.2" stroke-linecap="round" id="am" />
