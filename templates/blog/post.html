@@ -271,7 +271,7 @@ ins h1, ins h2, ins h3, ins h4, ins h5, ins h6 {
             {{end}}
             <ul class="tags">
                 {{range .Tags}}
-                    <li><a href="/blog/tags/{{. | escapetag}}">{{.}}</a></li>
+                    <li><a href="/blog/tags/{{. | escapetag}}" rel="tag">{{.}}</a></li>
                 {{end}}
             </ul>
             <br>
