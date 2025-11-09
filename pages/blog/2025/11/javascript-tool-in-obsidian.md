@@ -16,9 +16,9 @@ Markdown形式でノートを書くわけですから、HTMLやJavaScriptでツ�
 というわけで、HTMLの`<script>`タグを使って簡単なツールを作ってみたのですが……残念ながら、[Obsidianはscriptタグの実行を許可してくれない](https://publish.obsidian.md/help-ja/%E9%AB%98%E5%BA%A6%E3%81%AA%E3%83%88%E3%83%94%E3%83%83%E3%82%AF/HTML%E3%81%AE%E3%82%B5%E3%83%8B%E3%82%BF%E3%82%A4%E3%82%BA)ようです。
 
 それでもどうしてもJavaScriptのコードを動かしたい。というわけで、[Dataview](https://blacksmithgu.github.io/obsidian-dataview/)というプラグインの機能を流用してみることにしました。
-このプラグインはObsidian内のノートをデータベースのように使うためのものなのですが、その中にはJavaScriptコードを使って表示内容や動作を自由に記述できる機能があります。
+このプラグインはObsidian内のノートをデータベースのように使うためのものなのですが、その中にはJavaScriptコードを使って表示内容や動作を自由に記述できる[dataviewjs](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/)という機能があります。
 
-この[dataviewjs](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/)という機能を使うと、以下のようにして任意のJavaScriptコードを実行できます。
+このdataviewjsを使うと、以下のようにして任意のJavaScriptコードを実行できます。
 
 ````markdown
 ```dataviewjs
