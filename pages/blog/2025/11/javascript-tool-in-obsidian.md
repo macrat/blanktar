@@ -39,7 +39,7 @@ elm.style.color = "red";  // 操作は普通のHTMLDivElementと同じ。
 ライブエディタモードの場合はよくわからないタイミングで実行されることがあるので、何度実行されても安全なコードにするべきでしょう。
 [`sessionStorage`](https://developer.mozilla.org/ja/docs/Web/API/Window/sessionStorage)などのブラウザストレージも使えるので、必要に応じて状態を保存しておくと良いかもしれません。
 
-この方法の実験のために、簡単な時計ウィジェットを作ってみました。
+最後に、参考として実験用に作った簡単な時計ウィジェットのコードを載せておきます。
 
 ````markdown
 ```dataviewjs
