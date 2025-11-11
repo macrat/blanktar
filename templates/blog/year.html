@@ -3,84 +3,84 @@
 {{define "description"}}Blanktarに掲載された{{.Year}}年のブログ記事一覧。{{end}}
 
 {{define "head"}}
-    <script type="application/ld+json">
+  <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "blanktar.jp",
-            "item": "https://blanktar.jp"
-        },
-        {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "blog",
-            "item": "https://blanktar.jp/blog"
-        },
-        {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "{{.Year}}",
-            "item": {{.URL}}
-        }
-    ]
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "blanktar.jp",
+      "item": "https://blanktar.jp"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "blog",
+      "item": "https://blanktar.jp/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{.Year}}",
+      "item": {{.URL}}
+    }
+  ]
 }
-    </script>
+  </script>
 {{end}}
 
 {{/* <style> */}}
 {{define "style"}}
 .articles-of-year {
-    margin: 0;
-    padding: 0;
-    margin: 16px 0 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
 }
 .articles-of-month {
-    list-style: disc;
+  list-style: disc;
 }
 .articles-of-month a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 .articles-of-month time::after {
-    content: '   ';
-    white-space: pre;
+  content: '   ';
+  white-space: pre;
 }
 
 @media (hover: hover) {
-    .articles-of-month a:hover {
-        text-decoration: underline;
-    }
+  .articles-of-month a:hover {
+    text-decoration: underline;
+  }
 }
 {{end}}
 {{/* </style> */}}
 
 {{define "main"}}
-    <ol class="bread-crumbs">
-        <li><a href="/">top</a></li>
-        <li><a href="/blog">blog</a></li>
-    </ol>
-    <h1>{{.Year}}年の記事</h1>
-    <ol class="articles-of-year">
-        {{range $idx, $posts := .Posts}}
-            {{if $posts}}
-                <li>
-                    <h2>{{$idx | add 1}}月</h2>
-                    <ol class="articles-of-month">
-                    {{range $posts}}
-                        <li><a href="{{.Path}}">
-                            <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
-                            <time>{{.Published.Format "2006-01-02"}}</time>
-                            {{.Title}}
-                        </a></li>
-                    {{end}}
-                    </ol>
-                </li>
-            {{end}}
-        {{end}}
-    </ol>
+  <ol class="bread-crumbs">
+    <li><a href="/">top</a></li>
+    <li><a href="/blog">blog</a></li>
+  </ol>
+  <h1>{{.Year}}年の記事</h1>
+  <ol class="articles-of-year">
+    {{range $idx, $posts := .Posts}}
+      {{if $posts}}
+        <li>
+          <h2>{{$idx | add 1}}月</h2>
+          <ol class="articles-of-month">
+          {{range $posts}}
+            <li><a href="{{.Path}}">
+              <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
+              <time>{{.Published.Format "2006-01-02"}}</time>
+              {{.Title}}
+            </a></li>
+          {{end}}
+          </ol>
+        </li>
+      {{end}}
+    {{end}}
+  </ol>
 {{end}}

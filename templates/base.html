@@ -2,64 +2,64 @@
 <!DOCTYPE html>
 
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">    
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{block "title" .}}Blanktar{{end}}</title>
-        <link rel="icon" href="/favicon.svg">
-        <link rel="canonical" href="{{.URL}}">
-        <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml">
-        <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
-        <meta name="robots" content="max-image-preview:large">
-        <meta property="og:site_name" content="Blanktar">
-        <meta property="og:title" content="{{template "title" .}}">
-        <meta property="og:url" content="{{.URL}}">
-        <meta property="og:type" content="article">
-        <meta name="twitter:card" content="summary_large_image">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{block "title" .}}Blanktar{{end}}</title>
+    <link rel="icon" href="/favicon.svg">
+    <link rel="canonical" href="{{.URL}}">
+    <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml">
+    <meta name="description" content="{{block "description" .}}{{.Description}}{{end}}">
+    <meta name="robots" content="max-image-preview:large">
+    <meta property="og:site_name" content="Blanktar">
+    <meta property="og:title" content="{{template "title" .}}">
+    <meta property="og:url" content="{{.URL}}">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
 
-        {{block "head" .}}{{end}}
+    {{block "head" .}}{{end}}
 
 <style>
 html {
-    background-color: #f0ece9;
-    color: #331d1d;
-    overflow-x: hidden;
-    font-family: 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans', 'Hiragino Sans', 'Meiryo', sans-serif;
-    tab-size: 4;
-    scroll-behavior: smooth;
+  background-color: #f0ece9;
+  color: #331d1d;
+  overflow-x: hidden;
+  font-family: 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans', 'Hiragino Sans', 'Meiryo', sans-serif;
+  tab-size: 4;
+  scroll-behavior: smooth;
 }
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
-    margin: 0;
-    line-break: strict;
-    overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  margin: 0;
+  line-break: strict;
+  overflow-x: hidden;
 }
 body > div {
-    flex: 1;
-    width: 100%;
-    max-width: 297mm;
-    margin: 16px auto 0;
-    position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 297mm;
+  margin: 16px auto 0;
+  position: relative;
 }
 @media screen and (max-width: 313mm) {
-    body > div {
-        width: auto;
-        margin: 20px 8mm 0;
-    }
+  body > div {
+    width: auto;
+    margin: 20px 8mm 0;
+  }
 }
 @media (max-width: 40em) {
-    body > div {
-        margin: 0 12px;
-    }
-    .tombo {
-        display: none;
-    }
+  body > div {
+    margin: 0 12px;
+  }
+  .tombo {
+    display: none;
+  }
 }
 .tombo {
-    position: absolute;
-    stroke: currentColor;
+  position: absolute;
+  stroke: currentColor;
 }
 .tombo.top { top: -16mm; }
 .tombo.bottom { bottom: -16mm; }
@@ -68,235 +68,235 @@ body > div {
 .tombo.center { left: 50%; transform: translateX(-50%); }
 
 a {
-    color: #43e;
+  color: #43e;
 }
 
 header {
-    margin: 40px 0;
-    padding: 0 8px;
+  margin: 40px 0;
+  padding: 0 8px;
 }
 nav {
-    text-align: center;
-    font-size: 120%;
+  text-align: center;
+  font-size: 120%;
 }
 nav .site-name {
-    font-size: 120%;
-    font-weight: bold;
+  font-size: 120%;
+  font-weight: bold;
 }
 nav ul {
-    display: block;
-    margin: 0;
-    padding: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 nav li {
-    display: inline-block;
-    margin: 0 4px;
-    padding: 0;
+  display: inline-block;
+  margin: 0 4px;
+  padding: 0;
 }
 nav a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 nav li > a {
-    padding: 0 8px 12px;
+  padding: 0 8px 12px;
 }
 .pageqr {
-    display: none;
+  display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    word-break: auto-phrase;
+  word-break: auto-phrase;
 }
 h2 a, h3 a, h4 a, h5 a, h6 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 h1 {
-    font-weight: normal;
-    font-size: 250%;
-    margin: 0 0 8px;
+  font-weight: normal;
+  font-size: 250%;
+  margin: 0 0 8px;
 }
 h2 {
-    font-size: 180%;
-    font-weight: normal;
-    margin: 1.5em 0 .5em;
+  font-size: 180%;
+  font-weight: normal;
+  margin: 1.5em 0 .5em;
 }
 article h2::before {
-    content: '# ';
-    opacity: .3;
+  content: '# ';
+  opacity: .3;
 }
 h3 {
-    font-size: 150%;
-    font-weight: normal;
-    margin: 1.5em 0 0;
+  font-size: 150%;
+  font-weight: normal;
+  margin: 1.5em 0 0;
 }
 article h3::before {
-    content: '## ';
-    opacity: .3;
+  content: '## ';
+  opacity: .3;
 }
 article h4::before {
-    content: '### ';
-    opacity: .3;
+  content: '### ';
+  opacity: .3;
 }
 article h5::before {
-    content: '#### ';
-    opacity: .3;
+  content: '#### ';
+  opacity: .3;
 }
 article h6::before {
-    content: '##### ';
-    opacity: .3;
+  content: '##### ';
+  opacity: .3;
 }
 article hr {
-    width: 50%;
-    margin: 3em auto;
-    border: none;
-    border-top: .1mm solid currentColor;
+  width: 50%;
+  margin: 3em auto;
+  border: none;
+  border-top: .1mm solid currentColor;
 }
 
 img {
-    display: inline-block;
-    background-color: #eeea;
-    max-width: 100%;
-    height: auto;
+  display: inline-block;
+  background-color: #eeea;
+  max-width: 100%;
+  height: auto;
 }
 
 .bread-crumbs {
-    display: block;
-    margin: 0 0 -4px;
-    padding: 0;
-    font-size: 90%;
+  display: block;
+  margin: 0 0 -4px;
+  padding: 0;
+  font-size: 90%;
 }
 .bread-crumbs li {
-    display: inline-block;
+  display: inline-block;
 }
 .bread-crumbs li::after {
-    content: '>';
-    margin: 0 0.5em;
-    opacity: .7;
+  content: '>';
+  margin: 0 0.5em;
+  opacity: .7;
 }
 .bread-crumbs a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 footer {
-    text-align: center;
-    font-size: 80%;
-    margin: 52px 0 4px;
-    opacity: .8;
+  text-align: center;
+  font-size: 80%;
+  margin: 52px 0 4px;
+  opacity: .8;
 }
 footer > a {
-    color: inherit;
-    margin-right: 4px;
+  color: inherit;
+  margin-right: 4px;
 }
 
 @media (hover: hover) {
-    nav a:hover, .bread-crumbs a:hover {
-        text-decoration: underline;
-    }
+  nav a:hover, .bread-crumbs a:hover {
+    text-decoration: underline;
+  }
 }
 @media (hover: none) {
-    header {
-        margin: 24px 0 32px;
-    }
-    header > nav > ul {
-        margin-top: 8px;
-    }
-    header > nav li > a {
-        padding: 8px;
-    }
+  header {
+    margin: 24px 0 32px;
+  }
+  header > nav > ul {
+    margin-top: 8px;
+  }
+  header > nav li > a {
+    padding: 8px;
+  }
 }
 
 @media screen and (prefers-color-scheme: dark) {
-    html {
-        background-color: #484040;
-        color: #eee9e9;
-    }
-    a {
-        color: #aaf;
-    }
-    img {
-        background-color: #666;
-    }
+  html {
+    background-color: #484040;
+    color: #eee9e9;
+  }
+  a {
+    color: #aaf;
+  }
+  img {
+    background-color: #666;
+  }
 }
 
 @media screen and (prefers-color-scheme: light) and (prefers-contrast: more) {
-    html {
-        background-color: #fff;
-        background-image: none;
-        color: #000;
-    }
-    a {
-        color: #00a;
-    }
+  html {
+    background-color: #fff;
+    background-image: none;
+    color: #000;
+  }
+  a {
+    color: #00a;
+  }
 }
 @media screen and (prefers-color-scheme: dark) and (prefers-contrast: more) {
-    html {
-        background-color: #000;
-        background-image: none;
-        color: #fff;
-    }
-    a {
-        color: #aaf;
-    }
+  html {
+    background-color: #000;
+    background-image: none;
+    color: #fff;
+  }
+  a {
+    color: #aaf;
+  }
 }
 
 {{block "style" .}}{{end}}
 </style>
-        <link rel="stylesheet" href="/print.css" media="print">
-    </head>
+    <link rel="stylesheet" href="/print.css" media="print">
+  </head>
 
-    <body>
-        {{block "body" .}}
-            <header>
-                <nav>
-                    <a href="/" class="site-name">Blanktar</a>
-                    <ul>
-                        <li><a href="/profile">profile</a></li>
-                        <li><a href="/blog">blog</a></li>
-                        <li><a href="/works">works</a></li>
-                        <li><a href="/photos">photos</a></li>
-                    </ul>
-                </nav>
-            </header>
+  <body>
+    {{block "body" .}}
+      <header>
+        <nav>
+          <a href="/" class="site-name">Blanktar</a>
+          <ul>
+            <li><a href="/profile">profile</a></li>
+            <li><a href="/blog">blog</a></li>
+            <li><a href="/works">works</a></li>
+            <li><a href="/photos">photos</a></li>
+          </ul>
+        </nav>
+      </header>
 
-            <div>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top left"><polyline points="15 0, 15 10, 5 10" fill="none" stroke-width="0.2" /><polyline points="10 5, 10 15, 0 15" fill="none" stroke-width="0.2" /></svg>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top center"><line x1="0" x2="15" y1="10" y2="10" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="5" y2="11" stroke-width="0.2" /></svg>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top right"><polyline points="0 0, 0 10, 10 10" fill="none" stroke-width="0.2" /><polyline points="5 5, 5 15, 15 15" fill="none" stroke-width="0.2" /></svg>
-                <main>
-                    {{template "main" .}}
-                </main>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom left"><polyline points="15 15, 15 5, 5 5" fill="none" stroke-width="0.2" /><polyline points="10 10, 10 0, 0 0" fill="none" stroke-width="0.2" /></svg>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom center"><line x1="0" x2="15" y1="5" y2="5" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="4" y2="10" stroke-width="0.2" /></svg>
-                <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom right"><polyline points="0 15, 0 5, 10 5" fill="none" stroke-width="0.2" /><polyline points="5 10, 5 0, 15 0" fill="none" stroke-width="0.2" /></svg>
-            </div>
-        {{end}}
+      <div>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top left"><polyline points="15 0, 15 10, 5 10" fill="none" stroke-width="0.2" /><polyline points="10 5, 10 15, 0 15" fill="none" stroke-width="0.2" /></svg>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top center"><line x1="0" x2="15" y1="10" y2="10" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="5" y2="11" stroke-width="0.2" /></svg>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo top right"><polyline points="0 0, 0 10, 10 10" fill="none" stroke-width="0.2" /><polyline points="5 5, 5 15, 15 15" fill="none" stroke-width="0.2" /></svg>
+        <main>
+          {{template "main" .}}
+        </main>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom left"><polyline points="15 15, 15 5, 5 5" fill="none" stroke-width="0.2" /><polyline points="10 10, 10 0, 0 0" fill="none" stroke-width="0.2" /></svg>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom center"><line x1="0" x2="15" y1="5" y2="5" stroke-width="0.2" /><line x1="7.5" x2="7.5" y1="4" y2="10" stroke-width="0.2" /></svg>
+        <svg width="16mm" height="16mm" viewBox="-0.5 -0.5 16 16" aria-hidden="true" class="tombo bottom right"><polyline points="0 15, 0 5, 10 5" fill="none" stroke-width="0.2" /><polyline points="5 10, 5 0, 15 0" fill="none" stroke-width="0.2" /></svg>
+      </div>
+    {{end}}
 
-        <footer>
-            <a href="/privacy-policy" rel="privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
-        </footer>
+    <footer>
+      <a href="/privacy-policy" rel="privacy-policy">プライバシーポリシー</a> &copy; 2012- MacRat All Rights Reserved.
+    </footer>
 
-        <script>
+    <script>
 if (window.fetchLater) {
-    window.addEventListener('load', () => {
-        fetchLater('/log', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
-                loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
-                fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
-                path: location.pathname,
-                queries: Object.fromEntries(new URLSearchParams(location.search)),
-                window_width: window.innerWidth,
-                window_height: window.innerHeight,
-            }),
-        });
+  window.addEventListener('load', () => {
+    fetchLater('/log', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
+        loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
+        fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
+        path: location.pathname,
+        queries: Object.fromEntries(new URLSearchParams(location.search)),
+        window_width: window.innerWidth,
+        window_height: window.innerHeight,
+      }),
     });
+  });
 }
-        </script>
-    </body>
+    </script>
+  </body>
 </html>
 {{end}}
