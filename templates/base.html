@@ -298,7 +298,7 @@ window.addEventListener('load', () => {
   } else if (navigator.sendBeacon) {
     window.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
-        navigator.sendBeacon('/log', JSON.stringify(data));
+        navigator.sendBeacon('/log', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       }
     });
   }
