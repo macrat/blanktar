@@ -277,25 +277,32 @@ footer > a {
     </footer>
 
     <script>
-if (window.fetchLater) {
-  window.addEventListener('load', () => {
+window.addEventListener('load', () => {
+  const data = {
+    requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
+    loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
+    fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
+    path: location.pathname,
+    queries: Object.fromEntries(new URLSearchParams(location.search)),
+    window_width: window.innerWidth,
+    window_height: window.innerHeight,
+  };
+  if (window.fetchLater) {
     fetchLater('/log', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        requested_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].startTime,
-        loaded_at: performance.timeOrigin + performance.getEntriesByType('navigation')[0].loadEventStart,
-        fcp: performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint')?.startTime,
-        path: location.pathname,
-        queries: Object.fromEntries(new URLSearchParams(location.search)),
-        window_width: window.innerWidth,
-        window_height: window.innerHeight,
-      }),
+      body: JSON.stringify(data),
     });
-  });
-}
+  } else if (navigator.sendBeacon) {
+    window.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        navigator.sendBeacon('/log', JSON.stringify(data));
+      }
+    });
+  }
+});
     </script>
   </body>
 </html>
