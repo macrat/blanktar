@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__bigquery__list_dataset_ids",
+      "mcp__bigquery__list_table_ids",
+      "mcp__bigquery__get_table_info",
+      "mcp__bigquery__execute_sql"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
