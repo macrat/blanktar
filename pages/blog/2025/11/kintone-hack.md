@@ -2,6 +2,7 @@
 title: kintone hack 2025「じゃあ、やってみよう」の舞台裏
 description: kintone hack 2025にシダックスとして出場させていただきました。この記事では、応募から本番までの舞台裏や技術的な工夫などを紹介します。
 pubtime: 2025-11-01T23:38:00+09:00
+modtime: 2025-11-14T10:09:00+09:00
 image:
   - /blog/2025/11/kintone-hack-shidax-in-opening.jpg
   - /blog/2025/11/kintone-hack-last-slide.jpg
@@ -12,7 +13,7 @@ headers:
 
 ![本戦の会場に登場したときの写真。巨大なスクリーンに「シダックス」と表示され、登壇者である志太悠真の顔写真をAIでイラスト化したものが映っている。ステージには登壇者たちが並んでいる。](/blog/2025/11/kintone-hack-shidax-in-opening-wide.jpg "1920x687")
 
-2025年10月27日に幕張メッセで開催された「kintone hack SHOW+CASE Unlimited」に、シダックス株式会社として出場させていただきました。
+2025年10月27日に幕張メッセで開催された「kintone hack SHOW+CASE Unlimited」に、[シダックス株式会社](https://www.shidax.co.jp/)として出場させていただきました。
 惜しくも優勝することはできませんでしたが、kintoneカスタマイズに精通する多くの方々と交流できたことや、あれほどの大舞台で発表できたことはとても貴重な経験となりました。
 この記事では、応募から本番までの舞台裏や、開発したアプリの技術的な工夫などをご紹介します。
 kintoneのカスタマイズや、kintone hackへの参加の参考になれば幸いです。
@@ -299,6 +300,8 @@ kintoneを"ローコード"だと思っていない方々（？）と交流で�
 
 このトラブルの原因については、この記事の後半にある[トラブルの原因](#トラブルの原因)の節で考察しています。
 
+![本戦発表中の志太の様子。スクリーンには発表中の志太の映像と、「kintoneから入力」と書かれたIDやパスワードを選ぶダイアログの画面が表示されている。](/blog/2025/11/kintone-hack-on-stage.jpg "960x373")
+
 私を含めて計6チームの発表があり、観客投票による優勝は西道涼さんに決まりました。
 時間制限がある中なのに観客に目を瞑らせたり、ロケットを持って壇上を歩きまわってみたり、あの余裕には勝てそうにありません。
 しかもアプリの関連図は実用的に使えそうなのがまたずるい。
@@ -534,3 +537,10 @@ PC画面と投影画面を別々にする構成はトラブルの原因になり
 
 - [【開催報告】kintone hack 2025 予選会 - cybozu developer network](https://cybozu.dev/ja/blog/2025-08-26-kintonehack-qualifier-result/)
 - [ASCII.jp：今年は実用度高すぎでしょ！　カスタマイズコンテストで見たkintoneの可能性](https://ascii.jp/elem/000/004/343/4343909/)
+
+
+# 他チームの記事
+
+- 2025/11/07 [サイボウズデイズ kintone hack 2025 決勝戦に参戦しました！](https://acshu.co.jp/news/media/%E3%82%B5%E3%82%A4%E3%83%9C%E3%82%A6%E3%82%BA%E3%83%87%E3%82%A4%E3%82%BA-kintone-hack-2025-%E6%B1%BA%E5%8B%9D%E6%88%A6%E3%81%AB%E5%8F%82%E6%88%A6%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81/news/category) ACSHUさん
+- 2025/11/12 [#kintonehack 2025 決勝進出レポート「kintone×数理最適化」で切断計画・シフト管理を最適化！](https://frigram.co.jp/news/00003) フリグラムさん
+- 2025/11/13 [【kintone hack 2025】なぜ宇宙ネタで勝負したのか？kintone hack グランプリに聞いてみた【kintone×AI】](https://www.youtube.com/watch?v=sF0sedLc-W8) 西道涼さん
