@@ -3,204 +3,204 @@
 {{define "description"}}Blanktarに掲載されたブログ記事一覧の{{.TotalPages}}ページ中{{.Page}}ページ目。{{end}}
 
 {{define "head"}}
-    <script type="application/ld+json">
+  <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "blanktar.jp",
-            "item": "https://blanktar.jp"
-        },
-        {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "blog",
-            "item": "https://blanktar.jp/blog"
-        {{if gt .Page 1}},
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "{{.Page}}",
-                "item": "https://blanktar.jp/blog/{{.Page}}"
-        {{end}}
-        }
-    ]
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "blanktar.jp",
+      "item": "https://blanktar.jp"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "blog",
+      "item": "https://blanktar.jp/blog"
+    {{if gt .Page 1}},
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{.Page}}",
+        "item": "https://blanktar.jp/blog/{{.Page}}"
+    {{end}}
+    }
+  ]
 }
-    </script>
+  </script>
 {{end}}
 
 {{/* <style> */}}
 {{define "style"}}
 .blog-articles {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .blog-articles > li {
-    margin: 8px -16px;
-    padding: calc(16px - .5rem) 16px 16px;
+  margin: 8px -16px;
+  padding: calc(16px - .5rem) 16px 16px;
 }
 .blog-articles > li > time {
-    margin: 1rem 0 0;
+  margin: 1rem 0 0;
 }
 .blog-articles > li > a {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    padding: 0 0 1rem;
-    margin: 0;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  padding: 0 0 1rem;
+  margin: 0;
 }
 .blog-articles h2 {
-    margin: 0;
+  margin: 0;
 }
 .tags {
-    display: inline;
-    margin: 0 0 0 1rem;
-    padding: 0;
+  display: inline;
+  margin: 0 0 0 1rem;
+  padding: 0;
 }
 .tags > li {
-    display: inline-block;
-    margin: .1rem;
-    padding: 0;
+  display: inline-block;
+  margin: .1rem;
+  padding: 0;
 }
 .tags > li > a {
-    display: inline-block;
-    text-decoration: none;
-    padding: .5rem .3rem 0;
+  display: inline-block;
+  text-decoration: none;
+  padding: .5rem .3rem 0;
 }
 
 .pager {
-    display: block;
-    margin: 48px 0 0;
-    padding: 0;
-    text-align: center;
+  display: block;
+  margin: 48px 0 0;
+  padding: 0;
+  text-align: center;
 }
 .pager li {
-    display: inline-block;
+  display: inline-block;
 }
 .pager a, .pager span, .current-page {
-    display: inline-block;
-    margin: .2em;
-    padding: .2em 0;
-    width: 3em;
-    color: inherit;
-    text-decoration: none;
+  display: inline-block;
+  margin: .2em;
+  padding: .2em 0;
+  width: 3em;
+  color: inherit;
+  text-decoration: none;
 }
 .current-page {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 .pager-page {
-    background-color: #eee;
+  background-color: #eee;
 }
 .prev-page, .next-page {
-    color: inherit;
+  color: inherit;
 }
 .pager .disabled {
-    opacity: .65;
+  opacity: .65;
 }
 
 @media (hover: hover) {
-    .blog-articles > li:has(>a:hover) {
-        background-color: #00000007;
-    }
-    .tags > li > a:hover {
-        text-decoration: underline;
-    }
+  .blog-articles > li:has(>a:hover) {
+    background-color: #00000007;
+  }
+  .tags > li > a:hover {
+    text-decoration: underline;
+  }
 
-    .pager-page:hover {
-        background-color: #e0e0e0;
-    }
-    .prev-page:hover, .next-page:hover {
-        text-decoration: underline;
-    }
+  .pager-page:hover {
+    background-color: #e0e0e0;
+  }
+  .prev-page:hover, .next-page:hover {
+    text-decoration: underline;
+  }
 }
 @media screen and (prefers-color-scheme: dark) {
-    .current-page {
-        background-color: transparent;
-    }
-    .pager-page {
-        background-color: #393030;
-    }
+  .current-page {
+    background-color: transparent;
+  }
+  .pager-page {
+    background-color: #393030;
+  }
 }
 @media screen and (prefers-color-scheme: dark) and (hover: hover) {
-    .blog-articles > li:has(>a:hover) {
-        background-color: #fff1;
-    }
+  .blog-articles > li:has(>a:hover) {
+    background-color: #fff1;
+  }
 
-    .pager-page:hover {
-        background-color: #655;
-    }
+  .pager-page:hover {
+    background-color: #655;
+  }
 }
 @media screen and (max-width: 33em) {
-    li:has(>.pager-page) {
-        display: none;
-    }
-    .current-page {
-        background-color: #eee;
-    }
+  li:has(>.pager-page) {
+    display: none;
+  }
+  .current-page {
+    background-color: #eee;
+  }
 }
 @media screen and (max-width: 33em) and (prefers-color-scheme: dark) {
-    .current-page {
-        background-color: #403030;
-    }
+  .current-page {
+    background-color: #403030;
+  }
 }
 {{end}}
 {{/* </style> */}}
 
 {{define "main"}}
-    <ol class="bread-crumbs">
-        <li><a href="/">top</a></li>
-    </ol>
-    <h1>blog</h1>
-    <ol class="blog-articles">
-        {{range .Posts}}
-            <li>
-                <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
-                <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02"}}</time>
-                <ol class="tags">
-                    {{range .Tags}}
-                        <li><a href="/blog/tags/{{. | escapetag}}">#{{.}}</a></li>
-                    {{end}}
-                </ol>
-                <a href="{{.Path}}">
-                    <h2>{{.Title}}</h2>
-                    {{.Description}}
-                </a>
-            </li>
-        {{end}}
-    </ol>
-    <ol class="pager">
-        <li>
-            {{if eq .Page 1}}
-                <span class="disabled">前へ</span>
-            {{else if eq .Page 2}}
-                <a href="/blog" class="prev-page">前へ</a>
-            {{else}}
-                <a href="/blog/{{add .Page -1}}" class="prev-page">前へ</a>
-            {{end}}
-        </li>
+  <ol class="bread-crumbs">
+    <li><a href="/">top</a></li>
+  </ol>
+  <h1>blog</h1>
+  <ol class="blog-articles">
+    {{range .Posts}}
+      <li>
+        <img src="/images{{.Path}}.qr.png" alt="QRコード" class="pageqr" loading="lazy">
+        <time datetime="{{.Published.Format "2006-01-02T15:04:05Z07:00"}}">{{.Published.Format "2006-01-02"}}</time>
+        <ol class="tags">
+          {{range .Tags}}
+            <li><a href="/blog/tags/{{. | escapetag}}">#{{.}}</a></li>
+          {{end}}
+        </ol>
+        <a href="{{.Path}}">
+          <h2>{{.Title}}</h2>
+          {{.Description}}
+        </a>
+      </li>
+    {{end}}
+  </ol>
+  <ol class="pager">
+    <li>
+      {{if eq .Page 1}}
+        <span class="disabled">前へ</span>
+      {{else if eq .Page 2}}
+        <a href="/blog" class="prev-page">前へ</a>
+      {{else}}
+        <a href="/blog/{{add .Page -1}}" class="prev-page">前へ</a>
+      {{end}}
+    </li>
 
-        {{$current := .Page}}
-        {{range count .PagerFrom .PagerTo}}
-            {{if eq . $current}}
-                <li class="current-page">{{.}}</li>
-            {{else if eq . 1}}
-                <li><a href="/blog" class="pager-page">1</a></li>
-            {{else}}
-                <li><a href="/blog/{{.}}" class="pager-page">{{.}}</a></li>
-            {{end}}
-        {{end}}
+    {{$current := .Page}}
+    {{range count .PagerFrom .PagerTo}}
+      {{if eq . $current}}
+        <li class="current-page">{{.}}</li>
+      {{else if eq . 1}}
+        <li><a href="/blog" class="pager-page">1</a></li>
+      {{else}}
+        <li><a href="/blog/{{.}}" class="pager-page">{{.}}</a></li>
+      {{end}}
+    {{end}}
 
-        <li>
-            {{if eq .Page .TotalPages}}
-                <span class="disabled">次へ</span>
-            {{else}}
-                <a href="/blog/{{add .Page 1}}" class="next-page">次へ</a>
-            {{end}}
-        </li>
-    </ol>
+    <li>
+      {{if eq .Page .TotalPages}}
+        <span class="disabled">次へ</span>
+      {{else}}
+        <a href="/blog/{{add .Page 1}}" class="next-page">次へ</a>
+      {{end}}
+    </li>
+  </ol>
 {{end}}

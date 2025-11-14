@@ -1,62 +1,62 @@
 {{define "title"}}{{.Title}} - Blanktar{{end}}
 
 {{define "head"}}
-    <meta property="og:image" content="https://blanktar.jp{{if .Image}}{{index .Image 0}}{{else}}/images/blanktar.jpg{{end}}">
+  <meta property="og:image" content="https://blanktar.jp{{if .Image}}{{index .Image 0}}{{else}}/images/blanktar.jpg{{end}}">
 
-    <script type="application/ld+json">
+  <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "{{.Title}}",
-    "datePublished": "{{.Published.Format "2006-01-02T15:04:05Z07:00"}}",
-    {{if not .Modified.IsZero}}"dateModified": "{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}",{{end}}
-    {{if .Image}}
-        "image": [
-            {{range .Image}}
-                {{.}},
-            {{end}}
-        ],
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{.Title}}",
+  "datePublished": "{{.Published.Format "2006-01-02T15:04:05Z07:00"}}",
+  {{if not .Modified.IsZero}}"dateModified": "{{.Modified.Format "2006-01-02T15:04:05Z07:00"}}",{{end}}
+  {{if .Image}}
+    "image": [
+      {{range .Image}}
+        {{.}},
+      {{end}}
+    ],
+  {{end}}
+  "author": {
+    "@type": "Person",
+    "name": "MacRat",
+    "url": "https://blanktar.jp/profile"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{range $i, $item := .BreadCrumb}}
+      {
+        "@type": "ListItem",
+        "position": {{add $i 1}},
+        "name": "{{$item.Name}}",
+        "item": "https://blanktar.jp{{$item.Path}}"
+      },
     {{end}}
-    "author": {
-        "@type": "Person",
-        "name": "MacRat",
-        "url": "https://blanktar.jp/profile"
+    {
+      "@type": "ListItem",
+      "position": {{add (len .BreadCrumb) 1}},
+      "name": "{{.Title}}",
+      "item": {{.URL}}
     }
+  ]
 }
-    </script>
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {{range $i, $item := .BreadCrumb}}
-            {
-                "@type": "ListItem",
-                "position": {{add $i 1}},
-                "name": "{{$item.Name}}",
-                "item": "https://blanktar.jp{{$item.Path}}"
-            },
-        {{end}}
-        {
-            "@type": "ListItem",
-            "position": {{add (len .BreadCrumb) 1}},
-            "name": "{{.Title}}",
-            "item": {{.URL}}
-        }
-    ]
-}
-    </script>
+  </script>
 {{end}}
 
 {{define "main"}}
-    <article>
-        <ol class="bread-crumbs">
-            {{range .BreadCrumb}}
-                <li><a href="{{.Path}}">{{if eq .Path "/"}}top{{else}}{{.Name}}{{end}}</a></li>
-            {{end}}
-        </ol>
-        <h1>{{.Title}}</h1>
-        <img src="/images{{.Path}}.qr.png" alt="このページのQRコード" class="pageqr" loading="lazy">
-        {{.Content}}
-    </article>
+  <article>
+    <ol class="bread-crumbs">
+      {{range .BreadCrumb}}
+        <li><a href="{{.Path}}">{{if eq .Path "/"}}top{{else}}{{.Name}}{{end}}</a></li>
+      {{end}}
+    </ol>
+    <h1>{{.Title}}</h1>
+    <img src="/images{{.Path}}.qr.png" alt="このページのQRコード" class="pageqr" loading="lazy">
+    {{.Content}}
+  </article>
 {{end}}
