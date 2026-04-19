@@ -3,7 +3,7 @@ title: profile
 description: "志太 悠真 (ハンドルネーム: MacRat) のプロフィール。各SNSのアカウントや保有資格など。"
 image: [/profile/photo.jpg, /profile/icon.png]
 pubtime: 2012-12-06T14:54:00+09:00
-modtime: 2025-11-09T13:52:00+09:00
+modtime: 2026-04-19T15:34:00+09:00
 ---
 
 <script type="application/ld+json">
@@ -11,12 +11,15 @@ modtime: 2025-11-09T13:52:00+09:00
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "dataCreated": "2012-12-06T14:54:00+09:00",
-  "dataModified": "2025-11-09T13:52:00+09:00",
+  "dataModified": "2026-04-19T15:34:00+09:00",
   "mainEntity": {
     "@type": "Person",
     "name": "志太 悠真",
     "alternateName": "MacRat",
-    "image": "https://blanktar.jp/profile/icon.png",
+    "image": [
+      "https://blanktar.jp/profile/icon.png",
+      "https://blanktar.jp/profile/photo.png"
+    ],
     "sameAs": [
       "https://x.com/macrat_jp",
       "https://mstdn.jp/@macrat",
@@ -38,7 +41,7 @@ modtime: 2025-11-09T13:52:00+09:00
 <span style="font-size:120%"><strong>志太 悠真</strong> (MacRat)</span>
 
 シダックス株式会社 \
-情報システム部 AI推進課 課長
+AI戦略本部 AI戦略室 室長
 
 E-Mail [m@crat.jp](mailto:m@crat.jp) / X [@macrat\_jp](https://x.com/macrat_jp) / GitHub [@macrat](https://github.com/macrat)
 
