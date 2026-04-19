@@ -25,7 +25,7 @@ modtime: 2026-04-19T15:34:00+09:00
       "https://mstdn.jp/@macrat",
       "https://bsky.app/profile/macrat.bsky.social",
       "https://facebook.com/yuuma.shida",
-      "https://github.com/macrat",
+      "https://github.com/macrat"
     ]
   }
 }
