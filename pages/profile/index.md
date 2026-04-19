@@ -10,15 +10,15 @@ modtime: 2026-04-19T15:34:00+09:00
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  "dataCreated": "2012-12-06T14:54:00+09:00",
-  "dataModified": "2026-04-19T15:34:00+09:00",
+  "dateCreated": "2012-12-06T14:54:00+09:00",
+  "dateModified": "2026-04-19T15:34:00+09:00",
   "mainEntity": {
     "@type": "Person",
     "name": "志太 悠真",
     "alternateName": "MacRat",
     "image": [
       "https://blanktar.jp/profile/icon.png",
-      "https://blanktar.jp/profile/photo.png"
+      "https://blanktar.jp/profile/photo.jpg"
     ],
     "sameAs": [
       "https://x.com/macrat_jp",
