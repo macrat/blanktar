@@ -12,7 +12,7 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/tdewolff/minify/v2 v2.24.13
 	github.com/yuin/goldmark v1.8.2
-	golang.org/x/image v0.39.0
+	golang.org/x/image v0.41.0
 	golang.org/x/net v0.53.0
 	gopkg.in/yaml.v3 v3.0.1
 )
