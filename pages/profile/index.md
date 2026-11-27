@@ -40,8 +40,8 @@ modtime: 2026-04-19T15:34:00+09:00
 <div>
 <span style="font-size:120%"><strong>志太 悠真</strong> (MacRat)</span>
 
-シダックス株式会社 \
-AI戦略本部 AI戦略室 室長
+シダックスホールディングス株式会社 \
+AI戦略統括部 統括部長
 
 E-Mail [m@crat.jp](mailto:m@crat.jp) / X [@macrat\_jp](https://x.com/macrat_jp) / GitHub [@macrat](https://github.com/macrat)
 
